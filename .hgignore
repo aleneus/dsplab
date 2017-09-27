@@ -1,5 +1,6 @@
 syntax: glob
 dsplab/__pycache__/*
+tests/__pycache__/*
 build/*
 dist/*
 dsplab.egg-info/*
