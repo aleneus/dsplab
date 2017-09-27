@@ -1,0 +1,5 @@
+syntax: glob
+dsplab/__pycache__/*
+build/*
+dist/*
+dsplab.egg-info/*
