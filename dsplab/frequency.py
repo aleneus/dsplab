@@ -13,33 +13,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-def freq_by_maxs(x, dt):
+import numpy as np
+
+def freq_stupid(x, dt):
+    """
+    Calculate frequency of oscillating signal by extremums
+    """
     T = len(x)*dt
-    n = 0
+    n_max = 0
+    n_min = 0
     for x_prev, x_current, x_next in zip(x[:-2], x[1:-1], x[2:]):
         if (x_prev < x_current) and (x_current >= x_next):
-            n += 1
-    f = n / T
-    return f
-
-def freq_by_mins(x, dt):
-    T = len(x)*dt
-    n = 0
-    for x_prev, x_current, x_next in zip(x[:-2], x[1:-1], x[2:]):
+            n_max += 1
         if (x_prev > x_current) and (x_current <= x_next):
-            n += 1
+            n_min += 1
+    n = max([n_max, n_min])
     f = n / T
     return f
 
-def freq_by_zeros(x, dt):
-    T = len(x)*dt
-    n = 0
-    for x_prev, x_current in zip(x[:-1], x[1:]):
-        if x_prev * x_current <= 0:
-            n += 1
-    f = n / T
-    return f
-
-def calc_freqs_stupid(x, dt, method = "max", window_width = 100, window_step = 50):
-    fs = None
-    return fs
+def freqs_stupid(x, dt, window_width = 100, window_step = 50):
+    """
+    Calculate an array of frequencies of oscillating signal using window
+    """
+    fs = []
+    start = 0
+    stop = window_width
+    if stop > len(x):
+        return fs
+    while True:
+        f = freq_stupid(x[start : stop], dt)
+        fs.append(f)
+        start += window_step
+        stop += window_step
+        if stop > len(x):
+            break
+    return np.array(fs)
