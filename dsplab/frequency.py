@@ -27,7 +27,7 @@ def freq_stupid(x, dt):
             n_max += 1
         if (x_prev > x_current) and (x_current <= x_next):
             n_min += 1
-    n = max([n_max, n_min])
+    n = np.max([n_max, n_min])
     f = n / T
     return f
 

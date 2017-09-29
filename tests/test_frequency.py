@@ -27,7 +27,7 @@ class TestFrequency(unittest.TestCase):
         dt = 0.2
         t, x = gen.harmonic(600, dt, 0.05)
         f = freq.freq_stupid(x, dt)
-        self.assertAlmostEqual(f, 0.05, places = 4)
+        self.assertAlmostEqual(f, 0.05, places = 2)
 
     def test_freqs_stupid_number_of_values(self):
         dt = 0.2
@@ -51,4 +51,4 @@ class TestFrequency(unittest.TestCase):
             window_width = round(30*fs),
             window_step = round(30*fs/2)
         )
-        self.assertAlmostEqual(np.average(freqs), 8, places = 5)
+        self.assertAlmostEqual(np.average(freqs), 8, places = 2)
