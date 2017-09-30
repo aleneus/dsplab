@@ -15,8 +15,8 @@
 
 import numpy as np
 
-def harmonic(T, dt, f, A=1, phi=0):
+def harmonic(T, fs, f, A=1, phi=0):
     """Generate harmonis signal."""
-    t = np.linspace(0, T, T/dt + 1)
+    t = np.linspace(0, T, T*fs + 1)
     x = A * np.cos(2 * np.pi * f * t + phi)
     return (t, x)
