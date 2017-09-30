@@ -54,4 +54,9 @@ class TestFrequency(unittest.TestCase):
         x = [(-1)**i for i in range(100)]
         freqs, t = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
         self.assertEqual(len(freqs), len(t))
-        
+
+    def test_freqs_stupid_time(self):
+        fs = 5
+        x = [(-1)**i for i in range(100)]
+        freqs, t = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
+        self.assertEqual(t[-1], (100-1)/fs)

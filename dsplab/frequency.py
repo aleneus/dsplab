@@ -44,7 +44,7 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     while True:
         f = freq_stupid(x[start : stop], fs)
         freqs.append(f)
-        t.append(stop)
+        t.append((stop-1)/fs)
         start += window_step
         stop += window_step
         if stop > len(x):
