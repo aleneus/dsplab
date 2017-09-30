@@ -15,7 +15,7 @@
 
 import numpy as np
 
-def damping_triangles(x, fs):
+def damping_triangles(x, fs = 1, t = []):
     """ Calculate damping using triangle approximation
     """
     ts = []
@@ -24,7 +24,8 @@ def damping_triangles(x, fs):
     if len(x) == 0:
         return ts, ds
 
-    t = np.linspace(0, (len(x)-1)/fs, len(x))
+    if len(t) == 0:
+        t = np.linspace(0, (len(x)-1)/fs, len(x))
 
     def calc_one_value(t1, t2, x1, x2):
         ts.append(t2)
@@ -44,4 +45,4 @@ def damping_triangles(x, fs):
         t_stop = t[-1]
         x_stop = x[-1] 
         calc_one_value(t_start, t_stop, x_start, x_stop)
-    return np.array(ts), np.array(ds)
+    return np.array(ds), np.array(ts)
