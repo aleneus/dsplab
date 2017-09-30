@@ -24,6 +24,12 @@ class TestDamping(unittest.TestCase):
         e, t = env.envelope_by_max(x)
         self.assertEqual(len(e) + len(t), 3 + 3)
 
+    def test_envelope_by_max_t_setted_len_of_result(self):
+        x = np.array([1,2,1,2,1,2,1])
+        t = np.array([1,2,3,4,5,6,7])
+        e, t = env.envelope_by_max(x, t = t)
+        self.assertEqual(len(e) + len(t), 3 + 3)
+        
     def test_envelope_by_max_len_of_result_end(self):
         x = [1,2,1,2,1,2]
         e, t = env.envelope_by_max(x)

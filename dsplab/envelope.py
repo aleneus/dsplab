@@ -16,10 +16,10 @@
 import numpy as np
 from scipy.signal import hilbert
 
-def envelope_by_max(x, fs = 1, t = None):
+def envelope_by_max(x, fs = 1, t = []):
     """ Calculate envelope by local maximums of signals
     """
-    if not t:
+    if len(t) == 0:
         t = np.linspace(0, (len(x)-1)/fs, len(x))
     t_new = []
     x_new = []
