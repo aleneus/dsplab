@@ -36,15 +36,17 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     Calculate an array of frequencies of oscillating signal using window
     """
     freqs = []
+    t = []
     start = 0
     stop = window_width
     if stop > len(x):
-        return freqs
+        return freqs, t
     while True:
         f = freq_stupid(x[start : stop], fs)
         freqs.append(f)
+        t.append(stop)
         start += window_step
         stop += window_step
         if stop > len(x):
             break
-    return np.array(freqs)
+    return np.array(freqs), np.array(t)

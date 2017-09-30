@@ -22,29 +22,36 @@ import numpy as np
 class TestFrequency(unittest.TestCase):
     def test_freq_stupid_harmonic(self):
         fs = 5
-        t, x = gen.harmonic(600, fs, 0.05)
+        x, t = gen.harmonic(600, fs, 0.05)
         f = freq.freq_stupid(x, fs)
         self.assertAlmostEqual(f, 0.05, places = 2)
 
     def test_freqs_stupid_number_of_values(self):
         fs = 5
         x = [(-1)**i for i in range(100)]
-        freqs = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
+        freqs, t = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
         self.assertEqual(len(freqs), 19)
 
     def test_freqs_stupid_empty_array_number_of_values(self):
         fs = 5
         x = []
-        freqs = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
+        freqs, t = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
         self.assertEqual(len(freqs), 0)
 
     def test_freqs_stupid_harmonic(self):
         fs = 25
-        t, x = gen.harmonic(60*60, fs, 8)
-        freqs = freq.freqs_stupid(
+        x, t = gen.harmonic(60*60, fs, 8)
+        freqs, y = freq.freqs_stupid(
             x,
             fs,
             window_width = round(30*fs),
             window_step = round(30*fs/2)
         )
         self.assertAlmostEqual(np.average(freqs), 8, places = 1)
+
+    def test_freqs_stupid_freqs_and_t_lengths_equal(self):
+        fs = 5
+        x = [(-1)**i for i in range(100)]
+        freqs, t = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
+        self.assertEqual(len(freqs), len(t))
+        
