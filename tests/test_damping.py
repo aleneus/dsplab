@@ -16,12 +16,54 @@
 import unittest
 from .context import dsplab
 from dsplab import damping as dam
-import generators as gen
 import numpy as np
 
 class TestDamping(unittest.TestCase):
+    def test_damping_empty_data(self):
+        ts, ds = dam.damping_triangles([], 1)
+        self.assertEqual(len(ds), 0)
+        
     def test_damping_number(self):
-        x = [0,0,3,2,1,0,0,0,0,5,4,3,2,1,0,0,0,0,2,1,0]
-        ts, ds = dam.damping_triangles(x)
+        x = [0,0,2,3,2,1,0,0,0,2,5,4,3,2,1,0,0,0,1,2,1,0,0]
+        ts, ds = dam.damping_triangles(x, 1)
         self.assertEqual(len(ts) + len(ds), 3 + 3)
 
+    def test_damping_at_begin(self):
+        x = [3,2,1,0,0,0]
+        ts, ds = dam.damping_triangles(x, 1)
+        self.assertEqual(len(ts) + len(ds), 1 + 1)
+
+    def test_damping_at_end(self):
+        x = [0,0,2,5,4,3,2]
+        ts, ds = dam.damping_triangles(x, 1)
+        self.assertEqual(len(ts) + len(ds), 1 + 1)
+
+    def test_one_triangle(self):
+        x = [0,0,5,4,3,2,1,0,0]
+        ts, ds = dam.damping_triangles(x, 1)
+        self.assertTrue(
+            (len(ts) + len(ds) == 2) and
+            (ts[0] == 7) and
+            (ds[0] == 1)
+        )
+
+    def test_two_triangles(self):
+        x = [0,2,5,4,3,2,1,0,0,2,1,0,0]
+        ts, ds = dam.damping_triangles(x, 1)
+        self.assertTrue(
+            (len(ts) + len(ds) == 4) and
+            (ds[0] == 1) and (ds[1] == 1)
+        )
+
+    def test_one_triangle_at_end(self):
+        x = [0,0,0,0,0,2,5,4,3,2,1,0]
+        ts, ds = dam.damping_triangles(x, 1)
+        self.assertTrue(
+            (len(ds) == 1) and
+            (ds[0] == 1)
+        )
+        
+    def test_no_triangles(self):
+        x = [1,1,1,1,2,3,4,5,5,5,5,5]
+        ts, ds = dam.damping_triangles(x, 1)
+        self.assertEqual(len(ds) + len(ts), 0)
