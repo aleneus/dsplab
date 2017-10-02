@@ -18,6 +18,7 @@ import numpy as np
 def freq_stupid(x, fs):
     """
     Calculate frequency of oscillating signal by extremums
+
     """
     T = len(x)/fs
     n_max = 0
@@ -34,6 +35,7 @@ def freq_stupid(x, fs):
 def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     """
     Calculate an array of frequencies of oscillating signal using window
+
     """
     freqs = []
     t = []

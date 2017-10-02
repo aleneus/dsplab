@@ -17,7 +17,9 @@ import numpy as np
 from scipy.signal import hilbert
 
 def envelope_by_max(x, fs = 1, t = []):
-    """ Calculate envelope by local maximums of signals
+    """ 
+    Calculate envelope by local maximums of signals
+
     """
     if len(t) == 0:
         t = np.linspace(0, (len(x)-1)/fs, len(x))
@@ -33,7 +35,9 @@ def envelope_by_max(x, fs = 1, t = []):
     return np.array(x_new), np.array(t_new)
 
 def envelope_hilbert(x, fs = 1):
-    """ Calculate envelope using Hilbert transform
+    """ 
+    Calculate envelope using Hilbert transform
+
     """
     analytic = hilbert(x)
     x_new = np.abs(analytic)

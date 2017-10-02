@@ -16,7 +16,9 @@
 import numpy as np
 
 def damping_triangles(x, fs = 1, t = []):
-    """ Calculate damping using triangle approximation
+    """
+    Calculate damping using triangle approximation
+
     """
     ts = []
     ds = []

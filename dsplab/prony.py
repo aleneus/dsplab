@@ -18,7 +18,9 @@ import numpy as np
 from numpy import linalg
 
 def prony_decomp(x, L):
-    """ Prony decomposition of signal and return cs, ms, es. TODO: doc it better
+    """ 
+    Prony's decomposition of signal and return cs, ms, es. TODO: doc it better
+
     """
     N = len(x)
     if 2*L >= N:

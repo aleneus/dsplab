@@ -16,21 +16,27 @@
 from scipy.signal import butter, lfilter
 
 def butter_lowpass(cutoff, fs, order):
-    """ Calculate a and b coefficients for Butterworth lowpass filter
+    """ 
+    Calculate a and b coefficients for Butterworth lowpass filter
+
     """
     nyq = 0.5 * fs
     b, a = butter(order, cutoff/nyq, btype='low')
     return b, a
 
 def butter_lowpass_filter(x, cutoff, fs, order):
-    """ Filter signal with Butterworth lowpass filter
+    """ 
+    Filter signal with Butterworth lowpass filter
+
     """
     b, a = butter_lowpass(cutoff, fs, order)
     y = lfilter(b, a, x)
     return y
 
 def butter_bandpass(lowcut, highcut, fs, order):
-    """ Calculate a and b coefficients for Butterworth bandpass filter
+    """ 
+    Calculate a and b coefficients for Butterworth bandpass filter
+
     """
     nyq = 0.5 * fs
     low = lowcut / nyq
@@ -39,7 +45,9 @@ def butter_bandpass(lowcut, highcut, fs, order):
     return b, a
 
 def butter_bandpass_filter(x, lowcut, highcut, fs, order):
-    """ Filter signal with Butterworth bandpass filter
+    """ 
+    Filter signal with Butterworth bandpass filter
+
     """
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
     y = lfilter(b, a, x)
