@@ -19,6 +19,18 @@ def freq_stupid(x, fs):
     """
     Calculate frequency of oscillating signal by extremums
 
+    Parameters
+    ----------
+    x : array_like
+        Values of input signals
+    fs : float
+        Sampling frequency (Hz)
+
+    Returns
+    -------
+    f : float
+        Frequency
+
     """
     T = len(x)/fs
     n_max = 0
@@ -35,6 +47,23 @@ def freq_stupid(x, fs):
 def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     """
     Calculate an array of frequencies of oscillating signal using window
+
+    Parameters
+    ----------
+    x : array_like
+        Values of input signals
+    fs : float
+        Sampling frequency (Hz)
+    window_width : integer
+        Width of window (Samples)
+    window_step : integer
+        Distance between centers of nearby windows (Samples)
+
+    Returns
+    -------
+    freqs : np.array
+        Frequency values
+    t : time values
 
     """
     freqs = []

@@ -19,6 +19,23 @@ def damping_triangles(x, fs = 1, t = []):
     """
     Calculate damping using triangle approximation
 
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    fs : float
+        Sampling frequency
+    t : array_like
+        Time values. Use it for unregular discretized input signal
+
+    Rreturns
+    --------
+    
+    ds : np.array
+        Damping values
+    ts : np.array
+        Time values
+
     """
     ts = []
     ds = []

@@ -20,6 +20,23 @@ def envelope_by_max(x, fs = 1, t = []):
     """ 
     Calculate envelope by local maximums of signals
 
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    fs : float
+        Sampling frequency
+    t : array_like
+        Time values. Use it for unregular discretized input signal
+
+    Returns
+    --------
+    
+    x_new : np.array
+        Damping values
+    t_new : np.array
+        Time values
+
     """
     if len(t) == 0:
         t = np.linspace(0, (len(x)-1)/fs, len(x))
@@ -37,6 +54,20 @@ def envelope_by_max(x, fs = 1, t = []):
 def envelope_hilbert(x, fs = 1):
     """ 
     Calculate envelope using Hilbert transform
+
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    fs : float
+        Sampling frequency
+
+    Returns
+    --------
+    
+    x_new : np.array
+        Damping values
 
     """
     analytic = hilbert(x)

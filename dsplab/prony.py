@@ -19,7 +19,23 @@ from numpy import linalg
 
 def prony_decomp(x, L):
     """ 
-    Prony's decomposition of signal and return cs, ms, es. TODO: doc it better
+    Prony's decomposition of signal
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    L : integer
+        Number of components. 2*L must be less tham length of x.
+    
+    Returns
+    -------
+    ms : np.array
+        Mu-values
+    cs : np.array
+        C-values
+    es : np.array
+        Components
 
     """
     N = len(x)

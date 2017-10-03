@@ -19,6 +19,22 @@ def butter_lowpass(cutoff, fs, order):
     """ 
     Calculate a and b coefficients for Butterworth lowpass filter
 
+    Parameters
+    ----------
+    cutoff : float
+        Cutoff frequency (Hz)
+    fs : float
+        Sampling frequency (Hz)
+    order : integer
+        Order of filter
+
+    Returns
+    -------
+    b : np.array
+        b-values
+    a : np.array
+        a-values
+
     """
     nyq = 0.5 * fs
     b, a = butter(order, cutoff/nyq, btype='low')
@@ -28,6 +44,22 @@ def butter_lowpass_filter(x, cutoff, fs, order):
     """ 
     Filter signal with Butterworth lowpass filter
 
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    cutoff : float
+        Cutoff frequency (Hz)
+    fs : float
+        Sampling frequency (Hz)
+    order : integer
+        Order of filter
+
+    Returns
+    -------
+    y : np.array
+        Values of filtered signal
+
     """
     b, a = butter_lowpass(cutoff, fs, order)
     y = lfilter(b, a, x)
@@ -36,6 +68,24 @@ def butter_lowpass_filter(x, cutoff, fs, order):
 def butter_bandpass(lowcut, highcut, fs, order):
     """ 
     Calculate a and b coefficients for Butterworth bandpass filter
+
+    Parameters
+    ----------
+    lowcut : float
+        Low-cut frequency (Hz)
+    highcut : float
+        High-cut frequency (Hz)
+    fs : float
+        Sampling frequency (Hz)
+    order : integer
+        Order of filter
+
+    Returns
+    -------
+    b : np.array
+        b-values
+    a : np.array
+        a-values
 
     """
     nyq = 0.5 * fs
@@ -47,6 +97,24 @@ def butter_bandpass(lowcut, highcut, fs, order):
 def butter_bandpass_filter(x, lowcut, highcut, fs, order):
     """ 
     Filter signal with Butterworth bandpass filter
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    lowcut : float
+        Low-cut frequency (Hz)
+    highcut : float
+        High-cut frequency (Hz)
+    fs : float
+        Sampling frequency (Hz)
+    order : integer
+        Order of filter
+
+    Returns
+    -------
+    y : np.array
+        Values of filtered signal
 
     """
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
