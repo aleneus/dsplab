@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # dsplab documentation build configuration file, created by
-# sphinx-quickstart on Tue Oct  3 14:13:16 2017.
+# sphinx-quickstart on Mon Oct  2 17:03:30 2017.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -21,7 +21,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('../..'))
 
 
 # -- General configuration ------------------------------------------------
@@ -36,7 +35,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
+    'sphinx.ext.napoleon'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -89,7 +88,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'classic'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
