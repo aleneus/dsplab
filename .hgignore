@@ -1,9 +1,9 @@
 syntax: glob
-dsplab/__pycache__/*
-dsplab/*~
-tests/__pycache__/*
-tests/*~
+
+*~
+*.png
+*.pyc
+
 build/*
 dist/*
 dsplab.egg-info/*
-*~
