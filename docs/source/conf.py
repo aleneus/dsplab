@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # dsplab documentation build configuration file, created by
-# sphinx-quickstart on Mon Oct  2 17:52:49 2017.
+# sphinx-quickstart on Tue Oct  3 14:13:16 2017.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -19,8 +19,8 @@
 #
 import os
 import sys
-# sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../'))
 
 
 # -- General configuration ------------------------------------------------
@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.abspath('../../'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
