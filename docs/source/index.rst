@@ -8,7 +8,7 @@ Welcome to dsplab's documentation!
 
 Digital signal processing tools
 
-.. toctree::
+.. toctree:
    :maxdepth: 2
    :caption: Contents:
 
@@ -18,7 +18,7 @@ Requirements
 * numpy
 * scipy
 
-What's new in 1.0
+What's new in 0.6
 -----------------
 
 * Prony's decomposition of signal is added.
