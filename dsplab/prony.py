@@ -39,7 +39,7 @@ def prony_decomp(x, L):
 
     """
     N = len(x)
-    if 2*L >= N:
+    if 2*L > N:
         return None
     d = np.array([x[i] for i in range(L, N)])
     D = []
