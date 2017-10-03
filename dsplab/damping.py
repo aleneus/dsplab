@@ -28,7 +28,7 @@ def damping_triangles(x, fs = 1, t = []):
     t : array_like
         Time values. Use it for unregular discretized input signal
 
-    Rreturns
+    Returns
     --------
     
     ds : np.array
