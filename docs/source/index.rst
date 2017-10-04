@@ -18,10 +18,12 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.6
+What's new in 0.7
 -----------------
 
-* Prony's decomposition of signal is added.
+* Envelope by maximums replaced to envelope by extremums.
+* Demos added.
+* More tests added.
 
 Modules
 -------
