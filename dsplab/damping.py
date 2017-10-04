@@ -31,24 +31,24 @@ def damping_triangles(x, fs = 1, t = []):
     Returns
     --------
     
-    ds : np.array
-        Damping values
-    ts : np.array
+    damping_lengths : np.array
+        Damping lengths (sec)
+    t_new : np.array
         Time values
 
     """
-    ts = []
-    ds = []
+    t_new = []
+    damping_lengths = []
 
     if len(x) == 0:
-        return ts, ds
+        return t_new, damping_lengths
 
     if len(t) == 0:
         t = np.linspace(0, (len(x)-1)/fs, len(x))
 
     def calc_one_value(t1, t2, x1, x2):
-        ts.append(t2)
-        ds.append((t2 - t1) / (x1 - x2))
+        t_new.append(t2)
+        damping_lengths.append((t2 - t1) / (x1 - x2))
 
     t_start = t[0]
     x_start = x[0]
@@ -64,4 +64,4 @@ def damping_triangles(x, fs = 1, t = []):
         t_stop = t[-1]
         x_stop = x[-1] 
         calc_one_value(t_start, t_stop, x_start, x_stop)
-    return np.array(ds), np.array(ts)
+    return np.array(damping_lengths), np.array(t_new)
