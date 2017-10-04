@@ -57,13 +57,12 @@ def butter_lowpass_filter(x, cutoff, fs, order):
 
     Returns
     -------
-    y : np.array
+    x_new : np.array
         Values of filtered signal
 
     """
     b, a = butter_lowpass(cutoff, fs, order)
-    y = lfilter(b, a, x)
-    return y
+    return lfilter(b, a, x)
 
 def butter_bandpass(lowcut, highcut, fs, order):
     """ 
@@ -113,10 +112,9 @@ def butter_bandpass_filter(x, lowcut, highcut, fs, order):
 
     Returns
     -------
-    y : np.array
+    x_new : np.array
         Values of filtered signal
 
     """
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
-    y = lfilter(b, a, x)
-    return y
+    return lfilter(b, a, x)

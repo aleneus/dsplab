@@ -28,7 +28,7 @@ def freq_stupid(x, fs):
 
     Returns
     -------
-    f : float
+    freq : float
         Frequency
 
     """
@@ -41,8 +41,7 @@ def freq_stupid(x, fs):
         if (x_prev > x_current) and (x_current <= x_next):
             n_min += 1
     n = (n_max + n_min) / 2
-    f = n / T
-    return f
+    return n / T
 
 def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     """
@@ -63,21 +62,21 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     -------
     freqs : np.array
         Frequency values
-    t : time values
+    t_new : time values
 
     """
     freqs = []
-    t = []
+    t_new = []
     start = 0
     stop = window_width
     if stop > len(x):
-        return freqs, t
+        return freqs, t_new
     while True:
         f = freq_stupid(x[start : stop], fs)
         freqs.append(f)
-        t.append((stop-1)/fs)
+        t_new.append((stop-1)/fs)
         start += window_step
         stop += window_step
         if stop > len(x):
             break
-    return np.array(freqs), np.array(t)
+    return np.array(freqs), np.array(t_new)
