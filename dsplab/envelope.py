@@ -16,9 +16,9 @@
 import numpy as np
 from scipy.signal import hilbert
 
-def envelope_by_max(x, fs = 1, t = []):
+def envelope_by_extremums(x, fs = 1, t = []):
     """ 
-    Calculate envelope by local maximums of signals
+    Calculate envelope by local extremums of signals
 
     Parameters
     ----------
@@ -42,6 +42,7 @@ def envelope_by_max(x, fs = 1, t = []):
         t = np.linspace(0, (len(x)-1)/fs, len(x))
     t_new = []
     x_new = []
+    x = abs(x)
     for x_left, x_central, x_right, t_central in zip(x[:-2], x[1:-1], x[2:], t[1:-1]):
         if (x_left < x_central) and (x_central >= x_right):
             t_new.append(t_central)
