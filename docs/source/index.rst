@@ -35,6 +35,7 @@ Modules
    envelope
    filtration
    frequency
+   io
    prony
 
 History

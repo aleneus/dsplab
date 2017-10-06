@@ -1,4 +1,4 @@
-# Copyright (C) 2013 -- 2017 Aleksandr Popov
+# Copyright (C) 2017 Aleksandr Popov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
