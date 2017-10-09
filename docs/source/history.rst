@@ -1,3 +1,11 @@
+0.7
+===
+
+* Envelope by maximums replaced to envelope by extremums.
+* Demos added.
+* More tests added.
+
+
 0.6
 ===
 

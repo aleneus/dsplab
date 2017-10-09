@@ -18,12 +18,12 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.7
+What's new in 0.8
 -----------------
 
-* Envelope by maximums replaced to envelope by extremums.
-* Demos added.
-* More tests added.
+* Specfic module damping was removed
+* Function for read signal from csv was added
+* More tests were added
 
 Modules
 -------
