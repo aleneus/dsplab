@@ -18,12 +18,11 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.8
+What's new in 0.9
 -----------------
 
-* Specfic module damping was removed
-* Function for read signal from csv was added
-* More tests were added
+* Function for calculation digital Hilbert filter was added 
+* Demo for digital Hilbert filter was added
 
 Modules
 -------

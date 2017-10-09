@@ -1,3 +1,10 @@
+0.8
+===
+
+* Specfic module damping was removed
+* Function for read signal from csv was added
+* More tests were added
+
 0.7
 ===
 
