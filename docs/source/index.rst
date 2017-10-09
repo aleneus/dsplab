@@ -31,7 +31,6 @@ Modules
 .. toctree::
    :maxdepth: 2
 
-   damping
    envelope
    filtration
    frequency
@@ -45,7 +44,6 @@ History
    :maxdepth: 2
 
    history
-
 
 Indices and tables
 ==================
