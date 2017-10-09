@@ -52,25 +52,23 @@ def envelope_by_extremums(x, fs = 1, t = []):
         x_new.append(x[-1])
     return np.array(x_new), np.array(t_new)
 
-def envelope_hilbert(x, fs = 1):
-    """ 
-    Calculate envelope using Hilbert transform
+def hilbert_filter(L):
+    """
+    Calculate digital hilbert filter smoothed with Hamming's window
 
 
     Parameters
     ----------
-    x : array_like
-        Signal values
-    fs : float
-        Sampling frequency
-
-    Returns
-    --------
+    L : integer
+        Length of half of filter
     
-    x_new : np.array
-        Damping values
+    Returns
+    -------
+    h : np.array
+        Flter with length = 2*L + 1
 
     """
-    analytic = hilbert(x)
-    x_new = np.abs(analytic)
-    return x_new
+    h = [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(-L, 0)]
+    h += [0]
+    h += [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(1, L+1)]
+    return np.array(h)*np.hamming(2*L+1)

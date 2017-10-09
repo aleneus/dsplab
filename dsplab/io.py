@@ -34,6 +34,13 @@ def read_signal_from_csv(file_name, t_column=0, x_column=1, start_line=1, fs=Non
     delimiter : str
         Delimiter used in CSV-file
 
+    Returns
+    -------
+    x : np.array
+        Values of signal
+    x : np.array
+        Values of time
+
     """
     data = np.genfromtxt(file_name, delimiter=delimiter)
     data = data.transpose()

@@ -28,3 +28,13 @@ class TestDamping(unittest.TestCase):
         x = [0 for _ in range(100)]
         e = env.envelope_hilbert(x)
         self.assertEqual(len(e), 100)
+
+    def test_calc_hilbert_filter_len(self):
+        h = env.calc_hilbert_filter(3)
+        self.assertEqual(len(h), 7)
+
+    def test_hilbert_digital_filter_len(self):
+        x = np.array([1,2,3,4,5])
+        h = np.array([1,2,3])
+        xf = env.hilbert_digital_filter(x, h)
+        self.assertEqual(len(xf), len(x))
