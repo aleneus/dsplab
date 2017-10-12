@@ -35,6 +35,7 @@ Modules
    frequency
    io
    prony
+   spectran
 
 History
 -------   

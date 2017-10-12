@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
-from dsplab import damping, envelope
+from dsplab import envelope
 import matplotlib.pyplot as plt
 from pylab import rcParams
 import numpy as np

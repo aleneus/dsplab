@@ -122,7 +122,25 @@ def butter_bandpass_filter(x, lowcut, highcut, fs, order):
 
 def haar_one_step(x, t, denominator=2):
     """ 
-    One cascade of Haar's transform.
+    One cascade of Haar transform.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    t : array_like
+        Time values
+    denominator : integer
+        Denominator used in Haar transform (default is 2)
+
+    Returns
+    -------
+    x_s : np.array
+        Scaled signal values
+    x_d : np.array
+        Details of x
+    t_new : np.array
+        Decimated time values
 
     """
     # TODO: use t or fs in arguments
@@ -137,7 +155,23 @@ def haar_one_step(x, t, denominator=2):
 
 def haar_scaling(x, t, steps_number):
     """ 
-    Scaling with Haar's function
+    Scaling with Haar transform.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    t : array_like
+        Time values
+    steps_number : integer
+        Number of cascades
+
+    Returns
+    -------
+    x_s : np.array
+        Scaled signal values
+    t_new : np.array
+        Decimated time values
 
     """
     # TODO: validation of steps_number

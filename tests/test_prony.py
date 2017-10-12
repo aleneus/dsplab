@@ -18,7 +18,7 @@ from .context import dsplab
 import numpy as np
 from dsplab import prony
 
-class TestDamping(unittest.TestCase):
+class TestProny(unittest.TestCase):
     def test_prony_sum_length_of_result(self):
         x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8, 4, -4, 2, -2, 1, -1, 0, 0]
         L = 4
