@@ -1,3 +1,9 @@
+0.9
+===
+
+* Function for calculation digital Hilbert filter was added 
+* Demo for digital Hilbert filter was added
+
 0.8
 ===
 

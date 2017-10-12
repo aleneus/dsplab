@@ -23,7 +23,7 @@ def read(fname):
 
 setup(
     name="dsplab",
-    version="0.9.0",
+    version="0.10.0",
     description="Some tools for digital signal processing",
     author="Aleksandr Popov",
     author_email="aleneus@gmail.com",
