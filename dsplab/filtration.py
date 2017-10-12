@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from scipy.signal import butter, lfilter
+import numpy as np
 
 def butter_lowpass(cutoff, fs, order):
     """ 
@@ -118,3 +119,30 @@ def butter_bandpass_filter(x, lowcut, highcut, fs, order):
     """
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
     return lfilter(b, a, x)
+
+def haar_one_step(x, t, denominator=2):
+    """ 
+    One cascade of Haar's transform.
+
+    """
+    # TODO: use t or fs in arguments
+    x_s = []
+    x_d = []
+    t_new = []
+    for x_left, x_right in zip(x[::2], x[1::2]):
+        x_s.append((x_left+x_right)/denominator)
+        x_d.append((x_left-x_right)/denominator)
+    t_new = t[1::2]
+    return np.array(x_s), np.array(x_d), np.array(t_new)
+
+def haar_scaling(x, t, steps_number):
+    """ 
+    Scaling with Haar's function
+
+    """
+    # TODO: validation of steps_number
+    x_s = x.copy()
+    t_new = t.copy()
+    for i in range(steps_number):
+        x_s, x_d, t_new = haar_one_step(x_s, t_new, denominator=2)
+    return x_s, t_new
