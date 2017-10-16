@@ -29,6 +29,7 @@ import mock
 
 MOCK_MODULES = [
     'numpy',
+    'numpy.linalg',
     'scipy',
     'scipy.signal',
     'scipy.fftpack'
