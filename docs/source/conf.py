@@ -31,6 +31,7 @@ MOCK_MODULES = [
     'numpy',
     'scipy',
     'scipy.signal',
+    'scipy.fftpack'
     'matplotlib',
     'matplotlib.pyplot',
 ]
