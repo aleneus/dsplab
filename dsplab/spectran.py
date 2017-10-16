@@ -18,7 +18,8 @@ from scipy import signal
 import numpy as np
 
 def spectrum(x):
-    """Return amplitude spectrum of signal.
+    """
+    Return amplitude spectrum of signal.
 
     Parameters
     ----------
@@ -34,7 +35,15 @@ def spectrum(x):
     return abs(scipy.fftpack.fft(x))
 
 def expand_to(x, new_len):
-    """Add zeros to signal. For doing magick with resolution in spectrum.
+    """
+    Add zeros to signal. For doing magick with resolution in spectrum.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values.
+    new_len : integer
+        New length.
 
     Returns
     -------
