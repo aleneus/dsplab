@@ -1,3 +1,11 @@
+0.10
+====
+
+* Tools for spectral analysis were added
+* Haar transform was added
+* More demos were added
+* Some bugs were fixed
+
 0.9
 ===
 

@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from scipy.signal import butter, lfilter
+from scipy.fftpack import fft
 import numpy as np
 
 def butter_lowpass(cutoff, fs, order):
@@ -119,6 +120,46 @@ def butter_bandpass_filter(x, lowcut, highcut, fs, order):
     """
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
     return lfilter(b, a, x)
+
+def find_butt_bandpass_order(band, fs):
+    """
+    Claculate the order of Butterworth bandpass filter using minimization of metric between ideal and real frequency response.
+
+    Paramaters
+    ----------
+    band : array_like
+        Pair of frequencies. Bounds of bandpass (Hz)
+    fs : float
+        Sampling rate (Hz)
+
+    Returns
+    -------
+    order : integer
+        Order of filter
+
+    """
+    # TODO: Write a set of functions or stubs, all about order
+    N = round(60 * 120 * fs)
+    unit_pulse = np.zeros(N)
+    unit_pulse[1] = 1
+    n1 = round((band[0] * N//2) / (fs/2))
+    n2 = round((band[1] * N//2) / (fs/2))
+    ideal_fr = np.zeros(N)
+    f = np.fft.fftfreq(N, 1/fs)
+    ind = (f>= band[0])&(f<= band[1])
+    ideal_fr[ind] = 1
+    ideal_fr = ideal_fr[:N//2]
+    prev_metric = np.inf
+    for order in range(3, 21):
+        impulse_response = butter_bandpass_filter(unit_pulse, band[0], band[1], fs, order)
+        fr = abs(fft(impulse_response))[:N//2]
+        metric = np.sum((fr - ideal_fr)**2)**0.5
+        best_order = order
+        if (np.isnan(metric)) or (metric >= prev_metric):
+            best_order -= 1
+            break
+        prev_metric = metric
+    return best_order-1 # TODO: Think about it
 
 def haar_one_step(x, t, denominator=2):
     """ 

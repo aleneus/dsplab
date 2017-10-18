@@ -18,13 +18,11 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.10
+What's new in 0.11
 ------------------
 
-* Tools for spectral analysis were added
-* Haar transform was added
-* More demos were added
-* Some bugs were fixed
+* Function for calculation of order of Butterworth bandpass filter was added.
+* Some docs were added.
 
 Modules
 -------

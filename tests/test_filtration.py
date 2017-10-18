@@ -56,3 +56,18 @@ class TestHaarScaling(unittest.TestCase):
         x_resampled, t_new = flt.haar_scaling(x, t, 3)
         self.assertEqual(len(t_new), 1)
         self.assertEqual(t_new[0], 7)
+
+class TestOrder(unittest.TestCase):
+    def test_find_butt_bandpass_order_1(self):
+        band = (1.93, 2.14)
+        sampling_steps = 2
+        fs = 50/2**sampling_steps
+        order = flt.find_butt_bandpass_order(band, fs)
+        self.assertTrue(order > 5)
+
+    def test_find_butt_bandpass_order_2(self):
+        band = (3.84, 4)
+        sampling_steps = 2
+        fs = 50/2**sampling_steps
+        order = flt.find_butt_bandpass_order(band, fs)
+        self.assertTrue(order > 5)
