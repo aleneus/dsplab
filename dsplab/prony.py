@@ -15,7 +15,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy import linalg
+import numpy.linalg as linalg
 
 def prony_decomp(x, L):
     """ 
