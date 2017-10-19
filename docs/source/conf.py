@@ -29,12 +29,12 @@ import mock
 
 MOCK_MODULES = [
     'numpy',
-    'numpy.linalg',
+#     'numpy.linalg',
     'scipy',
-    'scipy.signal',
-    'scipy.fftpack'
+#     'scipy.signal',
+#     'scipy.fftpack'
     'matplotlib',
-    'matplotlib.pyplot',
+#     'matplotlib.pyplot',
 ]
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
