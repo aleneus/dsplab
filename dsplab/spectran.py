@@ -13,8 +13,7 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import scipy.fftpack
-#from scipy import signal
+import scipy.fftpack as fftpack
 import scipy.signal as sig
 import numpy as np
 
@@ -33,7 +32,7 @@ def spectrum(x):
         Two-side amplitude spectrum.
 
     """
-    return abs(scipy.fftpack.fft(x))
+    return abs(fftpack.fft(x))
 
 def expand_to(x, new_len):
     """
