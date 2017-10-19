@@ -30,12 +30,12 @@ Modules
 .. toctree::
    :maxdepth: 2
 
-   envelope
+   io
+   spectran
    filtration
    frequency
-   io
+   envelope
    prony
-   spectran
 
 History
 -------   
