@@ -34,7 +34,7 @@ MOCK_MODULES = [
     'scipy.signal',
 #     'scipy.fftpack'
 #     'matplotlib',
-    'matplotlib.pyplot',
+#     'matplotlib.pyplot',
 ]
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()

@@ -13,7 +13,6 @@
 # You should have received a copy of the Lesser GNUGeneral Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import matplotlib.pyplot as plt
 import numpy as np
 import numpy.linalg as linalg
 
