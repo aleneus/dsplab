@@ -71,3 +71,36 @@ class TestOrder(unittest.TestCase):
         fs = 50/2**sampling_steps
         order = flt.find_butt_bandpass_order(band, fs)
         self.assertTrue(order > 5)
+
+class TestButter(unittest.TestCase):
+    def test_butter_lowpass_just_run(self):
+        fs = 50
+        cutoff = 10
+        order = 5
+        flt.butter_lowpass(cutoff, fs, order)
+        self.assertTrue(True)
+
+    def test_butter_lowpass_filter_just_run(self):
+        fs = 50
+        x = np.arange(1, 100, 1/fs)
+        cutoff = 10
+        order = 5
+        flt.butter_lowpass_filter(x, cutoff, fs, order)
+        self.assertTrue(True)
+
+    def test_butter_bandpass_just_run(self):
+        fs = 50
+        order = 10
+        lowcut = 5
+        highcut = 10
+        flt.butter_bandpass(lowcut, highcut, fs, order)
+        self.assertTrue(True)
+        
+    def test_butter_bandpass_filter_just_run(self):
+        fs = 50
+        x = np.arange(1, 100, 1/fs)
+        order = 10
+        lowcut = 5
+        highcut = 10
+        flt.butter_bandpass_filter(x, lowcut, highcut, fs, order)
+        self.assertTrue(True)
