@@ -14,7 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import scipy.fftpack
-from scipy import signal
+#from scipy import signal
+import scipy.signal as sig
 import numpy as np
 
 def spectrum(x):
@@ -83,7 +84,7 @@ def stft(x, dt, nseg, nstep, window='hanning', nfft=None, padded=False):
         Result of STFT.
     
     """
-    wind = signal.get_window(window, nseg)
+    wind = sig.get_window(window, nseg)
     Xs=[]
     if padded:
         L = len(x) + (nseg - len(x) % nseg) % nseg
