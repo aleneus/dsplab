@@ -125,7 +125,7 @@ def find_butt_bandpass_order(band, fs):
     """
     Claculate the order of Butterworth bandpass filter using minimization of metric between ideal and real frequency response.
 
-    Paramaters
+    Parameters
     ----------
     band : array_like
         Pair of frequencies. Bounds of bandpass (Hz)

@@ -29,7 +29,7 @@ def spectrum(x):
 
     Returns
     -------
-    : numpy.array
+    X : numpy.array
         Two-side amplitude spectrum.
 
     """
@@ -48,7 +48,7 @@ def expand_to(x, new_len):
 
     Returns
     -------
-    : numpy.array
+    x_exp : numpy.array
         Signal expanded by zeros.
     
     """
@@ -80,7 +80,7 @@ def stft(x, dt, nseg, nstep, window='hanning', nfft=None, padded=False):
     Returns
     -------
 
-    : list of numpy.ndarray
+    Xs : list of numpy.ndarray
         Result of STFT.
     
     """
