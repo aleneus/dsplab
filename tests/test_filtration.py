@@ -104,3 +104,14 @@ class TestButter(unittest.TestCase):
         highcut = 10
         flt.butter_bandpass_filter(x, lowcut, highcut, fs, order)
         self.assertTrue(True)
+
+class TestStupidFilters(unittest.TestCase):
+    def test_stupid_lowpass_filter_just_run(self):
+        x = [1,2,3,4,5,6]
+        xf = flt.stupid_lowpass_filter(x, fs=1, cutoff=0.25)
+        self.assertTrue(True)
+
+    def test_stupid_bandpass_filter_just_run(self):
+        x = [1,2,3,4,5,6]
+        xf = flt.stupid_bandpass_filter(x, fs=1, bandpass=(0.1, 0.2))
+        self.assertTrue(True)

@@ -17,6 +17,79 @@ import scipy.signal as sig
 import scipy.fftpack as fftpack
 import numpy as np
 
+def _stupid_filter(x, fs, fr):
+    """
+    Filter signal using setted frequency response.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    fs : float
+        Sampling frequency
+    fs : np.array
+        Frequency response of ideal filter
+
+    Returns
+    -------
+    xf : np.array
+        Filteres signal
+
+    """
+    _x = x * sig.tukey(len(x))
+    X = fftpack.fft(_x)
+    return np.real(fftpack.ifft(X * fr))
+
+def stupid_lowpass_filter(x, fs, cutoff):
+    """
+    Return low-pass filtered signal.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    fs : float
+        Sampling frequency
+    cutoff : float
+        Cutoff frequency
+
+    Returns
+    -------
+    xf : np.array
+        Filteres signal
+
+    """
+    fr = np.zeros(len(x))
+    f = np.fft.fftfreq(len(x), 1/fs)
+    ind = abs(f)<=cutoff
+    fr[ind] = 1
+    return  _stupid_filter(x, fs, fr)
+
+def stupid_bandpass_filter(x, fs, bandpass):
+    """
+    Return low-pass filtered signal.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    fs : float
+        Sampling frequency
+    bandpass : np.array of 2 floats
+        Bounds of bandpass (Hz)
+
+    Returns
+    -------
+    xf : np.array
+        Filteres signal
+
+    """
+    fr = np.zeros(len(x))
+    f = np.fft.fftfreq(len(x), 1/fs)
+    ind = (abs(f) >= bandpass[0])&(abs(f)<=bandpass[1])
+    fr[ind] = 1
+    return  _stupid_filter(x, fs, fr)
+
 def butter_lowpass(cutoff, fs, order):
     """ 
     Calculate a and b coefficients for Butterworth lowpass filter
