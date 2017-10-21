@@ -71,3 +71,29 @@ class TestSTFT(unittest.TestCase):
         x = np.array([0,1,2,3,4,5,6])
         Xs = sp.stft(x, fs, 3, 3, window='hanning', nfft=None, padded=True)
         self.assertEqual(len(Xs), 3)
+
+class TestSpecgram(unittest.TestCase):
+    def test_calc_specgram_just_run(self):
+        x = np.linspace(0, 100, 100)
+        sp.calc_specgram(x)
+        self.assertTrue(True)
+
+    def test_calc_specgram_time_used_just_run(self):
+        t = np.linspace(0, 100, 100)
+        x = np.cos(t)
+        sp.calc_specgram(x, t=t)
+        self.assertTrue(True)
+
+    def test_calc_specgram_bound_used_just_run(self):
+        fs = 50
+        t = np.arange(0, 20, 1/fs)
+        x = np.cos(2*np.pi*1*t)
+        sp.calc_specgram(x, t=t, freq_bounds=(0.5, 1.5))
+        self.assertTrue(True)
+
+    def test_calc_specgram_fs_used_just_run(self):
+        fs = 50
+        t = np.arange(0, 20, 1/fs)
+        x = np.cos(2*np.pi*1*t)
+        sp.calc_specgram(x, fs=fs)
+        self.assertTrue(True)

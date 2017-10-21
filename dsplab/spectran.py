@@ -126,3 +126,47 @@ def stft(x, fs, nseg, nstep, window='hanning', nfft=None, padded=False):
         X, f_X = spectrum(seg, fs)
         Xs.append(X)
     return Xs
+
+def calc_specgram(x, fs=1, t=[], nseg=256, freq_bounds=None, expand_to=10000):
+    """
+    Return spectrogram data prepared to further plotting.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    fs : float
+        Sampling frequency (Hz)
+    t : array_like
+        Time values (sec)
+    nseg : integer
+        Length of window (number of samples)
+    freq_bounds : tuple of 2 float
+        Bounds of showed band
+
+    Return
+    ------
+    Xs : np.ndarray
+        Array of spectrums
+    t_new : np.array
+        Time values
+
+    """
+    if len(t)==0:
+        t = np.linspace(0, (len(x)-1)*fs, len(x))
+    else:
+        fs = 1/(t[1] - t[0])
+    Xs = np.array(stft(x, 1/fs, nseg, 1, nfft=expand_to))
+    # TODO: Expand to
+    # TODO: Bounds
+    if freq_bounds:
+        freqs = np.fft.fftfreq(len(Xs[0]), 1/fs)
+        ind = (freqs>=freq_bounds[0])&(freqs<=freq_bounds[1])
+        Xs_cut = []
+        for X in Xs:
+            s = list(X[ind])
+            s.reverse()
+            Xs_cut.append(s)
+        Xs = np.array(Xs_cut)
+    Xs = np.transpose(Xs)
+    return Xs, t[nseg:-nseg]
