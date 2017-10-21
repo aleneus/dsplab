@@ -17,22 +17,48 @@ import scipy.fftpack as fftpack
 import scipy.signal as sig
 import numpy as np
 
-def spectrum(x):
+def spectrum(x, fs, use_window=True, one_side=False, return_amplitude=True, extra_len=None):
     """
-    Return amplitude spectrum of signal.
+    Return the Fourier spectrum of signal.
 
     Parameters
     ----------
     x : array_like
-        Signal.
+        Signal values
+    fs : float
+        Sampling frequency (Hz)
+    one_side : boolean
+        If True, the one-side spectrum is calculated (default value is False)
+    return_amplitude : boolean
+        If True, the amplitude spectrum is calculated
 
     Returns
     -------
-    X : numpy.array
-        Two-side amplitude spectrum.
+    X : np.array of complex numbers
+        Spectrum
+    f_X : np.array of floats
+        Frequency values (Hz)
 
     """
-    return abs(fftpack.fft(x))
+    # window signal
+    if use_window:
+        win = np.hamming(len(x)) # TODO: maybe the user wants to select window
+        xx = x * win * 1.856 / sum(win)
+    # expanding
+    if extra_len:
+        xx = expand_to(xx, extra_len)
+    # FFT
+    X = np.array(fftpack.fft(xx))
+    f_X = np.fft.fftfreq(len(X), 1/fs)
+    # one-side
+    if one_side:
+        ind = f_X>=0
+        f_X = f_X[ind]
+        X = X[ind]
+    # calc amplitude
+    if return_amplitude:
+        X = np.abs(X)
+    return X, f_X
 
 def expand_to(x, new_len):
     """
@@ -57,7 +83,7 @@ def expand_to(x, new_len):
     x_exp[0 : len(x)] = x
     return x_exp
 
-def stft(x, dt, nseg, nstep, window='hanning', nfft=None, padded=False):
+def stft(x, fs, nseg, nstep, window='hanning', nfft=None, padded=False):
     """
     Return result of short-time fourier transform.
 
@@ -65,8 +91,8 @@ def stft(x, dt, nseg, nstep, window='hanning', nfft=None, padded=False):
     ----------
     x : numpy.ndarray
         Signal.
-    dt : float 
-       Sampling period.
+    fs : float 
+       Sampling frequency (Hz).
     window : str
         Type of window.
     nseg : int
@@ -97,6 +123,6 @@ def stft(x, dt, nseg, nstep, window='hanning', nfft=None, padded=False):
     for i in range(0, len(x)-nseg + 1, nstep):
         seg = x[i : i+nseg] * wind
         seg = expand_to(seg, nseg_exp)
-        X = spectrum(seg)
+        X, f_X = spectrum(seg, fs)
         Xs.append(X)
     return Xs

@@ -21,8 +21,18 @@ from dsplab import spectran as sp
 class TestSpectrum(unittest.TestCase):
     def test_spectrum_len(self):
         x = [1,2,3,4,5,6,7,8]
-        X = sp.spectrum(x)
+        X, f_X = sp.spectrum(x, fs=1)
         self.assertEqual(len(x), len(X))
+
+    def test_spectrum_one_side_len(self):
+        x = [1,2,3,4,5,6,7,8]
+        X, f_X = sp.spectrum(x, fs=1, one_side=True)
+        self.assertEqual(len(x)//2, len(X))
+
+    def test_spectrum_need_expand_len(self):
+        x = [1,2,3,4,5,6,7,8]
+        X, f_X = sp.spectrum(x, fs=1, extra_len=16)
+        self.assertEqual(16, len(X))
 
 class TestExpandTo(unittest.TestCase):
     def test_expand_to(self):
@@ -33,31 +43,31 @@ class TestExpandTo(unittest.TestCase):
 
 class TestSTFT(unittest.TestCase):
     def test_stft_number_of_spectrums_no_overlap(self):
-        dt = 1
+        fs = 1
         x = np.array([0,1,2,3,4,5,6,7,8,9])
-        Xs = sp.stft(x, dt, 2, 2, window='hanning', nfft=None, padded=False)
+        Xs = sp.stft(x, fs, 2, 2, window='hanning', nfft=None, padded=False)
         self.assertEqual(len(Xs), 5)
         
     def test_stft_number_of_spectrums_overlap(self):
-        dt = 1
+        fs = 1
         x = np.array([0,1,2,3,4,5,6,7,8,9])
-        Xs = sp.stft(x, dt, 2, 1, window='hanning', nfft=None, padded=False)
+        Xs = sp.stft(x, fs, 2, 1, window='hanning', nfft=None, padded=False)
         self.assertEqual(len(Xs), 9)
         
     def test_stft_len_of_spectrum_dont_add_zeros_to_segments(self):
-        dt = 1
+        fs = 1
         x = np.array([0,1,2,3,4,5,6,7,8,9])
-        Xs = sp.stft(x, dt, 2, 2, window='hanning', nfft=None, padded=False)
+        Xs = sp.stft(x, fs, 2, 2, window='hanning', nfft=None, padded=False)
         self.assertEqual(len(Xs[0]), 2)
 
     def test_stft_len_of_spectrum_add_zeros_to_segments(self):
-        dt = 1
+        fs = 1
         x = np.array([0,1,2,3,4,5,6,7,8,9])
-        Xs = sp.stft(x, dt, 2, 2, window='hanning', nfft=4, padded=False)
+        Xs = sp.stft(x, fs, 2, 2, window='hanning', nfft=4, padded=False)
         self.assertEqual(len(Xs[0]), 4)
 
     def test_stft_padding_true(self):
-        dt = 1
+        fs = 1
         x = np.array([0,1,2,3,4,5,6])
-        Xs = sp.stft(x, dt, 3, 3, window='hanning', nfft=None, padded=True)
+        Xs = sp.stft(x, fs, 3, 3, window='hanning', nfft=None, padded=True)
         self.assertEqual(len(Xs), 3)
