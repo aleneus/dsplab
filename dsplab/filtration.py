@@ -320,6 +320,6 @@ def trend_smooth(x, fs=1, t=[], cut_off=0.5):
         t = np.linspace(0, (len(x)-1)*fs, len(x))
     fs = 1/(t[1]-t[0])
     wl = int(fs/2/cut_off)
-    w = np.hamming(wl) * 1.856
+    w = np.hamming(wl)
     trend = np.convolve(x, w, mode="same") / np.sum(w)
     return trend[wl:-wl], t[wl:-wl]
