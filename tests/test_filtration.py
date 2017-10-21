@@ -115,3 +115,9 @@ class TestStupidFilters(unittest.TestCase):
         x = [1,2,3,4,5,6]
         xf = flt.stupid_bandpass_filter(x, fs=1, bandpass=(0.1, 0.2))
         self.assertTrue(True)
+
+class TestTrend(unittest.TestCase):
+    def test_trend_smooth_just_run(self):
+        x = [1,2,3,4,5,6,7,8]
+        flt.trend_smooth(x)
+        self.assertTrue(True)

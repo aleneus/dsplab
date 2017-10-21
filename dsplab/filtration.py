@@ -294,3 +294,32 @@ def haar_scaling(x, t, steps_number):
     for i in range(steps_number):
         x_s, x_d, t_new = haar_one_step(x_s, t_new, denominator=2)
     return x_s, t_new
+
+def trend_smooth(x, fs=1, t=[], cut_off=0.5):
+    """
+    Calculate trend of signal using smoothing filter.
+
+    Parameters
+    ----------
+    x : array_like
+        Signal values
+    t : array_like
+        Time values
+    cut_off : float
+        The frequencies lower than this are trend's frequencies
+
+    Returns
+    -------
+    trend : np.array
+        Trend values
+    t_new : np.array
+        Time values
+    
+    """
+    if len(t) == 0:
+        t = np.linspace(0, (len(x)-1)*fs, len(x))
+    fs = 1/(t[1]-t[0])
+    wl = int(fs/2/cut_off)
+    w = np.hamming(wl)
+    trend = np.convolve(x, w, mode="same") / np.sum(w)
+    return trend[wl:-wl], t[wl:-wl]
