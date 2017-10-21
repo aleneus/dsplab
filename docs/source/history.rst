@@ -1,3 +1,9 @@
+0.11
+====
+
+* Function for calculation of order of Butterworth bandpass filter was added.
+* Some docs were added.
+
 0.10
 ====
 

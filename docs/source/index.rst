@@ -18,11 +18,16 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.11
+What's new in 0.12
 ------------------
 
-* Function for calculation of order of Butterworth bandpass filter was added.
-* Some docs were added.
+* Function for calculation of instantaneous frequency with phasor was added to new module called modulation.
+* Function for calcultion of spectrogram was added.
+* Function for finding the trend with smoothing filtration was added.
+* Stupid filters (FFT and back) were added.
+* Spectrum function was rewrited.
+* Some code was cleaned.
+* More tests were added.
 
 Modules
 -------
@@ -36,6 +41,7 @@ Modules
    frequency
    envelope
    prony
+   modulation
 
 History
 -------   
