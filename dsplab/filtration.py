@@ -90,108 +90,33 @@ def stupid_bandpass_filter(x, fs, bandpass):
     fr[ind] = 1
     return  _stupid_filter(x, fs, fr)
 
-def butter_lowpass(cutoff, fs, order):
+def butter_filter(x, fs, freqs, order, btype='band'):
     """ 
-    Calculate a and b coefficients for Butterworth lowpass filter
-
-    Parameters
-    ----------
-    cutoff : float
-        Cutoff frequency (Hz)
-    fs : float
-        Sampling frequency (Hz)
-    order : integer
-        Order of filter
-
-    Returns
-    -------
-    b : np.array
-        b-values
-    a : np.array
-        a-values
-
-    """
-    nyq = 0.5 * fs
-    b, a = sig.butter(order, cutoff/nyq, btype='low')
-    return b, a
-
-def butter_lowpass_filter(x, cutoff, fs, order):
-    """ 
-    Filter signal with Butterworth lowpass filter
+    Butterworth filter
 
     Parameters
     ----------
     x : array_like
         Signal values
-    cutoff : float
-        Cutoff frequency (Hz)
     fs : float
         Sampling frequency (Hz)
+    freqs : array_like
+        One or two frequencies
     order : integer
         Order of filter
+    btype : str (band|lowpass)
+        Type of filter
 
     Returns
     -------
-    x_new : np.array
-        Values of filtered signal
-
-    """
-    b, a = butter_lowpass(cutoff, fs, order)
-    return sig.lfilter(b, a, x)
-
-def butter_bandpass(lowcut, highcut, fs, order):
-    """ 
-    Calculate a and b coefficients for Butterworth bandpass filter
-
-    Parameters
-    ----------
-    lowcut : float
-        Low-cut frequency (Hz)
-    highcut : float
-        High-cut frequency (Hz)
-    fs : float
-        Sampling frequency (Hz)
-    order : integer
-        Order of filter
-
-    Returns
-    -------
-    b : np.array
-        b-values
-    a : np.array
-        a-values
+    xf : np.array
+        filtered signal
 
     """
     nyq = 0.5 * fs
-    low = lowcut / nyq
-    high = highcut / nyq
-    b, a = sig.butter(order, [low, high], btype='band')
-    return b, a
-
-def butter_bandpass_filter(x, lowcut, highcut, fs, order):
-    """ 
-    Filter signal with Butterworth bandpass filter
-
-    Parameters
-    ----------
-    x : array_like
-        Signal values
-    lowcut : float
-        Low-cut frequency (Hz)
-    highcut : float
-        High-cut frequency (Hz)
-    fs : float
-        Sampling frequency (Hz)
-    order : integer
-        Order of filter
-
-    Returns
-    -------
-    x_new : np.array
-        Values of filtered signal
-
-    """
-    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+    freqs = np.array(freqs)
+    freqs /= nyq
+    b, a = sig.butter(order, freqs, btype=btype)
     return sig.lfilter(b, a, x)
 
 def find_butt_bandpass_order(band, fs):
@@ -224,7 +149,7 @@ def find_butt_bandpass_order(band, fs):
     ideal_fr = ideal_fr[:N//2]
     prev_metric = np.inf
     for order in range(3, 21):
-        impulse_response = butter_bandpass_filter(unit_pulse, band[0], band[1], fs, order)
+        impulse_response = butter_filter(unit_pulse, fs, band, order, btype="band")
         fr = abs(fftpack.fft(impulse_response))[:N//2]
         metric = np.sum((fr - ideal_fr)**2)**0.5
         best_order = order
