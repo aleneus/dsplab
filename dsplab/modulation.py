@@ -16,7 +16,7 @@
 import numpy as np
 import dsplab.filtration as flt
 
-def calc_freq_phasor(x, t, f_central, f_width):
+def calc_freq_phasor(x, t, f_central, f_width, filter_order=5):
     """
     Return instantaneous frequency of modulated signal using phasor.
 
@@ -30,6 +30,8 @@ def calc_freq_phasor(x, t, f_central, f_width):
         Central frequency (Hz)
     f_width : float
         Bandwidth
+    filter_order : integer
+        Order of filter
 
     Returns
     -------
@@ -37,11 +39,12 @@ def calc_freq_phasor(x, t, f_central, f_width):
         Instantaneous frequency values
 
     """
+    # TODO: need more universal filter tool
     fs = 1/(t[1] - t[0])
     yI = x * np.cos(2*np.pi*f_central*t)
     yQ = x * np.sin(2*np.pi*f_central*t)
-    yI_ = flt.stupid_lowpass_filter(yI, fs, f_width/2) # TODO: use good filter
-    yQ_ = flt.stupid_lowpass_filter(yQ, fs, f_width/2) # TODO: use good filter
+    yI_ = flt.butter_filter(yI, fs, f_width/2, order=filter_order, btype='lowpass')
+    yQ_ = flt.butter_filter(yQ, fs, f_width/2, order=filter_order, btype='lowpass')
     a = np.diff(yI_) * yQ_[:-1]
     b = np.diff(yQ_) * yI_[:-1]
     c = (yI_**2)[:-1]
