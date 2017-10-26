@@ -15,6 +15,7 @@
 
 import numpy as np
 import dsplab.filtration as flt
+from scipy.signal import firwin
 
 def calc_freq_phasor(x, t, f_central, f_width, filter_order=5):
     """
@@ -45,6 +46,29 @@ def calc_freq_phasor(x, t, f_central, f_width, filter_order=5):
     yQ = x * np.sin(2*np.pi*f_central*t)
     yI_ = flt.butter_filter(yI, fs, f_width/2, order=filter_order, btype='lowpass')
     yQ_ = flt.butter_filter(yQ, fs, f_width/2, order=filter_order, btype='lowpass')
+    a = np.diff(yI_) * yQ_[:-1]
+    b = np.diff(yQ_) * yI_[:-1]
+    c = (yI_**2)[:-1]
+    d = (yQ_**2)[:-1]
+    freqs = (a - b) / (c + d)
+    return freqs + f_central
+
+def calc_freq_phasor_fir(x, t, f_central, f_width, filter_len):
+    """
+    Return instantaneous frequency of modulated signal using phasor.
+
+    Returns
+    -------
+    freqs : np.array
+        Instantaneous frequency values
+
+    """
+    fs = 1/(t[1] - t[0])
+    yI = x * np.cos(2*np.pi*f_central*t)
+    yQ = x * np.sin(2*np.pi*f_central*t)
+    h = firwin(filter_len, f_width/2, nyq=fs/2)
+    yI_ = np.convolve(yI, h, mode="same")
+    yQ_ = np.convolve(yQ, h, mode="same")
     a = np.diff(yI_) * yQ_[:-1]
     b = np.diff(yQ_) * yI_[:-1]
     c = (yI_**2)[:-1]
