@@ -105,7 +105,7 @@ def stft(x, fs, nseg, nstep, window='hanning', nfft=None, padded=False):
     Returns
     -------
 
-    Xs : list of numpy.ndarray
+    Xs : numpy.ndarray
         Result of STFT.
     
     """
@@ -125,9 +125,9 @@ def stft(x, fs, nseg, nstep, window='hanning', nfft=None, padded=False):
         seg = expand_to(seg, nseg_exp)
         X, f_X = spectrum(seg, fs)
         Xs.append(X)
-    return Xs
+    return np.array(Xs)
 
-def calc_specgram(x, fs=1, t=[], nseg=256, freq_bounds=None, expand_to=10000):
+def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_len=1000):
     """
     Return spectrogram data prepared to further plotting.
 
@@ -141,14 +141,18 @@ def calc_specgram(x, fs=1, t=[], nseg=256, freq_bounds=None, expand_to=10000):
         Time values (sec)
     nseg : integer
         Length of window (number of samples)
+    nstep : integer
+        Length of step between Fourier transforms
     freq_bounds : tuple of 2 float
         Bounds of showed band
+    extra_len : integer
+        Number of values using for fft
 
     Return
     ------
     Xs : np.ndarray
         Array of spectrums
-    t_new : np.array
+    t_new : np.ndarray
         Time values
 
     """
@@ -156,17 +160,12 @@ def calc_specgram(x, fs=1, t=[], nseg=256, freq_bounds=None, expand_to=10000):
         t = np.linspace(0, (len(x)-1)*fs, len(x))
     else:
         fs = 1/(t[1] - t[0])
-    Xs = np.array(stft(x, 1/fs, nseg, 1, nfft=expand_to))
-    # TODO: Expand to
-    # TODO: Bounds
+    if not nstep:
+        nstep = nseg//2
+    Xs = stft(x=x, fs=fs, nseg=nseg, nstep=nstep, nfft=extra_len, padded=True)
     if freq_bounds:
         freqs = np.fft.fftfreq(len(Xs[0]), 1/fs)
-        ind = (freqs>=freq_bounds[0])&(freqs<=freq_bounds[1])
-        Xs_cut = []
-        for X in Xs:
-            s = list(X[ind])
-            s.reverse()
-            Xs_cut.append(s)
-        Xs = np.array(Xs_cut)
-    Xs = np.transpose(Xs)
-    return Xs, t[nseg:-nseg]
+        ind = (freqs>-freq_bounds[1])&(freqs<=-freq_bounds[0])
+        Xs = Xs[:,ind]
+    t_new = np.linspace(t[nseg], t[-1], len(Xs))
+    return np.transpose(Xs), t_new
