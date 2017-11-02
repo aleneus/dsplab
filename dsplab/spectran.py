@@ -81,7 +81,9 @@ def spectrum(x, fs, use_window=True, one_side=False, return_amplitude=True, extr
         X = X[ind]
     # calc amplitude
     if return_amplitude:
-        X = np.abs(X)
+        X = abs(X)
+    print(X)
+    exit()
     return X, f_X
 
 def stft(x, fs, nseg, nstep, nfft=None, padded=False):
