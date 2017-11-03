@@ -162,7 +162,7 @@ def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_l
     Xs = 2*stft(x=x, fs=fs, nseg=nseg, nstep=nstep, nfft=extra_len, padded=True)
     if freq_bounds:
         freqs = np.fft.fftfreq(len(Xs[0]), 1/fs)
-        ind = (freqs>=freq_bounds[0])&(freqs<=freq_bounds[1])
+        ind = (freqs>=freq_bounds[0])&(freqs<=freq_bounds[1]) # TODO: thick about it, maybe mistake here
         Xs = Xs[:,ind]
     t_new = np.linspace(t[nseg], t[-1], len(Xs))
     return np.transpose(Xs), t_new
