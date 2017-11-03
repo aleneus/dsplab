@@ -80,3 +80,19 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
         if stop > len(x):
             break
     return np.array(freqs), np.array(t_new)
+
+def freq_by_wave_len(x, t):
+    """
+    Calculate frequency by wave length (between every two local maximums). Return non-regular sampled signal.
+
+    """
+    # TODO: document it
+    # TODO: test it
+    tms = []
+    for t_c,x_p,x_c,x_n in zip(t[1:-1], x[:-2], x[1:-1], x[2:]):
+        if (x_p < x_c) and (x_c >= x_n):
+            tms.append(t_c)
+    f = 1/np.diff(tms) 
+    t_f = np.array(tms[1:])
+    return f, t_f
+    
