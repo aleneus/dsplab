@@ -1,3 +1,14 @@
+0.12
+====
+
+* Function for calculation of instantaneous frequency with phasor was added to new module called modulation.
+* Function for calculation of spectrogram was added.
+* Function for finding the trend with smoothing filtration was added.
+* Stupid filters (FFT and back) were added.
+* Spectrum function was rewrited.
+* Some code was cleaned.
+* More tests were added.
+
 0.11
 ====
 

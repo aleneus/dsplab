@@ -18,16 +18,11 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.12
+What's new in 0.13
 ------------------
 
-* Function for calculation of instantaneous frequency with phasor was added to new module called modulation.
-* Function for calcultion of spectrogram was added.
-* Function for finding the trend with smoothing filtration was added.
-* Stupid filters (FFT and back) were added.
-* Spectrum function was rewrited.
-* Some code was cleaned.
-* More tests were added.
+* Function for calculation of frequency using wave lengths was added.
+* Fixed errors in spectrogram calculation.
 
 Modules
 -------
