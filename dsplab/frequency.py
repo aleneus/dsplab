@@ -81,18 +81,81 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
             break
     return np.array(freqs), np.array(t_new)
 
-def freq_by_wave_len(x, t):
+def __linint(x, t, t_new):
     """
-    Calculate frequency by wave length (between every two local maximums). Return non-regular sampled signal.
+    Find values of x in t_new points.
 
+    Parameters
+    ----------
+    x : np.ndarray
+        Signal values.
+    t : np.ndarray
+        Time values.
+    t_new : np.ndarray
+        New time values.
+ 
+    Returns
+    -------
+    x_new : np.ndarray
+        New signal values.
+ 
     """
-    # TODO: document it
-    # TODO: test it
+    # TODO: add tests for it
+    x_new = np.zeros(len(t_new)) * np.nan
+    for x_p, t_p, x_c, t_c in zip(x[:-1], t[:-1], x[1:], t[1:]):
+        k = (x_c - x_p) / (t_c - t_p)
+        b = x_p - k*t_p
+        ind = (t_new>=t_p)&(t_new<=t_c) 
+        x_new[ind] = k*t_new[ind] + b
+    return x_new
+
+def wave_lens(x, t):
+    """
+    Calculate wave lengths of signal by space between local maximums.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        Signal values.
+    t : np.ndarray
+        Time values.
+
+    Returns
+    -------
+    lens : np.ndarray
+        Wave lengths.
+    t_lent : np.ndarray
+        Time values.
+    
+    """
+    # TODO: add tests for it
     tms = []
-    for t_c,x_p,x_c,x_n in zip(t[1:-1], x[:-2], x[1:-1], x[2:]):
+    for t_c, x_p, x_c, x_n in zip(t[1:-1], x[:-2], x[1:-1], x[2:]):
         if (x_p < x_c) and (x_c >= x_n):
             tms.append(t_c)
-    f = 1/np.diff(tms) 
-    t_f = np.array(tms[1:])
-    return f, t_f
+    # TODO: replace diff by something like real-time, do all in one cycle
+    lens = np.diff(tms)
+    t_lens = np.array(tms[1:])
+    return lens, t_lens
+
+def freqs_by_wave_len(x, t):
+    """
+    Calculate frequencies using lenghs of waves and linear interpolation.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        Signal values.
+    t : np.ndarray
+        Time values.
+
+    Returns
+    -------
+    freqs : np.ndarray
+        Freqs values
+    
+    """
+    wl, t_wl = wave_lens(x, t)
+    freqs = 1/__linint(wl, t_wl, t)
+    return freqs
     
