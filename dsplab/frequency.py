@@ -133,7 +133,6 @@ def wave_lens(x, t):
         Time values.
     
     """
-    # TODO: add tests for it
     tms = []
     for t_c, x_p, x_c, x_n in zip(t[1:-1], x[:-2], x[1:-1], x[2:]):
         if (x_p < x_c) and (x_c >= x_n):

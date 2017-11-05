@@ -83,4 +83,13 @@ class TestFrequency(unittest.TestCase):
         self.assertEqual(sum(x_new), 28)
         self.assertEqual(len(x_new), 8)
 
+    def test_wave_lens(self):
+        t = np.array([0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5])
+        x = np.array([1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1])
+        wl, t_wl = freq.wave_lens(x, t)
+        self.assertEqual(len(wl), 3)
+        self.assertEqual(len(t_wl), 3)
+        self.assertEqual(sum(wl), 3)
+
+
 
