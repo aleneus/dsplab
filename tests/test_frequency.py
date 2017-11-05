@@ -75,13 +75,13 @@ class TestFrequency(unittest.TestCase):
         x_new = freq.linint(x, t, t_new)
         self.assertEqual(len(x_new), 0)
 
-    def test_linint_cut_nans(self):
+    def test_linint_nans(self):
         t = np.array([0,1,3,4,6,7])
         x = np.array([0,1,3,4,6,7])
         t_new = np.array([0,1,2,3,4,5,6,7,8,9])
         x_new = freq.linint(x, t, t_new, cut_nans=True)
-        self.assertEqual(sum(x_new), 28)
-        self.assertEqual(len(x_new), 8)
+        self.assertEqual(np.nansum(x_new), 28)
+        self.assertEqual(len(x_new), 10)
 
     def test_wave_lens(self):
         t = np.array([0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5])
@@ -90,6 +90,14 @@ class TestFrequency(unittest.TestCase):
         self.assertEqual(len(wl), 3)
         self.assertEqual(len(t_wl), 3)
         self.assertEqual(sum(wl), 3)
+        self.assertEqual(sum(t_wl), 2+3+4)
 
+    def test_freqs_by_wave_len(self):
+        t = np.array([0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5])
+        x = np.array([1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1])
+        f, t_f = freq.freqs_by_wave_len(x, t)
+        self.assertEqual(len(f), 5)
+        self.assertEqual(len(t_f), 5)
+        self.assertEqual(np.sum(f), 5)
 
 

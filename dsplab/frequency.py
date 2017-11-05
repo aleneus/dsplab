@@ -108,10 +108,7 @@ def linint(x, t, t_new, cut_nans=True):
         k = (x_c - x_p) / (t_c - t_p)
         b = x_p - k*t_p
         ind = (t_new>=t_p)&(t_new<=t_c) 
-        x_new[ind] = k*t_new[ind] + b
-    if cut_nans:
-        x_new = np.array(list(filter(lambda v: v==v, x_new))) # TODO: ugly construction
-    print(x_new)
+        x_new[ind] = k*t_new[ind] + b # TODO: rewrite it not using this ind, try to do it real-time
     return x_new
 
 def wave_lens(x, t):
@@ -142,7 +139,7 @@ def wave_lens(x, t):
     t_lens = np.array(tms[1:])
     return lens, t_lens
 
-def freqs_by_wave_len(x, t):
+def freqs_by_wave_len(x, t, cut_nans=True):
     """
     Calculate frequencies using lenghs of waves and linear interpolation.
 
@@ -152,6 +149,8 @@ def freqs_by_wave_len(x, t):
         Signal values.
     t : np.ndarray
         Time values.
+    cut_nans : boolean
+        If True, the nan values at the ends of the of the produced array will removed. 
 
     Returns
     -------
@@ -161,5 +160,12 @@ def freqs_by_wave_len(x, t):
     """
     wl, t_wl = wave_lens(x, t)
     freqs = 1/linint(wl, t_wl, t)
-    return freqs
-    
+    if cut_nans:
+        freqs_cut = []
+        t_cut = []
+        for (f, tt) in zip(freqs, t): # TODO: name tt
+            if f==f:
+                freqs_cut.append(f)
+                t_cut.append(tt)
+        return np.array(freqs_cut), t_cut
+    return freqs, t
