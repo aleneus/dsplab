@@ -60,7 +60,7 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
 
     Returns
     -------
-    freqs : np.array
+    freqs : np.ndarray
         Frequency values
     t_new : time values
 
@@ -81,7 +81,7 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
             break
     return np.array(freqs), np.array(t_new)
 
-def __linint(x, t, t_new):
+def linint(x, t, t_new, cut_nans=True):
     """
     Find values of x in t_new points.
 
@@ -93,6 +93,9 @@ def __linint(x, t, t_new):
         Time values.
     t_new : np.ndarray
         New time values.
+    cat_nans : boolean
+        If True, the nan values at the begin and at the end of produced array will removed. 
+        Such values will be appear if t_new is wider than t.
  
     Returns
     -------
@@ -100,13 +103,15 @@ def __linint(x, t, t_new):
         New signal values.
  
     """
-    # TODO: add tests for it
     x_new = np.zeros(len(t_new)) * np.nan
     for x_p, t_p, x_c, t_c in zip(x[:-1], t[:-1], x[1:], t[1:]):
         k = (x_c - x_p) / (t_c - t_p)
         b = x_p - k*t_p
         ind = (t_new>=t_p)&(t_new<=t_c) 
         x_new[ind] = k*t_new[ind] + b
+    if cut_nans:
+        x_new = np.array(list(filter(lambda v: v==v, x_new))) # TODO: ugly construction
+    print(x_new)
     return x_new
 
 def wave_lens(x, t):
@@ -156,6 +161,6 @@ def freqs_by_wave_len(x, t):
     
     """
     wl, t_wl = wave_lens(x, t)
-    freqs = 1/__linint(wl, t_wl, t)
+    freqs = 1/linint(wl, t_wl, t)
     return freqs
     

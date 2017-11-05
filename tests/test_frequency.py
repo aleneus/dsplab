@@ -60,3 +60,27 @@ class TestFrequency(unittest.TestCase):
         x = [(-1)**i for i in range(100)]
         freqs, t = freq.freqs_stupid(x, fs, window_width = 10, window_step = 5)
         self.assertEqual(t[-1], (100-1)/fs)
+
+    def test_linint(self):
+        t = np.array([0,1,3,4,6,7,9])
+        x = np.array([0,1,3,4,6,7,9])
+        t_new = np.array([0,1,2,3,4,5,6,7,8,9])
+        x_new = freq.linint(x, t, t_new)
+        self.assertEqual(sum(x_new), 45)
+
+    def test_linint_all_empty(self):
+        t = np.array([])
+        x = np.array([])
+        t_new = np.array([])
+        x_new = freq.linint(x, t, t_new)
+        self.assertEqual(len(x_new), 0)
+
+    def test_linint_cut_nans(self):
+        t = np.array([0,1,3,4,6,7])
+        x = np.array([0,1,3,4,6,7])
+        t_new = np.array([0,1,2,3,4,5,6,7,8,9])
+        x_new = freq.linint(x, t, t_new, cut_nans=True)
+        self.assertEqual(sum(x_new), 28)
+        self.assertEqual(len(x_new), 8)
+
+
