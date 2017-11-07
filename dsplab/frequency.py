@@ -13,11 +13,13 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# TODO: rename this module
+
 import numpy as np
 
-def freq_stupid(x, fs):
+def freq_by_extremums(x, fs):
     """
-    Calculate frequency of oscillating signal by extremums
+    Calculate frequency of oscillating signal by extremums.
 
     Parameters
     ----------
@@ -35,13 +37,26 @@ def freq_stupid(x, fs):
     T = len(x)/fs
     n_max = 0
     n_min = 0
-    for x_prev, x_current, x_next in zip(x[:-2], x[1:-1], x[2:]):
-        if (x_prev < x_current) and (x_current >= x_next):
+    for x_p, x_c, x_n in zip(x[:-2], x[1:-1], x[2:]):
+        if (x_p < x_c) and (x_c >= x_n):
             n_max += 1
-        if (x_prev > x_current) and (x_current <= x_next):
+        if (x_p > x_c) and (x_c <= x_n):
             n_min += 1
     n = (n_max + n_min) / 2
     return n / T
+
+def freq_by_zeros(x, fs):
+    """
+    Calculate frequency of oscillating signal by zeros. Signal must be detrended before.
+
+    # TODO: par and ret
+    """
+    T = len(x)/fs
+    n = 0
+    for x_p, x_c in zip(x[:-1], x[1:]):
+        if x_p * x_c < 0:
+            n += 1
+    return n / 2 / T
 
 def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     """
@@ -72,7 +87,7 @@ def freqs_stupid(x, fs, window_width = 1024, window_step = 512):
     if stop > len(x):
         return freqs, t_new
     while True:
-        f = freq_stupid(x[start : stop], fs)
+        f = freq_by_zeros(x[start : stop], fs)
         freqs.append(f)
         t_new.append((stop-1)/fs)
         start += window_step
@@ -113,7 +128,7 @@ def linint(x, t, t_new, cut_nans=True):
 
 def wave_lens(x, t):
     """
-    Calculate wave lengths of signal by space between local maximums.
+    Calculate wave lengths of signal by space between zeros.
 
     Parameters
     ----------
@@ -131,11 +146,11 @@ def wave_lens(x, t):
     
     """
     tms = []
-    for t_c, x_p, x_c, x_n in zip(t[1:-1], x[:-2], x[1:-1], x[2:]):
-        if (x_p < x_c) and (x_c >= x_n):
+    for t_c, x_p, x_c in zip(t[1:], x[:-1], x[1:]):
+        if x_p * x_c < 0:
             tms.append(t_c)
     # TODO: replace diff by something like real-time, do all in one cycle
-    lens = np.diff(tms)
+    lens = np.diff(tms) * 2
     t_lens = np.array(tms[1:])
     return lens, t_lens
 
@@ -169,10 +184,4 @@ def freqs_by_wave_len(x, t, cut_nans=True):
                 t_cut.append(tt)
         return np.array(freqs_cut), t_cut
     return freqs, t
-
-# TODO: add freqs_by_zeros for detrended signal
-def freqs_by_zeros(x, t, cut_nans=True):
-    """
-    """
-    pass
 
