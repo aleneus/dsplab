@@ -51,8 +51,9 @@ def calc_freq_phasor(x, t, f_central, f_width, filter_order=5):
     c = (yI_**2)[:-1]
     d = (yQ_**2)[:-1]
     freqs = (a - b) / (c + d)
-    return freqs + f_central
+    return freqs + f_central # TODO: return t?
 
+# TODO: why calc_freq_phasor_fir is not in frequency module?
 def calc_freq_phasor_fir(x, t, f_central, f_width, filter_len):
     """
     Return instantaneous frequency of modulated signal using phasor.
@@ -74,4 +75,4 @@ def calc_freq_phasor_fir(x, t, f_central, f_width, filter_len):
     c = (yI_**2)[:-1]
     d = (yQ_**2)[:-1]
     freqs = (a - b) / (c + d)
-    return freqs + f_central
+    return freqs + f_central # TODO: return t?

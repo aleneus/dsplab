@@ -169,3 +169,10 @@ def freqs_by_wave_len(x, t, cut_nans=True):
                 t_cut.append(tt)
         return np.array(freqs_cut), t_cut
     return freqs, t
+
+# TODO: add freqs_by_zeros for detrended signal
+def freqs_by_zeros(x, t, cut_nans=True):
+    """
+    """
+    pass
+
