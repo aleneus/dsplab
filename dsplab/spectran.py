@@ -40,7 +40,7 @@ def expand_to(x, new_len):
     x_exp[0 : len(x)] = x
     return x_exp
 
-def spectrum(x, fs, use_window=True, one_side=False, return_amplitude=True, extra_len=None):
+def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, extra_len=None):
     """
     Return the Fourier spectrum of signal.
 
@@ -50,6 +50,8 @@ def spectrum(x, fs, use_window=True, one_side=False, return_amplitude=True, extr
         Signal values
     fs : float
         Sampling frequency (Hz)
+    window : str
+        Window.
     one_side : boolean
         If True, the one-side spectrum is calculated (default value is False)
     return_amplitude : boolean
@@ -64,15 +66,11 @@ def spectrum(x, fs, use_window=True, one_side=False, return_amplitude=True, extr
 
     """
     # window signal
-    len_x = len(x)
-    if use_window:
-        win = np.hamming(len(x)) # TODO: maybe the user wants to select window
-        xx = x * win * 1.856
-    # expanding
-    if extra_len:
-        xx = expand_to(xx, extra_len)
+    win = sig.get_window(window, len(x))
+    xx = x * win * len(win)/sum(win)
     # FFT
-    X = 2 * fftpack.fft(xx) / len_x
+    n = max(extra_len, len(x))
+    X = 2 * fftpack.fft(xx, n) / len(x)
     f_X = np.fft.fftfreq(len(X), 1/fs)
     # one-side
     if one_side:
@@ -84,7 +82,7 @@ def spectrum(x, fs, use_window=True, one_side=False, return_amplitude=True, extr
         X = abs(X)
     return X, f_X
 
-def stft(x, fs, nseg, nstep, nfft=None, padded=False):
+def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     """
     Return result of short-time fourier transform.
 
@@ -98,6 +96,8 @@ def stft(x, fs, nseg, nstep, nfft=None, padded=False):
         Length of segment (in samples).
     nstep : int
         Length of step (in samples).
+    window : str
+        Window.
     nfft : int 
         Length of the FFT. If None or less than nseg, the FFT length is nseg.
 
@@ -117,10 +117,10 @@ def stft(x, fs, nseg, nstep, nfft=None, padded=False):
         nseg_exp = nseg
     else:
         nseg_exp = max(nseg, nfft)
-        
+
     for i in range(0, len(x)-nseg + 1, nstep):
         seg = x[i : i+nseg]
-        X, f_X = spectrum(seg, fs, extra_len=nfft, use_window=True)
+        X, f_X = spectrum(seg, fs, extra_len=nfft, window=window)
         Xs.append(X)
     return np.array(Xs)
 
