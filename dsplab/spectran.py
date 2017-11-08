@@ -90,6 +90,7 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     """
     Xs=[]
     # TODO: consider nstep in padding
+    xx = x
     if padded:
         L = len(x) + (nseg - len(x) % nseg) % nseg
         z = np.zeros(L)
