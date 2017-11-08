@@ -37,9 +37,9 @@ def spectrum(x, fs=1, window='hamming', one_side=False, return_amplitude=True, e
 
     Returns
     -------
-    X : np.array of complex numbers
+    X : np.ndarray of complex numbers
         Spectrum
-    f_X : np.array of floats
+    f_X : np.ndarray of floats
         Frequency values (Hz)
 
     """
