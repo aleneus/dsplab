@@ -17,29 +17,6 @@ import scipy.fftpack as fftpack
 import scipy.signal as sig
 import numpy as np
 
-def expand_to(x, new_len):
-    """
-    Add zeros to signal. For doing magick with resolution in spectrum.
-
-    Parameters
-    ----------
-    x : array_like
-        Signal values.
-    new_len : integer
-        New length.
-
-    Returns
-    -------
-    x_exp : numpy.array
-        Signal expanded by zeros.
-    
-    """
-    if new_len <= len(x):
-        return x
-    x_exp = np.zeros(new_len)
-    x_exp[0 : len(x)] = x
-    return x_exp
-
 def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, extra_len=None):
     """
     Return the Fourier spectrum of signal.
@@ -69,7 +46,10 @@ def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, ext
     win = sig.get_window(window, len(x))
     xx = x * win * len(win)/sum(win)
     # FFT
-    n = max(extra_len, len(x))
+    if extra_len:
+        n = max(extra_len, len(x))
+    else:
+        n = len(x)
     X = 2 * fftpack.fft(xx, n) / len(x)
     f_X = np.fft.fftfreq(len(X), 1/fs)
     # one-side
@@ -109,17 +89,15 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     
     """
     Xs=[]
+    # TODO: consider nstep in padding
     if padded:
         L = len(x) + (nseg - len(x) % nseg) % nseg
-        x = expand_to(x, L)
+        z = np.zeros(L)
+        z[:len(x)] = x.copy()
+        xx = z
 
-    if not nfft:
-        nseg_exp = nseg
-    else:
-        nseg_exp = max(nseg, nfft)
-
-    for i in range(0, len(x)-nseg + 1, nstep):
-        seg = x[i : i+nseg]
+    for i in range(0, len(xx)-nseg + 1, nstep):
+        seg = xx[i : i+nseg]
         X, f_X = spectrum(seg, fs, extra_len=nfft, window=window)
         Xs.append(X)
     return np.array(Xs)
