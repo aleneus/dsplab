@@ -1,3 +1,8 @@
+0.13
+====
+* Function for calculation of frequency using wave lengths was added.
+* Fixed errors in spectrogram calculation.
+
 0.12
 ====
 

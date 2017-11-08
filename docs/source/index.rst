@@ -18,11 +18,11 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.13
+What's new in 0.14
 ------------------
 
-* Function for calculation of frequency using wave lengths was added.
-* Fixed errors in spectrogram calculation.
+* Window parameter was added to spectrum and stft.
+* Some code in spectran enhanced.
 
 Modules
 -------
