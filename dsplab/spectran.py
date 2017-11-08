@@ -18,8 +18,7 @@ import scipy.signal as sig
 import numpy as np
 
 # TODO: use calculated window, not string
-# TODO: default fs
-def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, extra_len=None):
+def spectrum(x, fs=1, window='hamming', one_side=False, return_amplitude=True, extra_len=None):
     """
     Return the Fourier spectrum of signal.
 
@@ -66,7 +65,7 @@ def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, ext
 
 # TODO: use calculates window, not string
 # TODO: default values
-def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
+def stft(x, fs=1, nseg=256, nstep=None, window='hamming', nfft=None, padded=False):
     """
     Return result of short-time fourier transform.
 
@@ -79,7 +78,7 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     nseg : int
         Length of segment (in samples).
     nstep : int
-        Length of step (in samples).
+        Optional. Length of step (in samples). If not setted then equal to nseg//2.
     window : str
         Window.
     nfft : int 
@@ -92,7 +91,8 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
         Result of STFT, two-side spectrums.
     
     """
-    # TODO: calc nstep if not setted
+    if not nstep:
+        nstep = nseg//2 # TODO: test it
     # TODO: consider nstep in padding
     xx = x.copy()
     if padded:
@@ -109,8 +109,7 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     return np.array(Xs) # TODO: return times too
 
 # TODO: only here fs has default value
-# TODO: Use None default for extra_len
-def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_len=1000):
+def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_len=None):
     """
     Return spectrogram data prepared to further plotting.
 
@@ -147,6 +146,7 @@ def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_l
         fs = 1/(t[1] - t[0])
     if not nstep:
         nstep = nseg//2
+    # TODO: test with None extra_len
     Xs = 2*stft(x=x, fs=fs, nseg=nseg, nstep=nstep, nfft=extra_len, padded=True)
     if freq_bounds:
         freqs = np.fft.fftfreq(len(Xs[0]), 1/fs)
