@@ -39,4 +39,4 @@ plt.ylabel("Amplitude")
 plt.grid(True)
 
 plt.tight_layout()
-plt.savefig("amplitude-spectrum.png")
+plt.show()

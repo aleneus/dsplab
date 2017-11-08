@@ -17,6 +17,7 @@ import scipy.fftpack as fftpack
 import scipy.signal as sig
 import numpy as np
 
+# TODO: use calculated window, not string
 def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, extra_len=None):
     """
     Return the Fourier spectrum of signal.
@@ -62,6 +63,7 @@ def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, ext
         X = abs(X)
     return X, f_X
 
+# TODO: use calculates window, not string
 def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     """
     Return result of short-time fourier transform.
@@ -85,23 +87,23 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     -------
 
     Xs : numpy.ndarray
-        Result of STFT.
+        Result of STFT, two-side spectrums.
     
     """
-    Xs=[]
     # TODO: consider nstep in padding
-    xx = x
+    xx = x.copy()
     if padded:
-        L = len(x) + (nseg - len(x) % nseg) % nseg
+        L = len(xx) + (nseg - len(xx) % nseg) % nseg
         z = np.zeros(L)
-        z[:len(x)] = x.copy()
+        z[:len(xx)] = xx
         xx = z
 
+    Xs=[]
     for i in range(0, len(xx)-nseg + 1, nstep):
         seg = xx[i : i+nseg]
-        X, f_X = spectrum(seg, fs, extra_len=nfft, window=window)
+        X = spectrum(seg, fs, extra_len=nfft, window=window)[0]
         Xs.append(X)
-    return np.array(Xs)
+    return np.array(Xs) # TODO: return times too
 
 def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_len=1000):
     """
