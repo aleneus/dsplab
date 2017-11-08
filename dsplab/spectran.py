@@ -18,6 +18,7 @@ import scipy.signal as sig
 import numpy as np
 
 # TODO: use calculated window, not string
+# TODO: default fs
 def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, extra_len=None):
     """
     Return the Fourier spectrum of signal.
@@ -64,6 +65,7 @@ def spectrum(x, fs, window='hamming', one_side=False, return_amplitude=True, ext
     return X, f_X
 
 # TODO: use calculates window, not string
+# TODO: default values
 def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
     """
     Return result of short-time fourier transform.
@@ -90,6 +92,7 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
         Result of STFT, two-side spectrums.
     
     """
+    # TODO: calc nstep if not setted
     # TODO: consider nstep in padding
     xx = x.copy()
     if padded:
@@ -105,6 +108,8 @@ def stft(x, fs, nseg, nstep, window='hamming', nfft=None, padded=False):
         Xs.append(X)
     return np.array(Xs) # TODO: return times too
 
+# TODO: only here fs has default value
+# TODO: Use None default for extra_len
 def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_len=1000):
     """
     Return spectrogram data prepared to further plotting.
@@ -134,6 +139,8 @@ def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_l
         Time values
 
     """
+    if len(x) < nseg:
+        return [], []
     if len(t)==0:
         t = np.linspace(0, (len(x)-1)*fs, len(x))
     else:
@@ -145,5 +152,5 @@ def calc_specgram(x, fs=1, t=[], nseg=256, nstep=None, freq_bounds=None, extra_l
         freqs = np.fft.fftfreq(len(Xs[0]), 1/fs)
         ind = (freqs>=freq_bounds[0])&(freqs<=freq_bounds[1]) # TODO: thick about it, maybe mistake here
         Xs = Xs[:,ind]
-    t_new = np.linspace(t[nseg], t[-1], len(Xs))
-    return np.transpose(Xs), t_new
+    t_new = np.linspace(t[nseg-1], t[-1], len(Xs))
+    return np.transpose(Xs), t_new # TODO: consider mirroring when plotted

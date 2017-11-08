@@ -34,13 +34,6 @@ class TestSpectrum(unittest.TestCase):
         X, f_X = sp.spectrum(x, fs=1, extra_len=16)
         self.assertEqual(16, len(X))
 
-class TestExpandTo(unittest.TestCase):
-    def test_expand_to(self):
-        x = [1,1,1,1,1,1,1,1]
-        xe = sp.expand_to(x, 16)
-        self.assertEqual(len(xe), 16)
-        self.assertEqual(sum(x), sum(xe))
-
 class TestSTFT(unittest.TestCase):
     def test_stft_number_of_spectrums_no_overlap(self):
         fs = 1
@@ -72,14 +65,31 @@ class TestSTFT(unittest.TestCase):
         Xs = sp.stft(x, fs, 3, 3, window='hanning', nfft=None, padded=True)
         self.assertEqual(len(Xs), 3)
 
+    def test_stft_short_signal(self):
+        x = np.linspace(0, 1, 100)
+        Xs = sp.stft(x, fs=1, nseg=256, nstep=128)
+        self.assertEqual(len(Xs), 0)
+
 class TestSpecgram(unittest.TestCase):
     def test_calc_specgram_just_run(self):
-        x = np.linspace(0, 100, 100)
+        x = np.linspace(0, 100, 1024)
         sp.calc_specgram(x)
         self.assertTrue(True)
 
+    def test_calc_specgram_short_signal(self):
+        x = np.linspace(0, 1, 100)
+        Xs, t = sp.calc_specgram(x, nseg=256)
+        self.assertEqual(len(Xs), 0)
+        self.assertEqual(len(t), 0)
+
+    def test_calc_specgram_len_signal_and_nseg_are_equal(self):
+        x = np.linspace(0, 1, 256)
+        Xs, t = sp.calc_specgram(x, nseg=256)
+        self.assertEqual(len(Xs[0]), 1)
+        self.assertEqual(len(t), 1)
+
     def test_calc_specgram_time_used_just_run(self):
-        t = np.linspace(0, 100, 100)
+        t = np.linspace(0, 100, 1024)
         x = np.cos(t)
         sp.calc_specgram(x, t=t)
         self.assertTrue(True)
