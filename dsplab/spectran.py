@@ -68,7 +68,7 @@ def spectrum(x, fs=1, window='hamming', one_side=False, return_amplitude=True, e
         f_X = f_X[ind]
         X = X[ind]
     # calc amplitude
-    if return_amplitude:
+    if return_amplitude: # TODO: result = 'amplitude|phase|None'
         X = abs(X)
     return X, f_X
 
@@ -113,7 +113,7 @@ def stft(x, fs=1, nseg=256, nstep=None, window='hamming', nfft=None, padded=Fals
     Xs=[]
     for i in range(0, len(xx)-nseg + 1, nstep):
         seg = xx[i : i+nseg]
-        X = spectrum(seg, fs, extra_len=nfft, window=window)[0]
+        X = spectrum(seg, fs, extra_len=nfft, window=window, save_energy=True)[0]
         Xs.append(X)
     return np.array(Xs) # TODO: return times too
 
