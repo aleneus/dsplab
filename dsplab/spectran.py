@@ -18,7 +18,9 @@ import scipy.signal as sig
 import numpy as np
 
 # TODO: use calculated window, not string
-def spectrum(x, fs=1, window='hamming', one_side=False, return_amplitude=True, extra_len=None):
+# TODO: replace save_energy to some positive argument. Something like save_amplitude or fit_amplitude.
+# TODO: Is the default value for save_energy correct?
+def spectrum(x, fs=1, window='hamming', one_side=False, return_amplitude=True, extra_len=None, save_energy=False):
     """
     Return the Fourier spectrum of signal.
 
@@ -34,6 +36,10 @@ def spectrum(x, fs=1, window='hamming', one_side=False, return_amplitude=True, e
         If True, the one-side spectrum is calculated (default value is False)
     return_amplitude : boolean
         If True, the amplitude spectrum is calculated
+    save_energy : boolean
+        If True, the result of FFT has the same energy as signal. 
+        If False, the X (spectrum) is multiplied to 2/len(x). Use False if you want to see 
+        the correct amplitude of components in spectrum.
 
     Returns
     -------
@@ -51,7 +57,10 @@ def spectrum(x, fs=1, window='hamming', one_side=False, return_amplitude=True, e
         n = max(extra_len, len(x))
     else:
         n = len(x)
-    X = 2 * fftpack.fft(xx, n) / len(x)
+    #X = 2 * fftpack.fft(xx, n) / len(x)
+    X = fftpack.fft(xx, n)
+    if not save_energy:
+        X *= 2/len(x)
     f_X = np.fft.fftfreq(len(X), 1/fs)
     # one-side
     if one_side:
