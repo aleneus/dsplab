@@ -18,11 +18,10 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.14
+What's new in 0.15
 ------------------
 
-* Window parameter was added to spectrum and stft.
-* Some code in spectran enhanced.
+* More universal function for QI-processing was added.
 
 Modules
 -------

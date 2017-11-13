@@ -1,3 +1,9 @@
+0.14
+====
+
+* Window parameter was added to spectrum and stft.
+* Some code in spectran enhanced.
+
 0.13
 ====
 * Function for calculation of frequency using wave lengths was added.
