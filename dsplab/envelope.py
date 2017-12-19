@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+from scipy.signal import get_window
 
 def envelope_by_extremums(x, fs = 1, t = []):
     """ 
