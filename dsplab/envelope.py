@@ -51,10 +51,38 @@ def envelope_by_extremums(x, fs = 1, t = []):
         x_new.append(x[-1])
     return np.array(x_new), np.array(t_new)
 
+def digital_hilbert_filter(ntaps=101, window='hamming'):
+    """
+    Calculate digital hilbert filter.
+
+
+    Parameters
+    ----------
+    ntaps : integer
+        Length of filter.
+    window : str
+        Window. Default is 'hamming'.
+    
+    Returns
+    -------
+    h : np.array
+        Filter.
+
+    """
+    if ntaps%2 == 0:
+        raise ValueError("ntaps of digital Hilbert filter must be odd.")
+    L = ntaps//2
+    h = [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(-L, 0)]
+    h += [0]
+    h += [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(1, L+1)]
+    w = get_window(window, ntaps)
+    h *= w
+    return h
+
 def hilbert_filter(L):
     """
-    Calculate digital hilbert filter smoothed with Hamming's window
-
+    Deprecated in 0.16. Calculate digital hilbert filter smoothed with Hamming's window
+ 
 
     Parameters
     ----------
@@ -64,7 +92,7 @@ def hilbert_filter(L):
     Returns
     -------
     h : np.array
-        Flter with length = 2*L + 1
+        Filter with length = 2*L + 1
 
     """
     h = [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(-L, 0)]
