@@ -36,6 +36,7 @@ Modules
    envelope
    prony
    modulation
+   online
 
 History
 -------   
