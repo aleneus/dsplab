@@ -1,3 +1,14 @@
+0.16
+====
+
+* Add digital_hilbert_filter function to envelope and deprecate hilbert_filter
+* Add example for IQ demodulation
+
+0.15
+====
+
+* More universal function for QI-processing was added.
+
 0.14
 ====
 

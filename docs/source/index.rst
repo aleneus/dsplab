@@ -18,10 +18,10 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.15
+What's new in 0.17
 ------------------
 
-* More universal function for QI-processing was added.
+* The base class for online filters was added
 
 Modules
 -------
