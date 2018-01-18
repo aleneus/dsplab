@@ -3,9 +3,8 @@
 import numpy as np
 from collections import deque
 
-pi = np.pi
-pi2 = 2*np.pi
-e = np.exp(1)
+pi = 3.141592653589793
+pi2 = 2*pi
 
 def unwrap_point(w):
     """ Unwrap angle (for signle value). """
