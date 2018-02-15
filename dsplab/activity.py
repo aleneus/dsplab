@@ -2,11 +2,15 @@
 
 from collections import deque
 import json
+import numpy as np
 
 def pretty_json_string(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 class Activity:
+    def __init__(self):
+        self.intermed = {}
+    
     def info(self):
         return ""
     
@@ -203,7 +207,7 @@ class Or(OnlineLogic):
             res += inpt.add_sample(x) * (1 - res)
         return res
     
-class Strategy:
+class Strategy(Activity):
     # TODO: doc
     def __init__(self, name="", info=""):
         """ Initialization. """
@@ -262,6 +266,10 @@ class Strategy:
         for work in works:
             workers_info += splitter+self.workers[work].info+splitter
         return workers_info
+
+    def info(self):
+        # TODO: refact collect_workers_info and info pair
+        return collect_workers_info()
 
     def __call__(self):
         """ Start activity. """

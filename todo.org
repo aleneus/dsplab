@@ -1,1 +1,2 @@
 * TODO Remove io.py from dsplab
+* TODO Refactor activity module
