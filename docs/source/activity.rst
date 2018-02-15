@@ -1,7 +1,7 @@
-online
-======
+activity
+========
 
-.. automodule:: dsplab.online
+.. automodule:: dsplab.activity
    :members:
    :undoc-members:
    :show-inheritance:

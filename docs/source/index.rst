@@ -18,10 +18,10 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.17
+What's new in 0.18
 ------------------
 
-* The base class for online filters was added
+* The module activity containing base classes for different processing tools added.
 
 Modules
 -------
@@ -36,7 +36,7 @@ Modules
    envelope
    prony
    modulation
-   online
+   activity
 
 History
 -------   

@@ -1,3 +1,8 @@
+0.17
+====
+
+* The base class for online filters was added
+
 0.16
 ====
 
