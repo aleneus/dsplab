@@ -109,8 +109,8 @@ class OnlineFilter(Activity):
         """
         return self.add_sample_func(x)
 
-    def __call__(self):
-        return self.add_sample()
+    def __call__(self, x):
+        return self.add_sample(x)
 
     def __add_sample_simple(self, x):
         """ Add sample without using queues. """
