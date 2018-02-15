@@ -29,7 +29,6 @@ Modules
 .. toctree::
    :maxdepth: 2
 
-   io
    spectran
    filtration
    frequency

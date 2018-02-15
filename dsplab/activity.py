@@ -5,16 +5,48 @@ import json
 import numpy as np
 
 def pretty_json_string(data):
+    """ Return sorted JSON-string with indents. 
+
+    Parameters
+    ----------
+    data: dict
+        Any data.
+
+    Returns
+    -------
+    : str
+        Formatted JSON-string.
+
+    """
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 class Activity:
+    """ Any activity. Something that may be called and can provide the information about itself. """
     def __init__(self):
+        """ Initialization. """
         self.intermed = {}
     
-    def info(self):
-        return ""
+    def info(self, as_string=False):
+        """ Return the information about activity. 
+        
+        Parameters
+        ----------
+        as_string: bool
+            Method returns JSON-string if True and dict overwise.
+
+
+        Returns
+        -------
+        : str or dict
+            Information about activity.
+
+        """
+        d = {}
+        d['class'] = self.__class__.__name__
+        return pretty_json_string(d) if as_string else d
     
     def __call__(self):
+        """ Act. """
         raise NotImplementedError
 
 class OnlineFilter(Activity):
@@ -60,10 +92,6 @@ class OnlineFilter(Activity):
         self.ntaps = ntaps
         self.smooth_ntaps = smooth_ntaps
 
-    def info(self):
-        # TODO: implement
-        pass
-
     def add_sample(self, x):
         """
         Add input sample to filter and return output value.
@@ -82,8 +110,6 @@ class OnlineFilter(Activity):
         return self.add_sample_func(x)
 
     def __call__(self):
-        # TODO: doc
-        # TODO: [1] refactor add_sample and __call__ pair
         return self.add_sample()
 
     def __add_sample_simple(self, x):
@@ -208,7 +234,13 @@ class Or(OnlineLogic):
         return res
     
 class Strategy(Activity):
-    # TODO: doc
+    """ 
+    Comlex offline activity for wich it is required that
+    caller have the opprtunity to choose different workers
+    for different steps of process.
+
+    """
+    # TODO: redesign interface
     def __init__(self, name="", info=""):
         """ Initialization. """
         self.name = name
@@ -231,6 +263,7 @@ class Strategy(Activity):
         self.workers[work] = worker
 
     def set_default_worker(self, work, worker):
+        # TODO: [2] combine with previous
         """
         Set default worker.
 
@@ -269,9 +302,9 @@ class Strategy(Activity):
 
     def info(self):
         # TODO: refact collect_workers_info and info pair
+        # TODO: make info method to return dict or JSON string
         return collect_workers_info()
 
     def __call__(self):
-        """ Start activity. """
         raise NotImplementedError
 
