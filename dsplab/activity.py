@@ -260,24 +260,9 @@ class Strategy(Activity):
             Worker object.
         
         """
-        self.workers[work] = worker
-
-    def set_default_worker(self, work, worker):
-        # TODO: [2] combine with previous
-        """
-        Set default worker.
-
-        Parameters
-        ----------
-        work : str
-            Name of work.
-        worker : object
-            Worker object.
-
-        """
         if not work in self.workers.keys():
             self.workers[work] = worker
-        
+
     def collect_workers_info(self, works, splitter='\n'):
         """
         Collect information from workers.
