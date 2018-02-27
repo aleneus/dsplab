@@ -243,9 +243,11 @@ def trend_smooth(x, fs=1, t=[], cut_off=0.5):
     """
     if len(t) == 0:
         t = np.linspace(0, (len(x)-1)*fs, len(x))
-    fs = 1/(t[1]-t[0])
-    wl = int(fs/2/cut_off)
-    w = np.hamming(wl)
-    trend = np.convolve(x, w, mode="valid") / np.sum(w)
-    start = len(x) - (max(len(x), len(w)) - min(len(x), len(w)) + 1)
-    return trend, t[start:].copy()
+    else:
+        fs = 1.0/(t[1]-t[0])
+    win_len = int(fs/2/cut_off)
+    if win_len >= len(x):
+        return None
+    win = np.hamming(win_len)
+    trend = np.convolve(x, win, mode="valid") / np.sum(win)
+    return trend, t[win_len-1:].copy()
