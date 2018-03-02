@@ -1,6 +1,6 @@
 """ This module implements the base classes for offline and online data processing tools. """
 
-from collections import deque
+from collections import deque, OrderedDict
 import json
 import numpy as np
 
@@ -21,7 +21,8 @@ def pretty_json_string(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 class Activity:
-    """ Any activity. Something that may be called and can provide the information about itself. """
+    """ Any activity. Something that may be called and can provide the
+    information about itself. """
     def __init__(self):
         """ Initialization. """
         self.intermed = {}
@@ -58,9 +59,11 @@ class OnlineFilter(Activity):
         Parameters
         ----------
         ntaps : int
-            Length of internal queue using for accumulation of input samples. Default is None.
+            Length of internal queue using for accumulation of input
+            samples. Default is None.
         smooth_ntaps : int
-            Length of queue using for smoothing output values. Default id None.
+            Length of queue using for smoothing output values. Default
+            id None.
         fill_with : float
             Initial value of every element of queues.
         step : int
@@ -180,7 +183,8 @@ class OnlineFilter(Activity):
         raise NotImplementedError
     
 class OnlineLogic(OnlineFilter):
-    """ Base class for logical connectors of outputs of several detectors or other connectors. """
+    """ Base class for logical connectors of outputs of several
+    detectors or other connectors. """
     def __init__(self, inputs=[]):
         """ 
         Initialization.
@@ -245,8 +249,8 @@ class Strategy(Activity):
         """ Initialization. """
         self.name = name
         self.info = info
-        self.intermed = {}
-        self.workers = {}
+        self.intermed = {} # TODO: remove from here
+        self.workers = OrderedDict()
 
     def set_worker(self, work, worker):
         """
@@ -293,3 +297,12 @@ class Strategy(Activity):
     def __call__(self):
         raise NotImplementedError
 
+class LinearStrategy(Strategy):
+    """ Linear strategy. Works called one by one, from first setted
+    work to the last one. """
+    def __call__(self, x):
+        y = x
+        print(self.workers)
+        for work in self.workers:
+            y = self.workers[work](y)
+        return y
