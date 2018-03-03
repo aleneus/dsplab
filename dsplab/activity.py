@@ -1,31 +1,19 @@
 """ This module implements the base classes for offline and online data processing tools. """
 
+# TODO: add demos for info
+
 from collections import deque, OrderedDict
 import json
 import numpy as np
-
-def pretty_json_string(data):
-    """ Return sorted JSON-string with indents. 
-
-    Parameters
-    ----------
-    data: dict
-        Any data.
-
-    Returns
-    -------
-    : str
-        Formatted JSON-string.
-
-    """
-    return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 class Activity:
     """ Any activity. Something that may be called and can provide the
     information about itself. """
     def __init__(self):
         """ Initialization. """
-        self.intermed = {}
+        self.intermed = {} # TODO: remove carefully
+        self._info = {}
+        self._info['class'] = self.__class__.__name__
     
     def info(self, as_string=False):
         """ Return the information about activity. 
@@ -42,9 +30,10 @@ class Activity:
             Information about activity.
 
         """
-        d = {}
-        d['class'] = self.__class__.__name__
-        return pretty_json_string(d) if as_string else d
+        if as_string:
+            return json.dumps(self._info, sort_keys=True, indent=4, separators=(',', ': '))
+        else:
+            return self._info
     
     def __call__(self):
         """ Act. """
@@ -70,6 +59,8 @@ class OnlineFilter(Activity):
             Step. Must be positive.
 
         """
+        super().__init__()
+        # TODO: add arguments to self._info
         self.add_sample_func = None
         if   (ntaps == None) and (smooth_ntaps == None):
             self.add_sample_func = self.__add_sample_simple
@@ -110,6 +101,7 @@ class OnlineFilter(Activity):
             Output value.
 
         """
+        # TODO: depracate, use __call__
         return self.add_sample_func(x)
 
     def __call__(self, x):
@@ -185,6 +177,7 @@ class OnlineFilter(Activity):
 class OnlineLogic(OnlineFilter):
     """ Base class for logical connectors of outputs of several
     detectors or other connectors. """
+    # TODO: test info
     def __init__(self, inputs=[]):
         """ 
         Initialization.
@@ -195,17 +188,10 @@ class OnlineLogic(OnlineFilter):
             Input filters.
 
         """
+        super().__init__()
+        self._info['descr'] = 'Logical operation'
+        self._info['inputs'] = []
         self.inputs = inputs
-
-    def info(self, as_string=False):
-        d = {}
-        d['class'] = self.__class__.__name__
-        d['descr'] = 'Logical operation'
-        d['inputs'] = [] # TODO: discuss about key name
-        for inpt in self.inputs:
-            det_info = inpt.info()
-            d['inputs'].append(det_info)
-        return pretty_json_string(d) if as_string else d
 
     def add_input(self, inpt):
         """ Add input of other connector.
@@ -217,6 +203,7 @@ class OnlineLogic(OnlineFilter):
 
         """
         self.inputs.append(inpt)
+        self._info['inputs'].append(inpt.info())
 
     def add_sample(self, xs):
         raise NotImplementedError
@@ -236,7 +223,38 @@ class Or(OnlineLogic):
         for (inpt, x) in zip(self.inputs, xs):
             res += inpt.add_sample(x) * (1 - res)
         return res
+
+class Work(Activity):
+    # TODO: doc
+    def __init__(self, descr="", worker=None):
+        super().__init__()
+        self._info['work'] = {}
+        self.set_descr(descr)
+        self.set_worker(worker)
+
+    def set_descr(self, descr):
+        self.descr = descr
+        self._info['work']['descr'] = descr
+
+    def set_worker(self, worker):
+        self.worker = worker
+        try:
+            self._info['work']['worker'] = worker.info()
+        except:
+            pass
+
+    def __call__(self, *args, **kwargs):
+        y = self.worker(*args, *kwargs)
+        return y
     
+class AbstractPlan:
+    # TODO: implement
+    pass
+
+class SequencePlan(AbstractPlan):
+    # TODO: implement
+    pass
+
 class Strategy(Activity):
     """ 
     Comlex offline activity for wich it is required that
@@ -244,6 +262,7 @@ class Strategy(Activity):
     for different steps of process.
 
     """
+    # TODO: deprecate
     # TODO: redesign interface
     def __init__(self, name="", info=""):
         """ Initialization. """
@@ -306,3 +325,7 @@ class LinearStrategy(Strategy):
         for work in self.workers:
             y = self.workers[work](y)
         return y
+
+if __name__ == "__main__":
+    or_connector = Or()
+    print(or_connector.info(as_string=True))
