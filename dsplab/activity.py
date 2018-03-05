@@ -228,18 +228,18 @@ class Work(Activity):
     # TODO: doc
     def __init__(self, descr="", worker=None):
         super().__init__()
-        self._info['work'] = {}
+        #self._info['work'] = {}
         self.set_descr(descr)
         self.set_worker(worker)
 
     def set_descr(self, descr):
         self.descr = descr
-        self._info['work']['descr'] = descr
+        self._info['descr'] = descr
 
     def set_worker(self, worker):
         self.worker = worker
         try:
-            self._info['work']['worker'] = worker.info()
+            self._info['worker'] = worker.info()
         except:
             pass
 
