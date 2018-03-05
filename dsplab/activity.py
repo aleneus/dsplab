@@ -191,7 +191,9 @@ class OnlineLogic(OnlineFilter):
         super().__init__()
         self._info['descr'] = 'Logical operation'
         self._info['inputs'] = []
-        self.inputs = inputs
+        self.inputs = []
+        for inpt in inputs:
+            self.add_input(inpt)
 
     def add_input(self, inpt):
         """ Add input of other connector.
