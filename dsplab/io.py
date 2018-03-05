@@ -16,32 +16,8 @@
 import numpy as np
 
 def read_signal_from_csv(file_name, t_column=0, x_column=1, start_line=1, fs=None, delimiter=';'):
-    """ 
-    Read signal from CSV-file
-
-    Parameters
-    ----------
-    file_name : str
-        Name of input file
-    t_column : integer
-        Number of column with time values
-    x_column : integer
-        Number of column with signal values
-    start_line : integer
-        Number of first line with sample
-    fs : Sampling frequency
-        Sampling frequency. If used t_column is ignored
-    delimiter : str
-        Delimiter used in CSV-file
-
-    Returns
-    -------
-    x : np.array
-        Values of signal
-    x : np.array
-        Values of time
-
-    """
+    """ Deprecated. """
+    print("Warning! dsplab.io.read_signal_from_csv is deprecated.")
     data = np.genfromtxt(file_name, delimiter=delimiter)
     data = data.transpose()
     x = np.array(data[x_column][start_line:])

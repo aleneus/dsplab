@@ -11,7 +11,6 @@ class Activity:
     information about itself. """
     def __init__(self):
         """ Initialization. """
-        self.intermed = {} # TODO: remove carefully
         self._info = {}
         self._info['class'] = self.__class__.__name__
     
@@ -22,7 +21,6 @@ class Activity:
         ----------
         as_string: bool
             Method returns JSON-string if True and dict overwise.
-
 
         Returns
         -------
