@@ -225,18 +225,21 @@ class Or(OnlineLogic):
         return res
 
 class Work(Activity):
-    # TODO: doc
+    """ Work is activity which has some worker. Different workers can
+    be used for doing the same work. """
     def __init__(self, descr="", worker=None):
+        """ Initialization. """
         super().__init__()
-        #self._info['work'] = {}
         self.set_descr(descr)
         self.set_worker(worker)
 
     def set_descr(self, descr):
+        """ Set description of work. """
         self.descr = descr
         self._info['descr'] = descr
 
     def set_worker(self, worker):
+        """ Set worker for doing work. """
         self.worker = worker
         try:
             self._info['worker'] = worker.info()
@@ -244,6 +247,7 @@ class Work(Activity):
             pass
 
     def __call__(self, *args, **kwargs):
+        """ Do work. """
         y = self.worker(*args, *kwargs)
         return y
     

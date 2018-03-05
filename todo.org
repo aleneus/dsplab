@@ -1,5 +1,5 @@
 * Tasks
-** TODO Activity: doc activity.Work
+** DONE Document activity.Work
 ** TODO Inspect using of try in activity.Work.set_worker()
 ** TODO Refactor activity module
 ** TODO Remove io.py from dsplab
