@@ -256,19 +256,11 @@ class SequencePlan(AbstractPlan):
     pass
 
 class Strategy(Activity):
-    """ 
-    Comlex offline activity for wich it is required that
-    caller have the opprtunity to choose different workers
-    for different steps of process.
-
-    """
-    # TODO: deprecate
-    # TODO: redesign interface
+    """ Deprecated. """
     def __init__(self, name="", info=""):
         """ Initialization. """
+        print("Deprecated: dsplab.activity.Strategy")
         self.name = name
-        self.info = info
-        self.intermed = {} # TODO: remove from here
         self.workers = OrderedDict()
 
     def set_worker(self, work, worker):
@@ -283,35 +275,7 @@ class Strategy(Activity):
             Worker object.
         
         """
-        if not work in self.workers.keys():
-            self.workers[work] = worker
-
-    def collect_workers_info(self, works, splitter='\n'):
-        """
-        Collect information from workers.
-
-        Parameters
-        ----------
-        works : list of str
-            Interested works.
-        splitter : str
-            Splitter between desctriprions of works.
-
-        Return
-        ------
-        workers_info : str
-            Collected information.
-
-        """
-        workers_info = ""
-        for work in works:
-            workers_info += splitter+self.workers[work].info+splitter
-        return workers_info
-
-    def info(self):
-        # TODO: refact collect_workers_info and info pair
-        # TODO: make info method to return dict or JSON string
-        return collect_workers_info()
+        self.workers[work] = worker
 
     def __call__(self):
         raise NotImplementedError
