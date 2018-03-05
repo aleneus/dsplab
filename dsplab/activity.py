@@ -251,14 +251,85 @@ class Work(Activity):
         """ Do work. """
         y = self.worker(*args, *kwargs)
         return y
-    
-class AbstractPlan:
-    # TODO: implement
-    pass
 
-class SequencePlan(AbstractPlan):
-    # TODO: implement
-    pass
+class Node:
+    def __init__(self, work=None, inputs=[]):
+        self.work = work
+        self._res = None
+        self.set_inputs(inputs)
+
+    def get_inputs(self):
+        return self._inputs
+    def set_inputs(self, inputs):
+        self._inputs = inputs
+    inputs = property(get_inputs, set_inputs)
+
+    def output_ready(self):
+        ans = self._res is not None
+        return ans
+
+    def inputs_ready(self):
+        for inpt in self._inputs:
+            if not inpt.output_ready():
+                return False
+        return True
+
+    def result(self):
+        return self._res
+
+    def __call__(self, x=None):
+        if x is not None:
+            y = self.work(x)
+            self._res = y
+            return
+        
+        self._res = None
+        x = [inpt.result() for inpt in self._inputs]
+        if len(x) == 1:
+            x = x[0]
+        y = self.work(x)
+        self._res = y
+    
+class Plan:
+    def __init__(self):
+        super().__init__()
+        self._nodes = []
+        self._first_nodes = []
+        self._last_nodes = []
+
+    def _detect_terminals(self):
+        self._first_nodes = []
+        all_inputs = []
+        for node in self._nodes:
+            if len(node.inputs) == 0:
+                self._first_nodes.append(node)
+            for inpt in node.inputs:
+                if inpt not in all_inputs:
+                    all_inputs.append(inpt)
+
+        self._last_nodes = []
+        for node in self._nodes:
+            if node not in all_inputs:
+                self._last_nodes.append(node)
+
+    def add_node(self, node):
+        self._nodes.append(node)
+
+    def __call__(self, xs):
+        self._detect_terminals()
+        for [node, x] in zip(self._first_nodes, xs):
+            node(x)
+        
+        while True:
+            finished = True
+            for node in self._nodes:
+                if not node.output_ready() and node.inputs_ready():
+                    finished = False
+                    node()
+            if finished:
+                break
+        ys = [last_node.result() for last_node in self._last_nodes]
+        return ys
 
 class Strategy(Activity):
     """ Deprecated. """

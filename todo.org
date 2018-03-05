@@ -1,9 +1,14 @@
 * Tasks
-** DONE Document activity.Work
-** DONE Inspect using of try in activity.Work.set_worker()
-** DONE Try to use usual function as worker
+** DONE Write the first implementation of Plan
+** TODO Move Node and Plan to seperate unit
+** TODO Inspect all Plan stuff, small refactoring
+** TODO Add demo of Plan with arrays
+** TODO Add demo of Plan with merging of flows
 ** TODO Refactor activity module
 ** TODO Remove io.py from dsplab
 ** TODO Check documentation on activity.py
 ** TODO Stop use ../../../.. and so on in demos
+** DONE Document activity.Work
+** DONE Inspect using of try in activity.Work.set_worker()
+** DONE Try to use usual function as worker
 ** DONE Add demo for worker
