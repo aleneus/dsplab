@@ -1,9 +1,9 @@
 * Tasks
 ** DONE Document activity.Work
-** TODO Inspect using of try in activity.Work.set_worker()
+** DONE Inspect using of try in activity.Work.set_worker()
+** DONE Try to use usual function as worker
 ** TODO Refactor activity module
 ** TODO Remove io.py from dsplab
 ** TODO Check documentation on activity.py
-** TODO Try to use usual function as worker
 ** TODO Stop use ../../../.. and so on in demos
 ** DONE Add demo for worker

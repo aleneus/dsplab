@@ -241,6 +241,7 @@ class Work(Activity):
     def set_worker(self, worker):
         """ Set worker for doing work. """
         self.worker = worker
+        self._info['worker'] = None
         try:
             self._info['worker'] = worker.info()
         except:
