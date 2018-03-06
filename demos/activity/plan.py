@@ -3,7 +3,8 @@ import os
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
 
-from dsplab.activity import Activity, Work, Node, Plan
+from dsplab.activity import Activity, Work
+from dsplab.plan import Node, Plan
 
 class Linear(Activity):
     def __init__(self, k, b):

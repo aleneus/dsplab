@@ -29,13 +29,14 @@ Modules
 .. toctree::
    :maxdepth: 2
 
-   spectran
-   filtration
+   activity
+   plan
+   modulation
    frequency
    envelope
    prony
-   modulation
-   activity
+   spectran
+   filtration
 
 History
 -------   

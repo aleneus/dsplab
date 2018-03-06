@@ -1,8 +1,9 @@
 * Tasks
 ** DONE Write the first implementation of Plan
 ** DONE demos/activity/plan.py: print description in examples
-** TODO restore the lost docs files
-** TODO plan: add docstrings
+** DONE plan: add docstrings
+** TODO plan.py: set the required types to arguments
+** TODO Add -2018 to the lincense in all files
 ** TODO plan demo: add example with online processing
 ** TODO Move Node and Plan to seperate unit
 ** TODO Inspect all Plan stuff, small refactoring
@@ -11,7 +12,6 @@
 ** TODO Refactor activity module
 ** TODO Remove io.py from dsplab
 ** TODO Check documentation on activity.py
-** TODO Stop use ../../../.. and so on in demos
 ** DONE Document activity.Work
 ** DONE Inspect using of try in activity.Work.set_worker()
 ** DONE Try to use usual function as worker
@@ -20,5 +20,6 @@
 ** DONE Support the adding of inputs in Plan
 ** TODO Add a posibility to export plan to dot
 * Enhancement
+** TODO index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO Doc propetries
-** TODO Add 'is_' to output_ready and inputs_ready
+** DONE Add 'is_' to output_ready and inputs_ready
