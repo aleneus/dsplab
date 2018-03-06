@@ -2,7 +2,7 @@
 ** DONE Write the first implementation of Plan
 ** DONE demos/activity/plan.py: print description in examples
 ** DONE plan: add docstrings
-** TODO Add what's new in 0.19
+** DONE Add what's new in 0.19
 ** TODO plan.py: set the required types to arguments
 ** DONE Add -2018 to the lincense in all files
 ** TODO plan demo: add example with online processing
