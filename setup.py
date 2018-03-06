@@ -18,12 +18,14 @@
 from setuptools import setup
 import os
 
+from dsplab.glob import *
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name="dsplab",
-    version="0.19.0",
+    name=PACKAGE,
+    version=VERSION,
     description="Some tools for digital signal processing",
     author="Aleksandr Popov",
     author_email="aleneus@gmail.com",

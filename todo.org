@@ -19,7 +19,8 @@
 ** DONE Support the adding of inputs in Plan
 ** TODO Add a posibility to export plan to dot
 * Enhancement
-** TODO add glob.py and VERSION to it
+** TODO Use version numbers for requirements
+** DONE add glob.py and VERSION to it
 ** TODO index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO Doc propetries
 ** DONE Add 'is_' to output_ready and inputs_ready
