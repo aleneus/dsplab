@@ -1,6 +1,8 @@
 * Tasks
 ** DONE Write the first implementation of Plan
 ** DONE demos/activity/plan.py: print description in examples
+** TODO restore the lost docs files
+** TODO plan: add docstrings
 ** TODO plan demo: add example with online processing
 ** TODO Move Node and Plan to seperate unit
 ** TODO Inspect all Plan stuff, small refactoring
@@ -16,3 +18,7 @@
 ** DONE Add demo for worker
 * Proposal
 ** DONE Support the adding of inputs in Plan
+** TODO Add a posibility to export plan to dot
+* Enhancement
+** TODO Doc propetries
+** TODO Add 'is_' to output_ready and inputs_ready
