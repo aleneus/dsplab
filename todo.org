@@ -1,5 +1,6 @@
 * Tasks
 ** DONE Write the first implementation of Plan
+** DONE demos/activity/plan.py: print description in examples
 ** TODO Move Node and Plan to seperate unit
 ** TODO Inspect all Plan stuff, small refactoring
 ** TODO Add demo of Plan with arrays

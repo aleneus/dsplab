@@ -27,12 +27,17 @@ class Sum(Activity):
         return y
 
 def example_1():
-    p = Plan()
+    print("""
+    a -> b
+    b -> c, d
+    """)
     
+    p = Plan()
     a = Work("Linear transformation")
     b = Work("Linear transformation")
     c = Work("Linear transformation")
     d = Work("Linear transformation")
+    
     a.set_worker(Linear(1,1))
     b.set_worker(Linear(2,2))
     c.set_worker(Linear(3,3))
@@ -51,6 +56,11 @@ def example_1():
     print(y)
 
 def example_2():
+    print("""
+    a -> b, c
+    c, d -> d
+    """)
+    
     p = Plan()
     a = Node(work=Work("Transformation", worker=Linear(1,1)))
     b = Node(work=Work("Transformation", worker=Linear(2,2)), inputs=[a])
