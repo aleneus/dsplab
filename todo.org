@@ -2,7 +2,7 @@
 ** DONE Write the first implementation of Plan
 ** DONE demos/activity/plan.py: print description in examples
 ** DONE plan: add docstrings
-** TODO Release 0.19.0
+** TODO Add what's new in 0.19
 ** TODO plan.py: set the required types to arguments
 ** DONE Add -2018 to the lincense in all files
 ** TODO plan demo: add example with online processing
@@ -24,3 +24,5 @@
 ** TODO Doc propetries
 ** DONE Add 'is_' to output_ready and inputs_ready
 ** TODO Remove actually empty unit online.py
+** TODO Add examples for plan to docs
+** TODO Add __call__ methods to docs
