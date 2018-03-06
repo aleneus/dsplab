@@ -3,7 +3,7 @@
 ** TODO Move Node and Plan to seperate unit
 ** TODO Inspect all Plan stuff, small refactoring
 ** TODO Add demo of Plan with arrays
-** TODO Add demo of Plan with merging of flows
+** DONE Add demo of Plan with merging of flows
 ** TODO Refactor activity module
 ** TODO Remove io.py from dsplab
 ** TODO Check documentation on activity.py

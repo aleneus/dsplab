@@ -284,9 +284,10 @@ class Node:
             return
         
         self._res = None
-        x = [inpt.result() for inpt in self._inputs]
-        if len(x) == 1:
-            x = x[0]
+        if len(self._inputs) == 1:
+            x = self._inputs[0].result()
+        else:
+            x = [inpt.result() for inpt in self._inputs]
         y = self.work(x)
         self._res = y
     

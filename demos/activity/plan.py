@@ -17,7 +17,16 @@ class Linear(Activity):
         y = x*self.k + self.b
         return y
 
-if __name__ == "__main__":
+class Sum(Activity):
+    def __init__(self):
+        super().__init__()
+        self._info['descr'] = "Sum"
+
+    def __call__(self, xs):
+        y = sum(xs)
+        return y
+
+def example_1():
     p = Plan()
     
     a = Work("Linear transformation")
@@ -33,12 +42,26 @@ if __name__ == "__main__":
     node_b = Node(work=b, inputs=[node_a])
     node_c = Node(work=c, inputs=[node_b])
     node_d = Node(work=d, inputs=[node_b])
-    
-    p.add_node(node_a)
-    p.add_node(node_b)
-    p.add_node(node_c)
-    p.add_node(node_d)
+
+    for node in [node_a, node_b, node_c, node_d]:
+        p.add_node(node)
 
     x = 5
-    y = p([x,])
+    y = p([x])
     print(y)
+
+def example_2():
+    p = Plan()
+    a = Node(work=Work("Transformation", worker=Linear(1,1)))
+    b = Node(work=Work("Transformation", worker=Linear(2,2)), inputs=[a])
+    c = Node(work=Work("Transformation", worker=Linear(3,3)), inputs=[a])
+    d = Node(work=Work("Merging", worker=Sum()), inputs=[b,c])
+    for node in [a,b,c,d]:
+        p.add_node(node)
+    x = 5
+    y = p([x])
+    print(y)
+
+if __name__ == "__main__":
+    example_1()
+    example_2()
