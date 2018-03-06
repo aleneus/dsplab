@@ -1,3 +1,9 @@
+0.18
+====
+
+* The module activity containing base classes for different processing tools added.
+
+
 0.17
 ====
 

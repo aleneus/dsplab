@@ -18,10 +18,15 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.18
+What's new in 0.19
 ------------------
 
-* The module activity containing base classes for different processing tools added.
+* Activity module redesigned.
+* Info stuff of activities redesigned.
+* Work class added. Work is the activity that can be done by different
+  ways. Work has worker. Wroker is the activity.
+* Added tools for constructing the plans of works. Plan is the number
+  of linked nodes and every node is the 'work place' for some worker.
 
 Modules
 -------
