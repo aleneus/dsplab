@@ -46,23 +46,25 @@ def example_1():
     """)
     
     p = Plan()
-    a = Work("Linear transformation")
-    b = Work("Linear transformation")
-    c = Work("Linear transformation")
-    d = Work("Linear transformation")
+    work_a = Work("Linear transformation")
+    work_b = Work("Linear transformation")
+    work_c = Work("Linear transformation")
+    work_d = Work("Linear transformation")
     
-    a.set_worker(Linear(1,1))
-    b.set_worker(Linear(2,2))
-    c.set_worker(Linear(3,3))
-    d.set_worker(Linear(4,4))
+    work_a.set_worker(Linear(1,1))
+    work_b.set_worker(Linear(2,2))
+    work_c.set_worker(Linear(3,3))
+    work_d.set_worker(Linear(4,4))
     
-    node_a = Node(work=a)
-    node_b = Node(work=b, inputs=[node_a])
-    node_c = Node(work=c, inputs=[node_b])
-    node_d = Node(work=d, inputs=[node_b])
+    a = Node(work=work_a)
+    b = Node(work=work_b)
+    c = Node(work=work_c)
+    d = Node(work=work_d)
 
-    for node in [node_a, node_b, node_c, node_d]:
-        p.add_node(node)
+    p.add_node(a)
+    p.add_node(b, inputs=[a])
+    p.add_node(c, inputs=[b])
+    p.add_node(d, inputs=[b])
 
     x = 5
     y = p([x])
@@ -78,11 +80,15 @@ def example_2():
     
     p = Plan()
     a = Node(work=Work("Transformation", worker=Linear(1,1)))
-    b = Node(work=Work("Transformation", worker=Linear(2,2)), inputs=[a])
-    c = Node(work=Work("Transformation", worker=Linear(3,3)), inputs=[a])
-    d = Node(work=Work("Merging", worker=Sum()), inputs=[b,c])
-    for node in [a,b,c,d]:
-        p.add_node(node)
+    b = Node(work=Work("Transformation", worker=Linear(2,2)))
+    c = Node(work=Work("Transformation", worker=Linear(3,3)))
+    d = Node(work=Work("Merging", worker=Sum()))
+
+    p.add_node(a)
+    p.add_node(b, inputs=[a])
+    p.add_node(c, inputs=[a])
+    p.add_node(d, inputs=[b,c])
+    
     x = 5
     y = p([x])
     print(y)
@@ -95,11 +101,15 @@ def example_3():
     """)
 
     p = Plan()
+    
     a = Node(work=Work("Transformation", worker=MultipleList(2)))
-    b = Node(work=Work("Transformation", worker=MultipleList(3)), inputs=[a])
-    c = Node(work=Work("Transformation", worker=MultipleList(4)), inputs=[b])
-    for node in [a,b,c]:
-        p.add_node(node)
+    b = Node(work=Work("Transformation", worker=MultipleList(3)))
+    c = Node(work=Work("Transformation", worker=MultipleList(4)))
+
+    p.add_node(a)
+    p.add_node(b, inputs=[a])
+    p.add_node(c, inputs=[b])
+    
     x = [1,1,1,1,1]
     y = p([x,])
     print(y)

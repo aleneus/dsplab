@@ -1,6 +1,7 @@
 * Tasks
 ** DONE Write the first implementation of Plan
 ** DONE demos/activity/plan.py: print description in examples
+** TODO plan demo: add example with online processing
 ** TODO Move Node and Plan to seperate unit
 ** TODO Inspect all Plan stuff, small refactoring
 ** DONE Add demo of Plan with arrays
@@ -13,3 +14,5 @@
 ** DONE Inspect using of try in activity.Work.set_worker()
 ** DONE Try to use usual function as worker
 ** DONE Add demo for worker
+* Proposal
+** DONE Support the adding of inputs in Plan

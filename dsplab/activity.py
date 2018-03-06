@@ -313,8 +313,10 @@ class Plan:
             if node not in all_inputs:
                 self._last_nodes.append(node)
 
-    def add_node(self, node):
+    def add_node(self, node, inputs=[]):
         self._nodes.append(node)
+        if len(inputs) > 0:
+            node.inputs = inputs
 
     def __call__(self, xs):
         self._detect_terminals()
