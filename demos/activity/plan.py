@@ -26,8 +26,21 @@ class Sum(Activity):
         y = sum(xs)
         return y
 
+class MultipleList(Activity):
+    def __init__(self, k):
+        super().__init__()
+        self.k = k
+        self._info['descr'] = "Multiple the elements of list by k"
+        self._info['params'] = {'k': k}
+
+    def __call__(self, x):
+        y = [x_*self.k for x_ in x]
+        return y
+
 def example_1():
     print("""
+    Example 1
+
     a -> b
     b -> c, d
     """)
@@ -57,6 +70,8 @@ def example_1():
 
 def example_2():
     print("""
+    Example 2
+
     a -> b, c
     c, d -> d
     """)
@@ -72,6 +87,24 @@ def example_2():
     y = p([x])
     print(y)
 
+def example_3():
+    print("""
+    Example 3. Processing of lists
+
+    a -> b -> c
+    """)
+
+    p = Plan()
+    a = Node(work=Work("Transformation", worker=MultipleList(2)))
+    b = Node(work=Work("Transformation", worker=MultipleList(3)), inputs=[a])
+    c = Node(work=Work("Transformation", worker=MultipleList(4)), inputs=[b])
+    for node in [a,b,c]:
+        p.add_node(node)
+    x = [1,1,1,1,1]
+    y = p([x,])
+    print(y)
+
 if __name__ == "__main__":
     example_1()
     example_2()
+    example_3()
