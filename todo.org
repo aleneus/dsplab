@@ -3,9 +3,9 @@
 ** DONE demos/activity/plan.py: print description in examples
 ** DONE plan: add docstrings
 ** TODO plan.py: set the required types to arguments
-** TODO Add -2018 to the lincense in all files
+** DONE Add -2018 to the lincense in all files
 ** TODO plan demo: add example with online processing
-** TODO Move Node and Plan to seperate unit
+** DONE Move Node and Plan to seperate unit
 ** TODO Inspect all Plan stuff, small refactoring
 ** DONE Add demo of Plan with arrays
 ** DONE Add demo of Plan with merging of flows
@@ -23,3 +23,4 @@
 ** TODO index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO Doc propetries
 ** DONE Add 'is_' to output_ready and inputs_ready
+** TODO Remove actually empty unit online.py
