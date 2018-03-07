@@ -21,7 +21,6 @@
 ** TODO Add a posibility to export plan to dot
 * Enhancement
 ** DONE Return one value from Plan if result has len 1
-** TODO Refactoring of is_iterable sruff in Plan.__call__
 ** TODO Refactoring of setup_plan
 ** DONE Possibility to run Plan of one value, not list
 ** TODO Use version numbers for requirements

@@ -21,6 +21,7 @@ also nodes. Plan is the system of linked nodes.
 
 import importlib
 from dsplab.activity import Work
+from dsplab.helpers import *
 
 class Node:
     """ The node. Node can be understood as the workplace for
@@ -109,16 +110,6 @@ class Plan:
 
     def __call__(self, xs):
         """ Run plan. """
-        def is_iterable(x):
-            try:
-                _ = [e for e in x]
-            except TypeError:
-                return False
-            return True
-
-        if not is_iterable(xs):
-            xs = [xs]
-        
         self._detect_terminals()
         for [node, x] in zip(self._first_nodes, xs):
             node(x)
@@ -131,9 +122,8 @@ class Plan:
                     node()
             if finished:
                 break
+            
         ys = [last_node.result() for last_node in self._last_nodes]
-        if len(ys) == 1:
-            return ys[0]
         return ys
 
 def setup_plan(plan: Plan, nodes_settings) -> bool:
