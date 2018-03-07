@@ -132,6 +132,8 @@ class Plan:
             if finished:
                 break
         ys = [last_node.result() for last_node in self._last_nodes]
+        if len(ys) == 1:
+            return ys[0]
         return ys
 
 def setup_plan(plan: Plan, nodes_settings) -> bool:
