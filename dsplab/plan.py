@@ -109,6 +109,16 @@ class Plan:
 
     def __call__(self, xs):
         """ Run plan. """
+        def is_iterable(x):
+            try:
+                _ = [e for e in x]
+            except TypeError:
+                return False
+            return True
+
+        if not is_iterable(xs):
+            xs = [xs]
+        
         self._detect_terminals()
         for [node, x] in zip(self._first_nodes, xs):
             node(x)
