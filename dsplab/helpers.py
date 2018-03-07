@@ -13,7 +13,25 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Global variables. """
+""" Helpers. """
 
-PACKAGE = 'dsplab'
-VERSION = '0.20.0'
+import importlib
+
+def is_iterable(x):
+    """ Check if x is iterable. """
+    try:
+        _ = [e for e in x]
+    except TypeError:
+        return False
+    return True
+
+def import_entity(name):
+    """ Import class by name. """
+    parts = name.split('.')
+    module_name = '.'.join(parts[:-1])
+    entity_name = parts[-1]
+    if len(module_name) == 0:
+        module_name = '__main__'
+    module = importlib.import_module(module_name)
+    entity = getattr(module, entity_name)
+    return entity

@@ -19,14 +19,23 @@ understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes.
 """
 
+from dsplab.activity import Work
+from dsplab.helpers import *
+
 class Node:
     """ The node. Node can be understood as the workplace for
     worker. Node can have inputs that are also nodes. """
     def __init__(self, work=None, inputs=[]):
         """ Initialization. """
-        self.work = work
+        self._work = work
         self._res = None
         self.set_inputs(inputs)
+
+    def get_work(self):
+        return self._work
+    def set_work(self, work):
+        self._work = work
+    work = property(get_work, set_work)
 
     def get_inputs(self):
         """ Return inputs. """
@@ -112,5 +121,40 @@ class Plan:
                     node()
             if finished:
                 break
+            
         ys = [last_node.result() for last_node in self._last_nodes]
         return ys
+
+def setup_plan(plan: Plan, nodes_settings) -> bool:
+    """ Setup plan using dict settings. """
+    nodes = {}
+    
+    for node_settings in nodes_settings:
+        node_id = node_settings['id']
+        nodes[node_id] = Node()
+        
+        work_settings = node_settings['work']
+        if 'descr' in work_settings.keys():
+            work_descr = work_settings['descr']
+        else:
+            work_descr = ""
+        
+        worker_settings = work_settings['worker']
+        worker_class = worker_settings['class']
+        
+        if 'params' in worker_settings.keys():
+            worker_params = worker_settings['params']
+            worker = import_entity(worker_class)(**worker_params)
+        else:
+            worker = import_entity(worker_class)
+
+        work = Work(work_descr, worker)
+        nodes[node_id].work = work
+        
+        if 'inputs' in node_settings.keys():
+            input_ids = node_settings['inputs']
+            plan.add_node(nodes[node_id], inputs=[nodes[v] for v in input_ids])
+        else:
+            plan.add_node(nodes[node_id])
+        
+    return True
