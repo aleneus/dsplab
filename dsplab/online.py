@@ -15,6 +15,8 @@
 
 """ This module implements the base class for online filters. """
 
+print("Warning! Deprecated dsplab.online.")
+
 import numpy as np
 from collections import deque
 

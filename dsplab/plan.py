@@ -19,7 +19,6 @@ understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes.
 """
 
-import importlib
 from dsplab.activity import Work
 from dsplab.helpers import *
 
@@ -128,27 +127,21 @@ class Plan:
 
 def setup_plan(plan: Plan, nodes_settings) -> bool:
     """ Setup plan using dict settings. """
-    
-    def import_entity(name):
-        """ Import class by name. """
-        parts = name.split('.')
-        module_name = '.'.join(parts[:-1])
-        entity_name = parts[-1]
-        if len(module_name) == 0:
-            module_name = '__main__'
-        module = importlib.import_module(module_name)
-        entity = getattr(module, entity_name)
-        return entity
-    
     nodes = {}
+    
     for node_settings in nodes_settings:
         node_id = node_settings['id']
         nodes[node_id] = Node()
         
         work_settings = node_settings['work']
-        work_descr = work_settings['descr']
+        if 'descr' in work_settings.keys():
+            work_descr = work_settings['descr']
+        else:
+            work_descr = ""
+        
         worker_settings = work_settings['worker']
         worker_class = worker_settings['class']
+        
         if 'params' in worker_settings.keys():
             worker_params = worker_settings['params']
             worker = import_entity(worker_class)(**worker_params)
