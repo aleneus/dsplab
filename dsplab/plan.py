@@ -84,6 +84,7 @@ class Plan:
         self._nodes = []
         self._first_nodes = []
         self._last_nodes = []
+        self._outputs = []
 
     def _detect_terminals(self):
         """ Detect first and last nodes. """
@@ -96,6 +97,10 @@ class Plan:
                 if inpt not in all_inputs:
                     all_inputs.append(inpt)
 
+        if len(self._outputs) > 0:
+            self._last_nodes = self._outputs
+            return
+
         self._last_nodes = []
         for node in self._nodes:
             if node not in all_inputs:
@@ -106,6 +111,12 @@ class Plan:
         self._nodes.append(node)
         if len(inputs) > 0:
             node.inputs = inputs
+
+    def get_outputs(self):
+        return self._outputs
+    def set_outputs(self, outputs):
+        self._outputs = outputs
+    outputs = property(get_outputs, set_outputs)
 
     def __call__(self, xs):
         """ Run plan. """

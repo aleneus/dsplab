@@ -115,7 +115,29 @@ def example_3():
     y = p([x,])
     print(y)
 
+def example_4():
+    print("""
+    Example 4. User-specified outputs.
+
+    a -> b
+    b ->
+    b -> c ->
+    """)
+    p = Plan()
+    a = Node(work=Work("Linear transformation", worker=Linear(1,1)))
+    b = Node(work=Work("Linear transformation", worker=Linear(2,2)))
+    c = Node(work=Work("Linear transformation", worker=Linear(3,3)))
+    p.add_node(a)
+    p.add_node(b, inputs=[a])
+    p.add_node(c, inputs=[b])
+    p.outputs = [b, c]
+
+    x = 5
+    y = p([x])
+    print(y)
+
 if __name__ == "__main__":
     example_1()
     example_2()
     example_3()
+    example_4()

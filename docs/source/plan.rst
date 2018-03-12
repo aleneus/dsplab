@@ -6,21 +6,28 @@ Example 1
 
 .. literalinclude:: ../../demos/activity/plan.py
    :language: python
-   :lines: 6-8,9-20,41-73,118,119
+   :lines: 6-8,9-20,41-73
 
 Example 2
 ---------
 
 .. literalinclude:: ../../demos/activity/plan.py
    :language: python
-   :lines: 6-8,9-29,74-96,118,120
+   :lines: 6-8,9-29,74-96
 
 Example 3
 ---------
 
 .. literalinclude:: ../../demos/activity/plan.py
    :language: python
-   :lines: 6-8,30-40,97-117,118,121
+   :lines: 6-8,30-40,97-117
+	
+Example 4
+---------
+
+.. literalinclude:: ../../demos/activity/plan.py
+   :language: python
+   :lines: 6-8,9-20,118-137
 
 .. automodule:: dsplab.plan
    :members:
