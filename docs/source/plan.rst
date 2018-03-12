@@ -36,6 +36,13 @@ Example 5
    :language: python
    :lines: 6-8,21-29,139-158
 	   
+Example 6
+---------
+
+.. literalinclude:: ../../demos/activity/plan.py
+   :language: python
+   :lines: 6-8,9-20,159-176
+	   
 .. automodule:: dsplab.plan
    :members:
    :undoc-members:

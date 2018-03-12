@@ -156,9 +156,28 @@ def example_5():
     y = p([x1, x2])
     print(y)
 
+def example_6():
+    print("""
+    Example 6. Start and stop hooks.
+    """)
+    
+    def f1():
+        print("Node started")
+    def f2():
+        print("Node finished")
+        
+    n = Node(
+        work=Work("Linear transformation", worker=Linear(1,1)),
+        start_hook = f1,
+        stop_hook = f2,
+    )
+    
+    n(5)
+
 if __name__ == "__main__":
     example_1()
     example_2()
     example_3()
     example_4()
     example_5()
+    example_6()

@@ -25,11 +25,13 @@ from dsplab.helpers import *
 class Node:
     """ The node. Node can be understood as the workplace for
     worker. Node can have inputs that are also nodes. """
-    def __init__(self, work=None, inputs=[]):
+    def __init__(self, work=None, inputs=[], start_hook=None, stop_hook=None):
         """ Initialization. """
         self._work = work
         self._res = None
-        self.set_inputs(inputs)
+        self.start_hook = start_hook
+        self.stop_hook = stop_hook
+        self.inputs = inputs
 
     def get_work(self):
         return self._work
@@ -45,6 +47,22 @@ class Node:
         self._inputs = inputs
     inputs = property(get_inputs, set_inputs)
 
+    def get_start_hook(self):
+        """ Return start hook. """
+        return self._start_hook
+    def set_start_hook(self, func):
+        """ Set start hook. """
+        self._start_hook = func
+    start_hook = property(get_start_hook, set_start_hook)
+
+    def get_stop_hook(self):
+        """ Return stop hook. """
+        return self._stop_hook
+    def set_stop_hook(self, func):
+        """ Set stop hook. """
+        self._stop_hook = func
+    stop_hook = property(get_stop_hook, set_stop_hook)
+    
     def is_output_ready(self) -> bool:
         """ Check if the calculation of data in the node is finished. """
         ans = self._res is not None
@@ -63,24 +81,31 @@ class Node:
 
     def __call__(self, x=None):
         """ Run node. """
+        if self._start_hook is not None:
+            self._start_hook()
+            
         if x is not None:
             y = self.work(x)
             self._res = y
-            return
-        
-        self._res = None
-        if len(self._inputs) == 1:
-            x = self._inputs[0].result()
         else:
-            x = [inpt.result() for inpt in self._inputs]
-        y = self.work(x)
-        self._res = y
+            self._res = None
+            if len(self._inputs) == 1:
+                x = self._inputs[0].result()
+            else:
+                x = [inpt.result() for inpt in self._inputs]
+            y = self.work(x)
+            self._res = y
+            
+        if self._stop_hook is not None:
+            self._stop_hook()
 
 class Translator(Node):
-    def __call__(self, x):
+    def __init__(self):
         super().__init__(work=None)
-        self._res = x
     
+    def __call__(self, x):
+        self._res = x
+
 class Plan:
     """ The plan. Plan is the system of linked nodes. """
     def __init__(self):

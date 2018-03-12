@@ -20,6 +20,8 @@
 ** DONE Add demo for worker
 * Proposal
 ** DONE Support the adding of inputs in Plan
+** TODO Nodes: Support the posibility of merging flows
+** TODO Nodes: Support the posibility of splitting flows
 ** TODO Activity examples: split the long file plan.py
 ** TODO Nodes: Add hooks for start and stop calculations
 ** TODO plan.py: set the required types to arguments
