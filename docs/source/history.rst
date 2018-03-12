@@ -1,3 +1,9 @@
+0.20
+====
+
+* The function for setup plan. The settings are taken from list of dictionaries.
+* Refactoring.
+
 0.19
 ====
 
@@ -7,7 +13,6 @@
   ways. Work has worker. Wroker is the activity.
 * Added tools for constructing the plans of works. Plan is the number
   of linked nodes and every node is the 'work place' for some worker.
-
 
 0.18
 ====

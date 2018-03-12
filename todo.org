@@ -23,7 +23,7 @@
 ** TODO Nodes: Support the posibility of merging flows
 ** TODO Nodes: Support the posibility of splitting flows
 ** TODO Activity examples: split the long file plan.py
-** TODO Nodes: Add hooks for start and stop calculations
+** DONE Nodes: Add hooks for start and stop calculations
 ** TODO plan.py: set the required types to arguments
 ** TODO Add a posibility to export plan to dot
 ** TODO Plan: decompose Plan._detect_terminals
