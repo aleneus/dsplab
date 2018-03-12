@@ -25,11 +25,13 @@ from dsplab.helpers import *
 class Node:
     """ The node. Node can be understood as the workplace for
     worker. Node can have inputs that are also nodes. """
-    def __init__(self, work=None, inputs=[]):
+    def __init__(self, work=None, inputs=[], start_hook=None, stop_hook=None):
         """ Initialization. """
         self._work = work
         self._res = None
-        self.set_inputs(inputs)
+        self.start_hook = start_hook
+        self.stop_hook = stop_hook
+        self.inputs = inputs
 
     def get_work(self):
         return self._work
@@ -45,6 +47,22 @@ class Node:
         self._inputs = inputs
     inputs = property(get_inputs, set_inputs)
 
+    def get_start_hook(self):
+        """ Return start hook. """
+        return self._start_hook
+    def set_start_hook(self, func):
+        """ Set start hook. """
+        self._start_hook = func
+    start_hook = property(get_start_hook, set_start_hook)
+
+    def get_stop_hook(self):
+        """ Return stop hook. """
+        return self._stop_hook
+    def set_stop_hook(self, func):
+        """ Set stop hook. """
+        self._stop_hook = func
+    stop_hook = property(get_stop_hook, set_stop_hook)
+    
     def is_output_ready(self) -> bool:
         """ Check if the calculation of data in the node is finished. """
         ans = self._res is not None
@@ -63,43 +81,57 @@ class Node:
 
     def __call__(self, x=None):
         """ Run node. """
+        if self._start_hook is not None:
+            self._start_hook()
+            
         if x is not None:
             y = self.work(x)
             self._res = y
-            return
-        
-        self._res = None
-        if len(self._inputs) == 1:
-            x = self._inputs[0].result()
         else:
-            x = [inpt.result() for inpt in self._inputs]
-        y = self.work(x)
-        self._res = y
+            self._res = None
+            if len(self._inputs) == 1:
+                x = self._inputs[0].result()
+            else:
+                x = [inpt.result() for inpt in self._inputs]
+            y = self.work(x)
+            self._res = y
+            
+        if self._stop_hook is not None:
+            self._stop_hook()
+
+class Translator(Node):
+    def __init__(self):
+        super().__init__(work=None)
     
+    def __call__(self, x):
+        self._res = x
+
 class Plan:
     """ The plan. Plan is the system of linked nodes. """
     def __init__(self):
         """ Initialization. """
         super().__init__()
         self._nodes = []
-        self._first_nodes = []
-        self._last_nodes = []
+        self._inputs = []
+        self._outputs = []
 
     def _detect_terminals(self):
         """ Detect first and last nodes. """
-        self._first_nodes = []
+        self._inputs = []
         all_inputs = []
         for node in self._nodes:
             if len(node.inputs) == 0:
-                self._first_nodes.append(node)
+                self._inputs.append(node)
             for inpt in node.inputs:
                 if inpt not in all_inputs:
                     all_inputs.append(inpt)
 
-        self._last_nodes = []
+        if len(self._outputs) > 0:
+            self._outputs = self._outputs
+            return
         for node in self._nodes:
             if node not in all_inputs:
-                self._last_nodes.append(node)
+                self._outputs.append(node)
 
     def add_node(self, node, inputs=[]):
         """ Add node to plan. """
@@ -107,10 +139,16 @@ class Plan:
         if len(inputs) > 0:
             node.inputs = inputs
 
+    def get_outputs(self):
+        return self._outputs
+    def set_outputs(self, outputs):
+        self._outputs = outputs
+    outputs = property(get_outputs, set_outputs)
+
     def __call__(self, xs):
         """ Run plan. """
         self._detect_terminals()
-        for [node, x] in zip(self._first_nodes, xs):
+        for [node, x] in zip(self._inputs, xs):
             node(x)
         
         while True:
@@ -122,7 +160,7 @@ class Plan:
             if finished:
                 break
             
-        ys = [last_node.result() for last_node in self._last_nodes]
+        ys = [last_node.result() for last_node in self._outputs]
         return ys
 
 def setup_plan(plan: Plan, nodes_settings) -> bool:

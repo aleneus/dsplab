@@ -18,11 +18,14 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.20
+What's new in 0.21
 ------------------
 
-* The function for setup plan. The settings are taken from list of dictionaries.
-* Refactoring.
+* The possibility of specifying outputs is supported.
+* The Translator node is added for constructing more flexible input of plan.
+* More examples of using plans are added.
+* The hooks for starting and finishing calculations in node are added.
+* A small refactoring is performed.
 
 Modules
 -------

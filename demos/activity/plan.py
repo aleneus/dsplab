@@ -4,7 +4,7 @@ sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
 
 from dsplab.activity import Activity, Work
-from dsplab.plan import Node, Plan
+from dsplab.plan import Node, Translator, Plan
 
 class Linear(Activity):
     def __init__(self, k, b):
@@ -115,7 +115,69 @@ def example_3():
     y = p([x,])
     print(y)
 
+def example_4():
+    print("""
+    Example 4. User-specified outputs.
+
+    a -> b
+    b ->
+    b -> c ->
+    """)
+    p = Plan()
+    a = Node(work=Work("Linear transformation", worker=Linear(1,1)))
+    b = Node(work=Work("Linear transformation", worker=Linear(2,2)))
+    c = Node(work=Work("Linear transformation", worker=Linear(3,3)))
+    p.add_node(a)
+    p.add_node(b, inputs=[a])
+    p.add_node(c, inputs=[b])
+    p.outputs = [b, c]
+
+    x = 5
+    y = p([x])
+    print(y)
+
+def example_5():
+    print("""
+    Example 5. Using of Translator as input
+
+    part of input data -> a -> b
+    another part of input data -> b
+    """)
+    p = Plan()
+    a = Node(work=Work("Linear transformation", worker=Linear(1,1)))
+    b = Node(work=Work("Summation", worker=Sum()))
+    t = Translator()
+    p.add_node(t)
+    p.add_node(a)
+    p.add_node(b, inputs=[t, a])
+
+    x1 = 5
+    x2 = 6
+    y = p([x1, x2])
+    print(y)
+
+def example_6():
+    print("""
+    Example 6. Start and stop hooks.
+    """)
+    
+    def f1():
+        print("Node started")
+    def f2():
+        print("Node finished")
+        
+    n = Node(
+        work=Work("Linear transformation", worker=Linear(1,1)),
+        start_hook = f1,
+        stop_hook = f2,
+    )
+    
+    n(5)
+
 if __name__ == "__main__":
     example_1()
     example_2()
     example_3()
+    example_4()
+    example_5()
+    example_6()
