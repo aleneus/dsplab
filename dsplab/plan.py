@@ -82,29 +82,26 @@ class Plan:
         """ Initialization. """
         super().__init__()
         self._nodes = []
-        self._first_nodes = []
-        self._last_nodes = []
+        self._inputs = []
         self._outputs = []
 
     def _detect_terminals(self):
         """ Detect first and last nodes. """
-        self._first_nodes = []
+        self._inputs = []
         all_inputs = []
         for node in self._nodes:
             if len(node.inputs) == 0:
-                self._first_nodes.append(node)
+                self._inputs.append(node)
             for inpt in node.inputs:
                 if inpt not in all_inputs:
                     all_inputs.append(inpt)
 
         if len(self._outputs) > 0:
-            self._last_nodes = self._outputs
+            self._outputs = self._outputs
             return
-
-        self._last_nodes = []
         for node in self._nodes:
             if node not in all_inputs:
-                self._last_nodes.append(node)
+                self._outputs.append(node)
 
     def add_node(self, node, inputs=[]):
         """ Add node to plan. """
@@ -121,7 +118,7 @@ class Plan:
     def __call__(self, xs):
         """ Run plan. """
         self._detect_terminals()
-        for [node, x] in zip(self._first_nodes, xs):
+        for [node, x] in zip(self._inputs, xs):
             node(x)
         
         while True:
@@ -133,7 +130,7 @@ class Plan:
             if finished:
                 break
             
-        ys = [last_node.result() for last_node in self._last_nodes]
+        ys = [last_node.result() for last_node in self._outputs]
         return ys
 
 def setup_plan(plan: Plan, nodes_settings) -> bool:
