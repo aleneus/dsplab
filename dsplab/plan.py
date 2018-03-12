@@ -75,6 +75,11 @@ class Node:
             x = [inpt.result() for inpt in self._inputs]
         y = self.work(x)
         self._res = y
+
+class Translator(Node):
+    def __call__(self, x):
+        super().__init__(work=None)
+        self._res = x
     
 class Plan:
     """ The plan. Plan is the system of linked nodes. """
