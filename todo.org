@@ -8,6 +8,9 @@
 ** DONE Plan: Support the possibility to set outputs by user
 ** DONE Nodes: Add a translator node.
 ** DONE Plan: Add example 5 to docs
+** TODO Activity: Remove Strategy and subclasses
+** TODO Activity: Use docstring for description in _info
+** TODO Activity: Add function to detup work from dictionary
 ** TODO Plan: Add docstrings to Plan.outputs property
 ** TODO plan demo: add example with online processing
 ** DONE Move Node and Plan to seperate unit
@@ -20,6 +23,7 @@
 ** DONE Add demo for worker
 * Proposal
 ** DONE Support the adding of inputs in Plan
+** TODO Support the user specifying of inputs
 ** TODO Nodes: Support the posibility of merging flows
 ** TODO Nodes: Support the posibility of splitting flows
 ** TODO Activity examples: split the long file plan.py
