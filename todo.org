@@ -21,6 +21,7 @@
 ** DONE Inspect using of try in activity.Work.set_worker()
 ** DONE Try to use usual function as worker
 ** DONE Add demo for worker
+** TODO Add link to docs in README
 * Proposal
 ** DONE Support the adding of inputs in Plan
 ** TODO Support the user specifying of inputs
@@ -44,3 +45,5 @@
 ** TODO Remove actually empty unit online.py
 ** DONE Add examples for plan to docs
 ** TODO Add __call__ methods to docs
+** TODO Add function for calculating of frequency using Hilbert transform
+** TODO Add function for calculating of frequency using digital Hilbert filter
