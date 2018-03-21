@@ -26,7 +26,7 @@
 ** DONE Support the adding of inputs in Plan
 ** DONE Nodes: Add hooks for start and stop calculations
 * 0.22.0
-** DONE [t] Restructure todo list
+** DONE [t] Restructure todo
 ** TODO [t] Add functions am and dm to modulation unit
 ** TODO [t] Add demo for am and dm
 * 0.22.1
