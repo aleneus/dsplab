@@ -1,4 +1,11 @@
-* Tasks
+* < 0.22.0
+** DONE Add examples for plan to docs
+** DONE Add 'is_' to output_ready and inputs_ready
+** DONE add glob.py and VERSION to it
+** DONE Return one value from Plan if result has len 1
+** DONE Refactoring of setup_plan
+** DONE Possibility to run Plan of one value, not list
+** DONE Plan: rename _last_nodes and _first_nodes to _outputs and _inputs
 ** DONE Write the first implementation of Plan
 ** DONE demos/activity/plan.py: print description in examples
 ** DONE plan: add docstrings
@@ -8,42 +15,36 @@
 ** DONE Plan: Support the possibility to set outputs by user
 ** DONE Nodes: Add a translator node.
 ** DONE Plan: Add example 5 to docs
-** TODO Activity: Remove Strategy and subclasses
-** TODO Activity: Use docstring for description in _info
-** TODO Activity: Add function to detup work from dictionary
-** TODO Plan: Add docstrings to Plan.outputs property
-** TODO plan demo: add example with online processing
+
 ** DONE Move Node and Plan to seperate unit
 ** DONE Add demo of Plan with arrays
 ** DONE Add demo of Plan with merging of flows
-** TODO Remove io.py from dsplab
 ** DONE Document activity.Work
 ** DONE Inspect using of try in activity.Work.set_worker()
 ** DONE Try to use usual function as worker
 ** DONE Add demo for worker
-** TODO Add link to docs in README
-* Proposal
 ** DONE Support the adding of inputs in Plan
-** TODO Support the user specifying of inputs
-** TODO Nodes: Support the posibility of merging flows
-** TODO Nodes: Support the posibility of splitting flows
-** TODO Activity examples: split the long file plan.py
 ** DONE Nodes: Add hooks for start and stop calculations
-** TODO plan.py: set the required types to arguments
-** TODO Add a posibility to export plan to dot
-** TODO Plan: decompose Plan._detect_terminals
-* Enhancement
-** DONE Return one value from Plan if result has len 1
-** DONE Refactoring of setup_plan
-** DONE Possibility to run Plan of one value, not list
-** DONE Plan: rename _last_nodes and _first_nodes to _outputs and _inputs
-** TODO Use version numbers for requirements
-** DONE add glob.py and VERSION to it
-** TODO index.rst: Use subtitles like 'organization of calculations' and 'dsp'
-** TODO Doc propetries
-** DONE Add 'is_' to output_ready and inputs_ready
-** TODO Remove actually empty unit online.py
-** DONE Add examples for plan to docs
-** TODO Add __call__ methods to docs
-** TODO Add function for calculating of frequency using Hilbert transform
-** TODO Add function for calculating of frequency using digital Hilbert filter
+* 0.22.0
+** DONE [t] Restructure todo list
+** TODO [t] Add functions am and dm to modulation unit
+** TODO [t] Add demo for am and dm
+* 0.22.1
+** TODO [t] Activity: Remove Strategy and subclasses
+** TODO [t] Activity: Use docstring for description in _info
+** TODO [t] Plan: Add docstrings to Plan.outputs property
+** TODO [t] plan demo: add example with online processing
+** TODO [t] Add link to docs in README
+** TODO [p] Activity examples: split the long file plan.py
+** TODO [e] Use version numbers for requirements
+** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
+** TODO [e] Doc propetries
+** TODO [e] Add __call__ methods to docs
+* 0.23.0
+** TODO [t] Activity: Add a function to setup work from dictionary
+** TODO [t] Remove io.py from dsplab
+** TODO [p] Support the user specifying of inputs
+** TODO [p] Plan: decompose Plan._detect_terminals
+** TODO [e] Remove actually empty unit online.py
+** TODO [e] Add function for calculating of frequency using Hilbert transform
+** TODO [e] Add function for calculating of frequency using digital Hilbert filter
