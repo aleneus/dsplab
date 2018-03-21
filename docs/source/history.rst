@@ -1,3 +1,12 @@
+0.21
+====
+
+* The possibility of specifying outputs is supported.
+* The Translator node is added for constructing more flexible input of plan.
+* More examples of using plans are added.
+* The hooks for starting and finishing calculations in node are added.
+* A small refactoring is performed.
+
 0.20
 ====
 

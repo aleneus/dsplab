@@ -18,14 +18,14 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.21
+What's new in 0.22
 ------------------
 
-* The possibility of specifying outputs is supported.
-* The Translator node is added for constructing more flexible input of plan.
-* More examples of using plans are added.
-* The hooks for starting and finishing calculations in node are added.
-* A small refactoring is performed.
+* Restructure todo
+* Add function am to modulation unit
+* Add function fm to modulation unit
+* Add demo for am
+* Add demo for fm
 
 Modules
 -------
