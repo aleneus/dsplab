@@ -82,8 +82,22 @@ def fm(T, fs, a, phi, func):
         Time values.
 
     """
-    pass
-    
+    ph = phi
+    t = 0
+    delta_t = 1.0/fs
+    N = int(T*fs) 
+    xs = []
+    ts = []
+    for i in range(N):
+        x = a*np.cos(ph)
+        xs.append(x)
+        ts.append(t)
+        t += delta_t
+        delta_ph = 2*np.pi*func(t)/fs
+        ph += delta_ph
+    xs = np.array(xs)
+    ts = np.array(ts)
+    return xs, ts
 
 def iq_demod(x, t, f_central, a, b):
     """ Return instantaneous frequency of modulated signal using IQ processign. 
