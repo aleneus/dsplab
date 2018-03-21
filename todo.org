@@ -31,6 +31,7 @@
 ** DONE [t] Add function dm to modulation unit
 ** DONE [t] Add demo for am
 ** DONE [t] Add demo for dm
+** TODO [t] Update what's new in docs, update version number
 * 0.22.1
 ** TODO [t] Activity: Remove Strategy and subclasses
 ** TODO [t] Activity: Use docstring for description in _info
