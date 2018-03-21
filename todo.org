@@ -27,8 +27,10 @@
 ** DONE Nodes: Add hooks for start and stop calculations
 * 0.22.0
 ** DONE [t] Restructure todo
-** TODO [t] Add functions am and dm to modulation unit
-** TODO [t] Add demo for am and dm
+** DONE [t] Add function am to modulation unit
+** TODO [t] Add function dm to modulation unit
+** DONE [t] Add demo for am
+** TODO [t] Add demo for dm
 * 0.22.1
 ** TODO [t] Activity: Remove Strategy and subclasses
 ** TODO [t] Activity: Use docstring for description in _info

@@ -16,9 +16,75 @@
 import numpy as np
 import dsplab.filtration as flt
 
-# TODO: [3] add tests
-# TODO: [1] allow use t or fs
-# TODO: [1] rename f_central to fc (f carrier)
+def am(T, fs, f, phi, func):
+    """ Amplitude modulation. 
+
+    Parameters
+    ----------
+    T: float
+        Length pf signal (sec).
+    fs: float
+        Sampling frequency (Hz).
+    f: float
+        Frequency of signal (Hz).
+    phi: float
+        Initial phase (radians).
+    func: Object
+        Function that returns amplitude values depending on time.
+
+    Returns
+    -------
+    xs: np.array
+        Signal values.
+    ts: np.array
+        Time values.
+
+    """
+    ph = phi
+    t = 0
+    delta_t = 1.0/fs
+    delta_ph = 2 * np.pi / fs
+    N = int(T*fs) 
+    xs = []
+    ts = []
+    for i in range(N):
+        A = func(t)
+        x = A*np.cos(ph)
+        xs.append(x)
+        ts.append(t)
+        t += delta_t
+        ph += delta_ph
+    xs = np.array(xs)
+    ts = np.array(ts)
+    return xs, ts
+    
+def fm(T, fs, a, phi, func):
+    """ Amplitude modulation. 
+
+    Parameters
+    ----------
+    T: float
+        Length pf signal (sec).
+    fs: float
+        Sampling frequency (Hz).
+    a: float
+        Amplitude of signal.
+    phi: float
+        Initial phase (radians).
+    func: Object
+        Function that returns frequency values (in Hz) depending on time.
+
+    Returns
+    -------
+    xs: np.array
+        Signal values.
+    ts: np.array
+        Time values.
+
+    """
+    pass
+    
+
 def iq_demod(x, t, f_central, a, b):
     """ Return instantaneous frequency of modulated signal using IQ processign. 
 
