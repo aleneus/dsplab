@@ -36,13 +36,14 @@
 ** DONE [t] Support the user specifying of inputs
 ** DONE [t] Add example for manual setting up the input
 ** DONE [t] Activity: Remove Strategy and subclasses
-** TODO [t] Activity: Use docstring for description in _info
+** DONE [t] Activity: Use the docstring for description in _info
 ** DONE [t] Plan: Add docstrings to Plan.outputs property
 ** TODO [t] Add link to docs in README
 ** TODO [t] Add remove node to Plan and demo
 ** DONE [t!] Plan. Remove detection of terminals from call
 * 0.23.1
 ** TODO [t] Plan. Add doc for auto_terminals 
+** TODO [t] Online filter. add arguments to self._info
 * 0.23.2
 ** TODO [t] plan demo: add example with online processing
 ** TODO [p] Activity examples: split the long file plan.py

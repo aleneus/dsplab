@@ -20,12 +20,13 @@ import json
 import numpy as np
 
 class Activity:
-    """ Any activity. Something that may be called and can provide the
+    """ Any activity: something that may be called and can provide the
     information about itself. """
     def __init__(self):
         """ Initialization. """
         self._info = {}
         self._info['class'] = self.__class__.__name__
+        self._info['descr'] = self.__doc__
     
     def info(self, as_string=False):
         """ Return the information about activity. 
@@ -71,7 +72,6 @@ class OnlineFilter(Activity):
 
         """
         super().__init__()
-        # TODO: add arguments to self._info
         self.add_sample_func = None
         if   (ntaps == None) and (smooth_ntaps == None):
             self.add_sample_func = self.__add_sample_simple
