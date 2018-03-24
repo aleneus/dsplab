@@ -46,7 +46,7 @@ def example_1():
     b -> c, d
     """)
     
-    p = Plan()
+    p = Plan(auto_terminals=True)
     work_a = Work("Linear transformation")
     work_b = Work("Linear transformation")
     work_c = Work("Linear transformation")
@@ -79,7 +79,7 @@ def example_2():
     c, d -> d
     """)
     
-    p = Plan()
+    p = Plan(auto_terminals=True)
     a = Node(work=Work("Transformation", worker=Linear(1,1)))
     b = Node(work=Work("Transformation", worker=Linear(2,2)))
     c = Node(work=Work("Transformation", worker=Linear(3,3)))
@@ -101,7 +101,7 @@ def example_3():
     a -> b -> c
     """)
 
-    p = Plan()
+    p = Plan(auto_terminals=True)
     
     a = Node(work=Work("Transformation", worker=MultipleList(2)))
     b = Node(work=Work("Transformation", worker=MultipleList(3)))
@@ -130,7 +130,7 @@ def example_4():
     p.add_node(a)
     p.add_node(b, inputs=[a])
     p.add_node(c, inputs=[b])
-    p.outputs = [b, c]
+    p.inputs, p.outputs = [a], [b, c]
 
     x = 5
     y = p([x])
@@ -143,7 +143,7 @@ def example_5():
     part of input data -> a -> b
     another part of input data -> b
     """)
-    p = Plan()
+    p = Plan(auto_terminals=True)
     a = Node(work=Work("Linear transformation", worker=Linear(1,1)))
     b = Node(work=Work("Summation", worker=Sum()))
     t = Translator()

@@ -32,22 +32,29 @@
 ** DONE [t] Add demo for am
 ** DONE [t] Add demo for fm
 ** DONE [t] Update what's new in docs, update version number
-* 0.22.1
-** TODO [t] Activity: Remove Strategy and subclasses
-** TODO [t] Activity: Use docstring for description in _info
-** TODO [t] Plan: Add docstrings to Plan.outputs property
+* 0.23.0
+** DONE [t] Support the user specifying of inputs
+** DONE [t] Add example for manual setting up the input
+** DONE [t] Activity: Remove Strategy and subclasses
+** DONE [t] Activity: Use the docstring for description in _info
+** DONE [t] Plan: Add docstrings to Plan.outputs property
+** DONE [t] Add link to docs to README
+** DONE [t] Add remove node to Plan and demo
+** DONE [t!] Plan. Remove detection of terminals from call
+** DONE [e] Replace plan examples to plan/ folder from activity/
+** DONE [t] Plan. Add doc for auto_terminals 
+* 0.23.1
+** TODO [t] Online filter. add arguments to self._info
+** TODO [t] Support the inputs and ouputs of plan in setup plan from dict
 ** TODO [t] plan demo: add example with online processing
-** TODO [t] Add link to docs in README
 ** TODO [p] Activity examples: split the long file plan.py
 ** TODO [e] Use version numbers for requirements
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
-** TODO [e] Doc propetries
 ** TODO [e] Add __call__ methods to docs
-* 0.23.0
+* 0.24.0
+** TODO [t] Make more universal functions for different kinds of modulation
 ** TODO [t] Activity: Add a function to setup work from dictionary
 ** TODO [t] Remove io.py from dsplab
-** TODO [p] Support the user specifying of inputs
-** TODO [p] Plan: decompose Plan._detect_terminals
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

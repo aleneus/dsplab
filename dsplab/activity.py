@@ -20,12 +20,13 @@ import json
 import numpy as np
 
 class Activity:
-    """ Any activity. Something that may be called and can provide the
+    """ Any activity: something that may be called and can provide the
     information about itself. """
     def __init__(self):
         """ Initialization. """
         self._info = {}
         self._info['class'] = self.__class__.__name__
+        self._info['descr'] = self.__doc__
     
     def info(self, as_string=False):
         """ Return the information about activity. 
@@ -71,7 +72,6 @@ class OnlineFilter(Activity):
 
         """
         super().__init__()
-        # TODO: add arguments to self._info
         self.add_sample_func = None
         if   (ntaps == None) and (smooth_ntaps == None):
             self.add_sample_func = self.__add_sample_simple
@@ -265,41 +265,3 @@ class Work(Activity):
         y = self.worker(*args, *kwargs)
         return y
 
-class Strategy(Activity):
-    """ Deprecated. """
-    def __init__(self, name="", info=""):
-        """ Initialization. """
-        print("Deprecated: dsplab.activity.Strategy")
-        self.name = name
-        self.workers = OrderedDict()
-
-    def set_worker(self, work, worker):
-        """
-        Add worker.
-        
-        Parameters
-        ----------
-        work : str
-            Name of work.
-        worker : object
-            Worker object.
-        
-        """
-        self.workers[work] = worker
-
-    def __call__(self):
-        raise NotImplementedError
-
-class LinearStrategy(Strategy):
-    """ Linear strategy. Works called one by one, from first setted
-    work to the last one. """
-    def __call__(self, x):
-        y = x
-        print(self.workers)
-        for work in self.workers:
-            y = self.workers[work](y)
-        return y
-
-if __name__ == "__main__":
-    or_connector = Or()
-    print(or_connector.info(as_string=True))
