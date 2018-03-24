@@ -47,7 +47,7 @@
 ** DONE [t] Plan: Rename Translator to Transmitter
 ** DONE [e] Plan: Provide auto and manual terminals without auto_terminals option
 ** DONE [t] Modulation: Add a function for phase modulation
-** TODO [t] Support the inputs and ouputs of plan in setup plan from dict
+** DONE [t] Plan: Support the inputs and ouputs in the function for setup plan from dict 
 ** TODO [t] Online: Add message about deprecation to the unit online.py
 * 0.24.1
 ** TODO [t] Online filter. add arguments to self._info

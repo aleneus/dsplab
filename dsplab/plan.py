@@ -197,6 +197,9 @@ class Plan:
 def setup_plan(plan: Plan, nodes_settings) -> bool:
     """ Setup plan using dict settings. """
     nodes = {}
+
+    inputs = []
+    outputs = []
     
     for node_settings in nodes_settings:
         node_id = node_settings['id']
@@ -225,5 +228,18 @@ def setup_plan(plan: Plan, nodes_settings) -> bool:
             plan.add_node(nodes[node_id], inputs=[nodes[v] for v in input_ids])
         else:
             plan.add_node(nodes[node_id])
+
+        if 'input' in node_settings:
+            if node_settings['input'] == True:
+                inputs.append(nodes[node_id])
+
+        if 'output' in node_settings:
+            if node_settings['output'] == True:
+                outputs.append(nodes[node_id])
+
+    if len(inputs) > 0:
+        plan.set_inputs(inputs)
+    if len(outputs) > 0:
+        plan.set_outputs(outputs)
         
     return True
