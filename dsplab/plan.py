@@ -108,12 +108,13 @@ class Translator(Node):
 
 class Plan:
     """ The plan. Plan is the system of linked nodes. """
-    def __init__(self):
+    def __init__(self, auto_terminals=False):
         """ Initialization. """
         super().__init__()
         self._nodes = []
         self._inputs = []
         self._outputs = []
+        self._auto_terminals = auto_terminals
 
     def _detect_terminals(self):
         """ Detect first and last nodes. """
@@ -126,9 +127,6 @@ class Plan:
                 if inpt not in all_inputs:
                     all_inputs.append(inpt)
 
-        if len(self._outputs) > 0:
-            self._outputs = self._outputs
-            return
         for node in self._nodes:
             if node not in all_inputs:
                 self._outputs.append(node)
@@ -138,16 +136,36 @@ class Plan:
         self._nodes.append(node)
         if len(inputs) > 0:
             node.inputs = inputs
+        if self._auto_terminals:
+            self._detect_terminals()
 
     def get_outputs(self):
+        """ Return output nodes. """
         return self._outputs
     def set_outputs(self, outputs):
+        """ Set output nodes. """
+        if self._auto_terminals:
+            raise RuntimeError("Auto detection of terminals is setted on.")
         self._outputs = outputs
-    outputs = property(get_outputs, set_outputs)
+    outputs = property(get_outputs, set_outputs, doc="The nodes with are outputs.")
+
+    def get_inputs(self):
+        """ Return input nodes. """
+        return self._inputs
+    def set_inputs(self, inputs):
+        """ Set input nodes. """
+        if self._auto_terminals:
+            raise RuntimeError("Auto detection of terminals is setted on.")
+        self._inputs = inputs
+    inputs = property(get_inputs, set_inputs, doc="The nodes wich are inputs.")
 
     def __call__(self, xs):
         """ Run plan. """
-        self._detect_terminals()
+        if len(self._inputs) == 0:
+            raise RuntimeError("There are no inputs in the plan. ")
+        if len(self._outputs) == 0:
+            raise RuntimeError("There are no outputs in the plan. ")
+        
         for [node, x] in zip(self._inputs, xs):
             node(x)
         
