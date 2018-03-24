@@ -265,6 +265,3 @@ class Work(Activity):
         y = self.worker(*args, *kwargs)
         return y
 
-if __name__ == "__main__":
-    or_connector = Or()
-    print(or_connector.info(as_string=True))
