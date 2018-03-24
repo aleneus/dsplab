@@ -139,6 +139,17 @@ class Plan:
         if self._auto_terminals:
             self._detect_terminals()
 
+    def remove_node(self, node):
+        """ Remove node from plan. """
+        if node not in self._nodes:
+            raise RuntimeError("No such node")
+        for n in self._nodes:
+            if node in n.inputs:
+                n.inputs.remove(node)
+        self._nodes.remove(node)
+        if self._auto_terminals:
+            self._detect_terminals()
+
     def get_outputs(self):
         """ Return output nodes. """
         return self._outputs

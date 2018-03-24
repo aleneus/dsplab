@@ -39,11 +39,13 @@
 ** DONE [t] Activity: Use the docstring for description in _info
 ** DONE [t] Plan: Add docstrings to Plan.outputs property
 ** DONE [t] Add link to docs to README
-** TODO [t] Add remove node to Plan and demo
+** DONE [t] Add remove node to Plan and demo
 ** DONE [t!] Plan. Remove detection of terminals from call
+** DONE [e] Replace plan examples to plan/ folder from activity/
 * 0.23.1
 ** TODO [t] Plan. Add doc for auto_terminals 
 ** TODO [t] Online filter. add arguments to self._info
+** TODO [t] Support the inputs and ouputs of plan in setup plan from dict
 * 0.23.2
 ** TODO [t] plan demo: add example with online processing
 ** TODO [p] Activity examples: split the long file plan.py
