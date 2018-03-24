@@ -48,7 +48,6 @@
 ** DONE [e] Plan: Provide auto and manual terminals without auto_terminals option
 ** DONE [t] Modulation: Add a function for phase modulation
 ** DONE [t] Plan: Support the inputs and ouputs in the function for setup plan from dict 
-** TODO [t] Online: Add message about deprecation to the unit online.py
 * 0.24.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
@@ -65,3 +64,4 @@
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
+** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings 

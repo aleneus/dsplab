@@ -1,3 +1,15 @@
+0.23
+====
+
+* Activity: Remove Strategy and subclasses
+* Activity: Use the docstring for description in _info
+* Plan: Add docstrings to Plan.outputs property
+* Plan: Add remove node method and demo
+* Plan: Remove detection of terminals from call
+* Plan: Add auto_terminals option to init
+* Demo: Replace plan examples to plan/ folder from activity/
+* Add link to docs to README
+
 0.22
 ====
 
