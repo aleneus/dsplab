@@ -4,7 +4,7 @@ sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
 
 from dsplab.activity import Activity, Work
-from dsplab.plan import Node, Translator, Plan
+from dsplab.plan import Node, Transmitter, Plan
 
 class Linear(Activity):
     def __init__(self, k, b):
@@ -46,7 +46,7 @@ def example_1():
     b -> c, d
     """)
     
-    p = Plan(auto_terminals=True)
+    p = Plan()
     work_a = Work("Linear transformation")
     work_b = Work("Linear transformation")
     work_c = Work("Linear transformation")
@@ -79,7 +79,7 @@ def example_2():
     c, d -> d
     """)
     
-    p = Plan(auto_terminals=True)
+    p = Plan()
     a = Node(work=Work("Transformation", worker=Linear(1,1)))
     b = Node(work=Work("Transformation", worker=Linear(2,2)))
     c = Node(work=Work("Transformation", worker=Linear(3,3)))
@@ -101,7 +101,7 @@ def example_3():
     a -> b -> c
     """)
 
-    p = Plan(auto_terminals=True)
+    p = Plan()
     
     a = Node(work=Work("Transformation", worker=MultipleList(2)))
     b = Node(work=Work("Transformation", worker=MultipleList(3)))
@@ -130,33 +130,13 @@ def example_4():
     p.add_node(a)
     p.add_node(b, inputs=[a])
     p.add_node(c, inputs=[b])
-    p.inputs, p.outputs = [a], [b, c]
+    p.outputs = [c, b]
 
     x = 5
     y = p([x])
     print(y)
 
 def example_5():
-    print("""
-    Example 5. Using of Translator as input
-
-    part of input data -> a -> b
-    another part of input data -> b
-    """)
-    p = Plan(auto_terminals=True)
-    a = Node(work=Work("Linear transformation", worker=Linear(1,1)))
-    b = Node(work=Work("Summation", worker=Sum()))
-    t = Translator()
-    p.add_node(t)
-    p.add_node(a)
-    p.add_node(b, inputs=[t, a])
-
-    x1 = 5
-    x2 = 6
-    y = p([x1, x2])
-    print(y)
-
-def example_6():
     print("""
     Example 6. Start and stop hooks.
     """)

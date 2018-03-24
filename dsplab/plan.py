@@ -99,7 +99,7 @@ class Node:
         if self._stop_hook is not None:
             self._stop_hook()
 
-class Translator(Node):
+class Transmitter(Node):
     def __init__(self):
         super().__init__(work=None)
     
@@ -108,7 +108,7 @@ class Translator(Node):
 
 class Plan:
     """ The plan. Plan is the system of linked nodes. """
-    def __init__(self, auto_terminals=False):
+    def __init__(self):
         """ Initialization. 
         
         Parameters
@@ -122,11 +122,11 @@ class Plan:
         self._nodes = []
         self._inputs = []
         self._outputs = []
-        self._auto_terminals = auto_terminals
 
     def _detect_terminals(self):
         """ Detect first and last nodes. """
         self._inputs = []
+        self._outputs = []
         all_inputs = []
         for node in self._nodes:
             if len(node.inputs) == 0:
@@ -144,8 +144,7 @@ class Plan:
         self._nodes.append(node)
         if len(inputs) > 0:
             node.inputs = inputs
-        if self._auto_terminals:
-            self._detect_terminals()
+        self._detect_terminals()
 
     def remove_node(self, node):
         """ Remove node from plan. """
@@ -155,16 +154,13 @@ class Plan:
             if node in n.inputs:
                 n.inputs.remove(node)
         self._nodes.remove(node)
-        if self._auto_terminals:
-            self._detect_terminals()
+        self._detect_terminals()
 
     def get_outputs(self):
         """ Return output nodes. """
         return self._outputs
     def set_outputs(self, outputs):
         """ Set output nodes. """
-        if self._auto_terminals:
-            raise RuntimeError("Auto detection of terminals is setted on.")
         self._outputs = outputs
     outputs = property(get_outputs, set_outputs, doc="The nodes with are outputs.")
 
@@ -173,8 +169,6 @@ class Plan:
         return self._inputs
     def set_inputs(self, inputs):
         """ Set input nodes. """
-        if self._auto_terminals:
-            raise RuntimeError("Auto detection of terminals is setted on.")
         self._inputs = inputs
     inputs = property(get_inputs, set_inputs, doc="The nodes wich are inputs.")
 

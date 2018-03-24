@@ -43,7 +43,10 @@
 ** DONE [t!] Plan. Remove detection of terminals from call
 ** DONE [e] Replace plan examples to plan/ folder from activity/
 ** DONE [t] Plan. Add doc for auto_terminals 
-* 0.23.1
+* 0.24.0
+** DONE Plan: Rename Translator to Transmitter
+** DONE Plan: Provide auto and manual terminals without auto_terminals option
+* 0.24.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] Support the inputs and ouputs of plan in setup plan from dict
 ** TODO [t] plan demo: add example with online processing
@@ -51,7 +54,7 @@
 ** TODO [e] Use version numbers for requirements
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO [e] Add __call__ methods to docs
-* 0.24.0
+* 0.25.0
 ** TODO [t] Make more universal functions for different kinds of modulation
 ** TODO [t] Activity: Add a function to setup work from dictionary
 ** TODO [t] Remove io.py from dsplab
