@@ -38,7 +38,7 @@
 ** DONE [t] Activity: Remove Strategy and subclasses
 ** DONE [t] Activity: Use the docstring for description in _info
 ** DONE [t] Plan: Add docstrings to Plan.outputs property
-** TODO [t] Add link to docs in README
+** DONE [t] Add link to docs to README
 ** TODO [t] Add remove node to Plan and demo
 ** DONE [t!] Plan. Remove detection of terminals from call
 * 0.23.1
