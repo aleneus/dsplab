@@ -18,14 +18,17 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.22
+What's new in 0.23
 ------------------
 
-* Restructure todo
-* Add function am to modulation unit
-* Add function fm to modulation unit
-* Add demo for am
-* Add demo for fm
+* Activity: Remove Strategy and subclasses
+* Activity: Use the docstring for description in _info
+* Plan: Add docstrings to Plan.outputs property
+* Plan: Add remove node method and demo
+* Plan: Remove detection of terminals from call
+* Plan: Add auto_terminals option to init
+* Demo: Replace plan examples to plan/ folder from activity/
+* Add link to docs to README
 
 Modules
 -------

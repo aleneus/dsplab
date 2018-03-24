@@ -109,7 +109,15 @@ class Translator(Node):
 class Plan:
     """ The plan. Plan is the system of linked nodes. """
     def __init__(self, auto_terminals=False):
-        """ Initialization. """
+        """ Initialization. 
+        
+        Parameters
+        ----------
+        auto_terminals: bool
+            If True, the inputs and outputs will be decected
+            automatically. Default value is False.
+
+        """
         super().__init__()
         self._nodes = []
         self._inputs = []

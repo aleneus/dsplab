@@ -1,3 +1,12 @@
+0.22
+====
+
+* Restructure todo
+* Add function am to modulation unit
+* Add function fm to modulation unit
+* Add demo for am
+* Add demo for fm
+
 0.21
 ====
 
