@@ -34,14 +34,16 @@ Example 5
 
 .. literalinclude:: ../../demos/plan/plan.py
    :language: python
-   :lines: 6-8,21-29,139-158
+   :lines: 6-8,9-20,139-155
 	   
 Example 6
 ---------
 
-.. literalinclude:: ../../demos/plan/plan.py
+Using of Transmitter as input for part of data.
+
+.. literalinclude:: ../../demos/plan/transmitter.py
    :language: python
-   :lines: 6-8,9-20,159-176
+   :lines: 7-26
 	   
 .. automodule:: dsplab.plan
    :members:

@@ -18,17 +18,13 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.23
+What's new in 0.24
 ------------------
 
-* Activity: Remove Strategy and subclasses
-* Activity: Use the docstring for description in _info
-* Plan: Add docstrings to Plan.outputs property
-* Plan: Add remove node method and demo
-* Plan: Remove detection of terminals from call
-* Plan: Add auto_terminals option to init
-* Demo: Replace plan examples to plan/ folder from activity/
-* Add link to docs to README
+* Plan: Provide auto and manual terminals without auto_terminals option
+* Plan: Support the inputs and ouputs in the function for setup plan from dict 
+* Plan: Rename Translator to Transmitter
+* Modulation: Add a function for phase modulation
 
 Modules
 -------

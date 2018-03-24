@@ -99,6 +99,39 @@ def fm(T, fs, a, phi, func):
     ts = np.array(ts)
     return xs, ts
 
+def phm(T, fs, a, f, func):
+    """ Phase modulation. 
+
+    Parameters
+    ----------
+    T: float
+        Length pf signal (sec).
+    fs: float
+        Sampling frequency (Hz).
+    a: float
+        Amplitude of signal.
+    f: float
+        Frequency of signal (Hz).
+    func: Object
+        Function that returns phase values (in radians) depending on time.
+
+    Returns
+    -------
+    xs: np.array
+        Signal values.
+    ts: np.array
+        Time values.
+
+    """
+    dt = 1.0/fs
+    ts = np.arange(0, T+dt, dt)
+    xs = []
+    for t in ts:
+        x = a*np.cos(2*np.pi*f*t + func(t))
+        xs.append(x)
+    xs = np.array(xs)
+    return xs, ts
+
 def iq_demod(x, t, f_central, a, b):
     """ Return instantaneous frequency of modulated signal using IQ processign. 
 

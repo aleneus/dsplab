@@ -32,6 +32,8 @@ def example():
                     }
                 }
             },
+            # 'input' : True,
+            # 'output': True,
         },
         {
             'id': 'b',
@@ -41,7 +43,8 @@ def example():
                     'class': "numpy.exp"
                 }
             },
-            'inputs' : ['a']
+            'inputs' : ['a'],
+            'output' : True,
         }
     ]
     p = Plan()
