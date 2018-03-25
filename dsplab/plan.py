@@ -69,6 +69,7 @@ class Node:
         return ans
 
     def reset(self):
+        """ Clear the result. """
         self._res = None
 
     def is_inputs_ready(self) -> bool:

@@ -50,10 +50,14 @@
 ** DONE [t] Plan: Support the inputs and ouputs in the function for setup plan from dict 
 * 0.24.1
 ** DONE [b] Call plan twice with different input values
+** DONE [t] Add doc to Node.reset()
+* 0.24.2
+** TODO [t] Plan: Support the nodes-generators
 ** TODO [t] Online filter. add arguments to self._info
-** TODO [t] plan demo: add example with online processing
 ** TODO [p] Activity examples: split the long file plan.py
 ** TODO [e] Use version numbers for requirements
+* 0.24.3
+** TODO [t] plan demo: add example with online processing
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO [e] Add __call__ methods to docs
 ** TODO [t] Modulation: Refactoring the functions for modulation
