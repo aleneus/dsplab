@@ -68,6 +68,9 @@ class Node:
         ans = self._res is not None
         return ans
 
+    def reset(self):
+        self._res = None
+
     def is_inputs_ready(self) -> bool:
         """ Check if data in all inputs is ready. """
         for inpt in self._inputs:
@@ -174,11 +177,15 @@ class Plan:
 
     def __call__(self, xs):
         """ Run plan. """
+        
         if len(self._inputs) == 0:
             raise RuntimeError("There are no inputs in the plan. ")
         if len(self._outputs) == 0:
             raise RuntimeError("There are no outputs in the plan. ")
-        
+
+        for node in self._nodes:
+            node.reset()
+            
         for [node, x] in zip(self._inputs, xs):
             node(x)
         
