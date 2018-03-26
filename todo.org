@@ -58,6 +58,8 @@
 ** DONE [e] Use version numbers for requirements
 ** DONE [p] Activity examples: split the long file plan.py
 * 0.24.3
+** DONE [t] Plan. Add workers helper unit to doc.
+* 0.24.4
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
 * 0.24.5
