@@ -59,8 +59,8 @@
 ** DONE [p] Activity examples: split the long file plan.py
 * 0.24.3
 ** TODO [t] Online filter. add arguments to self._info
-* 0.24.3
 ** TODO [t] plan demo: add example with online processing
+* 0.24.5
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO [e] Add __call__ methods to docs
 ** TODO [t] Modulation: Refactoring the functions for modulation
