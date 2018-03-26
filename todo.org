@@ -53,10 +53,12 @@
 ** DONE [t] Add doc to Node.reset()
 * 0.24.2
 ** DONE [t] Plan: Support the nodes-generators
-** TODO [t] Plan: Add docstring for transmitter
+** DONE [t] Plan: Add docstring for transmitter
+** TODO [e] Plan: Add an example with node-generator
+** TODO [e] Use version numbers for requirements
+* 0.24.3
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [p] Activity examples: split the long file plan.py
-** TODO [e] Use version numbers for requirements
 * 0.24.3
 ** TODO [t] plan demo: add example with online processing
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'

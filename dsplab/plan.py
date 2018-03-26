@@ -104,10 +104,14 @@ class Node:
             self._stop_hook()
             
 class Transmitter(Node):
+    """ The node doing nothing except of transmitting of data from
+    input to output. """
     def __init__(self):
+        """ Initialization. """
         super().__init__(work=None)
     
     def __call__(self, x):
+        """ Run node. """
         self._res = x
 
 class Plan:
