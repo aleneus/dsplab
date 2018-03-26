@@ -56,9 +56,9 @@
 ** DONE [t] Plan: Add docstring for transmitter
 ** DONE [e] Plan: Add an example with node-generator
 ** DONE [e] Use version numbers for requirements
+** DONE [p] Activity examples: split the long file plan.py
 * 0.24.3
 ** TODO [t] Online filter. add arguments to self._info
-** TODO [p] Activity examples: split the long file plan.py
 * 0.24.3
 ** TODO [t] plan demo: add example with online processing
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
