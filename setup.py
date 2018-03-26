@@ -35,9 +35,8 @@ setup(
     long_description=read('README'),
     packages=['dsplab'],
     install_requires = [
-        'numpy',
-        'scipy',
-        'nose',
+        'numpy>=1.14.2',
+        'scipy>=0.19.0',
     ],
     classifiers=[
         "Development Status :: 3 - Alpha",

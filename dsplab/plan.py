@@ -83,31 +83,31 @@ class Node:
         """ Return the calculated data. """
         return self._res
 
-    def __call__(self, x=None):
-        """ Run node. """
+    def __call__(self, *args, **kwargs):
         if self._start_hook is not None:
             self._start_hook()
             
-        if x is not None:
-            y = self.work(x)
+        if len(self.inputs) == 0:
+            y = self.work(*args, **kwargs)
             self._res = y
         else:
             self._res = None
-            if len(self._inputs) == 1:
-                x = self._inputs[0].result()
-            else:
-                x = [inpt.result() for inpt in self._inputs]
-            y = self.work(x)
+            x = [inpt.result() for inpt in self._inputs]
+            y = self.work(*x)
             self._res = y
             
         if self._stop_hook is not None:
             self._stop_hook()
-
+            
 class Transmitter(Node):
+    """ The node doing nothing except of transmitting of data from
+    input to output. """
     def __init__(self):
+        """ Initialization. """
         super().__init__(work=None)
     
     def __call__(self, x):
+        """ Run node. """
         self._res = x
 
 class Plan:

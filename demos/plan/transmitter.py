@@ -10,8 +10,8 @@ from dsplab.plan import Work
 def mul(x):
     return 2*x
 
-def plus(x):
-    return sum(x)
+def plus(x1, x2):
+    return x1 + x2
 
 def main():
     p = Plan()

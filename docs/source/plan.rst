@@ -1,50 +1,48 @@
 plan
 ====
 
-Example 1
----------
+Examples
+--------
 
-.. literalinclude:: ../../demos/plan/plan.py
+Basic usage
+^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/basic.py
    :language: python
-   :lines: 6-8,9-20,41-73
 
-Example 2
----------
+Processing of lists
+^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/plan.py
+.. literalinclude:: ../../demos/plan/lists.py
    :language: python
-   :lines: 6-8,9-29,74-96
 
-Example 3
----------
+User-specified outputs
+^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/plan.py
+.. literalinclude:: ../../demos/plan/outputs.py
    :language: python
-   :lines: 6-8,30-40,97-117
-	
-Example 4
----------
 
-.. literalinclude:: ../../demos/plan/plan.py
+Using of start and stop hooks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/hooks.py
    :language: python
-   :lines: 6-8,9-20,118-137
-
-Example 5
----------
-
-.. literalinclude:: ../../demos/plan/plan.py
-   :language: python
-   :lines: 6-8,9-20,139-155
 	   
-Example 6
----------
-
-Using of Transmitter as input for part of data.
+Using of Transmitter
+^^^^^^^^^^^^^^^^^^^^
 
 .. literalinclude:: ../../demos/plan/transmitter.py
    :language: python
-   :lines: 7-26
+
+Node-generator
+^^^^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/generator.py
+   :language: python
 	   
+Members
+-------
+
 .. automodule:: dsplab.plan
    :members:
    :undoc-members:
