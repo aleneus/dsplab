@@ -1,7 +1,6 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../..'))
 
 from dsplab.activity import Activity, Work
 from dsplab.plan import Node, Transmitter, Plan

@@ -54,7 +54,7 @@
 * 0.24.2
 ** DONE [t] Plan: Support the nodes-generators
 ** DONE [t] Plan: Add docstring for transmitter
-** TODO [e] Plan: Add an example with node-generator
+** DONE [e] Plan: Add an example with node-generator
 ** TODO [e] Use version numbers for requirements
 * 0.24.3
 ** TODO [t] Online filter. add arguments to self._info
