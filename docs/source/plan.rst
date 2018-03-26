@@ -4,6 +4,12 @@ plan
 Examples
 --------
 
+Helper unit with workers
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/workers.py
+   :language: python
+
 Basic usage
 ^^^^^^^^^^^
 
