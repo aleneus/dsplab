@@ -55,7 +55,7 @@
 ** DONE [t] Plan: Support the nodes-generators
 ** DONE [t] Plan: Add docstring for transmitter
 ** DONE [e] Plan: Add an example with node-generator
-** TODO [e] Use version numbers for requirements
+** DONE [e] Use version numbers for requirements
 * 0.24.3
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [p] Activity examples: split the long file plan.py
