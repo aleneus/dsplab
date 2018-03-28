@@ -67,7 +67,7 @@ def am(T, fs, f, phi, func, noise_f=None, noise_a=None):
     ts = np.array(ts)
     return xs, ts
     
-def fm(T, fs, a, phi, func):
+def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
     """ Amplitude modulation. 
 
     Parameters
@@ -82,6 +82,10 @@ def fm(T, fs, a, phi, func):
         Initial phase (radians).
     func: Object
         Function that returns frequency values (in Hz) depending on time.
+    noise_f: Object
+        Function that returns noise value added to frequency.
+    noise_a: Object
+        Function that returns noise value added to amplitude.
 
     Returns
     -------
@@ -98,7 +102,12 @@ def fm(T, fs, a, phi, func):
     xs = []
     ts = []
     for i in range(N):
-        x = a*np.cos(ph)
+        arg = ph
+        if noise_f is not None:
+            arg += noise_f(t)
+        x = a*np.cos(arg)
+        if noise_a is not None:
+            x += noise_a(t)
         xs.append(x)
         ts.append(t)
         t += delta_t
