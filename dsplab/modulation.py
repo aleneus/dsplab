@@ -16,7 +16,7 @@
 import numpy as np
 import dsplab.filtration as flt
 
-def am(T, fs, f, phi, func):
+def am(T, fs, f, phi, func, noise_f=None, noise_a=None):
     """ Amplitude modulation. 
 
     Parameters
@@ -30,7 +30,11 @@ def am(T, fs, f, phi, func):
     phi: float
         Initial phase (radians).
     func: Object
-        Function that returns amplitude values depending on time.
+        Function that returns amplitude value depending on time.
+    noise_f: Object
+        Function that returns noise value added to frequency.
+    noise_a: Object
+        Function that returns noise value added to amplitude.
 
     Returns
     -------
@@ -43,13 +47,18 @@ def am(T, fs, f, phi, func):
     ph = phi
     t = 0
     delta_t = 1.0/fs
-    delta_ph = 2 * np.pi / fs
-    N = int(T*fs) 
+    delta_ph = 2 * np.pi * f / fs
+    N = int(T*fs)
     xs = []
     ts = []
     for i in range(N):
         A = func(t)
-        x = A*np.cos(ph)
+        if noise_f is None:
+            x = A*np.cos(ph)
+        else:
+            x = A*np.cos(ph + noise_f(t))
+        if noise_a is not None:
+            x += noise_a(t)
         xs.append(x)
         ts.append(t)
         t += delta_t
