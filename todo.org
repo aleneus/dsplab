@@ -63,7 +63,6 @@
 ** DONE [t] Add noise_a and noise_f parameters to am
 ** DONE [t] Add noise_a and noise_f parameters to fm
 ** DONE [t] Add noise_a and noise_f parameters to phm
-** TODO [t] Make more universal functions for different kinds of modulation
 ** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings 
 ** TODO [t] Remove io.py from dsplab
 ** TODO [e] Remove actually empty unit online.py
@@ -79,3 +78,4 @@
 ** TODO [t] Activity: Add a function to setup work from dictionary
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
+** TODO [p] Make more universal functions for different kinds of modulation
