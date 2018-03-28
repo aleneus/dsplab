@@ -108,7 +108,7 @@ def fm(T, fs, a, phi, func):
     ts = np.array(ts)
     return xs, ts
 
-def phm(T, fs, a, f, func):
+def phm(T, fs, a, f, func, noise_f=None, noise_a=None):
     """ Phase modulation. 
 
     Parameters
@@ -123,6 +123,10 @@ def phm(T, fs, a, f, func):
         Frequency of signal (Hz).
     func: Object
         Function that returns phase values (in radians) depending on time.
+    noise_f: Object
+        Function that returns noise value added to frequency.
+    noise_a: Object
+        Function that returns noise value added to amplitude.
 
     Returns
     -------
@@ -134,10 +138,17 @@ def phm(T, fs, a, f, func):
     """
     dt = 1.0/fs
     ts = np.arange(0, T+dt, dt)
+    
     xs = []
     for t in ts:
-        x = a*np.cos(2*np.pi*f*t + func(t))
+        arg = 2*np.pi*f*t + func(t)
+        if noise_f is not None:
+            arg += noise_f(t)
+        x = a*np.cos(arg)
+        if noise_a is not None:
+            x += noise_a(t)
         xs.append(x)
+        
     xs = np.array(xs)
     return xs, ts
 

@@ -62,7 +62,7 @@
 * 0.25.0
 ** DONE [t] Add noise_a and noise_f parameters to am
 ** TODO [t] Add noise_a and noise_f parameters to fm
-** TODO [t] Add noise_a and noise_f parameters to phm
+** DONE [t] Add noise_a and noise_f parameters to phm
 ** TODO [t] Make more universal functions for different kinds of modulation
 ** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings 
 ** TODO [t] Remove io.py from dsplab
