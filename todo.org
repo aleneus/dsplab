@@ -63,9 +63,11 @@
 ** DONE [t] Add noise_a and noise_f parameters to am
 ** DONE [t] Add noise_a and noise_f parameters to fm
 ** DONE [t] Add noise_a and noise_f parameters to phm
-** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings 
+** TODO [b] Activity: Add * to kwargs in work.__call__()
+** TODO [t] Plan: Add a worker with no init args to the example of setup_plan
+** TODO [b] Acrivity: Work: worker is a function, info()
 ** TODO [t] Remove io.py from dsplab
-** TODO [e] Remove actually empty unit online.py
+** TODO [b] Plan: setup_plan(): work is a class with no args in init
 * 0.25.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
@@ -75,7 +77,10 @@
 ** TODO [t] Modulation: Refactoring the functions for modulation
 ** TODO [e] Modulation: Add example for phase modulation
 * 0.26.0
+** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings
+** TODO [e] Remove actually empty unit online.py
 ** TODO [t] Activity: Add a function to setup work from dictionary
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Make more universal functions for different kinds of modulation
+** TODO [p] Plan: setup_plan: use is_input and is_output keys instead of input and output
