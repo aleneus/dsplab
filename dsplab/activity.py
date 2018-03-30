@@ -262,6 +262,5 @@ class Work(Activity):
 
     def __call__(self, *args, **kwargs):
         """ Do work. """
-        y = self.worker(*args, *kwargs)
+        y = self.worker(*args, **kwargs)
         return y
-

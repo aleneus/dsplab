@@ -63,7 +63,7 @@
 ** DONE [t] Add noise_a and noise_f parameters to am
 ** DONE [t] Add noise_a and noise_f parameters to fm
 ** DONE [t] Add noise_a and noise_f parameters to phm
-** TODO [b] Activity: Add * to kwargs in work.__call__()
+** DONE [b] Activity: Add * to kwargs in work.__call__()
 ** TODO [t] Plan: Add a worker with no init args to the example of setup_plan
 ** TODO [b] Acrivity: Work: worker is a function, info()
 ** TODO [t] Remove io.py from dsplab
