@@ -45,6 +45,12 @@ Node-generator
 
 .. literalinclude:: ../../demos/plan/generator.py
    :language: python
+
+Setup plan from nodes settings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/setup_plan.py
+   :language: python
 	   
 Members
 -------

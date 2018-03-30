@@ -1,3 +1,11 @@
+0.24
+====
+
+* Plan: Provide auto and manual terminals without auto_terminals option
+* Plan: Support the inputs and ouputs in the function for setup plan from dict 
+* Plan: Rename Translator to Transmitter
+* Modulation: Add a function for phase modulation
+
 0.23
 ====
 

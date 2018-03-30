@@ -65,10 +65,8 @@
 ** DONE [t] Add noise_a and noise_f parameters to phm
 ** DONE [b] Activity: Add * to kwargs in work.__call__()
 ** DONE [t] Plan: Add a worker with no init args to the example of setup_plan
-** TODO [b] Activity: Work: worker is a function, info()
-** DONE [t] Remove io.py from dsplab
-** DONE [b] Plan: setup_plan(): work is a class with no args in init
 ** DONE [t] Plan: setup_plan(): add key 'function' to explicit description of worker
+** DONE [t] Plan: add setup plan example to docs
 * 0.25.1
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO [t] Modulation: Refactoring the functions for modulation
@@ -84,5 +82,4 @@
 * 0.26.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
-** TODO [t] Plan: add setup plan example to docs
 ** TODO [e] Add __call__ methods to docs
