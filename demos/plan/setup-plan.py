@@ -46,17 +46,33 @@ def example():
         {
             'id': 'b',
             'work': {
-                'descr': "Third step",
+                'descr': "Second step",
                 'worker': {
-                    'class': "Inc"
+                    # is a function
+                    'function': "numpy.exp"
                 }
             },
             'inputs' : ['a'],
             'output' : True,
+        },
+        {
+            'id': 'c',
+            'work': {
+                'descr': "Third step",
+                'worker': {
+                    # is a class with no args in init
+                    'class': "Inc"
+                }
+            },
+            'inputs' : ['b'],
+            'output' : True,
         }
     ]
+    
     p = Plan()
-    setup_plan(p, nodes_settings)
+    if not setup_plan(p, nodes_settings):
+        print('Error in settings')
+        return
     x = 1
     y = p([x])
     print(y)

@@ -220,13 +220,24 @@ def setup_plan(plan: Plan, nodes_settings) -> bool:
             work_descr = ""
         
         worker_settings = work_settings['worker']
-        worker_class = worker_settings['class']
+
+        if 'class' in worker_settings.keys():
+            key = 'class'
+        elif 'function' in worker_settings.keys():
+            key = 'function'
+        else:
+            return False
+        
+        worker_class = worker_settings[key]
         
         if 'params' in worker_settings.keys():
             worker_params = worker_settings['params']
             worker = import_entity(worker_class)(**worker_params)
         else:
-            worker = import_entity(worker_class)()
+            if key == 'class':
+                worker = import_entity(worker_class)()
+            else:
+                worker = import_entity(worker_class)
 
         work = Work(work_descr, worker)
         nodes[node_id].work = work

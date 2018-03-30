@@ -68,7 +68,7 @@
 ** TODO [b] Activity: Work: worker is a function, info()
 ** DONE [t] Remove io.py from dsplab
 ** DONE [b] Plan: setup_plan(): work is a class with no args in init
-** TODO [t] Plan: setup_plan(): add key 'function' to explicit description of worker
+** DONE [t] Plan: setup_plan(): add key 'function' to explicit description of worker
 * 0.25.1
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO [t] Modulation: Refactoring the functions for modulation
