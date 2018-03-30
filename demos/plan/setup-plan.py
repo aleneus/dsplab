@@ -18,6 +18,14 @@ class Linear(Activity):
         y = x*self.k + self.b
         return y
 
+class Inc(Activity):
+    def __init__(self):
+        super().__init__()
+    
+    def __call__(self, x):
+        y = x + 1
+        return y
+
 def example():
     nodes_settings = [
         {
@@ -38,9 +46,9 @@ def example():
         {
             'id': 'b',
             'work': {
-                'descr': "Second step",
+                'descr': "Third step",
                 'worker': {
-                    'class': "numpy.exp"
+                    'class': "Inc"
                 }
             },
             'inputs' : ['a'],

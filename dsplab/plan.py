@@ -226,7 +226,7 @@ def setup_plan(plan: Plan, nodes_settings) -> bool:
             worker_params = worker_settings['params']
             worker = import_entity(worker_class)(**worker_params)
         else:
-            worker = import_entity(worker_class)
+            worker = import_entity(worker_class)()
 
         work = Work(work_descr, worker)
         nodes[node_id].work = work
