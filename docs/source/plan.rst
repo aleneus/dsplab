@@ -43,6 +43,8 @@ Using of Transmitter
 Node-generator
 ^^^^^^^^^^^^^^
 
+'Node-generator' means the no input node with no inputs.
+
 .. literalinclude:: ../../demos/plan/generator.py
    :language: python
 

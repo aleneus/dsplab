@@ -68,6 +68,9 @@
 ** DONE [t] Plan: setup_plan(): add key 'function' to explicit description of worker
 ** DONE [t] Plan: add setup plan example to docs
 * 0.25.1
+** DONE [e] Docs: Add explanation to Node-generator example
+** TODO [b] Demos: rename setup-plan to setup_plan
+* 0.25.2
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO [t] Modulation: Refactoring the functions for modulation
 ** TODO [e] Modulation: Add example for phase modulation
