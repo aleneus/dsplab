@@ -73,15 +73,17 @@
 * 0.25.2
 ** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** TODO [t] Modulation: Refactoring the functions for modulation
+** TODO [b] Modulation: different kind of modulation gives different length of output signal
 ** TODO [e] Modulation: Add example for phase modulation
 * 0.26.0
 ** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings
+** TODO [p] Plan: setup_plan: use is_input and is_output keys instead of input and output
+** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [t] Activity: Add a function to setup work from dictionary
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Make more universal functions for different kinds of modulation
-** TODO [p] Plan: setup_plan: use is_input and is_output keys instead of input and output
 * 0.26.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
