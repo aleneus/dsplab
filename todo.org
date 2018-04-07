@@ -74,7 +74,6 @@
 * 0.25.3
 ** DONE [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
 ** DONE [t] Modulation: Refactoring the functions for modulation
-** TODO [e] Modulation: Add example for phase modulation
 ** DONE [b] Modulation: different kind of modulation gives different length of output signal
 * 0.26.0
 ** TODO [t] Modulation. Return angles from fm()
@@ -90,3 +89,4 @@
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
 ** TODO [e] Add __call__ methods to docs
+** TODO [e] Modulation: Add example for phase modulation
