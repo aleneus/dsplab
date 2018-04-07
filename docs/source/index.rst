@@ -30,18 +30,28 @@ What's new in 0.25
 Modules
 -------
 
+DSP procedures
+^^^^^^^^^^^^^^
+
+.. toctree::
+   :maxdepth: 2
+
+   modulation
+   filtration
+   frequency
+   envelope
+   prony
+   spectran
+
+Ornanization of calculations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. toctree::
    :maxdepth: 2
 
    activity
    plan
-   modulation
-   frequency
-   envelope
-   prony
-   spectran
-   filtration
-
+	      
 History
 -------   
    
