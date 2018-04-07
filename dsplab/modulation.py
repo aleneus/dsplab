@@ -45,13 +45,11 @@ def am(T, fs, f, phi, func, noise_f=None, noise_a=None):
 
     """
     ph = phi
-    t = 0
-    delta_t = 1.0/fs
     delta_ph = 2 * np.pi * f / fs
-    N = int(T*fs)
+    dt = 1.0/fs
+    ts = np.arange(0, T+dt, dt)
     xs = []
-    ts = []
-    for i in range(N):
+    for t in ts:
         A = func(t)
         if noise_f is None:
             x = A*np.cos(ph)
@@ -60,11 +58,8 @@ def am(T, fs, f, phi, func, noise_f=None, noise_a=None):
         if noise_a is not None:
             x += noise_a(t)
         xs.append(x)
-        ts.append(t)
-        t += delta_t
         ph += delta_ph
     xs = np.array(xs)
-    ts = np.array(ts)
     return xs, ts
     
 def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
@@ -96,12 +91,10 @@ def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
 
     """
     ph = phi
-    t = 0
-    delta_t = 1.0/fs
-    N = int(T*fs) 
+    dt = 1.0/fs
+    ts = np.arange(0, T+dt, dt)
     xs = []
-    ts = []
-    for i in range(N):
+    for t in ts:
         arg = ph
         if noise_f is not None:
             arg += noise_f(t)
@@ -109,12 +102,9 @@ def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
         if noise_a is not None:
             x += noise_a(t)
         xs.append(x)
-        ts.append(t)
-        t += delta_t
         delta_ph = 2*np.pi*func(t)/fs
         ph += delta_ph
     xs = np.array(xs)
-    ts = np.array(ts)
     return xs, ts
 
 def phm(T, fs, a, f, func, noise_f=None, noise_a=None):
@@ -147,7 +137,6 @@ def phm(T, fs, a, f, func, noise_f=None, noise_a=None):
     """
     dt = 1.0/fs
     ts = np.arange(0, T+dt, dt)
-    
     xs = []
     for t in ts:
         arg = 2*np.pi*f*t + func(t)
@@ -157,7 +146,6 @@ def phm(T, fs, a, f, func, noise_f=None, noise_a=None):
         if noise_a is not None:
             x += noise_a(t)
         xs.append(x)
-        
     xs = np.array(xs)
     return xs, ts
 

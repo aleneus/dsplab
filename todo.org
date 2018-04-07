@@ -72,12 +72,11 @@
 ** DONE [b] Demos: rename setup-plan to setup_plan
 * 0.25.2
 * 0.25.3
-** TODO [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
-** TODO [t] Modulation: Refactoring the functions for modulation
+** DONE [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
+** DONE [t] Modulation: Refactoring the functions for modulation
 ** TODO [e] Modulation: Add example for phase modulation
-** TODO [b] Timestamps: UTC time is not converted if the delimiter is colon
+** DONE [b] Modulation: different kind of modulation gives different length of output signal
 * 0.26.0
-** TODO [b] Modulation: different kind of modulation gives different length of output signal
 ** TODO [t] Modulation. Return angles from fm()
 ** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings
 ** TODO [p] Plan: setup_plan: use is_input and is_output keys instead of input and output
