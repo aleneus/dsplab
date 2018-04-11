@@ -202,8 +202,8 @@ class Plan:
         ys = [last_node.result() for last_node in self._outputs]
         return ys
 
-def setup_plan(plan: Plan, nodes_settings) -> bool:
-    """ Setup plan using dict settings. """
+def setup_plan(plan, nodes_settings):
+    """ Setup plan using the list of dictionaries with node settings. """
     nodes = {}
 
     inputs = []
@@ -214,32 +214,9 @@ def setup_plan(plan: Plan, nodes_settings) -> bool:
         nodes[node_id] = Node()
         
         work_settings = node_settings['work']
-        if 'descr' in work_settings.keys():
-            work_descr = work_settings['descr']
-        else:
-            work_descr = ""
-        
-        worker_settings = work_settings['worker']
 
-        if 'class' in worker_settings.keys():
-            key = 'class'
-        elif 'function' in worker_settings.keys():
-            key = 'function'
-        else:
-            return False
-        
-        worker_class = worker_settings[key]
-        
-        if 'params' in worker_settings.keys():
-            worker_params = worker_settings['params']
-            worker = import_entity(worker_class)(**worker_params)
-        else:
-            if key == 'class':
-                worker = import_entity(worker_class)()
-            else:
-                worker = import_entity(worker_class)
-
-        work = Work(work_descr, worker)
+        work = Work()
+        work.setup_from_dict(work_settings)
         nodes[node_id].work = work
         
         if 'inputs' in node_settings.keys():

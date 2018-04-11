@@ -81,13 +81,14 @@
 ** TODO [p] Plan: setup_plan: use is_input and is_output keys instead of input and output
 ** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [e] Remove actually empty unit online.py
-** TODO [t] Activity: Add a function to setup work from dictionary
-** TODO [e] Add function for calculating of frequency using Hilbert transform
-** TODO [e] Add function for calculating of frequency using digital Hilbert filter
-** TODO [p] Make more universal functions for different kinds of modulation
+** DONE [t] Activity: Add a function to setup work from dictionary
 ** DONE [t] Modulation. Add a function for harmonic signal (a, f, ph are constants).
 * 0.26.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
 ** TODO [e] Add __call__ methods to docs
 ** TODO [e] Modulation: Add example for phase modulation
+* 0.27.1
+** TODO [e] Add function for calculating of frequency using Hilbert transform
+** TODO [e] Add function for calculating of frequency using digital Hilbert filter
+** TODO [p] Make more universal functions for different kinds of modulation
