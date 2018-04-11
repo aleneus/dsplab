@@ -15,8 +15,12 @@ def main():
     fs = 100
     a = 1
     phi = 0
-    x, t = fm(T, fs, a, phi, func)
+    x, ph, t = fm(T, fs, a, phi, func)
+    
+    plt.subplot(211)
     plt.plot(t, x)
+    plt.subplot(212)
+    plt.plot(t, ph)
     plt.show()
 
 if __name__ == "__main__":

@@ -76,7 +76,7 @@
 ** DONE [t] Modulation: Refactoring the functions for modulation
 ** DONE [b] Modulation: different kind of modulation gives different length of output signal
 * 0.26.0
-** TODO [t] Modulation. Return angles from fm()
+** DONE [t] Modulation. Return angles from fm()
 ** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings
 ** TODO [p] Plan: setup_plan: use is_input and is_output keys instead of input and output
 ** TODO [p] Plan: Transmitter is a worker, not Node

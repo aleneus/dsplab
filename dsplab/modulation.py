@@ -86,6 +86,8 @@ def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
     -------
     xs: np.array
         Signal values.
+    phs: np.array
+        Full phase values.
     ts: np.array
         Time values.
 
@@ -94,6 +96,7 @@ def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
     dt = 1.0/fs
     ts = np.arange(0, T+dt, dt)
     xs = []
+    phs = []
     for t in ts:
         arg = ph
         if noise_f is not None:
@@ -102,10 +105,11 @@ def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
         if noise_a is not None:
             x += noise_a(t)
         xs.append(x)
+        phs.append(ph)
         delta_ph = 2*np.pi*func(t)/fs
         ph += delta_ph
     xs = np.array(xs)
-    return xs, ts
+    return xs, phs, ts
 
 def phm(T, fs, a, f, func, noise_f=None, noise_a=None):
     """ Phase modulation. 
