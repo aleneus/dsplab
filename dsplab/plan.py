@@ -19,7 +19,7 @@ understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes.
 """
 
-from dsplab.activity import Work
+from dsplab.activity import Work, get_work_from_dict
 from dsplab.helpers import *
 
 class Node:
@@ -179,37 +179,6 @@ class Plan:
     def clear(self):
         pass
 
-    def setup_from_dict(self, settings):
-        """ Setup plan from dictionary with settings. """
-        nodes = {}
-        inputs = []
-        outputs = []
-
-        self.clear()
-        
-        nodes_settings = settings['nodes']
-        for node_settings in nodes_settings:
-            node_id = node_settings['id']
-            nodes[node_id] = Node()
-            work = Work()
-            work_settings = node_settings['work']
-            work.setup_from_dict(work_settings)
-            nodes[node_id].work = work
-            if 'inputs' in node_settings.keys():
-                inputs = [nodes[key] for key in node_settings['inputs']]
-                self.add_node(nodes[node_id], inputs=inputs)
-            else:
-                self.add_node(nodes[node_id])
-
-        if 'inputs' in settings:
-            print(settings['inputs'])
-            inputs = [nodes[key] for key in settings['inputs']]
-            self.set_inputs(inputs)
-            
-        if 'outputs' in settings:
-            outputs = [nodes[key] for key in settings['outputs']]
-            self.set_outputs(outputs)
-
     def __call__(self, xs):
         """ Run plan. """
         if len(self._inputs) == 0:
@@ -235,9 +204,36 @@ class Plan:
         ys = [last_node.result() for last_node in self._outputs]
         return ys
 
+def get_plan_from_dict(settings):
+    """ Create and return instance of Plan setted from dictionary. """
+    p = Plan()
+    nodes = {}
+    nodes_settings = settings['nodes']
+    for node_settings in nodes_settings:
+        node_id = node_settings['id']
+        nodes[node_id] = Node()
+        work_settings = node_settings['work']
+        work = get_work_from_dict(work_settings)
+        nodes[node_id].work = work
+        if 'inputs' in node_settings.keys():
+            inputs = [nodes[key] for key in node_settings['inputs']]
+            p.add_node(nodes[node_id], inputs=inputs)
+        else:
+            p.add_node(nodes[node_id])
+
+    if 'inputs' in settings:
+        inputs = [nodes[key] for key in settings['inputs']]
+        p.set_inputs(inputs)
+        
+    if 'outputs' in settings:
+        outputs = [nodes[key] for key in settings['outputs']]
+        p.set_outputs(outputs)
+
+    return p
+    
+
 def setup_plan(plan, nodes_settings):
-    """ Setup plan using the list of dictionaries with node settings. """
-    print("Deprecated: setup_plan(). Use Plan.setup_from_dict() instead.")
+    print("Deprecated: setup_plan(). Use get_plan_from_dict() instead.")
     
     nodes = {}
     inputs = []

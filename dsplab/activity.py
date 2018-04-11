@@ -262,39 +262,72 @@ class Work(Activity):
         except:
             pass
 
-    def setup_from_dict(self, settings):
-        """ Setup work from dictionary. """
-        if 'descr' in settings:
-            descr = settings['descr']
-        else:
-            descr = ""
+    # def setup_from_dict(self, settings):
+    #     """ Setup work from dictionary. """
+    #     if 'descr' in settings:
+    #         descr = settings['descr']
+    #     else:
+    #         descr = ""
 
-        if 'worker' not in settings:
-            raise RuntimeError("No worker in settings")
-        worker_settings = settings['worker']
+    #     if 'worker' not in settings:
+    #         raise RuntimeError("No worker in settings")
+    #     worker_settings = settings['worker']
 
-        if 'class' in worker_settings.keys():
-            key = 'class'
-        elif 'function' in worker_settings.keys():
-            key = 'function'
-        else:
-            raise RuntimeError("Work must be 'class' or 'function'")
+    #     if 'class' in worker_settings.keys():
+    #         key = 'class'
+    #     elif 'function' in worker_settings.keys():
+    #         key = 'function'
+    #     else:
+    #         raise RuntimeError("Work must be 'class' or 'function'")
         
-        worker_name = worker_settings[key]
+    #     worker_name = worker_settings[key]
         
-        if 'params' in worker_settings.keys():
-            worker_params = worker_settings['params']
-            worker = import_entity(worker_name)(**worker_params)
-        else:
-            if key == 'class':
-                worker = import_entity(worker_name)()
-            else:
-                worker = import_entity(worker_name)
+    #     if 'params' in worker_settings.keys():
+    #         worker_params = worker_settings['params']
+    #         worker = import_entity(worker_name)(**worker_params)
+    #     else:
+    #         if key == 'class':
+    #             worker = import_entity(worker_name)()
+    #         else:
+    #             worker = import_entity(worker_name)
 
-        self.set_descr(descr)
-        self.set_worker(worker)
+    #     self.set_descr(descr)
+    #     self.set_worker(worker)
         
     def __call__(self, *args, **kwargs):
         """ Do work. """
         y = self.worker(*args, **kwargs)
         return y
+
+def get_work_from_dict(settings):
+    """ Create and return Work instance setted from dictionary. """
+    
+    if 'descr' in settings:
+        descr = settings['descr']
+    else:
+        descr = ""
+
+    if 'worker' not in settings:
+        raise RuntimeError("No worker in settings")
+    worker_settings = settings['worker']
+
+    if 'class' in worker_settings.keys():
+        key = 'class'
+    elif 'function' in worker_settings.keys():
+        key = 'function'
+    else:
+        raise RuntimeError("Work must be 'class' or 'function'")
+        
+    worker_name = worker_settings[key]
+        
+    if 'params' in worker_settings.keys():
+        worker_params = worker_settings['params']
+        worker = import_entity(worker_name)(**worker_params)
+    else:
+        if key == 'class':
+            worker = import_entity(worker_name)()
+        else:
+            worker = import_entity(worker_name)
+
+    work = Work(descr, worker)
+    return work
