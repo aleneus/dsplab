@@ -77,17 +77,18 @@
 ** DONE [b] Modulation: different kind of modulation gives different length of output signal
 * 0.26.0
 ** DONE [t] Modulation. Return angles from fm()
-** TODO [p] Plan: In setup_plan() use one dict for plan instead of list of nodes settings
-** TODO [p] Plan: setup_plan: use is_input and is_output keys instead of input and output
+** DONE [p] Plan: Add setup_from_dict()
 ** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [e] Remove actually empty unit online.py
 ** DONE [t] Activity: Add a function to setup work from dictionary
 ** DONE [t] Modulation. Add a function for harmonic signal (a, f, ph are constants).
+** TODO [t] Plan. Implement clear()
 * 0.26.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
 ** TODO [e] Add __call__ methods to docs
 ** TODO [e] Modulation: Add example for phase modulation
+** TODO [e] Activity, Plan: doc keys in settings used in setup_from_dict()
 * 0.27.1
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

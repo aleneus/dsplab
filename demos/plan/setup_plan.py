@@ -77,5 +77,56 @@ def example():
     y = p([x])
     print(y)
 
+def example_2():
+    
+    settings = {
+        'nodes' : [
+            {
+                'id' : 'a',
+                'work': {
+                    'descr': "First step",
+                    'worker': {
+                        'class': "Linear",
+                        'params': {
+                            'k': 1,
+                            'b': 1,
+                        }
+                    }
+                }
+            },
+
+            {
+                'id': 'b',
+                'work': {
+                    'descr': "Second step",
+                    'worker': {
+                        'function': "numpy.exp"
+                    }
+                },
+                'inputs' : ['a'],
+            },
+
+            {
+                'id': 'c',
+                'work': {
+                    'descr': "Third step",
+                    'worker': {
+                        'class': "Inc"
+                    }
+                },
+                'inputs' : ['b'],
+            }
+        ],
+        
+        'inputs': ['a'],
+        'outputs': ['b', 'c'],
+    }
+    
+    p = Plan()
+    p.setup_from_dict(settings)
+    x = 1
+    y = p([x])
+    print(y)
+
 if __name__ == "__main__":
-    example()
+    example_2()
