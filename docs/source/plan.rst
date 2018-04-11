@@ -48,10 +48,10 @@ Node-generator
 .. literalinclude:: ../../demos/plan/generator.py
    :language: python
 
-Setup plan from nodes settings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get Plan instance from dict
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/setup_plan.py
+.. literalinclude:: ../../demos/plan/get_plan_from_dict.py
    :language: python
 	   
 Members
