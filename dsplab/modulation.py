@@ -16,6 +16,48 @@
 import numpy as np
 import dsplab.filtration as flt
 
+def harmonic(T, fs, a, f, ph, noise_f=None, noise_a=None):
+    """ Harmonic signal.
+
+    Parameters
+    ----------
+    T: float
+        Length pf signal (sec).
+    fs: float
+        Sampling frequency (Hz).
+    a: float
+        Amplitude of signal.
+    f: Object
+        Frequency of signal (Hz).
+    ph: float
+        Initial phase (radians).
+    noise_f: Object
+        Function that returns noise value added to frequency.
+    noise_a: Object
+        Function that returns noise value added to amplitude.
+
+    Returns
+    -------
+    xs: np.array
+        Signal values.
+    ts: np.array
+        Time values.
+    
+    """
+    ts = np.arange(0, T, 1/fs)
+    xs = []
+    for t in ts:
+        amp = a
+        if noise_a is not None:
+            amp += noise_a(t)
+        arg = 2*np.pi*f*t + ph
+        if noise_f is not None:
+            arg += noise_f(t)
+        x = amp * np.cos(arg)
+        xs.append(x)
+    xs = np.array(xs)
+    return xs, ts
+    
 def am(T, fs, f, phi, func, noise_f=None, noise_a=None):
     """ Amplitude modulation. 
 

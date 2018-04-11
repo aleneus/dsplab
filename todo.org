@@ -85,6 +85,7 @@
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Make more universal functions for different kinds of modulation
+** DONE [t] Modulation. Add a function for harmonic signal (a, f, ph are constants).
 * 0.26.1
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
