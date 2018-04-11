@@ -18,14 +18,15 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.25
+What's new in 0.26
 ------------------
 
-* Modulation: Add noise_a and noise_f parameters to am, fm, phm
-* Plan: Add the key 'function' to explicit description of worker in node settings
-* Plan: Add a worker with no init args to the example of setup_plan
-* Docs: Add more examples
-* Some bugs fixed
+* Modulation: Return angles from fm()
+* Activity: Add a function for setup work from dictionary
+* Plan: Add a function for setup plan from dictionary
+* Plan: Deprecate setup_plan()
+* Plan: Update demo
+* Modulation: Add a function for generate the harmonic signal (with constant amplitude, frequency and phase)
 
 Modules
 -------

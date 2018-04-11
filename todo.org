@@ -81,7 +81,7 @@
 ** DONE [t] Activity: Add a function to setup work from dictionary
 ** DONE [t] Modulation. Add a function for harmonic signal (a, f, ph are constants).
 ** DONE [e] Plan, Activity: Make setup_from_dict() a separate functions
-** TODO [t] Upadte version in doc
+** DONE [t] Update version in doc
 ** DONE [t] Remove example with deprecated setup_plan()
 ** DONE [t] Demo. setup_plan.py -> get_plan_from_dict.py
 * 0.26.1

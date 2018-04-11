@@ -1,3 +1,12 @@
+0.25
+====
+
+* Modulation: Add noise_a and noise_f parameters to am, fm, phm
+* Plan: Add the key 'function' to explicit description of worker in node settings
+* Plan: Add a worker with no init args to the example of setup_plan
+* Docs: Add more examples
+* Some bugs fixed
+
 0.24
 ====
 
