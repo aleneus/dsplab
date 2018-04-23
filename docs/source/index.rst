@@ -52,6 +52,14 @@ Ornanization of calculations
 
    activity
    plan
+
+Online processing
+^^^^^^^^^^^^^^^^^
+
+.. toctree::
+   :maxdepth: 2
+
+   player
 	      
 History
 -------   

@@ -90,7 +90,7 @@
 ** DONE [e] Use standart csv in CsvDataProducer
 ** DONE [t] Debug
 ** DONE [t] Add examples for SignalPlayer
-** TODO [t] Add player stuff to docs
+** DONE [t] Add player stuff to docs
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
