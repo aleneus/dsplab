@@ -18,15 +18,14 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.26
+What's new in 0.27
 ------------------
 
-* Modulation: Return angles from fm()
-* Activity: Add a function for setup work from dictionary
-* Plan: Add a function for setup plan from dictionary
-* Plan: Deprecate setup_plan()
-* Plan: Update demo
-* Modulation: Add a function for generate the harmonic signal (with constant amplitude, frequency and phase)
+* Add tool for playin of archive data as if they are being get in online mode.
+* Add adapter for procuding data for player.
+* Add CSV data producer.
+* Add Random data producer.
+* Add examples of playing signals.
 
 Modules
 -------

@@ -1,3 +1,13 @@
+0.26
+====
+
+* Modulation: Return angles from fm()
+* Activity: Add a function for setup work from dictionary
+* Plan: Add a function for setup plan from dictionary
+* Plan: Deprecate setup_plan()
+* Plan: Update demo
+* Modulation: Add a function for generate the harmonic signal (with constant amplitude, frequency and phase)
+
 0.25
 ====
 
