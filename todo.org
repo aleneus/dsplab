@@ -84,13 +84,14 @@
 ** DONE [t] Update version in doc
 ** DONE [t] Remove example with deprecated setup_plan()
 ** DONE [t] Demo. setup_plan.py -> get_plan_from_dict.py
-* 0.26.1
-** TODO [t] Online filter. add arguments to self._info
-** TODO [t] plan demo: add example with online processing
-** TODO [e] Add __call__ methods to docs
-** TODO [e] Modulation: Add example for phase modulation
-** TODO [e] Activity, Plan: doc keys in settings used in setup_from_dict()
-* 0.27.1
+* 0.27.0
+** DONE [t] Add SignalPlayer
+** DONE [t] Add CsvDataProducer
+** DONE [e] Use standart csv in CsvDataProducer
+** DONE [t] Debug
+** DONE [t] Add examples for SignalPlayer
+** DONE [t] Add player stuff to docs
+* later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Make more universal functions for different kinds of modulation
@@ -98,3 +99,9 @@
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [t] Plan: Remove deprecated setup_plan()
 ** TODO [t] Plan. Implement clear()
+* later minor
+** TODO [t] Online filter. add arguments to self._info
+** TODO [t] plan demo: add example with online processing
+** TODO [e] Add __call__ methods to docs
+** TODO [e] Modulation: Add example for phase modulation
+** TODO [e] Activity, Plan: doc keys in settings used in setup_from_dict()
