@@ -86,7 +86,7 @@
 ** DONE [t] Demo. setup_plan.py -> get_plan_from_dict.py
 * 0.27.0
 ** DONE [t] Add SignalPlayer
-** TODO [t] Add CsvDataProducer
+** DONE [t] Add CsvDataProducer
 ** TODO [t] Add example for SignalPlayer
 ** TODO [t] Add player stuff to docs
 * later major
