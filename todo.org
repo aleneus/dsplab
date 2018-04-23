@@ -94,6 +94,8 @@
 * 0.27.1
 ** DONE Add whats new in docs
 ** DONE player: CsvDataProducer: Add delimiter option to open_file method
+* 0.27.2
+** DONE Little corrections in examples
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

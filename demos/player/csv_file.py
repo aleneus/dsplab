@@ -10,8 +10,7 @@ def main():
     data_producer.set_delimiter(',')
     data_producer.open_file("test.csv")
     data_producer.select_columns(['F', 'Ua1'])
-    # data_producer.select_columns([0, 1])
-    data_producer.get_sample()
+    # data_producer.select_columns([0, 1]) # <--- It's all right too
     player = SignalPlayer(interval=0.02)
     player.set_data_producer(data_producer)
     player.start()
