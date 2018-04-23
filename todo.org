@@ -88,6 +88,7 @@
 ** DONE [t] Add SignalPlayer
 ** DONE [t] Add CsvDataProducer
 ** DONE [e] Use standart csv in CsvDataProducer
+** DONE [t] Debug
 ** TODO [t] Add example for SignalPlayer
 ** TODO [t] Add player stuff to docs
 * later major
