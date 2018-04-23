@@ -116,16 +116,18 @@ class CsvDataProducer(DataProducer):
     def _reset(self):
         try:
             self.file_buffer.close()
+        except AttributeError:
+            pass
         finally:
             pass
         self.headers = None
         self.indexes = None
 
-    def open_file(self, file_name):
+    def open_file(self, file_name, delimiter=None):
         """ Set input file. """
-        if self.file_buffer is not None:
-            self._reset()
-
+        self._reset()
+        if delimiter is not None:
+            self.delimiter = delimiter
         self.file_buffer = open(file_name)
         self.csv_reader = csv.reader(self.file_buffer, delimiter=self.delimiter)
         self.headers = next(self.csv_reader)
