@@ -13,14 +13,13 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" 
-This module implements the Node and Plan classes. Node can be
+""" This module implements the Node and Plan classes. Node can be
 understood as the workplace for worker. Node can have inputs that are
-also nodes. Plan is the system of linked nodes.
-"""
+also nodes. Plan is the system of linked nodes. """
 
 from dsplab.activity import Work, get_work_from_dict
 from dsplab.helpers import *
+
 
 class Node:
     """ The node. Node can be understood as the workplace for
@@ -35,34 +34,42 @@ class Node:
 
     def get_work(self):
         return self._work
+
     def set_work(self, work):
         self._work = work
+
     work = property(get_work, set_work)
 
     def get_inputs(self):
         """ Return inputs. """
         return self._inputs
+
     def set_inputs(self, inputs):
         """ Set inputs. """
         self._inputs = inputs
+
     inputs = property(get_inputs, set_inputs)
 
     def get_start_hook(self):
         """ Return start hook. """
         return self._start_hook
+
     def set_start_hook(self, func):
         """ Set start hook. """
         self._start_hook = func
+
     start_hook = property(get_start_hook, set_start_hook)
 
     def get_stop_hook(self):
         """ Return stop hook. """
         return self._stop_hook
+
     def set_stop_hook(self, func):
         """ Set stop hook. """
         self._stop_hook = func
+
     stop_hook = property(get_stop_hook, set_stop_hook)
-    
+
     def is_output_ready(self) -> bool:
         """ Check if the calculation of data in the node is finished. """
         ans = self._res is not None
@@ -86,7 +93,7 @@ class Node:
     def __call__(self, *args, **kwargs):
         if self._start_hook is not None:
             self._start_hook()
-            
+
         if len(self.inputs) == 0:
             y = self.work(*args, **kwargs)
             self._res = y
@@ -95,26 +102,28 @@ class Node:
             x = [inpt.result() for inpt in self._inputs]
             y = self.work(*x)
             self._res = y
-            
+
         if self._stop_hook is not None:
             self._stop_hook()
-            
+
+
 class Transmitter(Node):
     """ The node doing nothing except of transmitting of data from
     input to output. """
     def __init__(self):
         """ Initialization. """
         super().__init__(work=None)
-    
+
     def __call__(self, x):
         """ Run node. """
         self._res = x
 
+
 class Plan:
     """ The plan. Plan is the system of linked nodes. """
     def __init__(self):
-        """ Initialization. 
-        
+        """ Initialization.
+
         Parameters
         ----------
         auto_terminals: bool
@@ -163,17 +172,25 @@ class Plan:
     def get_outputs(self):
         """ Return output nodes. """
         return self._outputs
+
     def set_outputs(self, outputs):
         """ Set output nodes. """
         self._outputs = outputs
-    outputs = property(get_outputs, set_outputs, doc="The nodes with are outputs.")
+
+    outputs = property(
+        get_outputs,
+        set_outputs,
+        doc="The nodes with are outputs."
+    )
 
     def get_inputs(self):
         """ Return input nodes. """
         return self._inputs
+
     def set_inputs(self, inputs):
         """ Set input nodes. """
         self._inputs = inputs
+
     inputs = property(get_inputs, set_inputs, doc="The nodes wich are inputs.")
 
     def clear(self):
@@ -188,10 +205,10 @@ class Plan:
 
         for node in self._nodes:
             node.reset()
-            
+
         for [node, x] in zip(self._inputs, xs):
             node(x)
-        
+
         while True:
             finished = True
             for node in self._nodes:
@@ -200,9 +217,10 @@ class Plan:
                     node()
             if finished:
                 break
-            
+
         ys = [last_node.result() for last_node in self._outputs]
         return ys
+
 
 def get_plan_from_dict(settings):
     """ Create and return instance of Plan setted from dictionary. """
@@ -215,6 +233,10 @@ def get_plan_from_dict(settings):
         work_settings = node_settings['work']
         work = get_work_from_dict(work_settings)
         nodes[node_id].work = work
+
+    for node_settings in nodes_settings:
+        node_id = node_settings['id']
+        print(node_id)
         if 'inputs' in node_settings.keys():
             inputs = [nodes[key] for key in node_settings['inputs']]
             p.add_node(nodes[node_id], inputs=inputs)
@@ -224,31 +246,31 @@ def get_plan_from_dict(settings):
     if 'inputs' in settings:
         inputs = [nodes[key] for key in settings['inputs']]
         p.set_inputs(inputs)
-        
+
     if 'outputs' in settings:
         outputs = [nodes[key] for key in settings['outputs']]
         p.set_outputs(outputs)
 
     return p
-    
+
 
 def setup_plan(plan, nodes_settings):
     print("Deprecated: setup_plan(). Use get_plan_from_dict() instead.")
-    
+
     nodes = {}
     inputs = []
     outputs = []
-    
+
     for node_settings in nodes_settings:
         node_id = node_settings['id']
         nodes[node_id] = Node()
-        
+
         work_settings = node_settings['work']
 
         work = Work()
         work.setup_from_dict(work_settings)
         nodes[node_id].work = work
-        
+
         if 'inputs' in node_settings.keys():
             input_ids = node_settings['inputs']
             plan.add_node(nodes[node_id], inputs=[nodes[v] for v in input_ids])
@@ -256,16 +278,16 @@ def setup_plan(plan, nodes_settings):
             plan.add_node(nodes[node_id])
 
         if 'input' in node_settings:
-            if node_settings['input'] == True:
+            if node_settings['input'] is True:
                 inputs.append(nodes[node_id])
 
         if 'output' in node_settings:
-            if node_settings['output'] == True:
+            if node_settings['output'] is True:
                 outputs.append(nodes[node_id])
 
     if len(inputs) > 0:
         plan.set_inputs(inputs)
     if len(outputs) > 0:
         plan.set_outputs(outputs)
-        
+
     return True
