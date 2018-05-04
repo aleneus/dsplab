@@ -1,0 +1,46 @@
+""" Example of getting the work from dictionary. """
+
+import sys
+import os
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../..'))
+
+from dsplab.activity import Activity
+from dsplab.activity import get_work_from_dict
+
+
+class Linear(Activity):
+    """ Linear transformation. """
+    def __init__(self, k, b):
+        super().__init__()
+        self.k = k
+        self.b = b
+        self._info['params'] = {'k': k, 'b': b}
+
+    def __call__(self, x):
+        y = x*self.k + self.b
+        return y
+
+
+def main():
+    """ Entry point. """
+    work_settings = {
+        'descr': 'Transformation',
+        'worker': {
+            'class': 'Linear',
+            'params': {
+                'k': 2,
+                'b': 3,
+            }
+        }
+    }
+    transfrom = get_work_from_dict(work_settings)
+    x = 11
+    y = transfrom(x)
+    print(y)
+    print()
+    print(transfrom.info(as_string=True))
+
+
+if __name__ == "__main__":
+    main()
