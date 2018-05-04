@@ -1,3 +1,4 @@
+""" Example of playing signal from CSV file. """
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
@@ -5,7 +6,7 @@ sys.path.insert(0, os.path.abspath('.'))
 from dsplab.player import CsvDataProducer, SignalPlayer
 
 def main():
-    """ Example of playing signal. """
+    """ Entry point. """
     data_producer = CsvDataProducer()
     data_producer.set_delimiter(',')
     data_producer.open_file("test.csv")

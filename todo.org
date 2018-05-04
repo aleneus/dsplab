@@ -98,10 +98,11 @@
 ** DONE Little corrections in examples
 * 0.27.3
 ** DONE [b] Setup plan from dict.
-* 0.28.0
+* 0.27.4
 ** DONE [p] Inherit Plan and Node from Activity
-** TODO [t] Fix errors in the docstrings for CSV example
+** DONE [t] Fix errors in the docstrings for CSV example
 ** DONE [t] Remove depracated setup_plan() function
+** TODO [e] Activity, Plan: doc keys in settings used in setup_from_dict()
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
@@ -113,6 +114,4 @@
 * later minor
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
-** TODO [e] Add __call__ methods to docs
 ** TODO [e] Modulation: Add example for phase modulation
-** TODO [e] Activity, Plan: doc keys in settings used in setup_from_dict()
