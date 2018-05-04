@@ -21,6 +21,7 @@ def sqr(x):
     y = x**2
     return y
 
+
 if __name__ == "__main__":
     lin1 = Linear(1, 1)
     lin2 = Linear(2, 2)

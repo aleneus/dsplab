@@ -22,7 +22,7 @@ from dsplab.helpers import *
 from dsplab.activity import Activity
 
 
-class Node(Activity):
+class Node:
     """ The node. Node can be understood as the workplace for
     worker. Node can have inputs that are also nodes. """
     def __init__(self, work=None, inputs=[], start_hook=None, stop_hook=None):
@@ -123,15 +123,6 @@ class Transmitter(Node):
 class Plan(Activity):
     """ The plan. Plan is the system of linked nodes. """
     def __init__(self):
-        """ Initialization.
-
-        Parameters
-        ----------
-        auto_terminals: bool
-            If True, the inputs and outputs will be decected
-            automatically. Default value is False.
-
-        """
         super().__init__()
         self._nodes = []
         self._inputs = []
