@@ -98,6 +98,10 @@
 ** DONE Little corrections in examples
 * 0.27.3
 ** DONE [b] Setup plan from dict.
+* 0.28.0
+** TODO [t] Add info() method for Plan
+** TODO [t] Fix errors in the docstrings for CSV example
+** DONE [t] Remove depracated setup_plan() function
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
