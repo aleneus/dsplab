@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.abspath('.'))
 
 from dsplab.plan import Node, Transmitter, Plan
-from dsplab.plan import Work
+from dsplab.activity import Work
 
 def mul(x):
     return 2*x

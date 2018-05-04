@@ -29,7 +29,7 @@ class Activity:
         """ Initialization. """
         self._info = {}
         self._info['class'] = self.__class__.__name__
-        self._info['descr'] = self.__doc__
+        self.set_descr(self.__doc__)
 
     def info(self, as_string=False):
         """ Return the information about activity.
@@ -54,6 +54,10 @@ class Activity:
             )
         else:
             return self._info
+
+    def set_descr(self, descr):
+        """ Set description of activity. """
+        self._info['descr'] = descr
 
     def __call__(self):
         """ Act. """
@@ -95,7 +99,7 @@ class OnlineFilter(Activity):
         self.smooth_queue = None
         if ntaps is not None:
             self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
-        if smooth_ntaps in not None:
+        if smooth_ntaps is not None:
             self.smooth_queue = deque(
                 [fill_with]*smooth_ntaps,
                 maxlen=smooth_ntaps
@@ -260,11 +264,6 @@ class Work(Activity):
         super().__init__()
         self.set_descr(descr)
         self.set_worker(worker)
-
-    def set_descr(self, descr):
-        """ Set description of work. """
-        self.descr = descr
-        self._info['descr'] = descr
 
     def set_worker(self, worker):
         """ Set worker for doing work. """

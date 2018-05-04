@@ -17,8 +17,7 @@
 understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes. """
 
-from dsplab.activity import Work, get_work_from_dict
-from dsplab.helpers import *
+from dsplab.activity import get_work_from_dict
 from dsplab.activity import Activity
 
 
@@ -188,6 +187,47 @@ class Plan(Activity):
     def clear(self):
         pass
 
+    def info(self, as_string=False):
+        """ Return info about the plan. """
+        nodes_info = []
+        for node in self._nodes:
+            node_info = {}
+
+            try:
+                work_info = node.work.worker.info()
+            except AttributeError:
+                work_info = None
+
+            node_info['work'] = work_info
+
+            input_ids = []
+            for input_obj in node.inputs:
+                input_id = '{}'.format(self._nodes.index(input_obj))
+                input_ids.append(input_id)
+
+            node_info['id'] = '{}'.format(self._nodes.index(node))
+            if len(input_ids) != 0:
+                node_info['inputs'] = input_ids
+
+            nodes_info.append(node_info)
+
+        self._info['nodes'] = nodes_info
+
+        plan_input_ids = []
+        for input_obj in self.inputs:
+            plan_input_id = '{}'.format(self._nodes.index(input_obj))
+            plan_input_ids.append(plan_input_id)
+        self._info['inputs'] = plan_input_ids
+
+        plan_output_ids = []
+        for output_obj in self.outputs:
+            plan_output_id = '{}'.format(self._nodes.index(output_obj))
+            plan_output_ids.append(plan_output_id)
+        self._info['outputs'] = plan_output_ids
+
+        res = super().info(as_string)
+        return res
+
     def __call__(self, xs):
         """ Run plan. """
         if len(self._inputs) == 0:
@@ -219,6 +259,7 @@ def get_plan_from_dict(settings):
 
     **Keys**
 
+    - 'descr' - description of the plan (optional)
     - 'nodes' - list of dicts with nodes settings
     - 'inputs' - list of inputs nodes ids
     - 'outputs' - list of output nodes ids
@@ -231,6 +272,9 @@ def get_plan_from_dict(settings):
 
     """
     p = Plan()
+    if 'descr' in settings:
+        p.set_descr(settings['descr'])
+
     nodes = {}
     nodes_settings = settings['nodes']
     for node_settings in nodes_settings:

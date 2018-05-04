@@ -6,6 +6,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 from dsplab.activity import Activity
 from dsplab.plan import get_plan_from_dict
 
+
 class Linear(Activity):
     def __init__(self, k, b):
         super().__init__()
@@ -18,18 +19,21 @@ class Linear(Activity):
         y = x*self.k + self.b
         return y
 
+
 class Inc(Activity):
     def __init__(self):
         super().__init__()
-    
+
     def __call__(self, x):
         y = x + 1
         return y
 
+
 settings = {
-    'nodes' : [
+    'descr': 'Three-step plan',
+    'nodes': [
         {
-            'id' : 'a',
+            'id': 'a',
             'work': {
                 'descr': "First step",
                 'worker': {
@@ -50,7 +54,7 @@ settings = {
                     'function': "numpy.exp"
                 }
             },
-            'inputs' : ['a'],
+            'inputs': ['a'],
         },
 
         {
@@ -61,15 +65,18 @@ settings = {
                     'class': "Inc"
                 }
             },
-            'inputs' : ['b'],
+            'inputs': ['b'],
         }
     ],
-        
+
     'inputs': ['a'],
     'outputs': ['b', 'c'],
 }
-    
-p = get_plan_from_dict(settings)
+
+
+plan = get_plan_from_dict(settings)
 x = 1
-y = p([x])
+y = plan([x])
 print(y)
+print()
+print(plan.info(as_string=True))
