@@ -104,8 +104,9 @@
 ** DONE [t] Remove depracated setup_plan() function
 ** DONE [e] Activity, Plan: doc keys in settings used in setup_from_dict()
 * 0.27.5
-** DONE Add example demonstrated the producing Work instance from dict
-** TODO Info method must give full information for plan
+** DONE [e] Add example demonstrated the producing Work instance from dict
+** DONE [e] Check activity unit with pep8
+** TODO [t] Info method must give full information for plan
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

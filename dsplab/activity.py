@@ -13,7 +13,8 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" This module implements the base classes for offline and online data processing tools. """
+""" This module implements the base classes for offline and online
+data processing tools. """
 
 from collections import deque, OrderedDict
 import json
@@ -58,9 +59,10 @@ class Activity:
         """ Act. """
         raise NotImplementedError
 
+
 class OnlineFilter(Activity):
     """ Base class for online filter. """
-    def  __init__(self, ntaps=None, smooth_ntaps=None, fill_with=0, step=1):
+    def __init__(self, ntaps=None, smooth_ntaps=None, fill_with=0, step=1):
         """
         Initialization.
 
@@ -80,21 +82,24 @@ class OnlineFilter(Activity):
         """
         super().__init__()
         self.add_sample_func = None
-        if   (ntaps == None) and (smooth_ntaps == None):
+        if (ntaps is None) and (smooth_ntaps is None):
             self.add_sample_func = self.__add_sample_simple
-        elif (ntaps != None) and (smooth_ntaps == None):
+        elif (ntaps is not None) and (smooth_ntaps is None):
             self.add_sample_func = self.__add_sample_only_queue
-        elif (ntaps == None) and (smooth_ntaps != None):
+        elif (ntaps is None) and (smooth_ntaps is not None):
             self.add_sample_func = self.__add_sample_only_smooth
         else:
             self.add_sample_func = self.__add_sample_full
 
         self.queue = None
         self.smooth_queue = None
-        if ntaps!=None:
+        if ntaps is not None:
             self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
-        if smooth_ntaps!=None:
-            self.smooth_queue = deque([fill_with]*smooth_ntaps, maxlen=smooth_ntaps)
+        if smooth_ntaps in not None:
+            self.smooth_queue = deque(
+                [fill_with]*smooth_ntaps,
+                maxlen=smooth_ntaps
+            )
             wind = np.hamming(smooth_ntaps)
             self.wind = wind / sum(wind)
 
