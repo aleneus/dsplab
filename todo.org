@@ -99,7 +99,7 @@
 * 0.27.3
 ** DONE [b] Setup plan from dict.
 * 0.28.0
-** TODO [t] Add info() method for Plan
+** DONE [p] Inherit Plan and Node from Activity
 ** TODO [t] Fix errors in the docstrings for CSV example
 ** DONE [t] Remove depracated setup_plan() function
 * later major

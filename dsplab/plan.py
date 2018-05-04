@@ -19,9 +19,10 @@ also nodes. Plan is the system of linked nodes. """
 
 from dsplab.activity import Work, get_work_from_dict
 from dsplab.helpers import *
+from dsplab.activity import Activity
 
 
-class Node:
+class Node(Activity):
     """ The node. Node can be understood as the workplace for
     worker. Node can have inputs that are also nodes. """
     def __init__(self, work=None, inputs=[], start_hook=None, stop_hook=None):
@@ -119,7 +120,7 @@ class Transmitter(Node):
         self._res = x
 
 
-class Plan:
+class Plan(Activity):
     """ The plan. Plan is the system of linked nodes. """
     def __init__(self):
         """ Initialization.
