@@ -224,7 +224,21 @@ class Plan(Activity):
 
 
 def get_plan_from_dict(settings):
-    """ Create and return instance of Plan setted from dictionary. """
+    """ Create and return instance of Plan setted from dictionary.
+
+    **Keys**
+
+    - 'nodes' - list of dicts with nodes settings
+    - 'inputs' - list of inputs nodes ids
+    - 'outputs' - list of output nodes ids
+
+    **Node settings**
+
+    - 'id' - id of node
+    - 'work' - dict with work settings
+    - 'inputs' - list of ids of input nodes for this node
+
+    """
     p = Plan()
     nodes = {}
     nodes_settings = settings['nodes']

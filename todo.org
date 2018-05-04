@@ -102,7 +102,7 @@
 ** DONE [p] Inherit Plan and Node from Activity
 ** DONE [t] Fix errors in the docstrings for CSV example
 ** DONE [t] Remove depracated setup_plan() function
-** TODO [e] Activity, Plan: doc keys in settings used in setup_from_dict()
+** DONE [e] Activity, Plan: doc keys in settings used in setup_from_dict()
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
