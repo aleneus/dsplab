@@ -70,7 +70,7 @@ class Node:
 
     stop_hook = property(get_stop_hook, set_stop_hook)
 
-    def is_output_ready(self) -> bool:
+    def is_output_ready(self):
         """ Check if the calculation of data in the node is finished. """
         ans = self._res is not None
         return ans
@@ -79,7 +79,7 @@ class Node:
         """ Clear the result. """
         self._res = None
 
-    def is_inputs_ready(self) -> bool:
+    def is_inputs_ready(self):
         """ Check if data in all inputs is ready. """
         for inpt in self._inputs:
             if not inpt.is_output_ready():
@@ -192,25 +192,16 @@ class Plan(Activity):
         nodes_info = []
         for node in self._nodes:
             node_info = {}
-
-            try:
-                work_info = node.work.worker.info()
-            except AttributeError:
-                work_info = None
-
+            work_info = node.work.info()
             node_info['work'] = work_info
-
             input_ids = []
             for input_obj in node.inputs:
                 input_id = '{}'.format(self._nodes.index(input_obj))
                 input_ids.append(input_id)
-
             node_info['id'] = '{}'.format(self._nodes.index(node))
             if len(input_ids) != 0:
                 node_info['inputs'] = input_ids
-
             nodes_info.append(node_info)
-
         self._info['nodes'] = nodes_info
 
         plan_input_ids = []
@@ -271,9 +262,9 @@ def get_plan_from_dict(settings):
     - 'inputs' - list of ids of input nodes for this node
 
     """
-    p = Plan()
+    plan = Plan()
     if 'descr' in settings:
-        p.set_descr(settings['descr'])
+        plan.set_descr(settings['descr'])
 
     nodes = {}
     nodes_settings = settings['nodes']
@@ -289,16 +280,16 @@ def get_plan_from_dict(settings):
         print(node_id)
         if 'inputs' in node_settings.keys():
             inputs = [nodes[key] for key in node_settings['inputs']]
-            p.add_node(nodes[node_id], inputs=inputs)
+            plan.add_node(nodes[node_id], inputs=inputs)
         else:
-            p.add_node(nodes[node_id])
+            plan.add_node(nodes[node_id])
 
     if 'inputs' in settings:
         inputs = [nodes[key] for key in settings['inputs']]
-        p.set_inputs(inputs)
+        plan.set_inputs(inputs)
 
     if 'outputs' in settings:
         outputs = [nodes[key] for key in settings['outputs']]
-        p.set_outputs(outputs)
+        plan.set_outputs(outputs)
 
-    return p
+    return plan

@@ -31,6 +31,10 @@ class Activity:
         self._info['class'] = self.__class__.__name__
         self.set_descr(self.__doc__)
 
+    def set_descr(self, descr):
+        """ Set description of activity. """
+        self._info['descr'] = descr
+
     def info(self, as_string=False):
         """ Return the information about activity.
 
@@ -54,10 +58,6 @@ class Activity:
             )
         else:
             return self._info
-
-    def set_descr(self, descr):
-        """ Set description of activity. """
-        self._info['descr'] = descr
 
     def __call__(self):
         """ Act. """

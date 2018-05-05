@@ -107,6 +107,8 @@
 ** DONE [e] Add example demonstrated the producing Work instance from dict
 ** DONE [e] Check activity unit with pep8
 ** DONE [t] Info method must give full information for plan
+* 0.27.6
+** DONE [b] Get work info from work instead of worker in Plan.info()
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
