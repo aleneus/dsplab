@@ -11,12 +11,7 @@ __all__ = ["RepeatedTimer", "SignalPlayer", "DataProducer",
            "RandomDataProducer", "CsvDataProducer"]
 
 class RepeatedTimer(object):
-    """
-    Timer.
-
-    Code from https://stackoverflow.com/questions/474528
-
-    """
+    """ Timer. """
     def __init__(self, interval, function, *args, **kwargs):
         """ Initialization. """
         self._timer = None
@@ -25,26 +20,29 @@ class RepeatedTimer(object):
         self.args = args
         self.kwargs = kwargs
         self.is_running = False
-        self.next_call = time.time()
-        # self.start()
-
-    def _run(self):
-        self.is_running = False
-        self.start()
-        self.function(*self.args, **self.kwargs)
+        self.next_call = None
 
     def start(self):
         """ Start timer. """
+        self.next_call = time.time()
+        self._repeat()
+
+    def stop(self):
+        """ Stop timer. """
+        self._timer.cancel()
+        self.is_running = False
+
+    def _repeat(self):
         if not self.is_running:
             self.next_call += self.interval
             self._timer = threading.Timer(self.next_call - time.time(), self._run)
             self._timer.start()
             self.is_running = True
 
-    def stop(self):
-        """ Stop timer. """
-        self._timer.cancel()
+    def _run(self):
         self.is_running = False
+        self._repeat()
+        self.function(*self.args, **self.kwargs)
 
 class SignalPlayer:
     """ Class for playing text file as stream. """
@@ -62,6 +60,7 @@ class SignalPlayer:
 
     def start(self):
         """ Start player. """
+        self.new_data_ready.clear()
         self.timer.start()
 
     def stop(self):
@@ -69,6 +68,7 @@ class SignalPlayer:
         self.timer.stop()
 
     def _produce_data(self):
+        t = time.time()
         sample = self.data_producer.get_sample()
         self.queue.append(sample)
         self.new_data_ready.set()
@@ -79,9 +79,9 @@ class SignalPlayer:
         try:
             sample = self.queue.popleft()
         except IndexError:
+            self.new_data_ready.clear()
             self.new_data_ready.wait()
             sample = self.queue.popleft()
-            self.new_data_ready.clear()
         return sample
 
 class DataProducer:
