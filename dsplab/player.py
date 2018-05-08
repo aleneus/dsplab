@@ -10,6 +10,7 @@ import csv
 __all__ = ["RepeatedTimer", "SignalPlayer", "DataProducer",
            "RandomDataProducer", "CsvDataProducer"]
 
+
 class RepeatedTimer(object):
     """ Timer. """
     def __init__(self, interval, function, *args, **kwargs):
@@ -35,7 +36,10 @@ class RepeatedTimer(object):
     def _repeat(self):
         if not self.is_running:
             self.next_call += self.interval
-            self._timer = threading.Timer(self.next_call - time.time(), self._run)
+            self._timer = threading.Timer(
+                self.next_call - time.time(),
+                self._run
+            )
             self._timer.start()
             self.is_running = True
 
@@ -43,6 +47,7 @@ class RepeatedTimer(object):
         self.is_running = False
         self._repeat()
         self.function(*self.args, **self.kwargs)
+
 
 class SignalPlayer:
     """ Class for playing text file as stream. """
@@ -85,11 +90,13 @@ class SignalPlayer:
             sample = self.queue.popleft()
         return sample
 
+
 class DataProducer:
     """ Base class for adapters for data producer. """
     def get_sample(self):
         """ Return sample. """
         raise NotImplementedError
+
 
 class RandomDataProducer(DataProducer):
     """ Data producer with random values on output. """
@@ -100,6 +107,7 @@ class RandomDataProducer(DataProducer):
         """ Return sample. """
         sample = random.randint(*self.interval)
         return sample
+
 
 class CsvDataProducer(DataProducer):
     """ Produces sample from headered CSV file. """
@@ -130,7 +138,10 @@ class CsvDataProducer(DataProducer):
         if delimiter is not None:
             self.delimiter = delimiter
         self.file_buffer = open(file_name)
-        self.csv_reader = csv.reader(self.file_buffer, delimiter=self.delimiter)
+        self.csv_reader = csv.reader(
+            self.file_buffer,
+            delimiter=self.delimiter
+        )
         self.headers = next(self.csv_reader)
 
     def close_file(self):
@@ -154,7 +165,6 @@ class CsvDataProducer(DataProducer):
 
     def get_sample(self):
         """ Return sample. """
-        print('begin')
         sample = []
         try:
             full_sample = next(self.csv_reader)
@@ -164,5 +174,4 @@ class CsvDataProducer(DataProducer):
                 sample.append(full_sample[ind])
         except StopIteration:
             sample = ['' for ind in self.indexes]
-        print('end')
         return sample
