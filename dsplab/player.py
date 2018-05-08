@@ -1,7 +1,7 @@
 """ Playing signal from file. Online mode for offline data. """
 
 import threading
-from threading import Event
+from threading import Lock, Event
 from collections import deque
 import time
 import random
@@ -52,6 +52,7 @@ class SignalPlayer:
         self.queue = deque([], maxlen=100)
         self.timer = RepeatedTimer(interval, self._produce_data)
         self.new_data_ready = Event()
+        self.lock = Lock()
         self.data_producer = None
 
     def set_data_producer(self, data_producer):
@@ -68,8 +69,8 @@ class SignalPlayer:
         self.timer.stop()
 
     def _produce_data(self):
-        t = time.time()
-        sample = self.data_producer.get_sample()
+        with self.lock:
+            sample = self.data_producer.get_sample()
         self.queue.append(sample)
         self.new_data_ready.set()
         return sample
@@ -153,6 +154,7 @@ class CsvDataProducer(DataProducer):
 
     def get_sample(self):
         """ Return sample. """
+        print('begin')
         sample = []
         try:
             full_sample = next(self.csv_reader)
@@ -162,4 +164,5 @@ class CsvDataProducer(DataProducer):
                 sample.append(full_sample[ind])
         except StopIteration:
             sample = ['' for ind in self.indexes]
+        print('end')
         return sample

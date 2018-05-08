@@ -111,6 +111,7 @@
 ** DONE [b] Get work info from work instead of worker in Plan.info()
 * 0.27.7
 ** DONE [b] Fix error in start timer code
+** DONE [b] Add lock to get_sample in player
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
