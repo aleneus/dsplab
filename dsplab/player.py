@@ -16,12 +16,22 @@ class RepeatedTimer(object):
     def __init__(self, interval, function, *args, **kwargs):
         """ Initialization. """
         self._timer = None
-        self.interval = interval
+        self._interval = interval
         self.function = function
         self.args = args
         self.kwargs = kwargs
         self.is_running = False
         self.next_call = None
+
+    def set_interval(self, interval):
+        """ Set interval. """
+        self._interval = interval
+
+    def get_interval(self, interval):
+        """ Get interval. """
+        return self._interval
+
+    interval = property(get_interval, set_interval, doc="Timeout inteval (sec)")
 
     def start(self):
         """ Start timer. """
@@ -35,7 +45,7 @@ class RepeatedTimer(object):
 
     def _repeat(self):
         if not self.is_running:
-            self.next_call += self.interval
+            self.next_call += self._interval
             self._timer = threading.Timer(
                 self.next_call - time.time(),
                 self._run
@@ -67,6 +77,7 @@ class SignalPlayer:
     def start(self):
         """ Start player. """
         self.new_data_ready.clear()
+        self.timer.set_interval(self.interval)
         self.timer.start()
 
     def stop(self):

@@ -112,6 +112,7 @@
 * 0.27.7
 ** DONE [b] Fix error in start timer code
 ** DONE [b] Add lock to get_sample in player
+** DONE [e] Interval of timer instance can be changes
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
@@ -120,6 +121,7 @@
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [t] Plan: Remove deprecated setup_plan()
 ** TODO [t] Plan. Implement clear()
+** TODO [t] Make interval an option in timer
 * later minor
 ** TODO [t] Use workers from special unit in the plan examples
 ** TODO [t] Online filter. add arguments to self._info
