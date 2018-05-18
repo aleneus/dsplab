@@ -113,6 +113,9 @@
 ** DONE [b] Fix error in start timer code
 ** DONE [b] Add lock to get_sample in player
 ** DONE [e] Interval of timer instance can be changes
+* 0.27.8
+** DONE [b] Error in timer
+** DONE [b] Clear queue in player
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

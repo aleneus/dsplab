@@ -22,6 +22,7 @@ class RepeatedTimer(object):
         self.kwargs = kwargs
         self.is_running = False
         self.next_call = None
+        self.lock = Lock()
 
     def set_interval(self, interval):
         """ Set interval. """
@@ -31,31 +32,29 @@ class RepeatedTimer(object):
         """ Get interval. """
         return self._interval
 
-    interval = property(get_interval, set_interval, doc="Timeout inteval (sec)")
+    interval = property(get_interval, set_interval, doc="Timeout interval (sec)")
 
     def start(self):
         """ Start timer. """
         self.next_call = time.time()
+        self.is_running = True
         self._repeat()
 
     def stop(self):
         """ Stop timer. """
         self._timer.cancel()
         self.is_running = False
-
+        
     def _repeat(self):
         if not self.is_running:
+            return
+        with self.lock:
             self.next_call += self._interval
             self._timer = threading.Timer(
-                self.next_call - time.time(),
-                self._run
-            )
+                    self.next_call - time.time(),
+                    self._repeat
+                )
             self._timer.start()
-            self.is_running = True
-
-    def _run(self):
-        self.is_running = False
-        self._repeat()
         self.function(*self.args, **self.kwargs)
 
 
@@ -76,6 +75,7 @@ class SignalPlayer:
 
     def start(self):
         """ Start player. """
+        self.queue.clear()
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
         self.timer.start()
