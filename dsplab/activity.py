@@ -16,10 +16,10 @@
 """ This module implements the base classes for offline and online
 data processing tools. """
 
-from collections import deque, OrderedDict
+from collections import deque
 import json
 import numpy as np
-from dsplab.helpers import *
+from dsplab.helpers import import_entity
 
 
 class Activity:
@@ -128,11 +128,10 @@ class OnlineFilter(Activity):
             Output value.
 
         """
-        # TODO: depracate, use __call__
         return self.add_sample_func(x)
 
     def __call__(self, x):
-        return self.add_sample(x)
+        return self.add_sample_func(x)
 
     def __add_sample_simple(self, x):
         """ Add sample without using queues. """
@@ -182,7 +181,7 @@ class OnlineFilter(Activity):
             Ouput value.
 
         """
-        raise NotImplementedError
+        pass
 
     def proc_sample(self, x):
         """
@@ -199,13 +198,13 @@ class OnlineFilter(Activity):
             Output value.
 
         """
-        raise NotImplementedError
+        pass
 
 
 class OnlineLogic(OnlineFilter):
     """ Base class for logical connectors of outputs of several
     detectors or other connectors. """
-    def __init__(self, inputs=[]):
+    def __init__(self, inputs=None):
         """
         Initialization.
 
@@ -218,9 +217,11 @@ class OnlineLogic(OnlineFilter):
         super().__init__()
         self._info['descr'] = 'Logical operation'
         self._info['inputs'] = []
-        self.inputs = []
-        for inpt in inputs:
-            self.add_input(inpt)
+        if inputs is None:
+            self.inputs = []
+        else:
+            for inpt in inputs:
+                self.add_input(inpt)
 
     def add_input(self, inpt):
         """ Add input of other connector.
@@ -271,7 +272,7 @@ class Work(Activity):
         self._info['worker'] = None
         try:
             self._info['worker'] = worker.info()
-        except:
+        except KeyError:
             pass
 
     def __call__(self, *args, **kwargs):

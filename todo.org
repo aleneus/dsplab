@@ -116,6 +116,9 @@
 * 0.27.8
 ** DONE [b] Error in timer
 ** DONE [b] Clear queue in player
+* 0.27.9
+** DONE [t] Do not raise error in proc_queue and proc_sample, just pass
+** DONE [t] Refactoring
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
