@@ -143,12 +143,12 @@ class CsvDataProducer(DataProducer):
         self.headers = None
         self.indexes = None
 
-    def open_file(self, file_name, delimiter=None):
+    def open_file(self, file_name, delimiter=None, encoding='utf-8'):
         """ Set input file. """
         self._reset()
         if delimiter is not None:
             self.delimiter = delimiter
-        self.file_buffer = open(file_name)
+        self.file_buffer = open(file_name, encoding=encoding)
         self.csv_reader = csv.reader(
             self.file_buffer,
             delimiter=self.delimiter
