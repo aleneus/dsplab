@@ -121,6 +121,8 @@
 ** DONE [t] Refactoring
 * 0.27.10
 ** DONE [t] Add encoding parameter to CSV data producer
+* 0.27.11
+** DONE Overwise -> Otherwise
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

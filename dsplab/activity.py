@@ -41,7 +41,7 @@ class Activity:
         Parameters
         ----------
         as_string: bool
-            Method returns JSON-string if True and dict overwise.
+            Method returns JSON-string if True and dict otherwise.
 
         Returns
         -------
