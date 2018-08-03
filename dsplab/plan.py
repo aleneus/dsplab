@@ -192,7 +192,7 @@ class Plan(Activity):
         nodes_info = []
         for node in self._nodes:
             node_info = {}
-            work_info = node.work.info()
+            work_info = node.work.info().copy()
             node_info['work'] = work_info
             input_ids = []
             for input_obj in node.inputs:

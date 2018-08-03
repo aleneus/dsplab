@@ -121,15 +121,20 @@
 ** DONE [t] Refactoring
 * 0.27.10
 ** DONE [t] Add encoding parameter to CSV data producer
-* 0.27.11
-** DONE Overwise -> Otherwise
+* 0.28.0
+** DONE [t] Add class info of Activity in metaclass
+** TODO [t] Split class info and instance info explicitly
+** TODO [p] Remove set_description method from activity
+** TODO [t] Update activity and plan examples
+** TODO [t] Plan: Remove deprecated setup_plan()
+** TODO [t] Make correct universal arguments of Activity.__call__
+** DONE [b] Overwise -> Otherwise
 * later major
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Make more universal functions for different kinds of modulation
 ** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [e] Remove actually empty unit online.py
-** TODO [t] Plan: Remove deprecated setup_plan()
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
 * later minor

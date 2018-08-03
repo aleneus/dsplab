@@ -22,14 +22,53 @@ import numpy as np
 from dsplab.helpers import import_entity
 
 
-class Activity:
+class ActivityMeta(type):
+    """ Metaclass for Activity. """
+    def __init__(cls, name, bases, attrs):
+        super().__init__(name, bases, attrs)
+        cls._class_info = {}
+        try:
+            cls._class_info['descr'] = attrs['__doc__']
+        except KeyError:
+            cls._class_info['descr'] = ""
+        cls._class_info['class'] = name
+
+    def class_info(cls, as_string=False):
+        """ Return the information about activity.
+
+        Parameters
+        ----------
+        as_string: bool
+            Method returns JSON-string if True and dict otherwise.
+
+        Returns
+        -------
+        : str or dict
+            Information about activity.
+
+        """
+        if as_string:
+            return json.dumps(
+                cls._class_info,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': ')
+            )
+        else:
+            return cls._class_info
+
+    def __call__(cls, *args, **kwargs):
+        res = type.__call__(cls, *args, **kwargs)
+        setattr(res, "class_info", cls.class_info)
+        return res
+
+
+class Activity(metaclass=ActivityMeta):
     """ Any activity: something that may be called and can provide the
     information about itself. """
     def __init__(self):
         """ Initialization. """
         self._info = {}
-        self._info['class'] = self.__class__.__name__
-        self.set_descr(self.__doc__)
 
     def set_descr(self, descr):
         """ Set description of activity. """
@@ -49,15 +88,19 @@ class Activity:
             Information about activity.
 
         """
+        res = self._class_info
+        for key in self._info:
+            res[key] = self._info[key]
+        
         if as_string:
             return json.dumps(
-                self._info,
+                res,
                 sort_keys=True,
                 indent=4,
                 separators=(',', ': ')
             )
         else:
-            return self._info
+            return res
 
     def __call__(self):
         """ Act. """
@@ -272,7 +315,7 @@ class Work(Activity):
         self._info['worker'] = None
         try:
             self._info['worker'] = worker.info()
-        except KeyError:
+        except (KeyError, AttributeError):
             pass
 
     def __call__(self, *args, **kwargs):
