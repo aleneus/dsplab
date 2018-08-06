@@ -33,29 +33,15 @@ class ActivityMeta(type):
             cls._class_info['descr'] = ""
         cls._class_info['class'] = name
 
-    def class_info(cls, as_string=False):
+    def class_info(cls):
         """ Return the information about activity.
-
-        Parameters
-        ----------
-        as_string: bool
-            Method returns JSON-string if True and dict otherwise.
 
         Returns
         -------
-        : str or dict
-            Information about activity.
-
+        : dict
+            Information about class of activity.
         """
-        if as_string:
-            return json.dumps(
-                cls._class_info,
-                sort_keys=True,
-                indent=4,
-                separators=(',', ': ')
-            )
-        else:
-            return cls._class_info
+        return cls._class_info
 
     def __call__(cls, *args, **kwargs):
         res = type.__call__(cls, *args, **kwargs)
@@ -74,13 +60,15 @@ class Activity(metaclass=ActivityMeta):
         """ Set description of activity. """
         self._info['descr'] = descr
 
-    def info(self, as_string=False):
+    def info(self, as_string=False, class_info=True):
         """ Return the information about activity.
 
         Parameters
         ----------
         as_string: bool
-            Method returns JSON-string if True and dict otherwise.
+            Method returns JSON-string if True and dict otherwise
+        class_info: bool
+            Add class info or not.
 
         Returns
         -------
@@ -88,10 +76,13 @@ class Activity(metaclass=ActivityMeta):
             Information about activity.
 
         """
-        res = self._class_info
+        if class_info:
+            res = self._class_info
+        else:
+            res = {}
         for key in self._info:
             res[key] = self._info[key]
-        
+
         if as_string:
             return json.dumps(
                 res,
@@ -101,10 +92,6 @@ class Activity(metaclass=ActivityMeta):
             )
         else:
             return res
-
-    def __call__(self):
-        """ Act. """
-        raise NotImplementedError
 
 
 class OnlineFilter(Activity):

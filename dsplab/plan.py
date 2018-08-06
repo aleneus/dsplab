@@ -277,7 +277,6 @@ def get_plan_from_dict(settings):
 
     for node_settings in nodes_settings:
         node_id = node_settings['id']
-        print(node_id)
         if 'inputs' in node_settings.keys():
             inputs = [nodes[key] for key in node_settings['inputs']]
             plan.add_node(nodes[node_id], inputs=inputs)

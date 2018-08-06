@@ -123,13 +123,15 @@
 ** DONE [t] Add encoding parameter to CSV data producer
 * 0.28.0
 ** DONE [t] Add class info of Activity in metaclass
-** TODO [t] Split class info and instance info explicitly
+** DONE [t] Split class info and instance info more explicitly
+** TODO [p] Add method for adding and documenting parameters of activity
 ** TODO [p] Remove set_description method from activity
 ** TODO [t] Update activity and plan examples
 ** TODO [t] Plan: Remove deprecated setup_plan()
 ** TODO [t] Make correct universal arguments of Activity.__call__
 ** DONE [b] Overwise -> Otherwise
 * later major
+** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Make more universal functions for different kinds of modulation
