@@ -126,6 +126,7 @@
 ** DONE [t] Split class info and instance info more explicitly
 ** DONE [t] Get info from class_info in __init__ of Activity
 ** DONE [p] Add method for adding and documenting parameters of activity
+** DONE [t] Brush activity with pylint
 ** TODO [t] Make correct universal arguments of Activity.__call__
 ** DONE [b] Overwise -> Otherwise
 * later major
