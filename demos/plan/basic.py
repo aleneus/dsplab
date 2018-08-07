@@ -14,7 +14,6 @@ def main():
     a -> b
     b -> c, d
     """)
-    
     p = Plan()
     work_a = Work("Linear transformation")
     work_b = Work("Linear transformation")

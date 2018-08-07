@@ -192,7 +192,7 @@ class Plan(Activity):
         nodes_info = []
         for node in self._nodes:
             node_info = {}
-            work_info = node.work.info()
+            work_info = node.work.info().copy()
             node_info['work'] = work_info
             input_ids = []
             for input_obj in node.inputs:
@@ -277,7 +277,6 @@ def get_plan_from_dict(settings):
 
     for node_settings in nodes_settings:
         node_id = node_settings['id']
-        print(node_id)
         if 'inputs' in node_settings.keys():
             inputs = [nodes[key] for key in node_settings['inputs']]
             plan.add_node(nodes[node_id], inputs=inputs)

@@ -22,18 +22,51 @@ import numpy as np
 from dsplab.helpers import import_entity
 
 
-class Activity:
-    """ Any activity: something that may be called and can provide the
-    information about itself. """
+class ActivityMeta(type):
+    """ Metaclass for Activity. """
+    def __init__(cls, name, bases, attrs):
+        super().__init__(name, bases, attrs)
+        cls._class_info = {}
+        try:
+            cls._class_info['descr'] = attrs['__doc__']
+        except KeyError:
+            cls._class_info['descr'] = ""
+        cls._class_info['class'] = name
+
+    def class_info(cls):
+        """ Return the information about activity.
+
+        Returns
+        -------
+        : dict
+            Information about class of activity.
+        """
+        return cls._class_info
+
+    def __call__(cls, *args, **kwargs):
+        res = type.__call__(cls, *args, **kwargs)
+        setattr(res, "class_info", cls.class_info)
+        print(res.__dict__)
+        return res
+
+
+class Activity(metaclass=ActivityMeta):
+    """ Any activity -- something that may be called and can provide the
+    information about itself. To get working activity you must
+    implement __call__ method. """
     def __init__(self):
         """ Initialization. """
-        self._info = {}
-        self._info['class'] = self.__class__.__name__
-        self.set_descr(self.__doc__)
+        self._info = self._class_info.copy()
+        self._info['params'] = {}
 
     def set_descr(self, descr):
         """ Set description of activity. """
         self._info['descr'] = descr
+
+    def add_param(self, name, value=None):
+        """ Add parameter to activity and make record about it in info. """
+        setattr(self, name, value)
+        self._info['params'][name] = value
 
     def info(self, as_string=False):
         """ Return the information about activity.
@@ -41,7 +74,7 @@ class Activity:
         Parameters
         ----------
         as_string: bool
-            Method returns JSON-string if True and dict overwise.
+            Method returns JSON-string if True and dict otherwise
 
         Returns
         -------
@@ -58,10 +91,6 @@ class Activity:
             )
         else:
             return self._info
-
-    def __call__(self):
-        """ Act. """
-        raise NotImplementedError
 
 
 class OnlineFilter(Activity):
@@ -113,13 +142,13 @@ class OnlineFilter(Activity):
         self.ntaps = ntaps
         self.smooth_ntaps = smooth_ntaps
 
-    def add_sample(self, x):
+    def add_sample(self, value):
         """
         Add input sample to filter and return output value.
 
         Parameters
         ----------
-        x : float
+        value : float
             Input value.
 
         Returns
@@ -128,42 +157,42 @@ class OnlineFilter(Activity):
             Output value.
 
         """
-        return self.add_sample_func(x)
+        return self.add_sample_func(value)
 
-    def __call__(self, x):
-        return self.add_sample_func(x)
+    def __call__(self, value):
+        return self.add_sample_func(value)
 
-    def __add_sample_simple(self, x):
+    def __add_sample_simple(self, value):
         """ Add sample without using queues. """
         self.steps += 1
         if self.steps == self.step:
             self.steps = 0
-            return self.proc_sample(x)
+            return self.proc_sample(value)
         return None
 
-    def __add_sample_only_queue(self, x):
+    def __add_sample_only_queue(self, value):
         """ Add sample with no smoothing. """
         self.steps += 1
-        self.queue.append(x)
+        self.queue.append(value)
         if self.steps == self.step:
             self.steps = 0
             return self.proc_queue()
         return None
 
-    def __add_sample_only_smooth(self, x):
+    def __add_sample_only_smooth(self, value):
         """ Add sample with not internal queue but with smoothed ouput. """
         self.steps += 1
         if self.steps == self.step:
             self.steps = 0
-            self.smooth_queue.append(self.proc_sample(x))
+            self.smooth_queue.append(self.proc_sample(value))
             resm = np.dot(np.array(self.smooth_queue), self.wind)
             return resm
         return None
 
-    def __add_sample_full(self, x):
+    def __add_sample_full(self, value):
         """ Add sample with internal queue and smoothing of ouput values. """
         self.steps += 1
-        self.queue.append(x)
+        self.queue.append(value)
         if self.steps == self.step:
             self.steps = 0
             self.smooth_queue.append(self.proc_queue())
@@ -183,7 +212,7 @@ class OnlineFilter(Activity):
         """
         pass
 
-    def proc_sample(self, x):
+    def proc_sample(self, value):
         """
         Process sample.
 
@@ -241,19 +270,19 @@ class OnlineLogic(OnlineFilter):
 
 class And(OnlineLogic):
     """ And connector. """
-    def add_sample(self, xs):
+    def add_sample(self, values):
         result = 1
-        for (inpt, x) in zip(self.inputs, xs):
-            result *= inpt.add_sample(x)
+        for (inpt, value) in zip(self.inputs, values):
+            result *= inpt.add_sample(value)
         return result
 
 
 class Or(OnlineLogic):
     """ Or connector. """
-    def add_sample(self, xs):
+    def add_sample(self, values):
         res = 0
-        for (inpt, x) in zip(self.inputs, xs):
-            res += inpt.add_sample(x) * (1 - res)
+        for (inpt, value) in zip(self.inputs, values):
+            res += inpt.add_sample(value) * (1 - res)
         return res
 
 
@@ -272,13 +301,13 @@ class Work(Activity):
         self._info['worker'] = None
         try:
             self._info['worker'] = worker.info()
-        except KeyError:
+        except (KeyError, AttributeError):
             pass
 
     def __call__(self, *args, **kwargs):
         """ Do work. """
-        y = self.worker(*args, **kwargs)
-        return y
+        res = self.worker(*args, **kwargs)
+        return res
 
 
 def get_work_from_dict(settings):
