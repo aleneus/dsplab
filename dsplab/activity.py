@@ -46,6 +46,7 @@ class ActivityMeta(type):
     def __call__(cls, *args, **kwargs):
         res = type.__call__(cls, *args, **kwargs)
         setattr(res, "class_info", cls.class_info)
+        print(res.__dict__)
         return res
 
 
@@ -55,10 +56,16 @@ class Activity(metaclass=ActivityMeta):
     def __init__(self):
         """ Initialization. """
         self._info = self._class_info.copy()
+        self._info['params'] = {}
 
     def set_descr(self, descr):
         """ Set description of activity. """
         self._info['descr'] = descr
+
+    def add_param(self, name, value=None):
+        """ Add parameter to activity and make record about it in info. """
+        setattr(self, name, value)
+        self._info['params'][name] = value
 
     def info(self, as_string=False):
         """ Return the information about activity.

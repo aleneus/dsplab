@@ -125,10 +125,7 @@
 ** DONE [t] Add class info of Activity in metaclass
 ** DONE [t] Split class info and instance info more explicitly
 ** DONE [t] Get info from class_info in __init__ of Activity
-** TODO [p] Add method for adding and documenting parameters of activity
-** TODO [p] Remove set_description method from activity
-** TODO [t] Update activity and plan examples
-** TODO [t] Plan: Remove deprecated setup_plan()
+** DONE [p] Add method for adding and documenting parameters of activity
 ** TODO [t] Make correct universal arguments of Activity.__call__
 ** DONE [b] Overwise -> Otherwise
 * later major
@@ -140,6 +137,7 @@
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
+** TODO [p] Add method for setting value of parameter of activity and documenting new value
 * later minor
 ** TODO [t] Use workers from special unit in the plan examples
 ** TODO [t] Online filter. add arguments to self._info
