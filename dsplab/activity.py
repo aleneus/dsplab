@@ -51,8 +51,9 @@ class ActivityMeta(type):
 
 
 class Activity(metaclass=ActivityMeta):
-    """ Any activity: something that may be called and can provide the
-    information about itself. """
+    """ Any activity -- something that may be called and can provide the
+    information about itself. To get working activity you must
+    implement __call__ method. """
     def __init__(self):
         """ Initialization. """
         self._info = self._class_info.copy()
