@@ -124,6 +124,7 @@
 * 0.28.0
 ** DONE [t] Add class info of Activity in metaclass
 ** DONE [t] Split class info and instance info more explicitly
+** DONE [t] Get info from class_info in __init__ of Activity
 ** TODO [p] Add method for adding and documenting parameters of activity
 ** TODO [p] Remove set_description method from activity
 ** TODO [t] Update activity and plan examples

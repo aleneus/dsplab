@@ -54,21 +54,19 @@ class Activity(metaclass=ActivityMeta):
     information about itself. """
     def __init__(self):
         """ Initialization. """
-        self._info = {}
+        self._info = self._class_info.copy()
 
     def set_descr(self, descr):
         """ Set description of activity. """
         self._info['descr'] = descr
 
-    def info(self, as_string=False, class_info=True):
+    def info(self, as_string=False):
         """ Return the information about activity.
 
         Parameters
         ----------
         as_string: bool
             Method returns JSON-string if True and dict otherwise
-        class_info: bool
-            Add class info or not.
 
         Returns
         -------
@@ -76,22 +74,15 @@ class Activity(metaclass=ActivityMeta):
             Information about activity.
 
         """
-        if class_info:
-            res = self._class_info
-        else:
-            res = {}
-        for key in self._info:
-            res[key] = self._info[key]
-
         if as_string:
             return json.dumps(
-                res,
+                self._info,
                 sort_keys=True,
                 indent=4,
                 separators=(',', ': ')
             )
         else:
-            return res
+            return self._info
 
 
 class OnlineFilter(Activity):
