@@ -43,7 +43,7 @@ DSP procedures
    prony
    spectran
 
-Ornanization of calculations
+Organization of calculations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. toctree::

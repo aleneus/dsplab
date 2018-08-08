@@ -130,8 +130,9 @@
 ** DONE [t] Make correct universal arguments of Activity.__call__
 ** DONE [b] Overwise -> Otherwise
 * 0.28.1
-** TODO [b] Typo in docs: Ornanization -> Organization
-** TODO [e] Update module docsting in activity.py
+** DONE [b] Typo in docs: Ornanization -> Organization
+** DONE [b] Remove print from ActivityMeta
+** DONE [e] Update module docsting in activity.py
 ** TODO [t] Inspect all library and update todo list
 * later major
 ** TODO [p] Add instance_info for activity

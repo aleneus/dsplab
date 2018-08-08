@@ -13,8 +13,7 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" This module implements the base classes for offline and online
-data processing tools. """
+""" This module implements the base classes for Activities. """
 
 from collections import deque
 import json
@@ -46,7 +45,6 @@ class ActivityMeta(type):
     def __call__(cls, *args, **kwargs):
         res = type.__call__(cls, *args, **kwargs)
         setattr(res, "class_info", cls.class_info)
-        print(res.__dict__)
         return res
 
 
