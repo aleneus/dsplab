@@ -135,7 +135,9 @@
 ** DONE [e] Update module docsting in activity.py
 * 0.29.0
 ** DONE [t] Inspect all library and update todo list
-** TODO [t] Add worker subclass of activity class
+** DONE [t] Add worker subclass of activity class
+** TODO [t] Replace set_descr to Work
+** TODO [t] Update examples
 ** TODO [t] Merge envelop module to modulation one
 ** TODO [e] Refactoring find_butt_bandpass_order()
 ** TODO [e] Refactoring haar_one_step()
