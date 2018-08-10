@@ -136,8 +136,8 @@
 * 0.29.0
 ** DONE [t] Inspect all library and update todo list
 ** DONE [t] Add worker subclass of activity class
-** TODO [t] Replace set_descr to Work
-** TODO [t] Update examples
+** DONE [t] Update examples
+* 0.29.1
 ** TODO [t] Merge envelop module to modulation one
 ** TODO [e] Refactoring find_butt_bandpass_order()
 ** TODO [e] Refactoring haar_one_step()
@@ -152,6 +152,7 @@
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module
 * later major
+** TODO [p] Replace set_decr() to work
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

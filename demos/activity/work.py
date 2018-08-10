@@ -3,9 +3,9 @@ import os
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
 
-from dsplab.activity import Activity, Work
+from dsplab.activity import Worker, Work
 
-class Linear(Activity):
+class Linear(Worker):
     """Linear transformation: y = k*x + b"""
     def __init__(self, k, b):
         super().__init__()

@@ -5,11 +5,11 @@ import os
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
 
-from dsplab.activity import Activity
+from dsplab.activity import Worker
 from dsplab.activity import get_work_from_dict
 
 
-class Linear(Activity):
+class Linear(Worker):
     """Linear transformation."""
     def __init__(self, k, b):
         super().__init__()

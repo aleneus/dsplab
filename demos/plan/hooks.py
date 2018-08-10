@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.abspath('.'))
 
 from dsplab.activity import Work
-from dsplab.plan import Node, Plan
+from dsplab.plan import Node
 
 def func(x):
     return x + 1
