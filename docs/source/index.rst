@@ -18,14 +18,14 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.27
+What's new in 0.28
 ------------------
 
-* Add tool for playin of archive data as if they are being get in online mode.
-* Add adapter for procuding data for player.
-* Add CSV data producer.
-* Add Random data producer.
-* Add examples of playing signals.
+* Add class info of Activity in metaclass
+* Add method for getting information about class of Activity whithout creating instance
+* Add method for adding and documenting parameters of activity
+* Brush activity module with pylint
+* Some fixes
 
 Modules
 -------

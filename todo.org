@@ -133,6 +133,9 @@
 ** DONE [b] Typo in docs: Ornanization -> Organization
 ** DONE [b] Remove print from ActivityMeta
 ** DONE [e] Update module docsting in activity.py
+* 0.29.0
+** TODO [b] Add worker subclass of activity class
+* 0.29.1
 ** TODO [t] Inspect all library and update todo list
 * later major
 ** TODO [p] Add instance_info for activity
