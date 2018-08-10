@@ -134,16 +134,27 @@
 ** DONE [b] Remove print from ActivityMeta
 ** DONE [e] Update module docsting in activity.py
 * 0.29.0
-** TODO [b] Add worker subclass of activity class
-* 0.29.1
-** TODO [t] Inspect all library and update todo list
+** DONE [t] Inspect all library and update todo list
+** TODO [t] Add worker subclass of activity class
+** TODO [t] Merge envelop module to modulation one
+** TODO [e] Refactoring find_butt_bandpass_order()
+** TODO [e] Refactoring haar_one_step()
+** TODO [e] Refactoring haar_scaling()
+** TODO [e] Refactoring trend_smooth()
+** TODO [e] Brush filtration module
+** TODO [e] Refactoring frequency module
+** TODO [e] Brush helpers module
+** TODO [e] Brush modulation module
+** TODO [e] Refactoring iq_demod()
+** TODO [e] Remove actually empty unit online.py
+** TODO [e] Brush prony module
+** TODO [e] Brush spectran module
 * later major
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Make more universal functions for different kinds of modulation
 ** TODO [p] Plan: Transmitter is a worker, not Node
-** TODO [e] Remove actually empty unit online.py
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Add method for setting value of parameter of activity and documenting new value
@@ -151,3 +162,4 @@
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
 ** TODO [e] Modulation: Add example for phase modulation
+** TODO [e] Add example of modulation to docs
