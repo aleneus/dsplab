@@ -129,6 +129,14 @@
 ** DONE [t] Brush activity with pylint
 ** DONE [t] Make correct universal arguments of Activity.__call__
 ** DONE [b] Overwise -> Otherwise
+* 0.28.1
+** DONE [b] Typo in docs: Ornanization -> Organization
+** DONE [b] Remove print from ActivityMeta
+** DONE [e] Update module docsting in activity.py
+* 0.29.0
+** TODO [b] Add worker subclass of activity class
+* 0.29.1
+** TODO [t] Inspect all library and update todo list
 * later major
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
@@ -140,7 +148,6 @@
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Add method for setting value of parameter of activity and documenting new value
 * later minor
-** TODO [t] Use workers from special unit in the plan examples
 ** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
 ** TODO [e] Modulation: Add example for phase modulation

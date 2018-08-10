@@ -1,3 +1,12 @@
+0.27
+====
+
+* Add tool for playin of archive data as if they are being get in online mode.
+* Add adapter for procuding data for player.
+* Add CSV data producer.
+* Add Random data producer.
+* Add examples of playing signals.
+
 0.26
 ====
 
