@@ -138,7 +138,10 @@
 ** DONE [t] Add worker subclass of activity class
 ** DONE [t] Update examples
 * 0.29.1
-** TODO [b] Update what's new in docs
+** DONE [b] Update what's new in docs
+* 0.30.0
+** TODO [t] Add description handling functions to plan
+** TODO [p] Add function simultaneous amp, freq and phase modulation
 * later
 ** TODO [t] Merge envelop module to modulation one
 ** TODO [e] Refactoring find_butt_bandpass_order()
@@ -157,7 +160,6 @@
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
-** TODO [p] Make more universal functions for different kinds of modulation
 ** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
