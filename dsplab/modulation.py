@@ -13,23 +13,28 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import numpy as np
-import dsplab.filtration as flt
+""" Functions for modulation and demodulation. """
 
-def harmonic(T, fs, a, f, ph, noise_f=None, noise_a=None):
+import numpy as np
+from numpy import pi, cos, sin, unwrap, angle, diff
+import scipy.signal as sig
+
+
+def harm(length, sample_rate, amp, freq, phi,
+         noise_f=None, noise_a=None):
     """ Harmonic signal.
 
     Parameters
     ----------
-    T: float
+    length: float
         Length pf signal (sec).
-    fs: float
+    sample_rate: float
         Sampling frequency (Hz).
-    a: float
+    amp: float
         Amplitude of signal.
-    f: Object
+    freq: Object
         Frequency of signal (Hz).
-    ph: float
+    phi: float
         Initial phase (radians).
     noise_f: Object
         Function that returns noise value added to frequency.
@@ -38,36 +43,36 @@ def harmonic(T, fs, a, f, ph, noise_f=None, noise_a=None):
 
     Returns
     -------
-    xs: np.array
+    values: np.array
         Signal values.
-    ts: np.array
+    times: np.array
         Time values.
-    
     """
-    ts = np.arange(0, T, 1/fs)
-    xs = []
-    for t in ts:
-        amp = a
+    times = np.arange(0, length, 1 / sample_rate)
+    values = []
+    for time_value in times:
+        amp_value = amp
         if noise_a is not None:
-            amp += noise_a(t)
-        arg = 2*np.pi*f*t + ph
+            amp_value += noise_a(time_value)
+        arg = 2 * pi * freq * time_value + phi
         if noise_f is not None:
-            arg += noise_f(t)
-        x = amp * np.cos(arg)
-        xs.append(x)
-    xs = np.array(xs)
-    return xs, ts
-    
-def am(T, fs, f, phi, func, noise_f=None, noise_a=None):
-    """ Amplitude modulation. 
+            arg += noise_f(time_value)
+        values.append(amp_value * cos(arg))
+    values = np.array(values)
+    return values, times
+
+
+def amp_mod(length, sample_rate, freq, phi, func,
+            noise_f=None, noise_a=None):
+    """ Amplitude modulation.
 
     Parameters
     ----------
-    T: float
+    length: float
         Length pf signal (sec).
-    fs: float
+    sample_rate: float
         Sampling frequency (Hz).
-    f: float
+    freq: float
         Frequency of signal (Hz).
     phi: float
         Initial phase (radians).
@@ -80,40 +85,40 @@ def am(T, fs, f, phi, func, noise_f=None, noise_a=None):
 
     Returns
     -------
-    xs: np.array
+    values: np.array
         Signal values.
-    ts: np.array
+    times: np.array
         Time values.
-
     """
-    ph = phi
-    delta_ph = 2 * np.pi * f / fs
-    dt = 1.0/fs
-    ts = np.arange(0, T+dt, dt)
-    xs = []
-    for t in ts:
-        A = func(t)
+    full_phase = phi
+    delta_ph = 2 * pi * freq / sample_rate
+    sampling_period = 1.0 / sample_rate
+    times = np.arange(0, length + sampling_period, sampling_period)
+    values = []
+    for time_value in times:
         if noise_f is None:
-            x = A*np.cos(ph)
+            value = func(time_value) * cos(full_phase)
         else:
-            x = A*np.cos(ph + noise_f(t))
+            value = func(time_value) * cos(full_phase + noise_f(time_value))
         if noise_a is not None:
-            x += noise_a(t)
-        xs.append(x)
-        ph += delta_ph
-    xs = np.array(xs)
-    return xs, ts
-    
-def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
-    """ Amplitude modulation. 
+            value += noise_a(time_value)
+        values.append(value)
+        full_phase += delta_ph
+    values = np.array(values)
+    return values, times
+
+
+def freq_mod(length, sample_rate, amp, phi, func,
+             noise_f=None, noise_a=None):
+    """ Amplitude modulation.
 
     Parameters
     ----------
-    T: float
+    length: float
         Length pf signal (sec).
-    fs: float
+    sample_rate: float
         Sampling frequency (Hz).
-    a: float
+    amp: float
         Amplitude of signal.
     phi: float
         Initial phase (radians).
@@ -126,45 +131,46 @@ def fm(T, fs, a, phi, func, noise_f=None, noise_a=None):
 
     Returns
     -------
-    xs: np.array
+    values: np.array
         Signal values.
     phs: np.array
         Full phase values.
-    ts: np.array
+    times: np.array
         Time values.
-
     """
-    ph = phi
-    dt = 1.0/fs
-    ts = np.arange(0, T+dt, dt)
-    xs = []
+    full_phase = phi
+    times = np.arange(0, length + 1.0 / sample_rate, 1.0 / sample_rate)
+    values = []
     phs = []
-    for t in ts:
-        arg = ph
+    for time_value in times:
+        arg = full_phase
         if noise_f is not None:
-            arg += noise_f(t)
-        x = a*np.cos(arg)
+            arg += noise_f(time_value)
+        value = amp * cos(arg)
         if noise_a is not None:
-            x += noise_a(t)
-        xs.append(x)
-        phs.append(ph)
-        delta_ph = 2*np.pi*func(t)/fs
-        ph += delta_ph
-    xs = np.array(xs)
-    return xs, phs, ts
+            value += noise_a(time_value)
+        values.append(value)
+        phs.append(full_phase)
+        delta_ph = 2 * pi * func(time_value) / sample_rate
+        full_phase += delta_ph
+    values = np.array(values)
+    phs = np.array(phs)
+    return values, phs, times
 
-def phm(T, fs, a, f, func, noise_f=None, noise_a=None):
-    """ Phase modulation. 
+
+def phase_mod(length, sample_rate, amp, freq, func,
+              noise_f=None, noise_a=None):
+    """ Phase modulation.
 
     Parameters
     ----------
-    T: float
+    length: float
         Length pf signal (sec).
-    fs: float
+    sample_rate: float
         Sampling frequency (Hz).
-    a: float
+    amp: float
         Amplitude of signal.
-    f: float
+    freq: float
         Frequency of signal (Hz).
     func: Object
         Function that returns phase values (in radians) depending on time.
@@ -175,40 +181,81 @@ def phm(T, fs, a, f, func, noise_f=None, noise_a=None):
 
     Returns
     -------
-    xs: np.array
+    values: np.array
         Signal values.
-    ts: np.array
+    times: np.array
         Time values.
-
     """
-    dt = 1.0/fs
-    ts = np.arange(0, T+dt, dt)
-    xs = []
-    for t in ts:
-        arg = 2*np.pi*f*t + func(t)
+    sampling_period = 1.0 / sample_rate
+    times = np.arange(0, length + sampling_period, sampling_period)
+    values = []
+    for time_value in times:
+        arg = 2 * pi * freq * time_value + func(time_value)
         if noise_f is not None:
-            arg += noise_f(t)
-        x = a*np.cos(arg)
+            arg += noise_f(time_value)
+        value = amp * cos(arg)
         if noise_a is not None:
-            x += noise_a(t)
-        xs.append(x)
-    xs = np.array(xs)
-    return xs, ts
+            value += noise_a(time_value)
+        values.append(value)
+    values = np.array(values)
+    return values, times
 
-def iq_demod(x, t, f_central, a, b):
-    """ Return instantaneous frequency of modulated signal using IQ processign. 
+
+def freq_amp_mod(length, sample_rate, a_func, f_func, phi):
+    """ Simultaneous frequency and amplitude modulation.
 
     Parameters
     ----------
-    x : array_like
+    length: float
+        Length pf signal (sec).
+    sample_rate: float
+        Sampling frequency (Hz).
+    a_func: Object
+        Function that returns amplitude value depending on time.
+    f_func: Object
+        Function that returns frequency values (in Hz) depending on time.
+    phi: float
+        Initial phase (radians).
+
+    Returns
+    -------
+    values: np.array
         Signal values.
-    t : array_like
+    phs: np.array
+        Full phase values.
+    times: np.array
+        Time values.
+    """
+    full_phase = phi
+    sampling_period = 1.0 / sample_rate
+    times = np.arange(0, length + sampling_period, sampling_period)
+    values = []
+    phs = []
+    for time_value in times:
+        arg = full_phase
+        values.append(a_func(time_value) * cos(arg))
+        delta_ph = 2 * pi * f_func(time_value) / sample_rate
+        phs.append(full_phase)
+        full_phase += delta_ph
+    values = np.array(values)
+    phs = np.array(phs)
+    return values, phs, times
+
+
+def iq_demod(values, times, f_central, a_coeffs, b_coeffs):
+    """ Return instantaneous frequency of modulated signal using IQ processign.
+
+    Parameters
+    ----------
+    values : array_like
+        Signal values.
+    times : array_like
         Time values.
     f_central : float
         Carrier frequency.
-    a : array_like
+    a_coeffs : array_like
         a values of filter.
-    b : array_like
+    b_coeffs : array_like
         b values of filter.
 
     Returns
@@ -217,15 +264,12 @@ def iq_demod(x, t, f_central, a, b):
         Instantaneous frequency values.
     t_freq : np.ndarray
         Time values.
-
     """
-    fs = 1/(t[1] - t[0])
-    yI = x * np.cos(2*np.pi*f_central*t)
-    yQ = x * np.sin(2*np.pi*f_central*t)
-    # TODO: [3] next works only for FIR now, some kind of stub
-    yI_ = np.convolve(yI, b, mode="same") # TODO: [3] use lfilter and a
-    yQ_ = np.convolve(yQ, b, mode="same") # TODO: [3] use lfilter and a
-    analytic = yI_ + 1j*yQ_
-    phase = -np.unwrap(np.angle(analytic))
-    freq = np.diff(phase) / (2*np.pi) * fs + f_central
-    return freq, t[:-1]
+    muli = values * cos(2 * pi * f_central * times)
+    mulq = values * sin(2 * pi * f_central * times)
+    muli_low = sig.lfilter(b_coeffs, a_coeffs, muli)
+    mulq_low = sig.lfilter(b_coeffs, a_coeffs, mulq)
+    analytic = muli_low + 1j * mulq_low
+    phase = -unwrap(angle(analytic))
+    freq = diff(phase) / (2 * pi) / (times[1] - times[0]) + f_central
+    return freq, times[:-1]

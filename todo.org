@@ -141,7 +141,9 @@
 ** DONE [b] Update what's new in docs
 * 0.30.0
 ** DONE [t] Add descr option to __init__ of Plan
-** TODO [p] Add function simultaneous amp, freq and phase modulation
+** DONE [p] Add function for simultaneous amp and freq modulation
+** DONE [e] Brush modulation module
+** DONE [e] Rename functions names and arguments in modulation unit
 * later
 ** TODO [t] Merge envelop module to modulation one
 ** TODO [e] Refactoring find_butt_bandpass_order()
@@ -151,7 +153,6 @@
 ** TODO [e] Brush filtration module
 ** TODO [e] Refactoring frequency module
 ** TODO [e] Brush helpers module
-** TODO [e] Brush modulation module
 ** TODO [e] Refactoring iq_demod()
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [e] Brush prony module
