@@ -36,7 +36,6 @@ DSP procedures
    modulation
    filtration
    frequency
-   envelope
    prony
    spectran
 

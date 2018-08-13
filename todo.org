@@ -146,7 +146,9 @@
 ** DONE [e] Rename functions names and arguments in modulation unit
 ** DONE [t] Set default phi=0 in modulation
 ** DONE [t] Merge envelop module to modulation one
-** TODO [t] Remove envelop from docs
+** DONE [t] Remove envelop from docs
+** TODO [t] Update envelop examples
+** TODO [t] Update modulation examples
 ** DONE [e] Refactoring iq_demod()
 ** TODO [t] Split activity unit to activity and online
 ** TODO [p] Online filter. add arguments to self._info
