@@ -148,7 +148,7 @@
 ** DONE [t] Merge envelop module to modulation one
 ** DONE [t] Remove envelop from docs
 ** DONE [t] Update envelop examples
-** TODO [t] Update modulation examples
+** DONE [t] Update modulation examples
 ** DONE [e] Refactoring iq_demod()
 ** TODO [t] Split activity unit to activity and online
 ** TODO [p] Online filter. add arguments to self._info
