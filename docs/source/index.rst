@@ -18,11 +18,18 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.29
+What's new in 0.30
 ------------------
 
-* Add worker subclass of activity class
-* Update examples
+* Add descr option to __init__ of Plan
+* Add function for simultaneous amp and freq modulation
+* Brush modulation module
+* Rename functions names and arguments in modulation unit
+* Set default phi=0 in modulation
+* Merge envelop module to modulation one
+* Update envelop examples
+* Update modulation examples
+* Refactoring iq_demod()
 
 Modules
 -------
@@ -36,7 +43,6 @@ DSP procedures
    modulation
    filtration
    frequency
-   envelope
    prony
    spectran
 
