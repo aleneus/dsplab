@@ -20,7 +20,7 @@ from numpy import pi, cos, sin, unwrap, angle, diff
 import scipy.signal as sig
 
 
-def harm(length, sample_rate, amp, freq, phi,
+def harm(length, sample_rate, amp, freq, phi=0,
          noise_f=None, noise_a=None):
     """ Harmonic signal.
 
@@ -62,7 +62,7 @@ def harm(length, sample_rate, amp, freq, phi,
     return values, times
 
 
-def amp_mod(length, sample_rate, freq, phi, func,
+def amp_mod(length, sample_rate, func, freq, phi=0,
             noise_f=None, noise_a=None):
     """ Amplitude modulation.
 
@@ -108,7 +108,7 @@ def amp_mod(length, sample_rate, freq, phi, func,
     return values, times
 
 
-def freq_mod(length, sample_rate, amp, phi, func,
+def freq_mod(length, sample_rate, amp, func, phi=0,
              noise_f=None, noise_a=None):
     """ Amplitude modulation.
 
@@ -201,7 +201,7 @@ def phase_mod(length, sample_rate, amp, freq, func,
     return values, times
 
 
-def freq_amp_mod(length, sample_rate, a_func, f_func, phi):
+def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
     """ Simultaneous frequency and amplitude modulation.
 
     Parameters

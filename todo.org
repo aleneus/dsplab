@@ -144,8 +144,14 @@
 ** DONE [p] Add function for simultaneous amp and freq modulation
 ** DONE [e] Brush modulation module
 ** DONE [e] Rename functions names and arguments in modulation unit
-* later
+** DONE [t] Set default phi=0 in modulation
 ** TODO [t] Merge envelop module to modulation one
+** DONE [e] Refactoring iq_demod()
+** TODO [t] Split activity unit to activity and online
+** TODO [p] Online filter. add arguments to self._info
+** TODO [e] Add examples of modulation to docs
+** TODO [e] Document history more likely
+* later
 ** TODO [e] Refactoring find_butt_bandpass_order()
 ** TODO [e] Refactoring haar_one_step()
 ** TODO [e] Refactoring haar_scaling()
@@ -153,20 +159,13 @@
 ** TODO [e] Brush filtration module
 ** TODO [e] Refactoring frequency module
 ** TODO [e] Brush helpers module
-** TODO [e] Refactoring iq_demod()
 ** TODO [e] Remove actually empty unit online.py
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module
-** TODO [p] Replace set_decr() to work
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
-** TODO [p] Add method for setting value of parameter of activity and documenting new value
-** TODO [t] Online filter. add arguments to self._info
 ** TODO [t] plan demo: add example with online processing
-** TODO [e] Modulation: Add example for phase modulation
-** TODO [e] Add example of modulation to docs
-** TODO [e] Document history more likely
