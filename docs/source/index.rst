@@ -18,14 +18,11 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.28
+What's new in 0.29
 ------------------
 
-* Add class info of Activity in metaclass
-* Add method for getting information about class of Activity whithout creating instance
-* Add method for adding and documenting parameters of activity
-* Brush activity module with pylint
-* Some fixes
+* Add worker subclass of activity class
+* Update examples
 
 Modules
 -------

@@ -1,3 +1,12 @@
+0.28
+====
+
+* Add class info of Activity in metaclass
+* Add method for getting information about class of Activity whithout creating instance
+* Add method for adding and documenting parameters of activity
+* Brush activity module with pylint
+* Some fixes
+
 0.27
 ====
 
