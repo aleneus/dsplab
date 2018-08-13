@@ -140,7 +140,7 @@
 * 0.29.1
 ** DONE [b] Update what's new in docs
 * 0.30.0
-** TODO [t] Add description handling functions to plan
+** DONE [t] Add descr option to __init__ of Plan
 ** TODO [p] Add function simultaneous amp, freq and phase modulation
 * later
 ** TODO [t] Merge envelop module to modulation one

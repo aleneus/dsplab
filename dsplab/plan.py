@@ -121,8 +121,10 @@ class Transmitter(Node):
 
 class Plan(Activity):
     """ The plan. Plan is the system of linked nodes. """
-    def __init__(self):
+    def __init__(self, descr=None):
         super().__init__()
+        if descr is not None:
+            self._info['descr'] = descr
         self._nodes = []
         self._inputs = []
         self._outputs = []
