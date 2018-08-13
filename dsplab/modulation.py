@@ -247,22 +247,22 @@ def iq_demod(values, times, f_central, a_coeffs, b_coeffs):
 
     Parameters
     ----------
-    values : array_like
+    values: array_like
         Signal values.
-    times : array_like
+    times: array_like
         Time values.
-    f_central : float
+    f_central: float
         Carrier frequency.
-    a_coeffs : array_like
+    a_coeffs: array_like
         a values of filter.
-    b_coeffs : array_like
+    b_coeffs: array_like
         b values of filter.
 
     Returns
     -------
-    freq : np.ndarray of floats
+    freq: np.ndarray of floats
         Instantaneous frequency values.
-    t_freq : np.ndarray
+    t_freq: np.ndarray
         Time values.
     """
     muli = values * cos(2 * pi * f_central * times)
@@ -273,3 +273,63 @@ def iq_demod(values, times, f_central, a_coeffs, b_coeffs):
     phase = -unwrap(angle(analytic))
     freq = diff(phase) / (2 * pi) / (times[1] - times[0]) + f_central
     return freq, times[:-1]
+
+
+def envelope_by_extremums(values, sample_rate=1, times=None):
+    """ Calculate envelope by local extremums of signals.
+
+    Parameters
+    ----------
+    values: array_like
+        Signal values.
+    sample_rate: float
+        Sampling frequency.
+    times: array_like
+        Time values. Use it for unregular discretized input signal.
+
+    Returns
+    --------
+    : np.array
+        Damping values.
+    : np.array
+        Time values.
+    """
+    if times is None:
+        times = np.linspace(0, (len(values)-1)/sample_rate, len(values))
+    t_new = []
+    x_new = []
+    xabs = abs(values)
+    for x_l, x_c, x_r, t_c in zip(xabs[:-2], xabs[1:-1], xabs[2:], times[1:-1]):
+        if (x_l < x_c) and (x_c >= x_r):
+            t_new.append(t_c)
+            x_new.append(x_c)
+    if xabs[-1] > xabs[-2]:
+        t_new.append(times[-1])
+        x_new.append(xabs[-1])
+    return np.array(x_new), np.array(t_new)
+
+
+def digital_hilbert_filter(ntaps=101, window='hamming'):
+    """ Calculate digital hilbert filter.
+
+    Parameters
+    ----------
+    ntaps: integer
+        Length of filter.
+    window: str
+        Window. Default is 'hamming'.
+
+    Returns
+    -------
+    coeffs: np.array
+        Filter.
+    """
+    if ntaps % 2 == 0:
+        raise ValueError("ntaps of digital Hilbert filter must be odd.")
+    num = ntaps // 2
+    coeffs = [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(-num, 0)]
+    coeffs += [0]
+    coeffs += [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(1, num+1)]
+    wind = sig.get_window(window, ntaps)
+    coeffs *= wind
+    return coeffs
