@@ -152,14 +152,17 @@
 ** DONE [e] Refactoring iq_demod()
 ** DONE [e] Add header to history file
 ** DONE [t] Update docs
-* later
+* 0.30.1
 ** TODO [e] Use math instead of np where possible
-** TODO [t] Merge frequency unit to modulation one
 ** TODO [t] Change History header in index.rst
 ** TODO [b] Change docstring for set_descr() in Activity
-** TODO [e] Add examples of modulation to docs
+* 0.31.0
+** TODO [t] Add smooth function from es_analytics to filtration
+** TODO [t] Merge frequency unit to modulation one
 ** TODO [p] Split activity unit to activity and online
 ** TODO [t] Add online unit to docs
+* later
+** TODO [e] Add examples of modulation to docs
 ** TODO [p] Online filter. add arguments to self._info
 ** TODO [e] Refactoring find_butt_bandpass_order()
 ** TODO [e] Refactoring haar_one_step()
@@ -168,7 +171,6 @@
 ** TODO [e] Brush filtration module
 ** TODO [e] Refactoring frequency module
 ** TODO [e] Brush helpers module
-** TODO [e] Remove actually empty unit online.py
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module
 ** TODO [p] Add instance_info for activity
