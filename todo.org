@@ -163,17 +163,18 @@
 ** DONE [t] Merge frequency unit to modulation one
 ** DONE [p] Split activity unit to activity and online
 ** DONE [t] Add online unit to docs
+** DONE [e] Refactoring trend_smooth()
+** DONE [e] Refactoring find_butt_bandpass_order()
+** DONE [e] Refactoring haar_one_step()
+** DONE [e] Refactoring haar_scaling()
+** DONE [p] Brush arguments names in filtration unit
+** DONE [p] Brush arguments names in modulation unit
+** DONE [e] Brush helpers module
 * later
-** TODO [p] Use names: xdata, tdata, x_res, t_res
-** TODO [t] Rename add_parameter() to set_parameter() in Worker
-** TODO [p] Online filter. add arguments to self._info
-** TODO [e] Refactoring find_butt_bandpass_order()
-** TODO [e] Refactoring haar_one_step()
-** TODO [e] Refactoring haar_scaling()
-** TODO [e] Refactoring trend_smooth()
-** TODO [e] Brush helpers module
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module
+** TODO [t] Rename add_parameter() to set_parameter() in Worker
+** TODO [p] Online filter. add arguments to self._info
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter

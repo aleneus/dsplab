@@ -48,9 +48,9 @@ def harm(length, sample_rate, amp, freq, phi=0,
 
     Returns
     -------
-    values: np.array
+    : np.array
         Signal values.
-    times: np.array
+    : np.array
         Time values.
     """
     times = np.arange(0, length, 1 / sample_rate)
@@ -247,14 +247,14 @@ def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
     return values, phs, times
 
 
-def iq_demod(values, times, f_central, a_coeffs, b_coeffs):
+def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
     """ Return instantaneous frequency of modulated signal using IQ processign.
 
     Parameters
     ----------
-    values: array_like
+    xdata: array_like
         Signal values.
-    times: array_like
+    tdata: array_like
         Time values.
     f_central: float
         Carrier frequency.
@@ -270,26 +270,26 @@ def iq_demod(values, times, f_central, a_coeffs, b_coeffs):
     : np.ndarray
         Time values.
     """
-    muli = values * cos(PI2 * f_central * times)
-    mulq = values * sin(PI2 * f_central * times)
+    muli = xdata * cos(PI2 * f_central * tdata)
+    mulq = xdata * sin(PI2 * f_central * tdata)
     muli_low = sig.lfilter(b_coeffs, a_coeffs, muli)
     mulq_low = sig.lfilter(b_coeffs, a_coeffs, mulq)
     analytic = muli_low + 1j * mulq_low
     phase = -unwrap(angle(analytic))
-    freq = diff(phase) / PI2 / (times[1] - times[0]) + f_central
-    return freq, times[:-1]
+    freq = diff(phase) / PI2 / (tdata[1] - tdata[0]) + f_central
+    return freq, tdata[:-1]
 
 
-def envelope_by_extremums(values, sample_rate=1, times=None):
+def envelope_by_extremums(xdata, sample_rate=1, tdata=None):
     """ Calculate envelope by local extremums of signals.
 
     Parameters
     ----------
-    values: array_like
+    xdata: array_like
         Signal values.
     sample_rate: float
         Sampling frequency.
-    times: array_like
+    tdata: array_like
         Time values. Use it for unregular discretized input signal.
 
     Returns
@@ -299,18 +299,18 @@ def envelope_by_extremums(values, sample_rate=1, times=None):
     : np.array
         Time values.
     """
-    if times is None:
-        times = np.linspace(0, (len(values)-1)/sample_rate, len(values))
+    if tdata is None:
+        tdata = np.linspace(0, (len(xdata)-1)/sample_rate, len(xdata))
     t_new = []
     x_new = []
-    xabs = abs(values)
+    xabs = abs(xdata)
     for x_l, x_c, x_r, t_c in zip(xabs[:-2], xabs[1:-1],
-                                  xabs[2:], times[1:-1]):
+                                  xabs[2:], tdata[1:-1]):
         if (x_l < x_c) and (x_c >= x_r):
             t_new.append(t_c)
             x_new.append(x_c)
     if xabs[-1] > xabs[-2]:
-        t_new.append(times[-1])
+        t_new.append(tdata[-1])
         x_new.append(xabs[-1])
     return np.array(x_new), np.array(t_new)
 
@@ -341,14 +341,14 @@ def digital_hilbert_filter(ntaps=101, window='hamming'):
     return coeffs
 
 
-def freq_by_extremums(x, fs):
+def freq_by_extremums(xdata, sample_rate):
     """ Calculate frequency of oscillating signal by extremums.
 
     Parameters
     ----------
-    x: array_like
+    xdata: array_like
         Values of input signals.
-    fs: float
+    sample_rate: float
         Sampling frequency (Hz).
 
     Returns
@@ -356,10 +356,10 @@ def freq_by_extremums(x, fs):
     : float
         Frequency.
     """
-    T = len(x)/fs
+    T = len(xdata) / sample_rate
     n_max = 0
     n_min = 0
-    for x_p, x_c, x_n in zip(x[:-2], x[1:-1], x[2:]):
+    for x_p, x_c, x_n in zip(xdata[:-2], xdata[1:-1], xdata[2:]):
         if (x_p < x_c) and (x_c >= x_n):
             n_max += 1
         if (x_p > x_c) and (x_c <= x_n):
@@ -368,55 +368,52 @@ def freq_by_extremums(x, fs):
     return n / T
 
 
-def freq_by_zeros(x, fs):
+def freq_by_zeros(xdata, sample_rate):
     """ Calculate frequency of oscillating signal by zeros. Signal
     must be detrended before. """
-    T = len(x)/fs
+    T = len(xdata) / sample_rate
     n = 0
-    for x_p, x_c in zip(x[:-1], x[1:]):
+    for x_p, x_c in zip(xdata[:-1], xdata[1:]):
         if x_p * x_c < 0:
             n += 1
     return n / 2 / T
 
 
-def linint(x, t, t_new, cut_nans=True):
-    """ Find values of x in t_new points.
+def linint(xdata, tdata, ts_new):
+    """ Find values of xdata in ts_new points.
 
     Parameters
     ----------
-    x: np.ndarray
+    xdata: np.ndarray
         Signal values.
-    t: np.ndarray
+    tdata: np.ndarray
         Time values.
-    t_new: np.ndarray
+    ts_new: np.ndarray
         New time values.
-    cat_nans: boolean
-        If True, the nan values at the begin and at the end of
-        produced array will removed.  Such values will be appear if
-        t_new is wider than t.
 
     Returns
     -------
     : np.ndarray
         New signal values.
     """
-    x_new = np.zeros(len(t_new)) * np.nan
-    for x_p, t_p, x_c, t_c in zip(x[:-1], t[:-1], x[1:], t[1:]):
+    x_new = np.zeros(len(ts_new)) * np.nan
+    for x_p, t_p, x_c, t_c in zip(xdata[:-1], tdata[:-1],
+                                  xdata[1:], tdata[1:]):
         k = (x_c - x_p) / (t_c - t_p)
         b = x_p - k*t_p
-        ind = (t_new >= t_p) & (t_new <= t_c)
-        x_new[ind] = k*t_new[ind] + b
+        ind = (ts_new >= t_p) & (ts_new <= t_c)
+        x_new[ind] = k * ts_new[ind] + b
     return x_new
 
 
-def wave_lens(x, t):
+def wave_lens(xdata, tdata):
     """ Calculate wave lengths of signal by space between zeros.
 
     Parameters
     ----------
-    x: np.ndarray
+    xdata: np.ndarray
         Signal values.
-    t: np.ndarray
+    tdata: np.ndarray
         Time values.
 
     Returns
@@ -427,7 +424,7 @@ def wave_lens(x, t):
         Time values.
     """
     tms = []
-    for t_c, x_p, x_c in zip(t[1:], x[:-1], x[1:]):
+    for t_c, x_p, x_c in zip(tdata[1:], xdata[:-1], xdata[1:]):
         if x_p * x_c < 0:
             tms.append(t_c)
     lens = np.diff(tms) * 2
@@ -435,15 +432,15 @@ def wave_lens(x, t):
     return lens, t_lens
 
 
-def freqs_by_wave_len(x, t, cut_nans=True):
+def freqs_by_wave_len(xdata, tdata, cut_nans=True):
     """ Calculate frequencies using lenghs of waves and linear
     interpolation.
 
     Parameters
     ----------
-    x: np.ndarray
+    xdata: np.ndarray
         Signal values.
-    t: np.ndarray
+    tdata: np.ndarray
         Time values.
     cut_nans: boolean
         If True, the nan values at the ends of the of the produced
@@ -454,14 +451,14 @@ def freqs_by_wave_len(x, t, cut_nans=True):
     : np.ndarray
         Freqs values.
     """
-    wl, t_wl = wave_lens(x, t)
-    freqs = 1/linint(wl, t_wl, t)
+    wl, t_wl = wave_lens(xdata, tdata)
+    freqs = 1/linint(wl, t_wl, tdata)
     if cut_nans:
         freqs_cut = []
         t_cut = []
-        for (f, tt) in zip(freqs, t):
+        for (f, tt) in zip(freqs, tdata):
             if f == f:
                 freqs_cut.append(f)
                 t_cut.append(tt)
         return np.array(freqs_cut), t_cut
-    return freqs, t
+    return freqs
