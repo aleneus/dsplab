@@ -161,8 +161,8 @@
 ** DONE [e] Brush filtration module
 ** DONE [e] Refactoring frequency module
 ** DONE [t] Merge frequency unit to modulation one
-** TODO [p] Split activity unit to activity and online
-** TODO [t] Add online unit to docs
+** DONE [p] Split activity unit to activity and online
+** DONE [t] Add online unit to docs
 * later
 ** TODO [p] Use names: xdata, tdata, x_res, t_res
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker

@@ -53,6 +53,7 @@ Organization of calculations
 
    activity
    plan
+   online
 
 Online processing
 ^^^^^^^^^^^^^^^^^
