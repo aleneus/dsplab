@@ -154,7 +154,7 @@
 ** DONE [t] Update docs
 * 0.30.1
 ** DONE [e] Use math instead of np where possible
-** TODO [t] Change History header in index.rst
+** DONE [t] Change History header in index.rst
 ** TODO [b] Change docstring for set_descr() in Activity
 * 0.31.0
 ** TODO [t] Add smooth function from es_analytics to filtration
