@@ -181,4 +181,4 @@
 ** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
-** TODO [t] plan demo: add example with online processing
+** TODO [p] plan demo: add example with online processing
