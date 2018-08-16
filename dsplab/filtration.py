@@ -13,241 +13,253 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import scipy.signal as sig
-import scipy.fftpack as fftpack
+""" Filtration of signals. """
+
 import numpy as np
+import scipy.signal as sig
+from scipy.fftpack import fft, ifft
 
-def _stupid_filter(x, fs, fr):
-    """
-    Filter signal using setted frequency response.
 
-    Parameters
-    ----------
-    x : array_like
-        Signal values
-    fs : float
-        Sampling frequency
-    fs : np.array
-        Frequency response of ideal filter
-
-    Returns
-    -------
-    xf : np.array
-        Filteres signal
-
-    """
-    _x = x * sig.tukey(len(x))
-    X = fftpack.fft(_x)
-    return np.real(fftpack.ifft(X * fr))
-
-def stupid_lowpass_filter(x, fs, cutoff):
-    """
-    Return low-pass filtered signal.
+def _stupid_filter(xdata, fr_resp):
+    """ Filter signal using setted frequency response.
 
     Parameters
     ----------
-    x : array_like
-        Signal values
-    fs : float
-        Sampling frequency
-    cutoff : float
-        Cutoff frequency
+    xdata: array_like
+        Signal values.
+    fr_resp: np.array
+        Frequency response of ideal filter.
 
     Returns
     -------
-    xf : np.array
-        Filteres signal
-
+    : np.array
+        Filteres signal.
     """
-    fr = np.zeros(len(x))
-    f = np.fft.fftfreq(len(x), 1/fs)
-    ind = abs(f)<=cutoff
-    fr[ind] = 1
-    return  _stupid_filter(x, fs, fr)
+    spectrum = fft(xdata * sig.tukey(len(xdata)))
+    res_xs = np.real(ifft(spectrum * fr_resp))
+    return res_xs
 
-def stupid_bandpass_filter(x, fs, bandpass):
-    """
-    Return low-pass filtered signal.
+
+def stupid_lowpass_filter(xdata, sample_rate, cutoff):
+    """ Return low-pass filtered signal.
 
     Parameters
     ----------
-    x : array_like
-        Signal values
-    fs : float
-        Sampling frequency
-    bandpass : np.array of 2 floats
-        Bounds of bandpass (Hz)
+    xdata: array_like
+        Signal values.
+    sample_rate: float
+        Sampling frequency.
+    cutoff: float
+        Cutoff frequency.
 
     Returns
     -------
-    xf : np.array
-        Filteres signal
-
+    : np.array
+        Filteres signal.
     """
-    fr = np.zeros(len(x))
-    f = np.fft.fftfreq(len(x), 1/fs)
-    ind = (abs(f) >= bandpass[0])&(abs(f)<=bandpass[1])
-    fr[ind] = 1
-    return  _stupid_filter(x, fs, fr)
+    num = len(xdata)
+    fr_resp = np.zeros(num)
+    freqs = np.fft.fftfreq(num, 1/sample_rate)
+    fr_resp[abs(freqs) <= cutoff] = 1
+    res_xs = _stupid_filter(xdata, fr_resp)
+    return res_xs
 
-def butter_filter(x, fs, freqs, order, btype='band'):
-    """ 
-    Butterworth filter
+
+def stupid_bandpass_filter(xdata, sample_rate, bandpass):
+    """ Return low-pass filtered signal.
 
     Parameters
     ----------
-    x : array_like
-        Signal values
-    fs : float
-        Sampling frequency (Hz)
-    freqs : array_like
-        One or two frequencies
-    order : integer
-        Order of filter
-    btype : str (band|lowpass)
-        Type of filter
+    xdata: array_like
+        Signal values.
+    sample_rate: float
+        Sampling frequency.
+    bandpass: np.array of 2 floats
+        Bounds of bandpass (Hz).
 
     Returns
     -------
-    xf : np.array
-        filtered signal
-
+    : np.array
+        Filteres signal.
     """
-    nyq = 0.5 * fs
+    num = len(xdata)
+    fr_resp = np.zeros(num)
+    freqs = np.fft.fftfreq(num, 1 / sample_rate)
+    fr_resp[(abs(freqs) >= bandpass[0]) & (abs(freqs) <= bandpass[1])] = 1
+    res_xs = _stupid_filter(xdata, fr_resp)
+    return res_xs
+
+
+def butter_filter(xdata, sample_rate, freqs, order, btype='band'):
+    """ Butterworth filter.
+
+    Parameters
+    ----------
+    xdata: array_like
+        Signal values.
+    sample_rate: float
+        Sampling frequency (Hz).
+    freqs: array_like
+        One or two frequencies.
+    order: integer
+        Order of filter.
+    btype: str ('band' | 'lowpass')
+        Type of filter.
+
+    Returns
+    -------
+    : np.array
+        filtered signal.
+    """
+    nyq = 0.5 * sample_rate
     freqs = np.array(freqs)
     freqs /= nyq
-    b, a = sig.butter(order, freqs, btype=btype)
-    return sig.lfilter(b, a, x)
+    b_coeffs, a_coeffs = sig.butter(order, freqs, btype=btype)
+    res_xs = sig.lfilter(b_coeffs, a_coeffs, xdata)
+    return res_xs
 
-def find_butt_bandpass_order(band, fs):
-    """
-    Claculate the order of Butterworth bandpass filter using minimization of metric between ideal and real frequency response.
+
+def find_butt_bandpass_order(band, sample_rate):
+    """ Claculate the order of Butterworth bandpass filter using
+    minimization of metric between ideal and real frequency response.
 
     Parameters
     ----------
-    band : array_like
-        Pair of frequencies. Bounds of bandpass (Hz)
-    fs : float
-        Sampling rate (Hz)
+    band: array_like
+        Pair of frequencies. Bounds of bandpass (Hz).
+    sample_rate: float
+        Sample rate (Hz).
 
     Returns
     -------
-    order : integer
-        Order of filter
-
+    : integer
+        Order of filter.
     """
-    # TODO: Write a set of functions or stubs, all about order
-    N = round(60 * 120 * fs)
-    unit_pulse = np.zeros(N)
+    spectrum_len = round(60 * 120 * sample_rate)
+    unit_pulse = np.zeros(spectrum_len)
     unit_pulse[1] = 1
-    n1 = round((band[0] * N//2) / (fs/2))
-    n2 = round((band[1] * N//2) / (fs/2))
-    ideal_fr = np.zeros(N)
-    f = np.fft.fftfreq(N, 1/fs)
-    ind = (f>= band[0])&(f<= band[1])
-    ideal_fr[ind] = 1
-    ideal_fr = ideal_fr[:N//2]
+    ideal_fr = np.zeros(spectrum_len)
+    freqs = np.fft.fftfreq(spectrum_len, 1/sample_rate)
+    ideal_fr[(freqs >= band[0]) & (freqs <= band[1])] = 1
+    ideal_fr = ideal_fr[:spectrum_len//2]
     prev_metric = np.inf
     for order in range(3, 21):
-        impulse_response = butter_filter(unit_pulse, fs, band, order, btype="band")
-        fr = abs(fftpack.fft(impulse_response))[:N//2]
-        metric = np.sum((fr - ideal_fr)**2)**0.5
+        impulse_response = butter_filter(
+            unit_pulse,
+            sample_rate,
+            band,
+            order,
+            btype='band'
+        )
+        real_fr = abs(fft(impulse_response))[:spectrum_len//2]
+        metric = np.sum((real_fr - ideal_fr)**2)**0.5
         best_order = order
         if (np.isnan(metric)) or (metric >= prev_metric):
             best_order -= 1
             break
         prev_metric = metric
-    return best_order-1 # TODO: Think about it
+    return best_order-1
 
-def haar_one_step(x, t, denominator=2):
-    """ 
-    One cascade of Haar transform.
+
+def haar_one_step(xdata, tdata, denominator=2):
+    """ One cascade of Haar transform.
 
     Parameters
     ----------
-    x : array_like
-        Signal values
-    t : array_like
-        Time values
-    denominator : integer
-        Denominator used in Haar transform (default is 2)
+    xdata: array_like
+        Signal values.
+    tdata: array_like
+        Time values.
+    denominator: integer
+        Denominator used in Haar transform (default is 2).
 
     Returns
     -------
-    x_s : np.array
-        Scaled signal values
-    x_d : np.array
+    : np.array
+        Scaled signal values.
+    : np.array.
         Details of x
-    t_new : np.array
+    : np.array.
         Decimated time values
-
     """
-    # TODO: use t or fs in arguments
-    x_s = []
-    x_d = []
-    t_new = []
-    for x_left, x_right in zip(x[::2], x[1::2]):
-        x_s.append((x_left+x_right)/denominator)
-        x_d.append((x_left-x_right)/denominator)
-    t_new = t[1::2]
-    return np.array(x_s), np.array(x_d), np.array(t_new)
+    scl = []
+    det = []
+    res_ts = []
+    for x_left, x_right in zip(xdata[::2], xdata[1::2]):
+        scl.append((x_left+x_right)/denominator)
+        det.append((x_left-x_right)/denominator)
+    res_ts = tdata[1::2]
+    return np.array(scl), np.array(det), np.array(res_ts)
 
-def haar_scaling(x, t, steps_number):
-    """ 
-    Scaling with Haar transform.
+
+def haar_scaling(xdata, tdata, steps_number):
+    """ Scaling with Haar transform.
 
     Parameters
     ----------
-    x : array_like
-        Signal values
-    t : array_like
-        Time values
-    steps_number : integer
-        Number of cascades
+    xdata: array_like
+        Signal values.
+    tdata: array_like
+        Time values.
+    steps_number: integer
+        Number of cascades.
 
     Returns
     -------
-    x_s : np.array
-        Scaled signal values
-    t_new : np.array
-        Decimated time values
-
+    : np.array
+        Scaled signal values.
+    : np.array
+        Decimated time values.
     """
-    # TODO: validation of steps_number
-    x_s = x.copy()
-    t_new = t.copy()
-    for i in range(steps_number):
-        x_s, x_d, t_new = haar_one_step(x_s, t_new, denominator=2)
-    return x_s, t_new
+    res_xs = xdata.copy()
+    res_ts = tdata.copy()
+    i = 0
+    while i < steps_number:
+        res = haar_one_step(res_xs, res_ts, denominator=2)
+        res_xs, res_ts = res[0], res[2]
+        i += 1
+    return res_xs, res_ts
 
-def trend_smooth(x, fs=1, t=[], cut_off=0.5):
-    """
-    Calculate trend of signal using smoothing filter.
+
+def smooth(xdata, ntaps=3, cut=True):
+    """ Smooth signal with Hamming window. """
+    wind = np.hamming(ntaps)
+    wind = wind / sum(wind)
+    res = sig.lfilter(wind, [1], xdata)
+    if cut:
+        res = res[ntaps:]
+    return res
+
+
+def trend_smooth(xdata, sample_rate=1, tdata=None, cut_off=0.5):
+    """ Calculate trend of signal using smoothing filter.
 
     Parameters
     ----------
-    x : array_like
-        Signal values
-    t : array_like
-        Time values
-    cut_off : float
-        The frequencies lower than this are trend's frequencies
+    xdata: array_like
+        Signal values.
+    tdata: array_like
+        Time values.
+    cut_off: float
+        The frequencies lower than this are trend's frequencies.
 
     Returns
     -------
-    trend : np.array
-        Trend values
-    t_new : np.array
-        Time values
-    
+    : np.array
+        Trend values.
+    : np.array
+        Time values.
     """
-    if len(t) == 0:
-        t = np.linspace(0, (len(x)-1)*fs, len(x))
+    x_len = len(xdata)
+
+    if tdata is None:
+        tdata = np.linspace(0, (x_len-1)*sample_rate, x_len)
     else:
-        fs = 1.0/(t[1]-t[0])
-    win_len = int(fs/2/cut_off)
-    if win_len >= len(x):
+        sample_rate = 1.0 / (tdata[1] - tdata[0])
+
+    win_len = int(sample_rate / 2 / cut_off)
+    if win_len >= x_len:
         return None
-    win = np.hamming(win_len)
-    trend = np.convolve(x, win, mode="valid") / np.sum(win)
-    return trend, t[win_len-1:].copy()
+    trend_xs = smooth(xdata, win_len)
+    trend_ts = tdata[win_len:].copy()
+    return trend_xs, trend_ts

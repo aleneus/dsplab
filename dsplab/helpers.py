@@ -17,6 +17,7 @@
 
 import importlib
 
+
 def is_iterable(x):
     """ Check if x is iterable. """
     try:
@@ -24,6 +25,7 @@ def is_iterable(x):
     except TypeError:
         return False
     return True
+
 
 def import_entity(name):
     """ Import class by name. """

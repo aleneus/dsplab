@@ -42,7 +42,6 @@ DSP procedures
 
    modulation
    filtration
-   frequency
    prony
    spectran
 
@@ -54,6 +53,7 @@ Organization of calculations
 
    activity
    plan
+   online
 
 Online processing
 ^^^^^^^^^^^^^^^^^

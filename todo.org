@@ -15,7 +15,6 @@
 ** DONE Plan: Support the possibility to set outputs by user
 ** DONE Nodes: Add a translator node.
 ** DONE Plan: Add example 5 to docs
-
 ** DONE Move Node and Plan to seperate unit
 ** DONE Add demo of Plan with arrays
 ** DONE Add demo of Plan with merging of flows
@@ -158,23 +157,24 @@
 ** DONE [b] Change docstring for set_descr() in Activity
 ** DONE [e] Add examples of modulation to docs
 * 0.31.0
-** TODO [t] Add smooth function from es_analytics to filtration
-** TODO [t] Merge frequency unit to modulation one
-** TODO [p] Split activity unit to activity and online
-** TODO [t] Add online unit to docs
+** DONE [t] Add smooth function from es_analytics to filtration
+** DONE [e] Brush filtration module
+** DONE [e] Refactoring frequency module
+** DONE [t] Merge frequency unit to modulation one
+** DONE [p] Split activity unit to activity and online
+** DONE [t] Add online unit to docs
+** DONE [e] Refactoring trend_smooth()
+** DONE [e] Refactoring find_butt_bandpass_order()
+** DONE [e] Refactoring haar_one_step()
+** DONE [e] Refactoring haar_scaling()
+** DONE [p] Brush arguments names in filtration unit
+** DONE [p] Brush arguments names in modulation unit
+** DONE [e] Brush helpers module
 * later
-** TODO [p] Use names: xdata, tdata, x_res, t_res
-** TODO [t] Rename add_parameter() to set_parameter() in Worker
-** TODO [p] Online filter. add arguments to self._info
-** TODO [e] Refactoring find_butt_bandpass_order()
-** TODO [e] Refactoring haar_one_step()
-** TODO [e] Refactoring haar_scaling()
-** TODO [e] Refactoring trend_smooth()
-** TODO [e] Brush filtration module
-** TODO [e] Refactoring frequency module
-** TODO [e] Brush helpers module
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module
+** TODO [t] Rename add_parameter() to set_parameter() in Worker
+** TODO [p] Online filter. add arguments to self._info
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
