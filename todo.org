@@ -170,6 +170,8 @@
 ** DONE [p] Brush arguments names in filtration unit
 ** DONE [p] Brush arguments names in modulation unit
 ** DONE [e] Brush helpers module
+* 0.31.1
+** DONE [b] Update whats new
 * later
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module

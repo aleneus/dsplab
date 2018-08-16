@@ -18,18 +18,18 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.30
+What's new in 0.31
 ------------------
 
-* Add descr option to __init__ of Plan
-* Add function for simultaneous amp and freq modulation
-* Brush modulation module
-* Rename functions names and arguments in modulation unit
-* Set default phi=0 in modulation
-* Merge envelop module to modulation one
-* Update envelop examples
-* Update modulation examples
-* Refactoring iq_demod()
+* Add smooth function to filtration
+* Brush filtration module
+* Merge frequency unit to modulation one
+* Split activity unit to activity and online
+* Refactoring trend_smooth()
+* Refactoring find_butt_bandpass_order()
+* Refactoring haar_one_step()
+* Refactoring haar_scaling()
+* Unify arguments names
 
 Modules
 -------
