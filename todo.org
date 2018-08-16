@@ -15,7 +15,6 @@
 ** DONE Plan: Support the possibility to set outputs by user
 ** DONE Nodes: Add a translator node.
 ** DONE Plan: Add example 5 to docs
-
 ** DONE Move Node and Plan to seperate unit
 ** DONE Add demo of Plan with arrays
 ** DONE Add demo of Plan with merging of flows
@@ -158,7 +157,9 @@
 ** DONE [b] Change docstring for set_descr() in Activity
 ** DONE [e] Add examples of modulation to docs
 * 0.31.0
-** TODO [t] Add smooth function from es_analytics to filtration
+** DONE [t] Add smooth function from es_analytics to filtration
+** DONE [e] Brush filtration module
+** TODO [e] Refactoring frequency module
 ** TODO [t] Merge frequency unit to modulation one
 ** TODO [p] Split activity unit to activity and online
 ** TODO [t] Add online unit to docs
@@ -170,8 +171,6 @@
 ** TODO [e] Refactoring haar_one_step()
 ** TODO [e] Refactoring haar_scaling()
 ** TODO [e] Refactoring trend_smooth()
-** TODO [e] Brush filtration module
-** TODO [e] Refactoring frequency module
 ** TODO [e] Brush helpers module
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module
