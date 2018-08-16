@@ -63,7 +63,7 @@ Online processing
 
    player
 	      
-History
+Project
 -------   
    
 .. toctree::

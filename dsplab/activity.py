@@ -57,7 +57,7 @@ class Activity(metaclass=ActivityMeta):
         self._info = self._class_info.copy()
 
     def set_descr(self, descr):
-        """ Set description of worker. """
+        """ Set description of activity. """
         self._info['descr'] = descr
 
     def info(self, as_string=False):

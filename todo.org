@@ -152,10 +152,19 @@
 ** DONE [e] Refactoring iq_demod()
 ** DONE [e] Add header to history file
 ** DONE [t] Update docs
-* later
-** TODO [e] Add examples of modulation to docs
+* 0.30.1
+** DONE [e] Use math instead of np where possible
+** DONE [t] Change History header in index.rst
+** DONE [b] Change docstring for set_descr() in Activity
+** DONE [e] Add examples of modulation to docs
+* 0.31.0
+** TODO [t] Add smooth function from es_analytics to filtration
+** TODO [t] Merge frequency unit to modulation one
 ** TODO [p] Split activity unit to activity and online
 ** TODO [t] Add online unit to docs
+* later
+** TODO [p] Use names: xdata, tdata, x_res, t_res
+** TODO [t] Rename add_parameter() to set_parameter() in Worker
 ** TODO [p] Online filter. add arguments to self._info
 ** TODO [e] Refactoring find_butt_bandpass_order()
 ** TODO [e] Refactoring haar_one_step()
@@ -164,7 +173,6 @@
 ** TODO [e] Brush filtration module
 ** TODO [e] Refactoring frequency module
 ** TODO [e] Brush helpers module
-** TODO [e] Remove actually empty unit online.py
 ** TODO [e] Brush prony module
 ** TODO [e] Brush spectran module
 ** TODO [p] Add instance_info for activity
@@ -173,4 +181,4 @@
 ** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
-** TODO [t] plan demo: add example with online processing
+** TODO [p] plan demo: add example with online processing
