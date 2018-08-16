@@ -15,21 +15,18 @@
 
 """ This module implements the base class for online filters. """
 
+from math import pi
+
 print("Warning! Deprecated dsplab.online.")
 
-import numpy as np
-from collections import deque
+PI = pi
+PI2 = 2 * PI
 
-# Compatibility
-from dsplab.activity import OnlineFilter # TODO: remove in new version
-
-pi = 3.141592653589793
-pi2 = 2*pi
 
 def unwrap_point(w):
     """ Unwrap angle (for signle value). """
-    if w < -pi:
-        return w + pi2
-    if w > pi:
-        return w - pi2
+    if w < -PI:
+        return w + PI2
+    if w > PI:
+        return w - PI2
     return w

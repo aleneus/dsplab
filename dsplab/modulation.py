@@ -15,9 +15,14 @@
 
 """ Functions for modulation and demodulation. """
 
+from math import pi, cos, sin
 import numpy as np
-from numpy import pi, cos, sin, unwrap, angle, diff
+from numpy import unwrap, angle, diff
 import scipy.signal as sig
+
+
+PI = pi
+PI2 = 2 * PI
 
 
 def harm(length, sample_rate, amp, freq, phi=0,
@@ -54,7 +59,7 @@ def harm(length, sample_rate, amp, freq, phi=0,
         amp_value = amp
         if noise_a is not None:
             amp_value += noise_a(time_value)
-        arg = 2 * pi * freq * time_value + phi
+        arg = PI2 * freq * time_value + phi
         if noise_f is not None:
             arg += noise_f(time_value)
         values.append(amp_value * cos(arg))
@@ -91,7 +96,7 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
         Time values.
     """
     full_phase = phi
-    delta_ph = 2 * pi * freq / sample_rate
+    delta_ph = PI2 * freq / sample_rate
     sampling_period = 1.0 / sample_rate
     times = np.arange(0, length + sampling_period, sampling_period)
     values = []
@@ -151,7 +156,7 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
             value += noise_a(time_value)
         values.append(value)
         phs.append(full_phase)
-        delta_ph = 2 * pi * func(time_value) / sample_rate
+        delta_ph = PI2 * func(time_value) / sample_rate
         full_phase += delta_ph
     values = np.array(values)
     phs = np.array(phs)
@@ -190,7 +195,7 @@ def phase_mod(length, sample_rate, amp, freq, func,
     times = np.arange(0, length + sampling_period, sampling_period)
     values = []
     for time_value in times:
-        arg = 2 * pi * freq * time_value + func(time_value)
+        arg = PI2 * freq * time_value + func(time_value)
         if noise_f is not None:
             arg += noise_f(time_value)
         value = amp * cos(arg)
@@ -234,7 +239,7 @@ def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
     for time_value in times:
         arg = full_phase
         values.append(a_func(time_value) * cos(arg))
-        delta_ph = 2 * pi * f_func(time_value) / sample_rate
+        delta_ph = PI2 * f_func(time_value) / sample_rate
         phs.append(full_phase)
         full_phase += delta_ph
     values = np.array(values)
@@ -265,13 +270,13 @@ def iq_demod(values, times, f_central, a_coeffs, b_coeffs):
     t_freq: np.ndarray
         Time values.
     """
-    muli = values * cos(2 * pi * f_central * times)
-    mulq = values * sin(2 * pi * f_central * times)
+    muli = values * cos(PI2 * f_central * times)
+    mulq = values * sin(PI2 * f_central * times)
     muli_low = sig.lfilter(b_coeffs, a_coeffs, muli)
     mulq_low = sig.lfilter(b_coeffs, a_coeffs, mulq)
     analytic = muli_low + 1j * mulq_low
     phase = -unwrap(angle(analytic))
-    freq = diff(phase) / (2 * pi) / (times[1] - times[0]) + f_central
+    freq = diff(phase) / PI2 / (times[1] - times[0]) + f_central
     return freq, times[:-1]
 
 
@@ -299,7 +304,8 @@ def envelope_by_extremums(values, sample_rate=1, times=None):
     t_new = []
     x_new = []
     xabs = abs(values)
-    for x_l, x_c, x_r, t_c in zip(xabs[:-2], xabs[1:-1], xabs[2:], times[1:-1]):
+    for x_l, x_c, x_r, t_c in zip(xabs[:-2], xabs[1:-1],
+                                  xabs[2:], times[1:-1]):
         if (x_l < x_c) and (x_c >= x_r):
             t_new.append(t_c)
             x_new.append(x_c)
@@ -327,9 +333,9 @@ def digital_hilbert_filter(ntaps=101, window='hamming'):
     if ntaps % 2 == 0:
         raise ValueError("ntaps of digital Hilbert filter must be odd.")
     num = ntaps // 2
-    coeffs = [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(-num, 0)]
+    coeffs = [1/PI/k * (1 - cos(PI * k)) for k in range(-num, 0)]
     coeffs += [0]
-    coeffs += [1/np.pi/k * (1 - np.cos(np.pi * k)) for k in range(1, num+1)]
+    coeffs += [1/PI/k * (1 - cos(PI * k)) for k in range(1, num+1)]
     wind = sig.get_window(window, ntaps)
     coeffs *= wind
     return coeffs

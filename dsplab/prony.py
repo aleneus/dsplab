@@ -16,26 +16,25 @@
 import numpy as np
 import numpy.linalg as linalg
 
+
 def prony_decomp(x, L):
-    """ 
-    Prony decomposition of signal.
+    """ Prony decomposition of signal.
 
     Parameters
     ----------
     x : array_like
-        Signal values
+        Signal values.
     L : integer
-        Number of components. 2*L must be less tham length of x
-    
+        Number of components. 2*L must be less tham length of x.
+
     Returns
     -------
     ms : np.array
-        Mu-values
+        Mu-values.
     cs : np.array
-        C-values
+        C-values.
     es : np.array
-        Components
-
+        Components.
     """
     N = len(x)
     if 2*L > N:
@@ -48,9 +47,9 @@ def prony_decomp(x, L):
             D_row.append(x[i-j-1])
         D.append(np.array(D_row))
     D = np.array(D)
-    a = linalg.lstsq(D, d)[0] # TODO: think here if mistake
+    a = linalg.lstsq(D, d)[0]
 
-    p = np.array([1] +[-ai for ai in a])
+    p = np.array([1] + [-ai for ai in a])
     ms = np.roots(p)
 
     d = np.array([x[i] for i in range(0, N)])
@@ -62,7 +61,7 @@ def prony_decomp(x, L):
         D.append(np.array(D_row))
     D = np.array(D)
 
-    cs = linalg.lstsq(D, d)[0] # TODO: think here if mistake
+    cs = linalg.lstsq(D, d)[0]
 
     es = []
     for i in range(0, L):
