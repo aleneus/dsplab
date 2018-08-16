@@ -159,8 +159,8 @@
 * 0.31.0
 ** DONE [t] Add smooth function from es_analytics to filtration
 ** DONE [e] Brush filtration module
-** TODO [e] Refactoring frequency module
-** TODO [t] Merge frequency unit to modulation one
+** DONE [e] Refactoring frequency module
+** DONE [t] Merge frequency unit to modulation one
 ** TODO [p] Split activity unit to activity and online
 ** TODO [t] Add online unit to docs
 * later

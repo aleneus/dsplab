@@ -42,7 +42,6 @@ DSP procedures
 
    modulation
    filtration
-   frequency
    prony
    spectran
 
