@@ -156,6 +156,7 @@
 ** DONE [e] Use math instead of np where possible
 ** DONE [t] Change History header in index.rst
 ** DONE [b] Change docstring for set_descr() in Activity
+** DONE [e] Add examples of modulation to docs
 * 0.31.0
 ** TODO [t] Add smooth function from es_analytics to filtration
 ** TODO [t] Merge frequency unit to modulation one
@@ -164,7 +165,6 @@
 * later
 ** TODO [p] Use names: xdata, tdata, x_res, t_res
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
-** TODO [e] Add examples of modulation to docs
 ** TODO [p] Online filter. add arguments to self._info
 ** TODO [e] Refactoring find_butt_bandpass_order()
 ** TODO [e] Refactoring haar_one_step()
