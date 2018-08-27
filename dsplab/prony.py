@@ -13,38 +13,40 @@
 # You should have received a copy of the Lesser GNUGeneral Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+""" This module implements Prony decomposition of signal. """
+
 import numpy as np
 import numpy.linalg as linalg
 
 
-def prony_decomp(x, L):
+def prony_decomp(xdata, ncomp):
     """ Prony decomposition of signal.
 
     Parameters
     ----------
-    x : array_like
+    xdata: array_like
         Signal values.
-    L : integer
-        Number of components. 2*L must be less tham length of x.
+    ncomp: integer
+        Number of components. 2*ncomp must be less tham length of xdata.
 
     Returns
     -------
-    ms : np.array
+    : np.array
         Mu-values.
-    cs : np.array
+    : np.array
         C-values.
-    es : np.array
+    : np.array
         Components.
     """
-    N = len(x)
-    if 2*L > N:
+    N = len(xdata)
+    if 2*ncomp > N:
         return None
-    d = np.array([x[i] for i in range(L, N)])
+    d = np.array([xdata[i] for i in range(ncomp, N)])
     D = []
-    for i in range(L, N):
+    for i in range(ncomp, N):
         D_row = []
-        for j in range(0, L):
-            D_row.append(x[i-j-1])
+        for j in range(0, ncomp):
+            D_row.append(xdata[i-j-1])
         D.append(np.array(D_row))
     D = np.array(D)
     a = linalg.lstsq(D, d)[0]
@@ -52,11 +54,11 @@ def prony_decomp(x, L):
     p = np.array([1] + [-ai for ai in a])
     ms = np.roots(p)
 
-    d = np.array([x[i] for i in range(0, N)])
+    d = np.array([xdata[i] for i in range(0, N)])
     D = []
     for i in range(0, N):
         D_row = []
-        for j in range(0, L):
+        for j in range(0, ncomp):
             D_row.append(ms[j]**i)
         D.append(np.array(D_row))
     D = np.array(D)
@@ -64,7 +66,7 @@ def prony_decomp(x, L):
     cs = linalg.lstsq(D, d)[0]
 
     es = []
-    for i in range(0, L):
+    for i in range(0, ncomp):
         e = [cs[i]*(ms[i]**k) for k in range(0, N)]
         es.append(np.array(e).real)
     es = np.array(es)
