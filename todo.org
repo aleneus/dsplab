@@ -174,8 +174,8 @@
 ** DONE [b] Update whats new
 * 0.31.2
 ** DONE [e] Brush prony module
+** DONE [e] Brush spectran module
 * later
-** TODO [e] Brush spectran module
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
 ** TODO [p] Online filter. add arguments to self._info
 ** TODO [p] Add instance_info for activity

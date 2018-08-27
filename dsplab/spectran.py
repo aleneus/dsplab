@@ -13,149 +13,152 @@
 # You should have received a copy of the Lesser GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+""" Some functions for spectral analysis. """
+
 import numpy as np
 import scipy.fftpack as fftpack
 import scipy.signal as sig
 
 
-def spectrum(x, fs=1, window='hamming', one_side=False,
+def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
              return_amplitude=True, extra_len=None, save_energy=False):
     """ Return the Fourier spectrum of signal.
 
     Parameters
     ----------
-    x : array_like
+    xdata: array_like
         Signal values
-    fs : float
+    sample_rate: float
         Sampling frequency (Hz)
-    window : str
+    window: str
         Window.
-    one_side : boolean
+    one_side: boolean
         If True, the one-side spectrum is calculated (default value is
         False)
-    return_amplitude : boolean
+    return_amplitude: boolean
         If True, the amplitude spectrum is calculated
-    save_energy : boolean
+    save_energy: boolean
         If True, the result of FFT has the same energy as signal.  If
-        False, the X (spectrum) is multiplied to 2/len(x). Use False
+        False, the X (spectrum) is multiplied to 2/len(xdata). Use False
         if you want to see the correct amplitude of components in
         spectrum.
 
     Returns
     -------
-    X : np.ndarray of complex numbers
+    : np.ndarray of complex numbers
         Spectrum
-    f_X : np.ndarray of floats
+    : np.ndarray of floats
         Frequency values (Hz)
     """
-    # window signal
-    win = sig.get_window(window, len(x))
-    xx = x * win * len(win)/sum(win)
-    # FFT
+    win = sig.get_window(window, len(xdata))
+    x_faded = xdata * win * len(win)/sum(win)
+
+    actual_len = len(xdata)
     if extra_len:
-        n = max(extra_len, len(x))
-    else:
-        n = len(x)
-    X = fftpack.fft(xx, n)
+        actual_len = max(extra_len, actual_len)
+
+    sp_comp = fftpack.fft(x_faded, actual_len)
     if not save_energy:
-        X *= 2/len(x)
-    f_X = np.fft.fftfreq(len(X), 1/fs)
-    # one-side
+        sp_comp *= 2/len(xdata)
+    freqs = np.fft.fftfreq(len(sp_comp), 1/sample_rate)
+
     if one_side:
-        ind = f_X >= 0
-        f_X = f_X[ind]
-        X = X[ind]
-    # calc amplitude
+        ind = freqs >= 0
+        freqs = freqs[ind]
+        sp_comp = sp_comp[ind]
+
     if return_amplitude:
-        X = abs(X)
-    return X, f_X
+        return abs(sp_comp), freqs
+
+    return sp_comp, freqs
 
 
-def stft(x, fs=1, nseg=256,
+def stft(xdata, sample_rate=1, nseg=256,
          nstep=None, window='hamming', nfft=None, padded=False):
     """ Return result of short-time fourier transform.
 
     Parameters
     ----------
-    x : numpy.ndarray
+    xdata: numpy.ndarray
         Signal.
-    fs : float
+    sample_rate: float
        Sampling frequency (Hz).
-    nseg : int
+    nseg: int
         Length of segment (in samples).
-    nstep : int
+    nstep: int
         Optional. Length of step (in samples). If not setted then
         equal to nseg//2.
-    window : str
+    window: str
         Window.
-    nfft : int
+    nfft: int
         Length of the FFT. If None or less than nseg, the FFT length
         is nseg.
 
     Returns
     -------
-    Xs : numpy.ndarray
+    : numpy.ndarray
         Result of STFT, two-side spectrums.
     """
     if not nstep:
         nstep = nseg//2
-    xx = x.copy()
+    x_copy = xdata.copy()
     if padded:
-        L = len(xx) + (nseg - len(xx) % nseg) % nseg
-        z = np.zeros(L)
-        z[:len(xx)] = xx
-        xx = z
+        actual_len = len(x_copy) + (nseg - len(x_copy) % nseg) % nseg
+        zer = np.zeros(actual_len)
+        zer[:len(x_copy)] = x_copy
+        x_copy = zer
 
-    Xs = []
-    for i in range(0, len(xx)-nseg + 1, nstep):
-        seg = xx[i: i+nseg]
-        X = spectrum(seg, fs,
-                     extra_len=nfft, window=window, save_energy=True)[0]
-        Xs.append(X)
-    return np.array(Xs)
+    specs = []
+    for i in range(0, len(x_copy)-nseg + 1, nstep):
+        seg = x_copy[i: i+nseg]
+        spec = spectrum(seg, sample_rate,
+                        extra_len=nfft, window=window, save_energy=True)[0]
+        specs.append(spec)
+
+    return np.array(specs)
 
 
-def calc_specgram(x, fs=1, t=[], nseg=256,
+def calc_specgram(xdata, sample_rate=1, tdata=None, nseg=256,
                   nstep=None, freq_bounds=None, extra_len=None):
     """ Return spectrogram data prepared to further plotting.
 
     Parameters
     ----------
-    x : array_like
+    xdata: array_like
         Signal values
-    fs : float
+    sample_rate: float
         Sampling frequency (Hz)
-    t : array_like
+    tdata: array_like
         Time values (sec)
-    nseg : integer
+    nseg: integer
         Length of window (number of samples)
-    nstep : integer
+    nstep: integer
         Length of step between Fourier transforms
-    freq_bounds : tuple of 2 float
+    freq_bounds: tuple of 2 float
         Bounds of showed band
-    extra_len : integer
+    extra_len: integer
         Number of values using for fft
 
     Return
     ------
-    Xs : np.ndarray
+    : np.ndarray
         Array of spectrums
-    t_new : np.ndarray
+    : np.ndarray
         Time values
     """
-    if len(x) < nseg:
+    if len(xdata) < nseg:
         return [], []
-    if len(t) == 0:
-        t = np.linspace(0, (len(x)-1)*fs, len(x))
+    if tdata is None:
+        tdata = np.linspace(0, (len(xdata)-1)*sample_rate, len(xdata))
     else:
-        fs = 1/(t[1] - t[0])
+        sample_rate = 1/(tdata[1] - tdata[0])
     if not nstep:
         nstep = nseg//2
-    Xs = 2*stft(x=x, fs=fs, nseg=nseg,
-                nstep=nstep, nfft=extra_len, padded=True)
+    specs = 2*stft(xdata=xdata, sample_rate=sample_rate, nseg=nseg,
+                   nstep=nstep, nfft=extra_len, padded=True)
     if freq_bounds:
-        freqs = np.fft.fftfreq(len(Xs[0]), 1/fs)
+        freqs = np.fft.fftfreq(len(specs[0]), 1/sample_rate)
         ind = (freqs >= freq_bounds[0]) & (freqs <= freq_bounds[1])
-        Xs = Xs[:, ind]
-    t_new = np.linspace(t[nseg-1], t[-1], len(Xs))
-    return np.transpose(Xs), t_new
+        specs = specs[:, ind]
+    t_new = np.linspace(tdata[nseg-1], tdata[-1], len(specs))
+    return np.transpose(specs), t_new
