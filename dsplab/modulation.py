@@ -270,8 +270,8 @@ def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
     : np.ndarray
         Time values.
     """
-    muli = xdata * cos(PI2 * f_central * tdata)
-    mulq = xdata * sin(PI2 * f_central * tdata)
+    muli = xdata * np.cos(PI2 * f_central * tdata)
+    mulq = xdata * np.sin(PI2 * f_central * tdata)
     muli_low = sig.lfilter(b_coeffs, a_coeffs, muli)
     mulq_low = sig.lfilter(b_coeffs, a_coeffs, mulq)
     analytic = muli_low + 1j * mulq_low

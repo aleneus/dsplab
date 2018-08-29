@@ -175,6 +175,8 @@
 * 0.31.2
 ** DONE [e] Brush prony module
 ** DONE [e] Brush spectran module
+* 0.31.3
+** DONE [b] Fix cos and sin error in iq_demod
 * later
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
 ** TODO [p] Online filter. add arguments to self._info
