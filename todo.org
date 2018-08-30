@@ -177,6 +177,8 @@
 ** DONE [e] Brush spectran module
 * 0.31.3
 ** DONE [b] Fix cos and sin error in iq_demod
+* 0.31.4
+** TODO [p] Warning in elma, return list from work in plan
 * later
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
 ** TODO [p] Online filter. add arguments to self._info
