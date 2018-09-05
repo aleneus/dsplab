@@ -181,6 +181,7 @@
 * 0.32.0
 ** TODO [t] Support progress handling in plan
 ** TODO [t] Support loops (mapping) in plan
+** TODO [t] Add method for searching of path of calculations to Plan
 * later
 ** TODO [t] Warning in elma, return list from work in plan
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
@@ -192,3 +193,4 @@
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
 ** TODO [p] plan demo: add example with online processing
+** TODO [p] Add parallelism to Plan execution
