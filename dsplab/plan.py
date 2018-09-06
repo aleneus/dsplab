@@ -24,12 +24,16 @@ from dsplab.activity import Activity
 class Node:
     """ The node. Node can be understood as the workplace for
     worker. Node can have inputs that are also nodes. """
-    def __init__(self, work=None, inputs=[], start_hook=None, stop_hook=None):
+    def __init__(self, work=None, inputs=[]):
         """ Initialization. """
         self._work = work
         self._res = None
-        self.start_hook = start_hook
-        self.stop_hook = stop_hook
+        self._start_hook = None
+        self._start_hook_args = None
+        self._start_hook_kwargs = None
+        self._stop_hook = None
+        self._stop_hook_args = None
+        self._stop_hook_kwargs = None
         self.inputs = inputs
 
     def get_work(self):
@@ -50,25 +54,17 @@ class Node:
 
     inputs = property(get_inputs, set_inputs)
 
-    def get_start_hook(self):
-        """ Return start hook. """
-        return self._start_hook
-
-    def set_start_hook(self, func):
+    def set_start_hook(self, func, *args, **kwargs):
         """ Set start hook. """
         self._start_hook = func
+        self._start_hook_args = args
+        self._start_hook_kwargs = kwargs
 
-    start_hook = property(get_start_hook, set_start_hook)
-
-    def get_stop_hook(self):
-        """ Return stop hook. """
-        return self._stop_hook
-
-    def set_stop_hook(self, func):
+    def set_stop_hook(self, func, *args, **kwargs):
         """ Set stop hook. """
         self._stop_hook = func
-
-    stop_hook = property(get_stop_hook, set_stop_hook)
+        self._stop_hook_args = args
+        self._stop_hook_kwargs = kwargs
 
     def is_output_ready(self):
         """ Check if the calculation of data in the node is finished. """
@@ -92,7 +88,7 @@ class Node:
 
     def __call__(self, *args, **kwargs):
         if self._start_hook is not None:
-            self._start_hook()
+            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
 
         if len(self.inputs) == 0:
             y = self.work(*args, **kwargs)
@@ -104,7 +100,7 @@ class Node:
             self._res = y
 
         if self._stop_hook is not None:
-            self._stop_hook()
+            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
 
 class Transmitter(Node):

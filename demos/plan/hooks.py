@@ -13,16 +13,16 @@ def main():
     Start and stop hooks.
     """)
     
-    def f1():
-        print("Node started")
-    def f2():
-        print("Node finished")
+    def f1(node):
+        print("Node {} started".format(node))
+    def f2(node):
+        print("Node {} finished".format(node))
         
     n = Node(
         work=Work("Increment", worker=func),
-        start_hook = f1,
-        stop_hook = f2,
     )
+    n.set_start_hook(f1, n)
+    n.set_stop_hook(f2, n)
     
     n(5)
 
