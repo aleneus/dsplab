@@ -128,6 +128,7 @@ class Plan(Activity):
         self._nodes = []
         self._inputs = []
         self._outputs = []
+        self._progress_func = None
 
     def _detect_terminals(self):
         """ Detect first and last nodes. """
@@ -221,6 +222,10 @@ class Plan(Activity):
         res = super().info(as_string)
         return res
 
+    def set_progress_hook(self, func):
+        """ Set progress handler. """
+        self._progress_func = func
+
     def __call__(self, xs):
         """ Run plan. """
         if len(self._inputs) == 0:
@@ -231,8 +236,14 @@ class Plan(Activity):
         for node in self._nodes:
             node.reset()
 
+        progress = 0
+        nodes_number = len(self._nodes)
+
         for [node, x] in zip(self._inputs, xs):
             node(x)
+            progress += 1
+            if self._progress_func is not None:
+                self._progress_func()
 
         while True:
             finished = True
@@ -240,6 +251,9 @@ class Plan(Activity):
                 if not node.is_output_ready() and node.is_inputs_ready():
                     finished = False
                     node()
+                    progress += 1
+                    if self._progress_func is not None:
+                        self._progress_func()
             if finished:
                 break
 

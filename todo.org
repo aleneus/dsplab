@@ -179,7 +179,7 @@
 ** DONE [b] Fix cos and sin error in iq_demod
 * 0.31.4
 * 0.32.0
-** TODO [t] Support progress handling in plan
+** DONE [t] Support progress handling in plan
 ** TODO [t] Support loops (mapping) in plan
 ** TODO [t] Add method for searching of path of calculations to Plan
 * later
