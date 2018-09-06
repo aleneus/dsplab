@@ -222,6 +222,10 @@ class Plan(Activity):
         res = super().info(as_string)
         return res
 
+    def get_nodes(self):
+        """ Return list of nodes. """
+        return self._nodes
+
     def set_progress_hook(self, func):
         """ Set progress handler. """
         self._progress_func = func

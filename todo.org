@@ -180,6 +180,7 @@
 * 0.31.4
 * 0.32.0
 ** DONE [t] Support progress handling in plan
+** DONE [t] Add get_nodes() to Plan
 ** TODO [t] Support loops (mapping) in plan
 ** TODO [t] Add method for searching of path of calculations to Plan
 * later
