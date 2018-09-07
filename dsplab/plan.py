@@ -306,11 +306,18 @@ def get_plan_from_dict(settings):
     - 'inputs' - list of inputs nodes ids
     - 'outputs' - list of output nodes ids
 
-    **Node settings**
+    **Common settings for nodes**
 
     - 'id' - id of node
-    - 'work' - dict with work settings
     - 'inputs' - list of ids of input nodes for this node
+
+    **Settings for WorkNode and MapNode**
+
+    - 'work' - dict with work settings
+
+    **Settings for PackNode**
+    
+    - 'index' - index of selected item
 
     """
     plan = Plan()

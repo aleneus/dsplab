@@ -201,7 +201,7 @@
 ** DONE [t] Support all types of nodes in get_plan_from_dict()
 ** DONE [t] Use different classes of nodes in get_plan_from_dict example
 ** DONE [t] Update info() of Plan
-** TODO [t] Update docstring in get_plan_from_dict()
+** DONE [t] Update docstring in get_plan_from_dict()
 ** DONE [t] Rename Transmitter to PassNode
 ** DONE [t] Update examples with Transmitter (PassNode now)
 ** DONE [t] Add pass_node example to docs
