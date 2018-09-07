@@ -182,9 +182,11 @@
 ** DONE [t] Support progress handling in plan
 ** DONE [t] Add get_nodes() to Plan
 ** DONE [t] Add args to hooks of nodes
+** TODO [t] Add superclass for nodes and rename Node to WorkNode
 ** TODO [t] Support loops (mapping) in plan
 ** TODO [t] Add method for searching of path of calculations to Plan
 ** DONE [t] Rename Transmitter to PassNode
+** TODO [t] Update examples with Transmitter (PassNode now)
 * later
 ** TODO [t] Warning in elma, return list from work in plan
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
