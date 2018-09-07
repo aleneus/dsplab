@@ -37,8 +37,7 @@ def main():
     p.add_node(c, inputs=[b])
     p.add_node(d, inputs=[b])
 
-    x = 5
-    y = p([x])
+    y = p([5])
     print(y)
 
 main()

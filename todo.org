@@ -188,9 +188,11 @@
 ** DONE [t] Update all plan demos
 ** DONE [t] Remove file plan.py from demos
 ** DONE [t] Add example with PackNode
-** TODO [p] __call__(self, *args, **kwargs) -> __call__(self, data)
-** TODO [t] Add MapNode
-** TODO [t] Add example with MapNode
+** DONE [p] __call__(self, *args, **kwargs) -> __call__(self, data)
+** DONE [t] Add MapNode
+** DONE [t] Add example with MapNode
+** DONE [t] Add more types of nodes
+** TODO [t] Think better about MapMode
 ** TODO [t] Add pack example to docs
 ** TODO [t] Add map example to docs
 ** DONE [t] Add hooks processing to __call__ of all nodes

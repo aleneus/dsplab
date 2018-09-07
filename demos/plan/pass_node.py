@@ -28,7 +28,6 @@ def main():
     plan.add_node(pass_node)
     plan.add_node(sum_node, inputs=[mul_node, pass_node])
     print(plan([1, 2]))
-    print(plan([2, 3]))
 
     
 if __name__ == "__main__":

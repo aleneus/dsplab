@@ -94,38 +94,57 @@ class WorkNode(Node):
 
     work = property(get_work, set_work)
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, data):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
-
-        if len(self.inputs) == 0:
-            y = self.work(*args, **kwargs)
-            self._res = y
-        else:
-            self._res = None
-            x = [inpt.get_result() for inpt in self._inputs]
-            y = self.work(*x)
-            self._res = y
-
+        self._res = None
+        y = self.work(*data)
+        self._res = y
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
 
-class PassNode(Node):
-    """ The node doing nothing except of transmitting of data from
-    input to output. """
-    def __init__(self):
-        super().__init__()
+class MapNode(WorkNode):
+    """Apply work to all components of iterable input and build
+    iterable output."""
+    def __call__(self, data):
+        if self._start_hook is not None:
+            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
+        self._res = []
+        for comp in data[0]:
+            print("D>", comp)
+            comp_res = self.work(comp)
+            self._res.append(comp_res)
+        if self._stop_hook is not None:
+            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
+
+class SelectNode(Node):
+    """Select component of output."""
+    def __init__(self, index):
+        super().__init__()
+        self.index = index
+    
     def __call__(self, data=None):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
+        self._res = data[self.index]
+        if self._stop_hook is not None:
+            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
-        if len(self.inputs) == 0:
-            self._res = data
-        else:
-            self._res = [inpt.get_result() for inpt in self._inputs]
 
+class PassNode(SelectNode):
+    """Transmit data."""
+    def __init__(self):
+        super().__init__(index=0)
+    
+
+class PackNode(Node):
+    """ Pack input to output. """
+    def __call__(self, data=None):
+        if self._start_hook is not None:
+            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
+        self._res = data
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
@@ -198,9 +217,6 @@ class Plan(Activity):
 
     inputs = property(get_inputs, set_inputs, doc="The nodes wich are inputs.")
 
-    def clear(self):
-        pass
-
     def info(self, as_string=False):
         """ Return info about the plan. """
         nodes_info = []
@@ -252,7 +268,7 @@ class Plan(Activity):
             node.reset()
 
         for [node, x] in zip(self._inputs, xs):
-            node(x)
+            node([x])
             if self._progress_func is not None:
                 self._progress_func()
 
@@ -261,7 +277,9 @@ class Plan(Activity):
             for node in self._nodes:
                 if not node.is_output_ready() and node.is_inputs_ready():
                     finished = False
-                    node()
+                    input_nodes = node.get_inputs()
+                    data = [input_node.get_result() for input_node in input_nodes]
+                    node(data)
                     if self._progress_func is not None:
                         self._progress_func()
             if finished:

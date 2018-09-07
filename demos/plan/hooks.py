@@ -26,7 +26,7 @@ def main():
     n.set_start_hook(f1, n)
     n.set_stop_hook(f2, n)
     
-    n(5)
+    n([5])
 
 
 if __name__ == "__main__":
