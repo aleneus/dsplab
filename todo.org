@@ -183,7 +183,7 @@
 ** DONE [t] Add get_nodes() to Plan
 ** DONE [t] Add args to hooks of nodes
 ** DONE [t] Add superclass for nodes and rename Node to WorkNode
-** TODO [t] Rename result() to get_result() in Node
+** DONE [t] Rename result() to get_result() in Node
 ** DONE [t] Update get_plan_from_dict()
 ** DONE [t] Update all plan demos
 ** DONE [t] Remove file plan.py from demos

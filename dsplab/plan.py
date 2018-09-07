@@ -71,7 +71,7 @@ class Node:
                 return False
         return True
 
-    def result(self):
+    def get_result(self):
         """ Return the calculated data. """
         return self._res
 
@@ -103,7 +103,7 @@ class WorkNode(Node):
             self._res = y
         else:
             self._res = None
-            x = [inpt.result() for inpt in self._inputs]
+            x = [inpt.get_result() for inpt in self._inputs]
             y = self.work(*x)
             self._res = y
 
@@ -265,7 +265,7 @@ class Plan(Activity):
             if finished:
                 break
 
-        ys = [last_node.result() for last_node in self._outputs]
+        ys = [last_node.get_result() for last_node in self._outputs]
         return ys
 
 
