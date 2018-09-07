@@ -111,10 +111,12 @@ class MapNode(WorkNode):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
         self._res = []
-        for comp in data[0]:
-            print("D>", comp)
-            comp_res = self.work(comp)
-            self._res.append(comp_res)
+        for iterable_part in data:
+            res_part = []
+            for comp in iterable_part:
+                comp_res = self.work(comp)
+                res_part.append(comp_res)
+            self._res.append(res_part)
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
@@ -125,7 +127,7 @@ class SelectNode(Node):
         super().__init__()
         self.index = index
     
-    def __call__(self, data=None):
+    def __call__(self, data):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
         self._res = data[self.index]
