@@ -3,17 +3,17 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
-from dsplab.plan import PassNode, Plan
+from dsplab.plan import WorkNode, Plan
 
 
 def main():
     """ Run example. """
     print(__doc__)
     p = Plan()
-    a = PassNode()
-    b = PassNode()
-    c = PassNode()
-    d = PassNode()
+    a = WorkNode()
+    b = WorkNode()
+    c = WorkNode()
+    d = WorkNode()
     p.add_node(a)
     p.add_node(b)
     p.add_node(c, inputs=[a])

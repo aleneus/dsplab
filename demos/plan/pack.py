@@ -6,7 +6,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Work
-from dsplab.plan import PassNode, PackNode, Plan
+from dsplab.plan import SelectNode, PackNode, Plan
 from workers import *
 
 
@@ -14,9 +14,9 @@ def main():
     """Run example."""
     print(__doc__)
     plan = Plan()
-    node_1 = PassNode()
-    node_2 = PassNode()
-    node_3 = PassNode()
+    node_1 = SelectNode(0)
+    node_2 = SelectNode(0)
+    node_3 = SelectNode(0)
     pack_node_1 = PackNode()
     pack_node_2 = PackNode()
 

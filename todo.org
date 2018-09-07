@@ -199,7 +199,8 @@
 ** DONE [t] Add map example to docs
 ** DONE [t] Add hooks processing to __call__ of all nodes
 ** DONE [t] Support all types of nodes in get_plan_from_dict()
-** TODO [t] Use different classes of nodes in get_plan_from_dict example
+** DONE [t] Use different classes of nodes in get_plan_from_dict example
+** TODO [t] Update info() of Plan
 ** TODO [t] Update docstring in get_plan_from_dict()
 ** DONE [t] Rename Transmitter to PassNode
 ** DONE [t] Update examples with Transmitter (PassNode now)
