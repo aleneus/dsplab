@@ -182,11 +182,25 @@
 ** DONE [t] Support progress handling in plan
 ** DONE [t] Add get_nodes() to Plan
 ** DONE [t] Add args to hooks of nodes
-** TODO [t] Add superclass for nodes and rename Node to WorkNode
-** TODO [t] Support loops (mapping) in plan
+** DONE [t] Add superclass for nodes and rename Node to WorkNode
+** TODO [t] Rename result() to get_result() in Node
+** DONE [t] Update get_plan_from_dict()
+** DONE [t] Update all plan demos
+** DONE [t] Remove file plan.py from demos
+** TODO [t] Remove file plan.py from docs
+** TODO [t] Add PackNode
+** TODO [t] Add example with PackNode
+** TODO [t] Add MapNode
+** TODO [t] Add example with MapNode
 ** TODO [t] Add method for searching of path of calculations to Plan
+** TODO [t] Support all types of nodes in get_plan_from_dict()
+** TODO [t] Update docstring in get_plan_from_dict()
 ** DONE [t] Rename Transmitter to PassNode
-** TODO [t] Update examples with Transmitter (PassNode now)
+** DONE [t] Update examples with Transmitter (PassNode now)
+** TODO [t] Add pass_node example to docs
+** TODO [t] Add new examples to docs
+** TODO [e] Doc parameters and returns in plan.py
+** TODO [e] Use print(__doc__) in all plan examples 
 * later
 ** TODO [t] Warning in elma, return list from work in plan
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker

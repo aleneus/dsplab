@@ -1,3 +1,5 @@
+"""Get plan from dictionary."""
+
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
@@ -5,7 +7,7 @@ from dsplab.plan import get_plan_from_dict
 from workers import *
 
 
-settings = {
+SETTINGS = {
     'descr': 'Three-step plan',
     'nodes': [
         {
@@ -50,9 +52,15 @@ settings = {
 }
 
 
-plan = get_plan_from_dict(settings)
-x = 1
-y = plan([x])
-print(y)
-print()
-print(plan.info(as_string=True))
+def main():
+    """Run example."""
+    plan = get_plan_from_dict(SETTINGS)
+    x = 1
+    y = plan([x])
+    print(y)
+    print()
+    print(plan.info(as_string=True))
+
+
+if __name__ == "__main__":
+    main()

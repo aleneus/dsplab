@@ -22,11 +22,9 @@ from dsplab.activity import Activity
 
 
 class Node:
-    """ The node. Node can be understood as the workplace for
-    worker. Node can have inputs that are also nodes. """
-    def __init__(self, work=None, inputs=[]):
-        """ Initialization. """
-        self._work = work
+    """ Base class for nodes. """
+    def __init__(self, inputs=[]):
+        self.inputs = inputs
         self._res = None
         self._start_hook = None
         self._start_hook_args = None
@@ -34,16 +32,7 @@ class Node:
         self._stop_hook = None
         self._stop_hook_args = None
         self._stop_hook_kwargs = None
-        self.inputs = inputs
-
-    def get_work(self):
-        return self._work
-
-    def set_work(self, work):
-        self._work = work
-
-    work = property(get_work, set_work)
-
+    
     def get_inputs(self):
         """ Return inputs. """
         return self._inputs
@@ -53,7 +42,7 @@ class Node:
         self._inputs = inputs
 
     inputs = property(get_inputs, set_inputs)
-
+    
     def set_start_hook(self, func, *args, **kwargs):
         """ Set start hook. """
         self._start_hook = func
@@ -85,6 +74,25 @@ class Node:
     def result(self):
         """ Return the calculated data. """
         return self._res
+
+    def __call__(self, x):
+        raise NotImplementedError
+    
+
+class WorkNode(Node):
+    """ Node with work. """
+    def __init__(self, work=None, inputs=[]):
+        """ Initialization. """
+        super().__init__(inputs)
+        self._work = work
+
+    def get_work(self):
+        return self._work
+
+    def set_work(self, work):
+        self._work = work
+
+    work = property(get_work, set_work)
 
     def __call__(self, *args, **kwargs):
         if self._start_hook is not None:
@@ -286,7 +294,7 @@ def get_plan_from_dict(settings):
     nodes_settings = settings['nodes']
     for node_settings in nodes_settings:
         node_id = node_settings['id']
-        nodes[node_id] = Node()
+        nodes[node_id] = WorkNode()
         work_settings = node_settings['work']
         work = get_work_from_dict(work_settings)
         nodes[node_id].work = work

@@ -1,28 +1,28 @@
-""" Using Transmitter as input for part of data. """
+"""Using Transmitter as input for part of data."""
 
 import sys
 import os
-
 sys.path.insert(0, os.path.abspath('.'))
-from dsplab.plan import Node, PassNode, Plan
+from dsplab.plan import WorkNode, PassNode, Plan
 from dsplab.activity import Work
 
 
 def mul(x):
-    """ Worker. """
+    """Worker."""
     return 2*x
 
 
 def plus(x1, x2):
-    """ Another worker. """
+    """Another worker."""
     return x1 + x2
 
 
 def main():
-    """ Example. """
+    """Run Example."""
+    print(__doc__)
     plan = Plan()
-    mul_node = Node(work=Work("Mult", worker=mul))
-    sum_node = Node(work=Work("Sum", worker=plus))
+    mul_node = WorkNode(work=Work("Mult", worker=mul))
+    sum_node = WorkNode(work=Work("Sum", worker=plus))
     pass_node = PassNode()
     plan.add_node(mul_node)
     plan.add_node(pass_node)

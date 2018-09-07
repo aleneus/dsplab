@@ -1,19 +1,22 @@
+"""
+Basic usage of plan.
+
+a -> b
+b -> c, d
+"""
+
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
 
 from dsplab.activity import Work
-from dsplab.plan import Node, Plan
+from dsplab.plan import WorkNode, Plan
 
 from workers import *
 
-def main():
-    print("""
-    Basic usage of plan.
 
-    a -> b
-    b -> c, d
-    """)
+def main():
+    print(__doc__)
     p = Plan()
     work_a = Work("Linear transformation")
     work_b = Work("Linear transformation")
@@ -25,10 +28,10 @@ def main():
     work_c.set_worker(Linear(3,3))
     work_d.set_worker(Linear(4,4))
     
-    a = Node(work=work_a)
-    b = Node(work=work_b)
-    c = Node(work=work_c)
-    d = Node(work=work_d)
+    a = WorkNode(work=work_a)
+    b = WorkNode(work=work_b)
+    c = WorkNode(work=work_c)
+    d = WorkNode(work=work_d)
 
     p.add_node(a)
     p.add_node(b, inputs=[a])
