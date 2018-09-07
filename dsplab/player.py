@@ -75,7 +75,7 @@ class SignalPlayer:
 
     def start(self):
         """ Start player. """
-        self.queue.clear()
+        # self.queue.clear()
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
         self.timer.start()

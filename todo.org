@@ -184,6 +184,7 @@
 ** DONE [t] Add args to hooks of nodes
 ** TODO [t] Support loops (mapping) in plan
 ** TODO [t] Add method for searching of path of calculations to Plan
+** DONE [t] Rename Transmitter to PassNode
 * later
 ** TODO [t] Warning in elma, return list from work in plan
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
@@ -191,7 +192,6 @@
 ** TODO [p] Add instance_info for activity
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
-** TODO [p] Plan: Transmitter is a worker, not Node
 ** TODO [t] Plan. Implement clear()
 ** TODO [t] Make interval an option in timer
 ** TODO [p] plan demo: add example with online processing

@@ -103,16 +103,16 @@ class Node:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
 
-class Transmitter(Node):
+class PassNode(Node):
     """ The node doing nothing except of transmitting of data from
     input to output. """
     def __init__(self):
         """ Initialization. """
-        super().__init__(work=None)
+        super().__init__()
 
-    def __call__(self, x):
+    def __call__(self, data):
         """ Run node. """
-        self._res = x
+        self._res = data
 
 
 class Plan(Activity):
