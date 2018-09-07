@@ -107,6 +107,10 @@ class WorkNode(Node):
 class MapNode(WorkNode):
     """Apply work to all components of iterable input and build
     iterable output."""
+    def set_input(self, inpt):
+        """ Set inputs. """
+        self._inputs = [inpt]
+
     def __call__(self, data):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
@@ -133,12 +137,6 @@ class SelectNode(Node):
         self._res = data[self.index]
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
-
-
-class PassNode(SelectNode):
-    """Transmit data."""
-    def __init__(self):
-        super().__init__(index=0)
     
 
 class PackNode(Node):

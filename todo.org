@@ -194,6 +194,7 @@
 ** DONE [t] Add more types of nodes
 ** DONE [t] Think better about MapMode
 ** TODO [t] Think better about all hierarchy of nodes
+** DONE [t] Remove PassNode at all
 ** TODO [t] Add pack example to docs
 ** TODO [t] Add map example to docs
 ** DONE [t] Add hooks processing to __call__ of all nodes
