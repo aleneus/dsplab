@@ -222,8 +222,8 @@ class Plan(Activity):
         nodes_info = []
         for node in self._nodes:
             node_info = {}
-            work_info = node.work.info().copy()
-            node_info['work'] = work_info
+            #work_info = node.work.info().copy()
+            #node_info['work'] = work_info
             input_ids = []
             for input_obj in node.inputs:
                 input_id = '{}'.format(self._nodes.index(input_obj))
@@ -314,10 +314,29 @@ def get_plan_from_dict(settings):
     nodes_settings = settings['nodes']
     for node_settings in nodes_settings:
         node_id = node_settings['id']
-        nodes[node_id] = WorkNode()
-        work_settings = node_settings['work']
-        work = get_work_from_dict(work_settings)
-        nodes[node_id].work = work
+
+        try:
+            node_class = node_settings['class']
+        except KeyError:
+            node_class = 'WorkNode'
+
+        if node_class == 'WorkNode':
+            nodes[node_id] = WorkNode()
+            work_settings = node_settings['work']
+            work = get_work_from_dict(work_settings)
+            nodes[node_id].work = work
+        elif node_class == 'MapNode':
+            nodes[node_id] = MapNode()
+            work_settings = node_settings['work']
+            work = get_work_from_dict(work_settings)
+            nodes[node_id].work = work
+        elif node_class == 'PackNode':
+            nodes[node_id] = PackNode()
+        elif node_class == 'SelectNode':
+            index = node_settings['index']
+            nodes[node_id] = SelectNode(index)
+        else:
+            raise ValueError('Unsupported class of node')
 
     for node_settings in nodes_settings:
         node_id = node_settings['id']

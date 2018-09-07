@@ -12,6 +12,7 @@ SETTINGS = {
     'nodes': [
         {
             'id': 'a',
+            'class': 'WorkNode',
             'work': {
                 'descr': "First step",
                 'worker': {
@@ -26,6 +27,7 @@ SETTINGS = {
 
         {
             'id': 'b',
+            'class': 'WorkNode',
             'work': {
                 'descr': "Second step",
                 'worker': {
@@ -37,6 +39,7 @@ SETTINGS = {
 
         {
             'id': 'c',
+            'class': 'WorkNode',
             'work': {
                 'descr': "Third step",
                 'worker': {
@@ -44,11 +47,17 @@ SETTINGS = {
                 }
             },
             'inputs': ['b'],
+        },
+
+        {
+            'id': 'd',
+            'class': 'PackNode',
+            'inputs': ['b', 'c'],
         }
     ],
 
     'inputs': ['a'],
-    'outputs': ['b', 'c'],
+    'outputs': ['d'],
 }
 
 

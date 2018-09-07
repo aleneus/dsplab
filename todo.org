@@ -198,15 +198,17 @@
 ** DONE [t] Add pack example to docs
 ** DONE [t] Add map example to docs
 ** DONE [t] Add hooks processing to __call__ of all nodes
-** TODO [t] Add method for searching of path of calculations to Plan
-** TODO [t] Support all types of nodes in get_plan_from_dict()
+** DONE [t] Support all types of nodes in get_plan_from_dict()
+** TODO [t] Use different classes of nodes in get_plan_from_dict example
 ** TODO [t] Update docstring in get_plan_from_dict()
 ** DONE [t] Rename Transmitter to PassNode
 ** DONE [t] Update examples with Transmitter (PassNode now)
 ** DONE [t] Add pass_node example to docs
-** TODO [e] Doc parameters and returns in plan.py
-** TODO [e] Use print(__doc__) in all plan examples 
+** DONE [e] Use print(__doc__) in all plan examples 
+** TODO [t] Add method for searching of path of calculations to Plan
 ** TODO [t] Update history in docs
+* 0.32.1
+** TODO [e] Doc parameters and returns in plan.py
 * later
 ** TODO [t] Warning in elma, return list from work in plan
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
