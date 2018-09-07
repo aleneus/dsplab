@@ -8,14 +8,13 @@ b -> c, d
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
-
 from dsplab.activity import Work
 from dsplab.plan import WorkNode, Plan
-
 from workers import *
 
 
 def main():
+    """Run example."""
     print(__doc__)
     p = Plan()
     work_a = Work("Linear transformation")

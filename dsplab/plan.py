@@ -115,12 +115,19 @@ class PassNode(Node):
     """ The node doing nothing except of transmitting of data from
     input to output. """
     def __init__(self):
-        """ Initialization. """
         super().__init__()
 
-    def __call__(self, data):
-        """ Run node. """
-        self._res = data
+    def __call__(self, data=None):
+        if self._start_hook is not None:
+            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
+
+        if len(self.inputs) == 0:
+            self._res = data
+        else:
+            self._res = [inpt.get_result() for inpt in self._inputs]
+
+        if self._stop_hook is not None:
+            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
 
 class Plan(Activity):
