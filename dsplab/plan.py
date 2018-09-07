@@ -32,7 +32,7 @@ class Node:
         self._stop_hook = None
         self._stop_hook_args = None
         self._stop_hook_kwargs = None
-    
+
     def get_inputs(self):
         """ Return inputs. """
         return self._inputs
@@ -42,7 +42,7 @@ class Node:
         self._inputs = inputs
 
     inputs = property(get_inputs, set_inputs)
-    
+
     def set_start_hook(self, func, *args, **kwargs):
         """ Set start hook. """
         self._start_hook = func
@@ -77,7 +77,7 @@ class Node:
 
     def __call__(self, x):
         raise NotImplementedError
-    
+
 
 class WorkNode(Node):
     """ Node with work. """
@@ -251,12 +251,8 @@ class Plan(Activity):
         for node in self._nodes:
             node.reset()
 
-        progress = 0
-        nodes_number = len(self._nodes)
-
         for [node, x] in zip(self._inputs, xs):
             node(x)
-            progress += 1
             if self._progress_func is not None:
                 self._progress_func()
 
@@ -266,7 +262,6 @@ class Plan(Activity):
                 if not node.is_output_ready() and node.is_inputs_ready():
                     finished = False
                     node()
-                    progress += 1
                     if self._progress_func is not None:
                         self._progress_func()
             if finished:
