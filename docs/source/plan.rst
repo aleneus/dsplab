@@ -34,10 +34,10 @@ Using of start and stop hooks
 .. literalinclude:: ../../demos/plan/hooks.py
    :language: python
 	   
-Using of Transmitter
-^^^^^^^^^^^^^^^^^^^^
+Using of PassNode
+^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/transmitter.py
+.. literalinclude:: ../../demos/plan/pass_node.py
    :language: python
 
 Node-generator
