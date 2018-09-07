@@ -18,18 +18,16 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.31
+What's new in 0.32
 ------------------
 
-* Add smooth function to filtration
-* Brush filtration module
-* Merge frequency unit to modulation one
-* Split activity unit to activity and online
-* Refactoring trend_smooth()
-* Refactoring find_butt_bandpass_order()
-* Refactoring haar_one_step()
-* Refactoring haar_scaling()
-* Unify arguments names
+* Add new types of nodes: WorkNode, MapNode, PackNode and SelectNode
+* Update get_plan_from_dict() to support all types of nodes
+* Update examples
+* Add get_nodes() to Plan
+* Support progress handling in plan
+* Add arguments to hooks of nodes
+* Refactoring of plan.py    
 
 Modules
 -------

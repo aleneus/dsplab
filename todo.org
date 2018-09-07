@@ -177,7 +177,6 @@
 ** DONE [e] Brush spectran module
 * 0.31.3
 ** DONE [b] Fix cos and sin error in iq_demod
-* 0.31.4
 * 0.32.0
 ** DONE [t] Support progress handling in plan
 ** DONE [t] Add get_nodes() to Plan
@@ -206,12 +205,12 @@
 ** DONE [t] Update examples with Transmitter (PassNode now)
 ** DONE [t] Add pass_node example to docs
 ** DONE [e] Use print(__doc__) in all plan examples 
-** TODO [t] Add method for searching of path of calculations to Plan
-** TODO [t] Update history in docs
-** TODO [p] Add get_info() to node and use it in info() of plan
+** DONE [t] Update history in docs
 * 0.32.1
 ** TODO [e] Doc parameters and returns in plan.py
 * later
+** TODO [t] Add method for searching of path of calculations to Plan
+** TODO [p] Add get_info() to node and use it in info() of plan
 ** TODO [t] Warning in elma, return list from work in plan
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
 ** TODO [p] Online filter. add arguments to self._info

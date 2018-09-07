@@ -1,6 +1,19 @@
 History
 =======
 
+0.31
+----
+
+* Add smooth function to filtration
+* Brush filtration module
+* Merge frequency unit to modulation one
+* Split activity unit to activity and online
+* Refactoring trend_smooth()
+* Refactoring find_butt_bandpass_order()
+* Refactoring haar_one_step()
+* Refactoring haar_scaling()
+* Unify arguments names
+
 0.30
 ----
 
