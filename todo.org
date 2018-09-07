@@ -200,7 +200,7 @@
 ** DONE [t] Add hooks processing to __call__ of all nodes
 ** DONE [t] Support all types of nodes in get_plan_from_dict()
 ** DONE [t] Use different classes of nodes in get_plan_from_dict example
-** TODO [t] Update info() of Plan
+** DONE [t] Update info() of Plan
 ** TODO [t] Update docstring in get_plan_from_dict()
 ** DONE [t] Rename Transmitter to PassNode
 ** DONE [t] Update examples with Transmitter (PassNode now)
@@ -208,6 +208,7 @@
 ** DONE [e] Use print(__doc__) in all plan examples 
 ** TODO [t] Add method for searching of path of calculations to Plan
 ** TODO [t] Update history in docs
+** TODO [p] Add get_info() to node and use it in info() of plan
 * 0.32.1
 ** TODO [e] Doc parameters and returns in plan.py
 * later

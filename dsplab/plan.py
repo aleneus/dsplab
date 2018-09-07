@@ -56,7 +56,8 @@ class Node:
         self._stop_hook_kwargs = kwargs
 
     def is_output_ready(self):
-        """ Check if the calculation of data in the node is finished. """
+        """ Check if the calculation of data in the node is
+        finished. """
         ans = self._res is not None
         return ans
 
@@ -130,14 +131,14 @@ class SelectNode(Node):
     def __init__(self, index):
         super().__init__()
         self.index = index
-    
+
     def __call__(self, data):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
         self._res = data[self.index]
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
-    
+
 
 class PackNode(Node):
     """ Pack input to output. """
@@ -222,8 +223,12 @@ class Plan(Activity):
         nodes_info = []
         for node in self._nodes:
             node_info = {}
-            #work_info = node.work.info().copy()
-            #node_info['work'] = work_info
+            node_info['class'] = node.__class__.__name__
+            if isinstance(node, WorkNode) or isinstance(node, MapNode):
+                work_info = node.work.info().copy()
+                node_info['work'] = work_info
+            if isinstance(node, SelectNode):
+                node_info['index'] = node.index
             input_ids = []
             for input_obj in node.inputs:
                 input_id = '{}'.format(self._nodes.index(input_obj))
@@ -278,7 +283,9 @@ class Plan(Activity):
                 if not node.is_output_ready() and node.is_inputs_ready():
                     finished = False
                     input_nodes = node.get_inputs()
-                    data = [input_node.get_result() for input_node in input_nodes]
+                    data = []
+                    for input_node in input_nodes:
+                        data.append(input_node.get_result())
                     node(data)
                     if self._progress_func is not None:
                         self._progress_func()
