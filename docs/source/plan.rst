@@ -34,6 +34,18 @@ Using of start and stop hooks
 .. literalinclude:: ../../demos/plan/hooks.py
    :language: python
 	   
+MapNode (applying work for iterable input)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/map.py
+   :language: python
+
+PackNode (pack inputs to list)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/pack.py
+   :language: python
+
 Node-generator
 ^^^^^^^^^^^^^^
 
