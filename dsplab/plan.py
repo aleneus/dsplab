@@ -149,7 +149,13 @@ class SelectNode(Node):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
 
-        self._res = data[0][self.index]
+        if len(data) > 1:
+            data_tr = list(map(list, zip(*data)))
+            self._res = data_tr[self.index]
+        elif len(data) == 1:
+            self._res = data[0][self.index]
+        else:
+            raise RuntimeError('SelectNode must have input.')
 
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
