@@ -116,12 +116,25 @@ class MapNode(WorkNode):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
         self._res = []
-        for iterable_part in data:
+
+        if len(self._inputs) > 1:
+            # multiple input
+            for iterable_part in data:
+                res_part = []
+                for comp in iterable_part:
+                    comp_res = self.work(comp)
+                    res_part.append(comp_res)
+                self._res.append(res_part)
+        elif len(self._inputs) == 1:
+            # single input
             res_part = []
-            for comp in iterable_part:
+            for comp in data[0]:
                 comp_res = self.work(comp)
                 res_part.append(comp_res)
-            self._res.append(res_part)
+            self._res = res_part
+        else:
+            raise RuntimeError('MapNode must have input.')
+
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
