@@ -213,7 +213,7 @@
 ** DONE [t] Update examples with SelectNode
 * 0.32.3
 ** DONE [t] Correct process multiple input in SelectNode
-** TODO [t] Add example of SelectNode to demos
+** DONE [t] Add example of SelectNode to demos
 ** TODO [t] Correct process multiple input in MapNode
 ** TODO [t] Add example of SelectNode to docs
 ** TODO [e] Map node example: run plan in one line
