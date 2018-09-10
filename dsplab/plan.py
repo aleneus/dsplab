@@ -118,20 +118,15 @@ class MapNode(WorkNode):
         self._res = []
 
         if len(self._inputs) > 1:
-            # multiple input
-            for iterable_part in data:
-                res_part = []
-                for comp in iterable_part:
-                    comp_res = self.work(comp)
-                    res_part.append(comp_res)
+            self._res = []
+            for zipped_args in map(list, zip(*data)):
+                res_part = self.work(*zipped_args)
                 self._res.append(res_part)
         elif len(self._inputs) == 1:
-            # single input
-            res_part = []
+            self._res = []
             for comp in data[0]:
                 comp_res = self.work(comp)
-                res_part.append(comp_res)
-            self._res = res_part
+                self._res.append(comp_res)
         else:
             raise RuntimeError('MapNode must have input.')
 
