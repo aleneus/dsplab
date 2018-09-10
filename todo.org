@@ -209,6 +209,9 @@
 * 0.32.1
 ** DONE [b] Incorrect processing of single input in MapNode
 * 0.32.2
+** TODO [b] Fix SelectNode
+** DONE [t] Update examples with SelectNode
+* 0.32.3
 ** TODO [e] Doc parameters and returns in plan.py
 * later
 ** TODO [t] Add method for searching of path of calculations to Plan

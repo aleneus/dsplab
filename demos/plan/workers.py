@@ -19,14 +19,14 @@ class Linear(Worker):
 
 
 class Sum(Worker):
-    """ Sum. """
+    """Sum."""
     def __call__(self, *xs):
         y = sum(xs)
         return y
 
 
 class MultipleList(Worker):
-    """ Multiple the elements of list by k. """
+    """Multiple the elements of list by k."""
     def __init__(self, k):
         super().__init__()
         self.add_param('k', k)
@@ -37,9 +37,19 @@ class MultipleList(Worker):
 
 
 class Inc(Worker):
+    """Add 1 to value."""
     def __init__(self):
         super().__init__()
 
     def __call__(self, x):
         y = x + 1
         return y
+
+
+class DoNothing(Worker):
+    """Just pass input to output."""
+    def __init__(self):
+        super().__init__()
+
+    def __call__(selfm, x):
+        return x
