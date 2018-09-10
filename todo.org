@@ -215,10 +215,11 @@
 ** DONE [t] Correct process multiple input in SelectNode
 ** DONE [t] Add example of SelectNode to demos
 ** TODO [t] Correct process multiple input in MapNode
-** TODO [t] Add example of SelectNode to docs
+** DONE [t] Add example of SelectNode to docs
 ** TODO [e] Map node example: run plan in one line
 ** TODO [b] Allow inputs in __init__ of each type of node
 * 0.32.4
+** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [e] Doc parameters and returns in plan.py
 * later
 ** TODO [p] Add validate() method to Plan
