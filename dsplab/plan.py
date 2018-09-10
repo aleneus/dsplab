@@ -148,7 +148,9 @@ class SelectNode(Node):
     def __call__(self, data):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
-        self._res = data[self.index]
+
+        self._res = data[0][self.index]
+
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
