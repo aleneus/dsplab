@@ -207,6 +207,8 @@
 ** DONE [e] Use print(__doc__) in all plan examples 
 ** DONE [t] Update history in docs
 * 0.32.1
+** DONE [b] Incorrect processing of single input in MapNode
+* 0.32.2
 ** TODO [e] Doc parameters and returns in plan.py
 * later
 ** TODO [t] Add method for searching of path of calculations to Plan
