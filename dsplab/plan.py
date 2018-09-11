@@ -108,6 +108,9 @@ class WorkNode(Node):
 class MapNode(WorkNode):
     """Apply work to all components of iterable input and build
     iterable output."""
+    def __init__(self, work=None, inputs=[]):
+        super().__init__(work, inputs)
+
     def set_input(self, inpt):
         """ Set inputs. """
         self._inputs = [inpt]
@@ -118,20 +121,15 @@ class MapNode(WorkNode):
         self._res = []
 
         if len(self._inputs) > 1:
-            # multiple input
-            for iterable_part in data:
-                res_part = []
-                for comp in iterable_part:
-                    comp_res = self.work(comp)
-                    res_part.append(comp_res)
+            self._res = []
+            for zipped_args in map(list, zip(*data)):
+                res_part = self.work(*zipped_args)
                 self._res.append(res_part)
         elif len(self._inputs) == 1:
-            # single input
-            res_part = []
+            self._res = []
             for comp in data[0]:
                 comp_res = self.work(comp)
-                res_part.append(comp_res)
-            self._res = res_part
+                self._res.append(comp_res)
         else:
             raise RuntimeError('MapNode must have input.')
 
@@ -141,15 +139,21 @@ class MapNode(WorkNode):
 
 class SelectNode(Node):
     """Select component of output."""
-    def __init__(self, index):
-        super().__init__()
+    def __init__(self, index, inputs=[]):
+        super().__init__(inputs)
         self.index = index
 
     def __call__(self, data):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
 
-        self._res = data[0][self.index]
+        if len(data) > 1:
+            data_tr = list(map(list, zip(*data)))
+            self._res = data_tr[self.index]
+        elif len(data) == 1:
+            self._res = data[0][self.index]
+        else:
+            raise RuntimeError('SelectNode must have input.')
 
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
@@ -157,6 +161,9 @@ class SelectNode(Node):
 
 class PackNode(Node):
     """ Pack input to output. """
+    def __init__(self, inputs=[]):
+        super().__init__(inputs)
+
     def __call__(self, data=None):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
@@ -331,7 +338,7 @@ def get_plan_from_dict(settings):
     - 'work' - dict with work settings
 
     **Settings for PackNode**
-    
+
     - 'index' - index of selected item
 
     """

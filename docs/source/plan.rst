@@ -46,6 +46,12 @@ PackNode (pack inputs to list)
 .. literalinclude:: ../../demos/plan/pack.py
    :language: python
 
+SelectNode
+^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/select.py
+   :language: python
+	      
 Node-generator
 ^^^^^^^^^^^^^^
 

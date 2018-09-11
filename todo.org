@@ -212,10 +212,21 @@
 ** DONE [b] Fix SelectNode
 ** DONE [t] Update examples with SelectNode
 * 0.32.3
-** TODO [t] Correct process multiple input in MapNode
-** TODO [t] Correct process multiple input in SelectNode
+** DONE [t] Correct process multiple input in SelectNode
+** DONE [t] Add example of SelectNode to demos
+** DONE [t] Correct process multiple input in MapNode
+** DONE [t] Update example of MapNode
+** DONE [t] Add example of SelectNode to docs
+** DONE [b] Allow inputs in __init__ of each type of node
+* 0.32.4
+** TODO [e] Add comment showing desirable result in plan examples
+** TODO [t] Brush plan.py
+** TODO [t] Brush demos
 ** TODO [e] Doc parameters and returns in plan.py
 * later
+** TODO [p] Add validate() method to Plan
+** TODO [p] Add PassNode
+** TODO [e] Optimize the work with data in Plan and Nodes
 ** TODO [t] Add method for searching of path of calculations to Plan
 ** TODO [p] Add get_info() to node and use it in info() of plan
 ** TODO [t] Warning in elma, return list from work in plan
