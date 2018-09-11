@@ -108,6 +108,9 @@ class WorkNode(Node):
 class MapNode(WorkNode):
     """Apply work to all components of iterable input and build
     iterable output."""
+    def __init__(self, work=None, inputs=[]):
+        super().__init__(work, inputs)
+
     def set_input(self, inpt):
         """ Set inputs. """
         self._inputs = [inpt]
@@ -136,8 +139,8 @@ class MapNode(WorkNode):
 
 class SelectNode(Node):
     """Select component of output."""
-    def __init__(self, index):
-        super().__init__()
+    def __init__(self, index, inputs=[]):
+        super().__init__(inputs)
         self.index = index
 
     def __call__(self, data):
@@ -158,6 +161,9 @@ class SelectNode(Node):
 
 class PackNode(Node):
     """ Pack input to output. """
+    def __init__(self, inputs=[]):
+        super().__init__(inputs)
+
     def __call__(self, data=None):
         if self._start_hook is not None:
             self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
@@ -332,7 +338,7 @@ def get_plan_from_dict(settings):
     - 'work' - dict with work settings
 
     **Settings for PackNode**
-    
+
     - 'index' - index of selected item
 
     """

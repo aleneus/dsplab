@@ -217,7 +217,7 @@
 ** DONE [t] Correct process multiple input in MapNode
 ** DONE [t] Update example of MapNode
 ** DONE [t] Add example of SelectNode to docs
-** TODO [b] Allow inputs in __init__ of each type of node
+** DONE [b] Allow inputs in __init__ of each type of node
 * 0.32.4
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [t] Brush plan.py
