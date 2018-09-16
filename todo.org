@@ -219,6 +219,9 @@
 ** DONE [t] Add example of SelectNode to docs
 ** DONE [b] Allow inputs in __init__ of each type of node
 * 0.32.4
+** DONE [e] Replace running of hooks of nodes to Plan.__call__()
+** DONE [e] Update hooks example
+* 0.32.5
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [t] Brush plan.py
 ** TODO [t] Brush demos

@@ -55,6 +55,18 @@ class Node:
         self._stop_hook_args = args
         self._stop_hook_kwargs = kwargs
 
+    def run_start_hook(self):
+        """Run function associated with start hook."""
+        if self._start_hook is not None:
+            self._start_hook(*self._start_hook_args,
+                             **self._start_hook_kwargs)
+
+    def run_stop_hook(self):
+        """Run function associated with stop hook."""
+        if self._stop_hook is not None:
+            self._stop_hook(*self._stop_hook_args,
+                             **self._stop_hook_kwargs)
+
     def is_output_ready(self):
         """ Check if the calculation of data in the node is
         finished. """
@@ -96,13 +108,9 @@ class WorkNode(Node):
     work = property(get_work, set_work)
 
     def __call__(self, data):
-        if self._start_hook is not None:
-            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
         self._res = None
         y = self.work(*data)
         self._res = y
-        if self._stop_hook is not None:
-            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
 
 class MapNode(WorkNode):
@@ -116,8 +124,6 @@ class MapNode(WorkNode):
         self._inputs = [inpt]
 
     def __call__(self, data):
-        if self._start_hook is not None:
-            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
         self._res = []
 
         if len(self._inputs) > 1:
@@ -133,9 +139,6 @@ class MapNode(WorkNode):
         else:
             raise RuntimeError('MapNode must have input.')
 
-        if self._stop_hook is not None:
-            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
-
 
 class SelectNode(Node):
     """Select component of output."""
@@ -144,9 +147,6 @@ class SelectNode(Node):
         self.index = index
 
     def __call__(self, data):
-        if self._start_hook is not None:
-            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
-
         if len(data) > 1:
             data_tr = list(map(list, zip(*data)))
             self._res = data_tr[self.index]
@@ -155,9 +155,6 @@ class SelectNode(Node):
         else:
             raise RuntimeError('SelectNode must have input.')
 
-        if self._stop_hook is not None:
-            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
-
 
 class PackNode(Node):
     """ Pack input to output. """
@@ -165,11 +162,7 @@ class PackNode(Node):
         super().__init__(inputs)
 
     def __call__(self, data=None):
-        if self._start_hook is not None:
-            self._start_hook(*self._start_hook_args, *self._start_hook_kwargs)
         self._res = data
-        if self._stop_hook is not None:
-            self._stop_hook(*self._stop_hook_args, *self._stop_hook_kwargs)
 
 
 class Plan(Activity):
@@ -295,7 +288,9 @@ class Plan(Activity):
             node.reset()
 
         for [node, x] in zip(self._inputs, xs):
+            node.run_start_hook()
             node([x])
+            node.run_stop_hook()
             if self._progress_func is not None:
                 self._progress_func()
 
@@ -308,7 +303,9 @@ class Plan(Activity):
                     data = []
                     for input_node in input_nodes:
                         data.append(input_node.get_result())
+                    node.run_start_hook()
                     node(data)
+                    node.run_stop_hook()
                     if self._progress_func is not None:
                         self._progress_func()
             if finished:
