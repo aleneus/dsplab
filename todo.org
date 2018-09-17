@@ -229,7 +229,7 @@
 ** DONE [p] Add verify() method to Plan
 ** DONE [t] Add clear() method to Plan
 ** DONE [p] plan demo: add example with online processing
-** TODO [e] Add Returns to docstring of Plan
+** DONE [e] Add Returns to the docstring of Plan.verify()
 ** TODO [p] Remove reset() in Node (after implementing method for finding sequence)
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()

@@ -351,7 +351,15 @@ class Plan(Activity):
         return [output.get_result() for output in self._outputs]
 
     def verify(self):
-        """Validate plan."""
+        """Validate plan.
+
+        Returns
+        -------
+        : bool
+            True if success, False otherwise.
+        : str
+            Empty string or description of error.
+        """
         if len(self._inputs) == 0:
             return False, "There are no inputs in the plan."
         if len(self._outputs) == 0:
