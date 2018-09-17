@@ -167,7 +167,7 @@ class PackNode(Node):
 
 class Plan(Activity):
     """ The plan. Plan is the system of linked nodes. """
-    def __init__(self, descr=None):
+    def __init__(self, descr=None, quick=False):
         super().__init__()
         if descr is not None:
             self._info['descr'] = descr
@@ -175,6 +175,12 @@ class Plan(Activity):
         self._inputs = []
         self._outputs = []
         self._progress_func = None
+
+        self._quick = quick
+        if not self._quick:
+            self._run_func = self.run
+        else:
+            self._run_func = self.quick_run
 
     def _detect_terminals(self):
         """ Detect first and last nodes. """
@@ -217,11 +223,9 @@ class Plan(Activity):
         """ Set output nodes. """
         self._outputs = outputs
 
-    outputs = property(
-        get_outputs,
-        set_outputs,
-        doc="The nodes with are outputs."
-    )
+    outputs = property(get_outputs,
+                       set_outputs,
+                       doc="The nodes with are outputs.")
 
     def get_inputs(self):
         """ Return input nodes. """
@@ -231,7 +235,9 @@ class Plan(Activity):
         """ Set input nodes. """
         self._inputs = inputs
 
-    inputs = property(get_inputs, set_inputs, doc="The nodes wich are inputs.")
+    inputs = property(get_inputs,
+                      set_inputs,
+                      doc="The nodes wich are inputs.")
 
     def info(self, as_string=False):
         """ Return info about the plan. """
@@ -277,13 +283,8 @@ class Plan(Activity):
         """ Set progress handler. """
         self._progress_func = func
 
-    def __call__(self, xs):
-        """ Run plan. """
-        if len(self._inputs) == 0:
-            raise RuntimeError("There are no inputs in the plan. ")
-        if len(self._outputs) == 0:
-            raise RuntimeError("There are no outputs in the plan. ")
-
+    def run(self, xs):
+        """Run plan."""
         for node in self._nodes:
             node.reset()
 
@@ -314,6 +315,43 @@ class Plan(Activity):
         ys = [last_node.get_result() for last_node in self._outputs]
         return ys
 
+    def find_run_sequence(self):
+        """Find sequence of nodes for execution."""
+        self._sequence = []
+        while True:
+            finished = True
+            for node in self._nodes:
+                if (node in self._sequence) or (node in self._inputs):
+                    continue
+                if set(node.inputs) <= set(self._sequence) | set(self._inputs):
+                    self._sequence.append(node)
+                    finished = False
+            if finished:
+                break
+
+    def quick_run(self, xs):
+        """Sequential execution of plan with no hooks (for on-line
+        quick processing)."""
+        for node, x in zip(self._inputs, xs):
+            node([x])
+        for node in self._sequence:
+            data = []
+            for input_node in node.inputs:
+                data.append(input_node.get_result())
+            node(data)
+        return [output.get_result() for output in self._outputs]
+
+    def validate():
+        """Validate plan."""
+        if len(self._inputs) == 0:
+            return False, "There are no inputs in the plan."
+        if len(self._outputs) == 0:
+            return False, "There are no outputs in the plan."
+        return True, ""
+
+    def __call__(self, xs):
+        """Run plan."""
+        return self._run_func(xs)
 
 def get_plan_from_dict(settings):
     """ Create and return instance of Plan setted from dictionary.
