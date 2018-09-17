@@ -225,10 +225,9 @@
 ** DONE [t] Update the structure of todo list
 * 0.33.0
 ** DONE [t] Add method for searching of path of calculations to Plan
-** TODO [p] Remove _detect_terminals() in plan
 ** DONE [t] Brush plan.py
 ** DONE [p] Add verify() method to Plan
-** TODO [t] Plan. Implement clear()
+** DONE [t] Add clear() method to Plan
 ** DONE [p] plan demo: add example with online processing
 ** TODO [e] Add Returns to docstring of Plan
 ** TODO [p] Remove reset() in Node (after implementing method for finding sequence)
@@ -254,3 +253,4 @@
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Split plan.py to node.py and plan.py
+** TODO [p] Remove _detect_terminals() in plan

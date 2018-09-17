@@ -231,6 +231,13 @@ class Plan(Activity):
         self._detect_terminals()
         self._detect_sequence()
 
+    def clear(self):
+        """Clear plan."""
+        self._nodes = []
+        self._inputs = []
+        self._outputs = []
+        self._sequence = []
+
     def get_outputs(self):
         """ Return output nodes. """
         return self._outputs
