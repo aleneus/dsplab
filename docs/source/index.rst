@@ -18,16 +18,13 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.32
+What's new in 0.33
 ------------------
 
-* Add new types of nodes: WorkNode, MapNode, PackNode and SelectNode
-* Update get_plan_from_dict() to support all types of nodes
-* Update examples
-* Add get_nodes() to Plan
-* Support progress handling in plan
-* Add arguments to hooks of nodes
-* Refactoring of plan.py    
+* Adjust Plan for quick on-line execution
+* Add verify() method to Plan
+* Add clear() method to Plan
+* Update examples of Plan
 
 Modules
 -------
