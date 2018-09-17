@@ -227,7 +227,9 @@
 ** DONE [t] Add method for searching of path of calculations to Plan
 ** TODO [p] Remove _detect_terminals() in plan
 ** DONE [t] Brush plan.py
-** TODO [p] plan demo: add example with online processing
+** DONE [p] Add verify() method to Plan
+** TODO [t] Plan. Implement clear()
+** DONE [p] plan demo: add example with online processing
 ** TODO [e] Add Returns to docstring of Plan
 ** TODO [p] Remove reset() in Node (after implementing method for finding sequence)
 ** TODO [p] Some examples seems to be excess
@@ -240,12 +242,10 @@
 ** TODO [t] Brush demos
 ** TODO [e] Doc parameters and returns in plan.py
 * later
-** TODO [p] Add example of validation of plan
-** TODO [p] Add validate() method to Plan
+** TODO [p] Add example of verification of plan
 ** TODO [e] Optimize the work with data in Plan and Nodes
 ** TODO [p] Add get_info() to node and use it in info() of plan
 ** TODO [t] Warning in elma, return list from work in plan
-** TODO [t] Plan. Implement clear()
 ** TODO [p] Add parallelism to Plan execution
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
 ** TODO [p] Add instance_info for activity
@@ -253,3 +253,4 @@
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [t] Make interval an option in timer
+** TODO [p] Split plan.py to node.py and plan.py
