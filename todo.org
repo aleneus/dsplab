@@ -225,11 +225,15 @@
 ** DONE [t] Update the structure of todo list
 * 0.33.0
 ** DONE [t] Add method for searching of path of calculations to Plan
+** TODO [p] Remove _detect_terminals() in plan
+** DONE [t] Brush plan.py
 ** TODO [p] plan demo: add example with online processing
 ** TODO [e] Add Returns to docstring of Plan
 ** TODO [p] Remove reset() in Node (after implementing method for finding sequence)
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
+** TODO [t] Add online example to docs
+** TODO [t] Update whats new in docs
 * 0.32.6
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [t] Brush plan.py
