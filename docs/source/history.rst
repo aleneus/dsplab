@@ -1,6 +1,17 @@
 History
 =======
 
+0.32
+----
+
+* Add new types of nodes: WorkNode, MapNode, PackNode and SelectNode
+* Update get_plan_from_dict() to support all types of nodes
+* Update examples
+* Add get_nodes() to Plan
+* Support progress handling in plan
+* Add arguments to hooks of nodes
+* Refactoring of plan.py    
+
 0.31
 ----
 

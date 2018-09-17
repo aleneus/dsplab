@@ -231,10 +231,10 @@
 ** DONE [p] plan demo: add example with online processing
 ** DONE [e] Add Returns to the docstring of Plan.verify()
 ** DONE [t] Add online example to docs
+** DONE [t] Update whats new in docs
 * 0.33.1
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
-** TODO [t] Update whats new in docs
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
 * later
