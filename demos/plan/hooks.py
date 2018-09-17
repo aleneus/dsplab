@@ -4,29 +4,38 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Work
-from dsplab.plan import WorkNode
+from dsplab.plan import WorkNode, Plan
 
 
 def func(x):
+    """Worker."""
     return x + 1
 
 
+def start_handler(node):
+    """Node start handler."""
+    print("'{}' started".format(node.work.info()['descr']))
+
+
+def stop_handler(node):
+    """Node stop handler."""
+    print("'{}' finished".format(node.work.info()['descr']))
+
+
+def progress_handler():
+    """Progress handler."""
+    print("Calculated one node.")
+    
+
 def main():
     print(__doc__)
-    
-    def f1(node):
-        print("Node {} started".format(node))
-
-    def f2(node):
-        print("Node {} finished".format(node))
-        
-    n = WorkNode(
-        work=Work("Increment", worker=func),
-    )
-    n.set_start_hook(f1, n)
-    n.set_stop_hook(f2, n)
-    
-    n([5])
+    node = WorkNode(work=Work("Increment", worker=func))
+    node.set_start_hook(start_handler, node)
+    node.set_stop_hook(stop_handler, node)
+    plan = Plan()
+    plan.add_node(node)
+    plan.set_progress_hook(progress_handler)
+    plan([5])
 
 
 if __name__ == "__main__":

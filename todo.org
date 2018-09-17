@@ -219,23 +219,32 @@
 ** DONE [t] Add example of SelectNode to docs
 ** DONE [b] Allow inputs in __init__ of each type of node
 * 0.32.4
+** DONE [e] Replace running of hooks of nodes to Plan.__call__()
+** DONE [e] Update hooks example
+** DONE [t] Update version number
+** DONE [t] Update the structure of todo list
+* 0.32.5
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [t] Brush plan.py
 ** TODO [t] Brush demos
 ** TODO [e] Doc parameters and returns in plan.py
 * later
-** TODO [p] Add validate() method to Plan
-** TODO [p] Add PassNode
-** TODO [e] Optimize the work with data in Plan and Nodes
-** TODO [t] Add method for searching of path of calculations to Plan
-** TODO [p] Add get_info() to node and use it in info() of plan
-** TODO [t] Warning in elma, return list from work in plan
-** TODO [t] Rename add_parameter() to set_parameter() in Worker
-** TODO [p] Online filter. add arguments to self._info
-** TODO [p] Add instance_info for activity
-** TODO [e] Add function for calculating of frequency using Hilbert transform
-** TODO [e] Add function for calculating of frequency using digital Hilbert filter
-** TODO [t] Plan. Implement clear()
-** TODO [t] Make interval an option in timer
-** TODO [p] plan demo: add example with online processing
-** TODO [p] Add parallelism to Plan execution
+** Plan
+*** TODO [p] Add validate() method to Plan
+*** TODO [e] Optimize the work with data in Plan and Nodes
+*** TODO [t] Add method for searching of path of calculations to Plan
+*** TODO [p] Add get_info() to node and use it in info() of plan
+*** TODO [t] Warning in elma, return list from work in plan
+*** TODO [t] Plan. Implement clear()
+*** TODO [p] Add parallelism to Plan execution
+*** TODO [p] plan demo: add example with online processing
+** Activity
+*** TODO [t] Rename add_parameter() to set_parameter() in Worker
+*** TODO [p] Add instance_info for activity
+** Online
+*** TODO [p] Online filter. add arguments to self._info
+** DSP
+*** TODO [e] Add function for calculating of frequency using Hilbert transform
+*** TODO [e] Add function for calculating of frequency using digital Hilbert filter
+** Signal player
+*** TODO [t] Make interval an option in timer

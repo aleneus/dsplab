@@ -16,4 +16,4 @@
 """ Global variables. """
 
 PACKAGE = 'dsplab'
-VERSION = '0.32.3'
+VERSION = '0.32.4'
