@@ -66,6 +66,12 @@ Get Plan instance from dict
 .. literalinclude:: ../../demos/plan/get_plan_from_dict.py
    :language: python
 	   
+Quick plan for on-line processing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../../demos/plan/online.py
+   :language: python
+	      
 Members
 -------
 
