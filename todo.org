@@ -223,28 +223,31 @@
 ** DONE [e] Update hooks example
 ** DONE [t] Update version number
 ** DONE [t] Update the structure of todo list
-* 0.32.5
-** TODO [e] Add comment showing desirable result in plan examples
-** TODO [t] Brush plan.py
+* 0.33.0
+** DONE [t] Add method for searching of path of calculations to Plan
+** DONE [t] Brush plan.py
+** DONE [p] Add verify() method to Plan
+** DONE [t] Add clear() method to Plan
+** DONE [p] plan demo: add example with online processing
+** DONE [e] Add Returns to the docstring of Plan.verify()
+** DONE [t] Add online example to docs
+* 0.33.1
+** TODO [p] Some examples seems to be excess
+** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
+** TODO [t] Update whats new in docs
 ** TODO [t] Brush demos
-** TODO [e] Doc parameters and returns in plan.py
+** TODO [e] Add comment showing desirable result in plan examples
 * later
-** Plan
-*** TODO [p] Add validate() method to Plan
-*** TODO [e] Optimize the work with data in Plan and Nodes
-*** TODO [t] Add method for searching of path of calculations to Plan
-*** TODO [p] Add get_info() to node and use it in info() of plan
-*** TODO [t] Warning in elma, return list from work in plan
-*** TODO [t] Plan. Implement clear()
-*** TODO [p] Add parallelism to Plan execution
-*** TODO [p] plan demo: add example with online processing
-** Activity
-*** TODO [t] Rename add_parameter() to set_parameter() in Worker
-*** TODO [p] Add instance_info for activity
-** Online
-*** TODO [p] Online filter. add arguments to self._info
-** DSP
-*** TODO [e] Add function for calculating of frequency using Hilbert transform
-*** TODO [e] Add function for calculating of frequency using digital Hilbert filter
-** Signal player
-*** TODO [t] Make interval an option in timer
+** TODO [p] Add example of verification of plan
+** TODO [e] Optimize the work with data in Plan and Nodes
+** TODO [p] Add get_info() to node and use it in info() of plan
+** TODO [t] Warning in elma, return list from work in plan
+** TODO [p] Add parallelism to Plan execution
+** TODO [t] Rename add_parameter() to set_parameter() in Worker
+** TODO [p] Add instance_info for activity
+** TODO [p] Online filter. add arguments to self._info
+** TODO [e] Add function for calculating of frequency using Hilbert transform
+** TODO [e] Add function for calculating of frequency using digital Hilbert filter
+** TODO [t] Make interval an option in timer
+** TODO [p] Split plan.py to node.py and plan.py
+** TODO [p] Remove _detect_terminals() in plan

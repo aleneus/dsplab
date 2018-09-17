@@ -23,8 +23,10 @@ from dsplab.activity import Activity
 
 class Node:
     """ Base class for nodes. """
-    def __init__(self, inputs=[]):
-        self.inputs = inputs
+    def __init__(self, inputs=None):
+        self._inputs = []
+        if inputs is not None:
+            self._inputs = inputs
         self._res = None
         self._start_hook = None
         self._start_hook_args = None
@@ -65,7 +67,7 @@ class Node:
         """Run function associated with stop hook."""
         if self._stop_hook is not None:
             self._stop_hook(*self._stop_hook_args,
-                             **self._stop_hook_kwargs)
+                            **self._stop_hook_kwargs)
 
     def is_output_ready(self):
         """ Check if the calculation of data in the node is
@@ -88,40 +90,36 @@ class Node:
         """ Return the calculated data. """
         return self._res
 
-    def __call__(self, x):
+    def __call__(self, data):
         raise NotImplementedError
 
 
 class WorkNode(Node):
     """ Node with work. """
-    def __init__(self, work=None, inputs=[]):
+    def __init__(self, work=None, inputs=None):
         """ Initialization. """
         super().__init__(inputs)
         self._work = work
 
     def get_work(self):
+        """Return work of the node."""
         return self._work
 
     def set_work(self, work):
+        """Set work for the node."""
         self._work = work
 
     work = property(get_work, set_work)
 
     def __call__(self, data):
-        self._res = None
-        y = self.work(*data)
-        self._res = y
+        self._res = self.work(*data)
 
 
 class MapNode(WorkNode):
     """Apply work to all components of iterable input and build
     iterable output."""
-    def __init__(self, work=None, inputs=[]):
+    def __init__(self, work=None, inputs=None):
         super().__init__(work, inputs)
-
-    def set_input(self, inpt):
-        """ Set inputs. """
-        self._inputs = [inpt]
 
     def __call__(self, data):
         self._res = []
@@ -142,7 +140,7 @@ class MapNode(WorkNode):
 
 class SelectNode(Node):
     """Select component of output."""
-    def __init__(self, index, inputs=[]):
+    def __init__(self, index, inputs=None):
         super().__init__(inputs)
         self.index = index
 
@@ -158,7 +156,7 @@ class SelectNode(Node):
 
 class PackNode(Node):
     """ Pack input to output. """
-    def __init__(self, inputs=[]):
+    def __init__(self, inputs=None):
         super().__init__(inputs)
 
     def __call__(self, data=None):
@@ -167,7 +165,7 @@ class PackNode(Node):
 
 class Plan(Activity):
     """ The plan. Plan is the system of linked nodes. """
-    def __init__(self, descr=None):
+    def __init__(self, descr=None, quick=False):
         super().__init__()
         if descr is not None:
             self._info['descr'] = descr
@@ -176,8 +174,16 @@ class Plan(Activity):
         self._outputs = []
         self._progress_func = None
 
+        self._quick = quick
+        if not self._quick:
+            self._run_func = self.run
+        else:
+            self._run_func = self.quick_run
+
+        self._sequence = []
+
     def _detect_terminals(self):
-        """ Detect first and last nodes. """
+        """Detect first and last nodes."""
         self._inputs = []
         self._outputs = []
         all_inputs = []
@@ -192,12 +198,27 @@ class Plan(Activity):
             if node not in all_inputs:
                 self._outputs.append(node)
 
-    def add_node(self, node, inputs=[]):
+    def _detect_sequence(self):
+        """Find sequence of nodes for execution."""
+        self._sequence = []
+        while True:
+            finished = True
+            for node in self._nodes:
+                if (node in self._sequence) or (node in self._inputs):
+                    continue
+                if set(node.inputs) <= set(self._sequence) | set(self._inputs):
+                    self._sequence.append(node)
+                    finished = False
+            if finished:
+                break
+
+    def add_node(self, node, inputs=None):
         """ Add node to plan. """
         self._nodes.append(node)
-        if len(inputs) > 0:
+        if inputs is not None:
             node.inputs = inputs
         self._detect_terminals()
+        self._detect_sequence()
 
     def remove_node(self, node):
         """ Remove node from plan. """
@@ -208,6 +229,14 @@ class Plan(Activity):
                 n.inputs.remove(node)
         self._nodes.remove(node)
         self._detect_terminals()
+        self._detect_sequence()
+
+    def clear(self):
+        """Clear plan."""
+        self._nodes = []
+        self._inputs = []
+        self._outputs = []
+        self._sequence = []
 
     def get_outputs(self):
         """ Return output nodes. """
@@ -217,11 +246,9 @@ class Plan(Activity):
         """ Set output nodes. """
         self._outputs = outputs
 
-    outputs = property(
-        get_outputs,
-        set_outputs,
-        doc="The nodes with are outputs."
-    )
+    outputs = property(get_outputs,
+                       set_outputs,
+                       doc="The nodes with are outputs.")
 
     def get_inputs(self):
         """ Return input nodes. """
@@ -230,8 +257,11 @@ class Plan(Activity):
     def set_inputs(self, inputs):
         """ Set input nodes. """
         self._inputs = inputs
+        self._detect_sequence()
 
-    inputs = property(get_inputs, set_inputs, doc="The nodes wich are inputs.")
+    inputs = property(get_inputs,
+                      set_inputs,
+                      doc="The nodes wich are inputs.")
 
     def info(self, as_string=False):
         """ Return info about the plan. """
@@ -277,19 +307,14 @@ class Plan(Activity):
         """ Set progress handler. """
         self._progress_func = func
 
-    def __call__(self, xs):
-        """ Run plan. """
-        if len(self._inputs) == 0:
-            raise RuntimeError("There are no inputs in the plan. ")
-        if len(self._outputs) == 0:
-            raise RuntimeError("There are no outputs in the plan. ")
-
+    def run(self, data):
+        """Run plan."""
         for node in self._nodes:
             node.reset()
 
-        for [node, x] in zip(self._inputs, xs):
+        for [node, node_data] in zip(self._inputs, data):
             node.run_start_hook()
-            node([x])
+            node([node_data])
             node.run_stop_hook()
             if self._progress_func is not None:
                 self._progress_func()
@@ -300,19 +325,50 @@ class Plan(Activity):
                 if not node.is_output_ready() and node.is_inputs_ready():
                     finished = False
                     input_nodes = node.get_inputs()
-                    data = []
+                    node_data = []
                     for input_node in input_nodes:
-                        data.append(input_node.get_result())
+                        node_data.append(input_node.get_result())
                     node.run_start_hook()
-                    node(data)
+                    node(node_data)
                     node.run_stop_hook()
                     if self._progress_func is not None:
                         self._progress_func()
             if finished:
                 break
 
-        ys = [last_node.get_result() for last_node in self._outputs]
-        return ys
+        return [output.get_result() for output in self._outputs]
+
+    def quick_run(self, data):
+        """Sequential execution of plan with no hooks (for on-line
+        quick processing)."""
+        for node, node_data in zip(self._inputs, data):
+            node([node_data])
+        for node in self._sequence:
+            node_data = []
+            for input_node in node.inputs:
+                node_data.append(input_node.get_result())
+            node(node_data)
+        return [output.get_result() for output in self._outputs]
+
+    def verify(self):
+        """Validate plan.
+
+        Returns
+        -------
+        : bool
+            True if success, False otherwise.
+        : str
+            Empty string or description of error.
+        """
+        if len(self._inputs) == 0:
+            return False, "There are no inputs in the plan."
+        if len(self._outputs) == 0:
+            return False, "There are no outputs in the plan."
+        return True, ""
+
+    def __call__(self, data):
+        """Run plan."""
+        return self._run_func(data)
 
 
 def get_plan_from_dict(settings):
