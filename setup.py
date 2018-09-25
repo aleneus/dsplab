@@ -16,10 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from setuptools import setup
+import os
+
 from dsplab.glob import *
 
-LONG_DESCR = """Digital signal processing tools. 
-Docs: http://dsplab.readthedocs.io/en/latest/"""
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
     name=PACKAGE,
@@ -30,7 +32,7 @@ setup(
     license = "GPLv3",
     keywords = "digital signal processing",
     url = "https://bitbucket.org/aleneus/dsplab",
-    long_description=LONG_DESCR,
+    long_description=read('README.md'),
     packages=['dsplab'],
     install_requires = [
         'numpy>=1.14.2',
