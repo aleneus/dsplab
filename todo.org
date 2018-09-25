@@ -233,6 +233,8 @@
 ** DONE [t] Add online example to docs
 ** DONE [t] Update whats new in docs
 * 0.33.1
+** TODO [e] Write informative README.md
+* 0.33.2
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
 ** TODO [t] Brush demos
@@ -251,3 +253,4 @@
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Split plan.py to node.py and plan.py
 ** TODO [p] Remove _detect_terminals() in plan
+** TODO [t] Replace version number to __init__.py
