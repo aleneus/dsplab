@@ -233,7 +233,9 @@
 ** DONE [t] Add online example to docs
 ** DONE [t] Update whats new in docs
 * 0.33.1
-** TODO [e] Write informative README.md
+** DONE [t] Write draft README.md
+** TODO [t] Brush README.md
+** TODO [t] Add details to README.md
 * 0.33.2
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
