@@ -235,7 +235,7 @@
 * 0.33.1
 ** DONE [t] Write draft README.md
 ** DONE [t] Add details to README.md
-** TODO [b] Fix nested outline in README.md
+** DONE [b] Fix nested outline in README.md
 * 0.33.2
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
