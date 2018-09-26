@@ -237,6 +237,8 @@
 ** DONE [t] Add details to README.md
 ** DONE [b] Fix nested outline in README.md
 * 0.33.2
+** DONE [b] Fix the license in setup.py
+* 0.33.3
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
 ** TODO [t] Brush demos

@@ -17,11 +17,12 @@
 
 from setuptools import setup
 import os
-
 from dsplab.glob import *
+
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 
 setup(
     name=PACKAGE,
@@ -29,7 +30,7 @@ setup(
     description="Some tools for digital signal processing",
     author="Aleksandr Popov",
     author_email="aleneus@gmail.com",
-    license = "GPLv3",
+    license = "LGPLv3",
     keywords = "digital signal processing",
     url = "https://bitbucket.org/aleneus/dsplab",
     long_description=read('README.md'),
@@ -43,7 +44,7 @@ setup(
         "Environment :: Console",
         "Intended Audience :: Science/Research",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "License :: OSI Approved :: Lesser GNU General Public License v3 (LGPLv3)",
         "Operating System :: POSIX :: Linux",
         "Operating System :: Microsoft :: Windows",
         "Programming Language :: Python :: 3",
