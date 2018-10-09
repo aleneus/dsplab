@@ -244,6 +244,10 @@
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
+* 0.34.0
+** TODO [e] Add separate online filter without step stuff
+** TODO [t] Inherit OnlineFilter from Worker
+** TODO [e] Use add_param() in OnlineFilter
 * later
 ** TODO [p] Add example of verification of plan
 ** TODO [e] Optimize the work with data in Plan and Nodes
