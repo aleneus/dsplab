@@ -83,7 +83,7 @@ class Activity(metaclass=ActivityMeta):
 
 
 class Worker(Activity):
-    """ Worker is activity for doing some king of work. """
+    """ Worker is activity for doing some work. """
     def __init__(self):
         super().__init__()
         self._info['params'] = {}
@@ -118,7 +118,7 @@ class Work(Activity):
 
 
 def get_work_from_dict(settings):
-    """ Create and return Work instance setted from dictionary. """
+    """Create and return Work instance described in dictionary."""
 
     if 'descr' in settings:
         descr = settings['descr']

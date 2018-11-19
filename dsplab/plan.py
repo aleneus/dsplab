@@ -261,7 +261,7 @@ class Plan(Activity):
 
     inputs = property(get_inputs,
                       set_inputs,
-                      doc="The nodes wich are inputs.")
+                      doc="The nodes which are inputs.")
 
     def info(self, as_string=False):
         """ Return info about the plan. """
@@ -372,7 +372,7 @@ class Plan(Activity):
 
 
 def get_plan_from_dict(settings):
-    """ Create and return instance of Plan setted from dictionary.
+    """ Create and return instance of Plan described in dictionary.
 
     **Keys**
 
