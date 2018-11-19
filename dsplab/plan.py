@@ -21,9 +21,12 @@ from dsplab.activity import get_work_from_dict
 from dsplab.activity import Activity
 
 
-class Node:
+class Node(Activity):
     """ Base class for nodes. """
     def __init__(self, inputs=None):
+        # ref
+        super().__init__()
+        # 
         self._inputs = []
         if inputs is not None:
             self._inputs = inputs

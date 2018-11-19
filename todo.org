@@ -240,15 +240,19 @@
 ** DONE [b] Fix the license in setup.py
 ** DONE [b] Fix the license name in every file
 * 0.33.3
+* 0.34.0
+** DONE [p] Inherit node from activity because activity has info and node has __call__
+** TODO [t] Give user more opportunities to operate with info of activity
+** TODO [t] Add a simple and flexible way to describe the output data of plan
+** TODO [e] Remove docstrings from __init__()s
+* later
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
-* 0.34.0
 ** TODO [e] Add separate online filter without step stuff
 ** TODO [t] Inherit OnlineFilter from Worker
 ** TODO [e] Use add_param() in OnlineFilter
-* later
 ** TODO [p] Add example of verification of plan
 ** TODO [e] Optimize the work with data in Plan and Nodes
 ** TODO [p] Add get_info() to node and use it in info() of plan
