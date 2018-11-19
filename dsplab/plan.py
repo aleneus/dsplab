@@ -24,9 +24,7 @@ from dsplab.activity import Activity
 class Node(Activity):
     """ Base class for nodes. """
     def __init__(self, inputs=None):
-        # ref
         super().__init__()
-        # 
         self._inputs = []
         if inputs is not None:
             self._inputs = inputs
@@ -100,7 +98,6 @@ class Node(Activity):
 class WorkNode(Node):
     """ Node with work. """
     def __init__(self, work=None, inputs=None):
-        """ Initialization. """
         super().__init__(inputs)
         self._work = work
 

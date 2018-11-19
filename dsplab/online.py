@@ -34,25 +34,22 @@ def unwrap_point(w):
 
 
 class OnlineFilter(Activity):
-    """ Base class for online filter. """
+    """Base class for online filter.
+
+    Parameters
+    ----------
+    ntaps : int
+        Length of internal queue using for accumulation of input
+        samples. Default is None.
+    smooth_ntaps : int
+        Length of queue using for smoothing output values. Default
+        id None.
+    fill_with : float
+        Initial value of every element of queues.
+    step : int
+        Step. Must be positive.
+    """
     def __init__(self, ntaps=None, smooth_ntaps=None, fill_with=0, step=1):
-        """
-        Initialization.
-
-        Parameters
-        ----------
-        ntaps : int
-            Length of internal queue using for accumulation of input
-            samples. Default is None.
-        smooth_ntaps : int
-            Length of queue using for smoothing output values. Default
-            id None.
-        fill_with : float
-            Initial value of every element of queues.
-        step : int
-            Step. Must be positive.
-
-        """
         super().__init__()
         self.add_sample_func = None
         if (ntaps is None) and (smooth_ntaps is None):
@@ -171,18 +168,15 @@ class OnlineFilter(Activity):
 
 
 class OnlineLogic(OnlineFilter):
-    """ Base class for logical connectors of outputs of several
-    detectors or other connectors. """
+    """Base class for logical connectors of outputs of several
+    detectors or other connectors.
+
+    Parameters
+    ----------
+    inputs : list
+        Input filters.
+    """
     def __init__(self, inputs=None):
-        """
-        Initialization.
-
-        Parameters
-        ----------
-        inputs : list
-            Input filters.
-
-        """
         super().__init__()
         self._info['descr'] = 'Logical operation'
         self._info['inputs'] = []

@@ -51,7 +51,6 @@ class Activity(metaclass=ActivityMeta):
     the information about itself. To get working activity the __call__
     method must be implemented. """
     def __init__(self):
-        """ Initialization. """
         self._info = self._class_info.copy()
 
     def set_descr(self, descr):
@@ -99,7 +98,6 @@ class Work(Activity):
     """ Work is activity which has some worker. Different workers can
     be used for doing the same work. """
     def __init__(self, descr="", worker=None):
-        """ Initialization. """
         super().__init__()
         self.set_descr(descr)
         self.set_worker(worker)

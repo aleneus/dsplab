@@ -242,9 +242,9 @@
 * 0.33.3
 * 0.34.0
 ** DONE [p] Inherit node from activity because activity has info and node has __call__
+** DONE [e] Remove or replace docstrings from __init__()s
 ** TODO [t] Give user more opportunities to operate with info of activity
 ** TODO [t] Add a simple and flexible way to describe the output data of plan
-** TODO [e] Remove docstrings from __init__()s
 * later
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()

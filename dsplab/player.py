@@ -29,7 +29,6 @@ __all__ = ["RepeatedTimer", "SignalPlayer", "DataProducer",
 class RepeatedTimer(object):
     """ Timer. """
     def __init__(self, interval, function, *args, **kwargs):
-        """ Initialization. """
         self._timer = None
         self._interval = interval
         self.function = function
@@ -76,7 +75,6 @@ class RepeatedTimer(object):
 class SignalPlayer:
     """ Class for playing text file as stream. """
     def __init__(self, interval):
-        """ Initialization. """
         self.interval = interval
         self.queue = deque([], maxlen=100)
         self.timer = RepeatedTimer(interval, self._produce_data)
