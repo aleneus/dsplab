@@ -243,8 +243,10 @@
 * 0.34.0
 ** DONE [p] Inherit node from activity because activity has info and node has __call__
 ** DONE [e] Remove or replace docstrings from __init__()s
+** DONE [t] Replace version number to __init__.py
 ** TODO [t] Give user more opportunities to operate with info of activity
 ** TODO [t] Add a simple and flexible way to describe the output data of plan
+** TODO [t] Fix typo 'king' in docs
 * later
 ** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
@@ -266,4 +268,3 @@
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Split plan.py to node.py and plan.py
 ** TODO [p] Remove _detect_terminals() in plan
-** TODO [t] Replace version number to __init__.py
