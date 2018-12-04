@@ -245,7 +245,8 @@
 ** DONE [t] Replace version number to __init__.py
 ** DONE [t] Fix typos in docs
 ** DONE [t] Add Makefile
-** TODO [t] Close file in CSV data producer
+** DONE [t] Close file in CSV data producer
+** TODO [e] Refactor player
 * later
 ** TODO [t] Give user more opportunities to operate with info of activity
 ** TODO [t] Add a simple and flexible way to describe the output data of plan

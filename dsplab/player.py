@@ -89,14 +89,15 @@ class SignalPlayer:
 
     def start(self):
         """ Start player. """
-        # self.queue.clear()
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
         self.timer.start()
+        self.data_producer.start()
 
     def stop(self):
         """ Stop player. """
         self.timer.stop()
+        self.data_producer.stop()
 
     def _produce_data(self):
         with self.lock:
@@ -117,25 +118,33 @@ class SignalPlayer:
 
 
 class DataProducer:
-    """ Base class for adapters for data producer. """
+    """Base class for adapters for data producer."""
     def get_sample(self):
-        """ Return sample. """
+        """Return sample."""
         raise NotImplementedError
+
+    def start(self):
+        """Do some operations in producer when player starts."""
+        pass
+
+    def stop(self):
+        """Do some operations in producer when player stops."""
+        pass
 
 
 class RandomDataProducer(DataProducer):
-    """ Data producer with random values on output. """
+    """Data producer with random values on output."""
     def __init__(self, interval):
         self.interval = interval
 
     def get_sample(self):
-        """ Return sample. """
+        """Return sample."""
         sample = random.randint(*self.interval)
         return sample
 
 
 class CsvDataProducer(DataProducer):
-    """ Produces sample from headered CSV file. """
+    """Produces sample from headered CSV file."""
     def __init__(self):
         self.csv_reader = None
         self.file_buffer = None
@@ -144,7 +153,7 @@ class CsvDataProducer(DataProducer):
         self.delimiter = ';'
 
     def set_delimiter(self, delimiter):
-        """ Set delimiter. """
+        """Set delimiter."""
         self.delimiter = delimiter
 
     def _reset(self):
@@ -158,7 +167,7 @@ class CsvDataProducer(DataProducer):
         self.indexes = None
 
     def open_file(self, file_name, delimiter=None, encoding='utf-8'):
-        """ Set input file. """
+        """Set input file."""
         self._reset()
         if delimiter is not None:
             self.delimiter = delimiter
@@ -170,12 +179,16 @@ class CsvDataProducer(DataProducer):
         self.headers = next(self.csv_reader)
 
     def close_file(self):
-        """ Close input file. """
+        """Close input file."""
         self._reset()
 
+    def stop(self):
+        """Close buffer."""
+        self.close_file()
+
     def select_columns(self, keys):
-        """ Select returned columns, key_type can be 'name' or
-        'index'. """
+        """Select returned columns, key_type can be 'name' or
+        'index'."""
         if isinstance(keys[0], int):
             self.indexes = keys
         else:
