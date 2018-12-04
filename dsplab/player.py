@@ -26,7 +26,7 @@ __all__ = ["RepeatedTimer", "SignalPlayer", "DataProducer",
            "RandomDataProducer", "CsvDataProducer"]
 
 
-class RepeatedTimer(object):
+class RepeatedTimer:
     """ Timer. """
     def __init__(self, interval, function, *args, **kwargs):
         self._timer = None
@@ -42,11 +42,12 @@ class RepeatedTimer(object):
         """ Set interval. """
         self._interval = interval
 
-    def get_interval(self, interval):
+    def get_interval(self):
         """ Get interval. """
         return self._interval
 
-    interval = property(get_interval, set_interval, doc="Timeout interval (sec)")
+    interval = property(get_interval, set_interval,
+                        doc="Timeout interval (sec)")
 
     def start(self):
         """ Start timer. """
@@ -58,16 +59,16 @@ class RepeatedTimer(object):
         """ Stop timer. """
         self._timer.cancel()
         self.is_running = False
-        
+
     def _repeat(self):
         if not self.is_running:
             return
         with self.lock:
             self.next_call += self._interval
             self._timer = threading.Timer(
-                    self.next_call - time.time(),
-                    self._repeat
-                )
+                self.next_call - time.time(),
+                self._repeat
+            )
             self._timer.start()
         self.function(*self.args, **self.kwargs)
 

@@ -78,8 +78,7 @@ class Activity(metaclass=ActivityMeta):
                 indent=4,
                 separators=(',', ': ')
             )
-        else:
-            return self._info
+        return self._info
 
 
 class Worker(Activity):

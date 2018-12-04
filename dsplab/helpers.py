@@ -21,7 +21,7 @@ import importlib
 def is_iterable(x):
     """ Check if x is iterable. """
     try:
-        _ = [e for e in x]
+        [e for e in x]
     except TypeError:
         return False
     return True

@@ -15,7 +15,7 @@
 
 """ Functions for modulation and demodulation. """
 
-from math import pi, cos, sin
+from math import pi, cos
 import numpy as np
 from numpy import unwrap, angle, diff
 import scipy.signal as sig
