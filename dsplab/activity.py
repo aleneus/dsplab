@@ -16,7 +16,10 @@
 """ This module implements the base classes for Activities. """
 
 import json
+import logging
 from dsplab.helpers import import_entity
+
+LOG = logging.getLogger(__name__)
 
 
 class ActivityMeta(type):
@@ -79,6 +82,12 @@ class Activity(metaclass=ActivityMeta):
                 separators=(',', ': ')
             )
         return self._info
+
+    def merge_info(self, info_dict):
+        """Merge info_dict to info."""
+        # LOG.debug('call Activity.merge_info()')
+        for key in info_dict:
+            self._info[key] = info_dict[key]
 
 
 class Worker(Activity):

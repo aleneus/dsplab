@@ -17,8 +17,12 @@
 understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes. """
 
+import logging
+
 from dsplab.activity import get_work_from_dict
 from dsplab.activity import Activity
+
+LOG = logging.getLogger(__name__)
 
 
 class Node(Activity):
@@ -395,6 +399,7 @@ def get_plan_from_dict(settings):
     - 'index' - index of selected item
 
     """
+    LOG.debug("call get_plan_from_dict()")
     plan = Plan()
     if 'descr' in settings:
         plan.set_descr(settings['descr'])
@@ -402,6 +407,7 @@ def get_plan_from_dict(settings):
     nodes = {}
     nodes_settings = settings['nodes']
     for node_settings in nodes_settings:
+        # LOG.debug('Node settings:{} '.format(node_settings))
         node_id = node_settings['id']
 
         try:
@@ -410,22 +416,28 @@ def get_plan_from_dict(settings):
             node_class = 'WorkNode'
 
         if node_class == 'WorkNode':
-            nodes[node_id] = WorkNode()
+            node = WorkNode()
             work_settings = node_settings['work']
             work = get_work_from_dict(work_settings)
-            nodes[node_id].work = work
+            node.work = work
         elif node_class == 'MapNode':
-            nodes[node_id] = MapNode()
+            node = MapNode()
             work_settings = node_settings['work']
             work = get_work_from_dict(work_settings)
-            nodes[node_id].work = work
+            node.work = work
         elif node_class == 'PackNode':
-            nodes[node_id] = PackNode()
+            node = PackNode()
         elif node_class == 'SelectNode':
             index = node_settings['index']
-            nodes[node_id] = SelectNode(index)
+            node = SelectNode(index)
         else:
             raise ValueError('Unsupported class of node')
+
+        if 'info' in node_settings:
+            node.merge_info(node_settings['info'])
+        # LOG.debug('Node info: {}'.format(node.info()))
+
+        nodes[node_id] = node
 
     for node_settings in nodes_settings:
         node_id = node_settings['id']

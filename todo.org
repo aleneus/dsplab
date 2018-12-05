@@ -254,8 +254,7 @@
 ** DONE [t] Update docstring for player.CsvDataProducer.select_columns()
 ** DONE [e] Allow to set selected columns in player.CsvDataProducer.__init__()
 * 0.34.0
-** TODO [t] Give user more opportunities to operate with info of activity
-** TODO [t] Add a simple and flexible way to describe the output data of plan
+** DONE [t] Add merge_info() method to Activity
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
 ** TODO [p] Add get_info() to node and use it in info() of plan
 * later
