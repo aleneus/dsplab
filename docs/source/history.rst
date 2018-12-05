@@ -1,6 +1,14 @@
 History
 =======
 
+0.33
+----
+
+* Adjust Plan for quick on-line execution
+* Add verify() method to Plan
+* Add clear() method to Plan
+* Update examples of Plan
+
 0.32
 ----
 

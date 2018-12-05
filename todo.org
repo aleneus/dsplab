@@ -263,7 +263,7 @@
 ** DONE [p] Remove _detect_terminals() in plan
 ** DONE [t] Use user-specified outputs example instead of example of basic usage
 ** DONE [t] Remove MultipleList from demo workers
-** TODO [t] Update waht's new in docs
+** DONE [t] Update what's new in docs
 * later
 ** TODO [t] Remove deprecated stuff in player
 ** TODO [t] Brush demos

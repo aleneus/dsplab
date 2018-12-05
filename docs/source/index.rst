@@ -18,13 +18,12 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.33
+What's new in 0.34
 ------------------
 
-* Adjust Plan for quick on-line execution
-* Add verify() method to Plan
-* Add clear() method to Plan
-* Update examples of Plan
+* The possibility of describing of the resulting data of node was added.
+* The code in info() was refactored.
+* Examples of using the Plan were updated.
 
 Modules
 -------
