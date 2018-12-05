@@ -156,6 +156,7 @@ class CsvDataProducer(DataProducer):
         self._csv_reader = None
         self._buf = None
         self._headers = None
+        self._keys = None
         self._indexes = None
 
     def set_delimiter(self, delimiter):
@@ -195,6 +196,7 @@ class CsvDataProducer(DataProducer):
             delimiter=self._delimiter
         )
         self._headers = next(self._csv_reader)
+        self._detect_indexes()
 
     def stop(self):
         """Close buffer."""
@@ -203,11 +205,15 @@ class CsvDataProducer(DataProducer):
     def select_columns(self, keys):
         """Select returned columns, key_type can be 'name' or
         'index'."""
-        if isinstance(keys[0], int):
-            self._indexes = keys
+        self._keys = keys
+
+    def _detect_indexes(self):
+        """Detect indexes of selected columns."""
+        if isinstance(self._keys[0], int):
+            self._indexes = self._keys
         else:
             indexes = []
-            for key in keys:
+            for key in self._keys:
                 try:
                     index = self._headers.index(key)
                     indexes.append(index)

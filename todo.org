@@ -247,7 +247,9 @@
 ** DONE [t] Add Makefile
 ** DONE [t] Close file in CSV data producer
 ** DONE [e] Refactor player
-** TODO [t] Check and update if nessesary example for player
+** DONE [b] Fix headers error in player
+** DONE [t] Update example for player
+** TODO [e] Refactor player
 * later
 ** TODO [t] Remove deprecated stuff in player
 ** TODO [t] Give user more opportunities to operate with info of activity
