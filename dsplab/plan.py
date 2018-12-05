@@ -95,6 +95,10 @@ class Node(Activity):
         """ Return the calculated data. """
         return self._res
 
+    def set_result_info(self, info):
+        """Appent to info the desctription of the output data."""
+        self._info['result'] = info
+
     def __call__(self, data):
         raise NotImplementedError
 
@@ -433,8 +437,8 @@ def get_plan_from_dict(settings):
         else:
             raise ValueError('Unsupported class of node')
 
-        if 'info' in node_settings:
-            node.merge_info(node_settings['info'])
+        if 'result' in node_settings:
+            node.set_result_info(node_settings['result'])
         # LOG.debug('Node info: {}'.format(node.info()))
 
         nodes[node_id] = node

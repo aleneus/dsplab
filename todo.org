@@ -255,8 +255,10 @@
 ** DONE [e] Allow to set selected columns in player.CsvDataProducer.__init__()
 * 0.34.0
 ** DONE [t] Add merge_info() method to Activity
+** DONE [t] Use key 'rerult' instead of 'info' in node settings
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
 ** TODO [p] Add get_info() to node and use it in info() of plan
+** TODO [e] Add examples for result info of nodes
 * later
 ** TODO [t] Remove deprecated stuff in player
 ** TODO [p] Some examples seems to be excess

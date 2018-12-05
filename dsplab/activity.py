@@ -83,12 +83,6 @@ class Activity(metaclass=ActivityMeta):
             )
         return self._info
 
-    def merge_info(self, info_dict):
-        """Merge info_dict to info."""
-        # LOG.debug('call Activity.merge_info()')
-        for key in info_dict:
-            self._info[key] = info_dict[key]
-
 
 class Worker(Activity):
     """ Worker is activity for doing some work. """
