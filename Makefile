@@ -27,10 +27,16 @@ uml:
 release:
 	@echo $(ver)
 	hg up default
+	@echo 'Update to default: OK'
 	hg merge develop
+	@echo 'Merge from develop: OK'
 	hg ci -m 'merge from develop'
 	hg tag $(ver)
+	@echo 'Add tag: OK'
 	hg up develop
+	@echo 'Update to develop: OK'
+	hg push
+	@echo 'Push: OK'
 
 upload:
 	python3 setup.py sdist upload

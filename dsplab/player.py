@@ -147,16 +147,19 @@ class RandomDataProducer(DataProducer):
 
 class CsvDataProducer(DataProducer):
     """Produces sample from headered CSV file."""
-    def __init__(self, file_name=None, delimiter=';', encoding='utf-8'):
+    def __init__(self, file_name=None, delimiter=';',
+                 encoding='utf-8', columns=None):
         self.file_name = file_name
         self.encoding = encoding
         self._delimiter = None
         self.set_delimiter(delimiter)
+        self._keys = None
+        if columns is not None:
+            self.select_columns(columns)
 
         self._csv_reader = None
         self._buf = None
         self._headers = None
-        self._keys = None
         self._indexes = None
 
     def set_delimiter(self, delimiter):
@@ -178,12 +181,12 @@ class CsvDataProducer(DataProducer):
         self.encoding = encoding
 
     def open_file(self, file_name, delimiter=None, encoding='utf-8'):
-        """Set input file."""
+        """Deprecated. Use set_file()."""
         warn("CsvDataProducer.open_file() is deprecated. Use set_file()")
         self.set_file(file_name, delimiter, encoding)
 
     def close_file(self):
-        """Close input file."""
+        """Deprecated."""
         warn("CsvDataProducer.close_file() is deprecated.")
         self._buf.close()
 
@@ -203,8 +206,8 @@ class CsvDataProducer(DataProducer):
         self._buf.close()
 
     def select_columns(self, keys):
-        """Select returned columns, key_type can be 'name' or
-        'index'."""
+        """Select returned columns. Numbers or names of columns can be
+        used."""
         self._keys = keys
 
     def _detect_indexes(self):

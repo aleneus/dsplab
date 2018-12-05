@@ -250,9 +250,9 @@
 ** DONE [b] Fix headers error in player
 ** DONE [t] Update example for player
 * 0.33.4
-** TODO [e] Player: Use 'deprecated' in docs
-** TODO [t] Update docstring for player.CsvDataProducer.select_columns()
-** TODO [e] Allow to set selected columns in player.CsvDataProducer.__init__()
+** DONE [e] Player: Use 'deprecated' in docs
+** DONE [t] Update docstring for player.CsvDataProducer.select_columns()
+** DONE [e] Allow to set selected columns in player.CsvDataProducer.__init__()
 * 0.34.0
 ** TODO [t] Give user more opportunities to operate with info of activity
 ** TODO [t] Add a simple and flexible way to describe the output data of plan
