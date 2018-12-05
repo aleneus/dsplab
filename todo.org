@@ -249,7 +249,6 @@
 ** DONE [e] Refactor player
 ** DONE [b] Fix headers error in player
 ** DONE [t] Update example for player
-** TODO [e] Refactor player
 * later
 ** TODO [t] Remove deprecated stuff in player
 ** TODO [t] Give user more opportunities to operate with info of activity
@@ -274,3 +273,4 @@
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Split plan.py to node.py and plan.py
 ** TODO [p] Remove _detect_terminals() in plan
+** TODO [e] Refactor player
