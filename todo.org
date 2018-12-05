@@ -246,8 +246,10 @@
 ** DONE [t] Fix typos in docs
 ** DONE [t] Add Makefile
 ** DONE [t] Close file in CSV data producer
-** TODO [e] Refactor player
+** DONE [e] Refactor player
+** TODO [t] Check and update if nessesary example for player
 * later
+** TODO [t] Remove deprecated stuff in player
 ** TODO [t] Give user more opportunities to operate with info of activity
 ** TODO [t] Add a simple and flexible way to describe the output data of plan
 ** TODO [p] Some examples seems to be excess

@@ -21,9 +21,10 @@ from collections import deque
 import time
 import random
 import csv
+from warnings import warn
+import logging
 
-__all__ = ["RepeatedTimer", "SignalPlayer", "DataProducer",
-           "RandomDataProducer", "CsvDataProducer"]
+LOG = logging.getLogger(__name__)
 
 
 class RepeatedTimer:
@@ -89,10 +90,11 @@ class SignalPlayer:
 
     def start(self):
         """ Start player. """
+        LOG.debug('call SignalPlayer.start()')
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
-        self.timer.start()
         self.data_producer.start()
+        self.timer.start()
 
     def stop(self):
         """ Stop player. """
@@ -145,71 +147,83 @@ class RandomDataProducer(DataProducer):
 
 class CsvDataProducer(DataProducer):
     """Produces sample from headered CSV file."""
-    def __init__(self):
-        self.csv_reader = None
-        self.file_buffer = None
-        self.headers = None
-        self.indexes = None
-        self.delimiter = ';'
+    def __init__(self, file_name=None, delimiter=';', encoding='utf-8'):
+        self.file_name = file_name
+        self.encoding = encoding
+        self._delimiter = None
+        self.set_delimiter(delimiter)
+
+        self._csv_reader = None
+        self._buf = None
+        self._headers = None
+        self._indexes = None
 
     def set_delimiter(self, delimiter):
         """Set delimiter."""
-        self.delimiter = delimiter
+        self._delimiter = delimiter
 
-    def _reset(self):
-        try:
-            self.file_buffer.close()
-        except AttributeError:
-            pass
-        finally:
-            pass
-        self.headers = None
-        self.indexes = None
+    def get_delimiter(self):
+        """Return delimiter."""
+        return self._delimiter
+
+    delimiter = property(get_delimiter, set_delimiter,
+                         doc="delimiter in CSV file.")
+
+    def set_file(self, file_name, delimiter=None, encoding='utf-8'):
+        """Set file for reading."""
+        self.file_name = file_name
+        if delimiter is not None:
+            self.set_delimiter(delimiter)
+        self.encoding = encoding
 
     def open_file(self, file_name, delimiter=None, encoding='utf-8'):
         """Set input file."""
-        self._reset()
-        if delimiter is not None:
-            self.delimiter = delimiter
-        self.file_buffer = open(file_name, encoding=encoding)
-        self.csv_reader = csv.reader(
-            self.file_buffer,
-            delimiter=self.delimiter
-        )
-        self.headers = next(self.csv_reader)
+        warn("CsvDataProducer.open_file() is deprecated. Use set_file()")
+        self.set_file(file_name, delimiter, encoding)
 
     def close_file(self):
         """Close input file."""
-        self._reset()
+        warn("CsvDataProducer.close_file() is deprecated.")
+        self._buf.close()
+
+    def start(self):
+        """Init reader."""
+        LOG.debug('Call CsvDataProducer.start()')
+        self._buf = open(self.file_name, encoding=self.encoding)
+        self._csv_reader = csv.reader(
+            self._buf,
+            delimiter=self._delimiter
+        )
+        self._headers = next(self._csv_reader)
 
     def stop(self):
         """Close buffer."""
-        self.close_file()
+        self._buf.close()
 
     def select_columns(self, keys):
         """Select returned columns, key_type can be 'name' or
         'index'."""
         if isinstance(keys[0], int):
-            self.indexes = keys
+            self._indexes = keys
         else:
             indexes = []
             for key in keys:
                 try:
-                    index = self.headers.index(key)
+                    index = self._headers.index(key)
                     indexes.append(index)
                 except ValueError:
                     pass
-            self.indexes = indexes
+            self._indexes = indexes
 
     def get_sample(self):
         """ Return sample. """
         sample = []
         try:
-            full_sample = next(self.csv_reader)
-            if self.indexes is None:
+            full_sample = next(self._csv_reader)
+            if self._indexes is None:
                 return full_sample
-            for ind in self.indexes:
+            for ind in self._indexes:
                 sample.append(full_sample[ind])
         except StopIteration:
-            sample = ['' for ind in self.indexes]
+            sample = ['' for ind in self._indexes]
         return sample
