@@ -249,12 +249,18 @@
 ** DONE [e] Refactor player
 ** DONE [b] Fix headers error in player
 ** DONE [t] Update example for player
-* later
-** TODO [t] Remove deprecated stuff in player
+* 0.33.4
+** TODO [e] Player: Use 'deprecated' in docs
+** TODO [t] Update docstring for player.CsvDataProducer.select_columns()
+** TODO [e] Allow to set selected columns in player.CsvDataProducer.__init__()
+* 0.34.0
 ** TODO [t] Give user more opportunities to operate with info of activity
 ** TODO [t] Add a simple and flexible way to describe the output data of plan
-** TODO [p] Some examples seems to be excess
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
+** TODO [p] Add get_info() to node and use it in info() of plan
+* later
+** TODO [t] Remove deprecated stuff in player
+** TODO [p] Some examples seems to be excess
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [e] Add separate online filter without step stuff
@@ -262,7 +268,6 @@
 ** TODO [e] Use add_param() in OnlineFilter
 ** TODO [p] Add example of verification of plan
 ** TODO [e] Optimize the work with data in Plan and Nodes
-** TODO [p] Add get_info() to node and use it in info() of plan
 ** TODO [t] Warning in elma, return list from work in plan
 ** TODO [p] Add parallelism to Plan execution
 ** TODO [t] Rename add_parameter() to set_parameter() in Worker
@@ -273,4 +278,4 @@
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Split plan.py to node.py and plan.py
 ** TODO [p] Remove _detect_terminals() in plan
-** TODO [e] Refactor player
+** TODO [e] Refactor player.CsvDataProducer
