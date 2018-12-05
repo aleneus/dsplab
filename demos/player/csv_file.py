@@ -1,15 +1,15 @@
-""" Example of playing signal from CSV file. """
+"""Example of playing signal from CSV file."""
 import sys
 import os
-sys.path.insert(0, os.path.abspath('.'))
 
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../..'))
 from dsplab.player import CsvDataProducer, SignalPlayer
 
+
 def main():
-    """ Entry point. """
-    data_producer = CsvDataProducer()
-    data_producer.set_delimiter(',')
-    data_producer.open_file("test.csv")
+    """Play CSV file."""
+    data_producer = CsvDataProducer(file_name="test.csv", delimiter=',')
     data_producer.select_columns(['F', 'Ua1'])
     # data_producer.select_columns([0, 1]) # <--- It's all right too
     player = SignalPlayer(interval=0.02)
@@ -22,6 +22,7 @@ def main():
         except KeyboardInterrupt:
             break
     player.stop()
+
 
 if __name__ == "__main__":
     main()

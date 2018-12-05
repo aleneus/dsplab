@@ -17,7 +17,7 @@
 
 from setuptools import setup
 import os
-from dsplab.glob import *
+from dsplab import __version__
 
 
 def read(fname):
@@ -25,8 +25,8 @@ def read(fname):
 
 
 setup(
-    name=PACKAGE,
-    version=VERSION,
+    name='dsplab',
+    version=__version__,
     description="Some tools for digital signal processing",
     author="Aleksandr Popov",
     author_email="aleneus@gmail.com",

@@ -21,15 +21,15 @@ from collections import deque
 import time
 import random
 import csv
+from warnings import warn
+import logging
 
-__all__ = ["RepeatedTimer", "SignalPlayer", "DataProducer",
-           "RandomDataProducer", "CsvDataProducer"]
+LOG = logging.getLogger(__name__)
 
 
-class RepeatedTimer(object):
+class RepeatedTimer:
     """ Timer. """
     def __init__(self, interval, function, *args, **kwargs):
-        """ Initialization. """
         self._timer = None
         self._interval = interval
         self.function = function
@@ -43,11 +43,12 @@ class RepeatedTimer(object):
         """ Set interval. """
         self._interval = interval
 
-    def get_interval(self, interval):
+    def get_interval(self):
         """ Get interval. """
         return self._interval
 
-    interval = property(get_interval, set_interval, doc="Timeout interval (sec)")
+    interval = property(get_interval, set_interval,
+                        doc="Timeout interval (sec)")
 
     def start(self):
         """ Start timer. """
@@ -59,16 +60,16 @@ class RepeatedTimer(object):
         """ Stop timer. """
         self._timer.cancel()
         self.is_running = False
-        
+
     def _repeat(self):
         if not self.is_running:
             return
         with self.lock:
             self.next_call += self._interval
             self._timer = threading.Timer(
-                    self.next_call - time.time(),
-                    self._repeat
-                )
+                self.next_call - time.time(),
+                self._repeat
+            )
             self._timer.start()
         self.function(*self.args, **self.kwargs)
 
@@ -76,7 +77,6 @@ class RepeatedTimer(object):
 class SignalPlayer:
     """ Class for playing text file as stream. """
     def __init__(self, interval):
-        """ Initialization. """
         self.interval = interval
         self.queue = deque([], maxlen=100)
         self.timer = RepeatedTimer(interval, self._produce_data)
@@ -90,14 +90,16 @@ class SignalPlayer:
 
     def start(self):
         """ Start player. """
-        # self.queue.clear()
+        LOG.debug('call SignalPlayer.start()')
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
+        self.data_producer.start()
         self.timer.start()
 
     def stop(self):
         """ Stop player. """
         self.timer.stop()
+        self.data_producer.stop()
 
     def _produce_data(self):
         with self.lock:
@@ -118,86 +120,116 @@ class SignalPlayer:
 
 
 class DataProducer:
-    """ Base class for adapters for data producer. """
+    """Base class for adapters for data producer."""
     def get_sample(self):
-        """ Return sample. """
+        """Return sample."""
         raise NotImplementedError
+
+    def start(self):
+        """Do some operations in producer when player starts."""
+        pass
+
+    def stop(self):
+        """Do some operations in producer when player stops."""
+        pass
 
 
 class RandomDataProducer(DataProducer):
-    """ Data producer with random values on output. """
+    """Data producer with random values on output."""
     def __init__(self, interval):
         self.interval = interval
 
     def get_sample(self):
-        """ Return sample. """
+        """Return sample."""
         sample = random.randint(*self.interval)
         return sample
 
 
 class CsvDataProducer(DataProducer):
-    """ Produces sample from headered CSV file. """
-    def __init__(self):
-        self.csv_reader = None
-        self.file_buffer = None
-        self.headers = None
-        self.indexes = None
-        self.delimiter = ';'
+    """Produces sample from headered CSV file."""
+    def __init__(self, file_name=None, delimiter=';', encoding='utf-8'):
+        self.file_name = file_name
+        self.encoding = encoding
+        self._delimiter = None
+        self.set_delimiter(delimiter)
+
+        self._csv_reader = None
+        self._buf = None
+        self._headers = None
+        self._keys = None
+        self._indexes = None
 
     def set_delimiter(self, delimiter):
-        """ Set delimiter. """
-        self.delimiter = delimiter
+        """Set delimiter."""
+        self._delimiter = delimiter
 
-    def _reset(self):
-        try:
-            self.file_buffer.close()
-        except AttributeError:
-            pass
-        finally:
-            pass
-        self.headers = None
-        self.indexes = None
+    def get_delimiter(self):
+        """Return delimiter."""
+        return self._delimiter
+
+    delimiter = property(get_delimiter, set_delimiter,
+                         doc="delimiter in CSV file.")
+
+    def set_file(self, file_name, delimiter=None, encoding='utf-8'):
+        """Set file for reading."""
+        self.file_name = file_name
+        if delimiter is not None:
+            self.set_delimiter(delimiter)
+        self.encoding = encoding
 
     def open_file(self, file_name, delimiter=None, encoding='utf-8'):
-        """ Set input file. """
-        self._reset()
-        if delimiter is not None:
-            self.delimiter = delimiter
-        self.file_buffer = open(file_name, encoding=encoding)
-        self.csv_reader = csv.reader(
-            self.file_buffer,
-            delimiter=self.delimiter
-        )
-        self.headers = next(self.csv_reader)
+        """Set input file."""
+        warn("CsvDataProducer.open_file() is deprecated. Use set_file()")
+        self.set_file(file_name, delimiter, encoding)
 
     def close_file(self):
-        """ Close input file. """
-        self._reset()
+        """Close input file."""
+        warn("CsvDataProducer.close_file() is deprecated.")
+        self._buf.close()
+
+    def start(self):
+        """Init reader."""
+        LOG.debug('Call CsvDataProducer.start()')
+        self._buf = open(self.file_name, encoding=self.encoding)
+        self._csv_reader = csv.reader(
+            self._buf,
+            delimiter=self._delimiter
+        )
+        self._headers = next(self._csv_reader)
+        self._detect_indexes()
+
+    def stop(self):
+        """Close buffer."""
+        self._buf.close()
 
     def select_columns(self, keys):
-        """ Select returned columns, key_type can be 'name' or
-        'index'. """
-        if isinstance(keys[0], int):
-            self.indexes = keys
+        """Select returned columns, key_type can be 'name' or
+        'index'."""
+        self._keys = keys
+
+    def _detect_indexes(self):
+        """Detect indexes of selected columns."""
+        if isinstance(self._keys[0], int):
+            self._indexes = self._keys
         else:
             indexes = []
-            for key in keys:
+            for key in self._keys:
                 try:
-                    index = self.headers.index(key)
+                    index = self._headers.index(key)
                     indexes.append(index)
                 except ValueError:
                     pass
-            self.indexes = indexes
+            self._indexes = indexes
 
     def get_sample(self):
         """ Return sample. """
         sample = []
         try:
-            full_sample = next(self.csv_reader)
-            if self.indexes is None:
+            full_sample = next(self._csv_reader)
+            if self._indexes is None:
                 return full_sample
-            for ind in self.indexes:
+            for ind in self._indexes:
                 sample.append(full_sample[ind])
         except StopIteration:
-            sample = ['' for ind in self.indexes]
+            sample = ['' for ind in self._indexes]
         return sample

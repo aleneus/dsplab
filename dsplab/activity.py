@@ -51,7 +51,6 @@ class Activity(metaclass=ActivityMeta):
     the information about itself. To get working activity the __call__
     method must be implemented. """
     def __init__(self):
-        """ Initialization. """
         self._info = self._class_info.copy()
 
     def set_descr(self, descr):
@@ -79,12 +78,11 @@ class Activity(metaclass=ActivityMeta):
                 indent=4,
                 separators=(',', ': ')
             )
-        else:
-            return self._info
+        return self._info
 
 
 class Worker(Activity):
-    """ Worker is activity for doing some king of work. """
+    """ Worker is activity for doing some work. """
     def __init__(self):
         super().__init__()
         self._info['params'] = {}
@@ -99,7 +97,6 @@ class Work(Activity):
     """ Work is activity which has some worker. Different workers can
     be used for doing the same work. """
     def __init__(self, descr="", worker=None):
-        """ Initialization. """
         super().__init__()
         self.set_descr(descr)
         self.set_worker(worker)
@@ -120,7 +117,7 @@ class Work(Activity):
 
 
 def get_work_from_dict(settings):
-    """ Create and return Work instance setted from dictionary. """
+    """Create and return Work instance described in dictionary."""
 
     if 'descr' in settings:
         descr = settings['descr']
