@@ -29,6 +29,7 @@ class Node(Activity):
     """ Base class for nodes. """
     def __init__(self, inputs=None):
         super().__init__()
+        self._id = None
         self._inputs = []
         if inputs is not None:
             self._inputs = inputs
@@ -39,6 +40,29 @@ class Node(Activity):
         self._stop_hook = None
         self._stop_hook_args = None
         self._stop_hook_kwargs = None
+
+    def set_id(self, value):
+        """Set ID for node."""
+        self._id = value
+
+    def get_id(self):
+        """Return ID of node."""
+        return self._id
+
+    node_id = property(get_id, set_id, doc="ID of node.")
+    
+    def info(self):
+        """Return info about node."""
+        self._info['id'] = self.node_id
+
+        input_ids = []
+        for inpt in self.get_inputs():
+            input_id = '{}'.format(inpt.node_id)
+            input_ids.append(input_id)
+        if len(input_ids) != 0:
+            self._info['inputs'] = input_ids
+        
+        return super().info()
 
     def get_inputs(self):
         """ Return inputs. """
@@ -109,6 +133,10 @@ class WorkNode(Node):
         super().__init__(inputs)
         self._work = work
 
+    def info(self):
+        self._info['work'] = self._work.info().copy()
+        return super().info()
+
     def get_work(self):
         """Return work of the node."""
         return self._work
@@ -151,6 +179,10 @@ class SelectNode(Node):
     def __init__(self, index, inputs=None):
         super().__init__(inputs)
         self.index = index
+
+    def info(self):
+        self._info['index'] = self.index
+        return super().info()
 
     def __call__(self, data):
         if len(data) > 1:
@@ -272,40 +304,11 @@ class Plan(Activity):
                       doc="The nodes which are inputs.")
 
     def info(self, as_string=False):
-        """ Return info about the plan. """
-        nodes_info = []
-        for node in self._nodes:
-            node_info = {}
-            node_info['class'] = node.__class__.__name__
-            if isinstance(node, WorkNode) or isinstance(node, MapNode):
-                work_info = node.work.info().copy()
-                node_info['work'] = work_info
-            if isinstance(node, SelectNode):
-                node_info['index'] = node.index
-            input_ids = []
-            for input_obj in node.inputs:
-                input_id = '{}'.format(self._nodes.index(input_obj))
-                input_ids.append(input_id)
-            node_info['id'] = '{}'.format(self._nodes.index(node))
-            if len(input_ids) != 0:
-                node_info['inputs'] = input_ids
-            nodes_info.append(node_info)
-        self._info['nodes'] = nodes_info
-
-        plan_input_ids = []
-        for input_obj in self.inputs:
-            plan_input_id = '{}'.format(self._nodes.index(input_obj))
-            plan_input_ids.append(plan_input_id)
-        self._info['inputs'] = plan_input_ids
-
-        plan_output_ids = []
-        for output_obj in self.outputs:
-            plan_output_id = '{}'.format(self._nodes.index(output_obj))
-            plan_output_ids.append(plan_output_id)
-        self._info['outputs'] = plan_output_ids
-
-        res = super().info(as_string)
-        return res
+        """Return info about the plan."""
+        self._info['nodes'] = [node.info() for node in self._nodes]
+        self._info['inputs'] = [inp.get_id() for inp in self.inputs]
+        self._info['outputs'] = [inp.get_id() for inp in self.outputs]
+        return super().info(as_string)
 
     def get_nodes(self):
         """ Return list of nodes. """
@@ -413,6 +416,7 @@ def get_plan_from_dict(settings):
     for node_settings in nodes_settings:
         # LOG.debug('Node settings:{} '.format(node_settings))
         node_id = node_settings['id']
+        LOG.debug("Parse node with id={}".format(node_id))
 
         try:
             node_class = node_settings['class']
@@ -439,8 +443,8 @@ def get_plan_from_dict(settings):
 
         if 'result' in node_settings:
             node.set_result_info(node_settings['result'])
-        # LOG.debug('Node info: {}'.format(node.info()))
 
+        node.set_id(node_id)
         nodes[node_id] = node
 
     for node_settings in nodes_settings:

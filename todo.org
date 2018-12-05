@@ -256,8 +256,9 @@
 * 0.34.0
 ** DONE [t] Add merge_info() method to Activity
 ** DONE [t] Use key 'rerult' instead of 'info' in node settings
+** DONE [p] Implement info() methods in nodes and use them in info() of plan
+** TODO [t] Refactor the info() implementations
 ** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
-** TODO [p] Add get_info() to node and use it in info() of plan
 ** TODO [e] Add examples for result info of nodes
 * later
 ** TODO [t] Remove deprecated stuff in player
