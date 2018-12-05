@@ -17,8 +17,8 @@ def main():
     plan.add_node(node_1)
     plan.add_node(node_2, inputs=[node_1])
     plan.add_node(node_3, inputs=[node_2])
-    plan.set_inputs([node_1])
-    plan.set_outputs([node_3])
+    plan.inputs = [node_1]
+    plan.outputs = [node_3]
 
     xs = [1, 2, 3, 4, 5]
     for x in xs:

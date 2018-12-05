@@ -23,8 +23,8 @@ def main():
                   inputs=[pass_node_1, pass_node_2])
     plan.add_node(select_node_s,
                   inputs=[pass_node_1])
-    plan.set_inputs([pass_node_1, pass_node_2])
-    plan.set_outputs([select_node_m, select_node_s])
+    plan.inputs = [pass_node_1, pass_node_2]
+    plan.outputs = [select_node_m, select_node_s]
 
     res = plan([
         [1,2,3],

@@ -4,8 +4,8 @@ plan
 Examples
 --------
 
-Helper unit with workers
-^^^^^^^^^^^^^^^^^^^^^^^^
+Helper module with workers
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. literalinclude:: ../../demos/plan/workers.py
    :language: python
@@ -14,18 +14,6 @@ Basic usage
 ^^^^^^^^^^^
 
 .. literalinclude:: ../../demos/plan/basic.py
-   :language: python
-
-Processing of lists
-^^^^^^^^^^^^^^^^^^^
-
-.. literalinclude:: ../../demos/plan/lists.py
-   :language: python
-
-User-specified outputs
-^^^^^^^^^^^^^^^^^^^^^^
-
-.. literalinclude:: ../../demos/plan/outputs.py
    :language: python
 
 Using of start and stop hooks

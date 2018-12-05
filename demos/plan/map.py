@@ -27,8 +27,8 @@ def main():
     plan.add_node(pass_node_1)
     plan.add_node(pass_node_2)
     plan.add_node(map_node)
-    plan.set_inputs([pass_node_1, pass_node_2])
-    plan.set_outputs([map_node])
+    plan.inputs = [pass_node_1, pass_node_2]
+    plan.outputs = [map_node]
 
     res = plan([
         [1, 1, 1],

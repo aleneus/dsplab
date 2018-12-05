@@ -1,8 +1,8 @@
 """
 Basic usage of plan.
 
-a -> b
-b -> c, d
+a -> b ------>
+      \-> c ->
 """
 
 import sys
@@ -17,27 +17,18 @@ def main():
     """Run example."""
     print(__doc__)
     p = Plan()
-    work_a = Work("Linear transformation")
-    work_b = Work("Linear transformation")
-    work_c = Work("Linear transformation")
-    work_d = Work("Linear transformation")
-    
-    work_a.set_worker(Linear(1,1))
-    work_b.set_worker(Linear(2,2))
-    work_c.set_worker(Linear(3,3))
-    work_d.set_worker(Linear(4,4))
-    
-    a = WorkNode(work=work_a)
-    b = WorkNode(work=work_b)
-    c = WorkNode(work=work_c)
-    d = WorkNode(work=work_d)
-
+    a = WorkNode(work=Work("Linear transformation", worker=Linear(1,1)))
+    b = WorkNode(work=Work("Linear transformation", worker=Linear(2,2)))
+    c = WorkNode(work=Work("Linear transformation", worker=Linear(3,3)))
     p.add_node(a)
     p.add_node(b, inputs=[a])
     p.add_node(c, inputs=[b])
-    p.add_node(d, inputs=[b])
+    p.inputs = [a]
+    p.outputs = [c, b]
 
-    y = p([5])
+    x = 5
+    y = p([x])
     print(y)
+
 
 main()

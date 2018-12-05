@@ -258,11 +258,14 @@
 ** DONE [t] Use key 'rerult' instead of 'info' in node settings
 ** DONE [p] Implement info() methods in nodes and use them in info() of plan
 ** DONE [t] Refactor the info() implementations in plan.py
-** TODO [p] Clean Plan.info() by replace \'{}\'.format to str()
-** TODO [e] Add examples for result info of nodes
+** DONE [e] Add examples for result info of nodes
+** DONE [t] Remove processing of lists demo
+** DONE [p] Remove _detect_terminals() in plan
+** DONE [t] Use user-specified outputs example instead of example of basic usage
+** DONE [t] Remove MultipleList from demo workers
+** TODO [t] Update waht's new in docs
 * later
 ** TODO [t] Remove deprecated stuff in player
-** TODO [p] Some examples seems to be excess
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [e] Add separate online filter without step stuff
@@ -270,15 +273,12 @@
 ** TODO [e] Use add_param() in OnlineFilter
 ** TODO [p] Add example of verification of plan
 ** TODO [e] Optimize the work with data in Plan and Nodes
-** TODO [t] Warning in elma, return list from work in plan
 ** TODO [p] Add parallelism to Plan execution
-** TODO [t] Rename add_parameter() to set_parameter() in Worker
 ** TODO [p] Add instance_info for activity
 ** TODO [p] Online filter. add arguments to self._info
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [t] Make interval an option in timer
 ** TODO [p] Split plan.py to node.py and plan.py
-** TODO [p] Remove _detect_terminals() in plan
 ** TODO [e] Refactor player.CsvDataProducer
 ** TODO [p] Rename Worker._add_param() to Worker._add_param()

@@ -35,6 +35,8 @@ def main():
     plan = Plan()
     plan.add_node(node)
     plan.set_progress_hook(progress_handler)
+    plan.inputs = [node]
+    plan.outputs = [node]
     plan([5])
 
 

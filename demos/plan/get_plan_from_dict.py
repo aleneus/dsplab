@@ -53,6 +53,7 @@ SETTINGS = {
             'id': 'd',
             'class': 'PackNode',
             'inputs': ['b', 'c'],
+            'result': 'Result value'
         }
     ],
 

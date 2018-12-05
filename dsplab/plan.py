@@ -232,22 +232,6 @@ class Plan(Activity):
 
         self._sequence = []
 
-    def _detect_terminals(self):
-        """Detect first and last nodes."""
-        self._inputs = []
-        self._outputs = []
-        all_inputs = []
-        for node in self._nodes:
-            if len(node.inputs) == 0:
-                self._inputs.append(node)
-            for inpt in node.inputs:
-                if inpt not in all_inputs:
-                    all_inputs.append(inpt)
-
-        for node in self._nodes:
-            if node not in all_inputs:
-                self._outputs.append(node)
-
     def _detect_sequence(self):
         """Find sequence of nodes for execution."""
         self._sequence = []
@@ -267,7 +251,6 @@ class Plan(Activity):
         self._nodes.append(node)
         if inputs is not None:
             node.inputs = inputs
-        self._detect_terminals()
         self._detect_sequence()
 
     def remove_node(self, node):
@@ -278,7 +261,6 @@ class Plan(Activity):
             if node in n.inputs:
                 n.inputs.remove(node)
         self._nodes.remove(node)
-        self._detect_terminals()
         self._detect_sequence()
 
     def clear(self):
