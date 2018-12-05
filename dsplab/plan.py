@@ -51,7 +51,7 @@ class Node(Activity):
         return self._id
 
     node_id = property(get_id, set_id, doc="ID of node.")
-    
+
     def info(self, as_string=False):
         """Return info about node."""
         info = super().info()
@@ -137,7 +137,7 @@ class WorkNode(Node):
         self._work = work
 
     def info(self, as_string=False):
-        LOG.debug("call info() for work node {}".format(self.node_id))
+        # LOG.debug("call info() for work node {}".format(self.node_id))
         info = super().info()
         info['work'] = self._work.info().copy()
         if as_string:

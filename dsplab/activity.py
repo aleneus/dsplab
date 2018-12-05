@@ -15,7 +15,6 @@
 
 """ This module implements the base classes for Activities. """
 
-import json
 import logging
 from dsplab.helpers import import_entity, pretty_json
 
