@@ -16,6 +16,7 @@
 """ Helpers. """
 
 import importlib
+import json
 
 
 def is_iterable(x):
@@ -37,3 +38,9 @@ def import_entity(name):
     module = importlib.import_module(module_name)
     entity = getattr(module, entity_name)
     return entity
+
+
+def pretty_json(some_object):
+    """Return json representation of object."""
+    return json.dumps(some_object, sort_keys=True, indent=4,
+                      separators=(',', ': '))

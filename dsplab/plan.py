@@ -13,20 +13,21 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" This module implements the Node and Plan classes. Node can be
+"""This module implements the Node and Plan classes. Node can be
 understood as the workplace for worker. Node can have inputs that are
-also nodes. Plan is the system of linked nodes. """
+also nodes. Plan is the system of linked nodes."""
 
 import logging
 
 from dsplab.activity import get_work_from_dict
 from dsplab.activity import Activity
+from dsplab.helpers import pretty_json
 
 LOG = logging.getLogger(__name__)
 
 
 class Node(Activity):
-    """ Base class for nodes. """
+    """Base class for nodes."""
     def __init__(self, inputs=None):
         super().__init__()
         self._id = None
@@ -51,37 +52,40 @@ class Node(Activity):
 
     node_id = property(get_id, set_id, doc="ID of node.")
     
-    def info(self):
+    def info(self, as_string=False):
         """Return info about node."""
-        self._info['id'] = self.node_id
+        info = super().info()
+        info['id'] = self.node_id
 
         input_ids = []
         for inpt in self.get_inputs():
             input_id = '{}'.format(inpt.node_id)
             input_ids.append(input_id)
         if len(input_ids) != 0:
-            self._info['inputs'] = input_ids
-        
-        return super().info()
+            info['inputs'] = input_ids
+
+        if as_string:
+            return pretty_json(info)
+        return info
 
     def get_inputs(self):
-        """ Return inputs. """
+        """Return inputs."""
         return self._inputs
 
     def set_inputs(self, inputs):
-        """ Set inputs. """
+        """Set inputs."""
         self._inputs = inputs
 
     inputs = property(get_inputs, set_inputs)
 
     def set_start_hook(self, func, *args, **kwargs):
-        """ Set start hook. """
+        """Set start hook."""
         self._start_hook = func
         self._start_hook_args = args
         self._start_hook_kwargs = kwargs
 
     def set_stop_hook(self, func, *args, **kwargs):
-        """ Set stop hook. """
+        """Set stop hook."""
         self._stop_hook = func
         self._stop_hook_args = args
         self._stop_hook_kwargs = kwargs
@@ -99,24 +103,23 @@ class Node(Activity):
                             **self._stop_hook_kwargs)
 
     def is_output_ready(self):
-        """ Check if the calculation of data in the node is
-        finished. """
+        """Check if the calculation in the node is finished."""
         ans = self._res is not None
         return ans
 
     def reset(self):
-        """ Clear the result. """
+        """Clear the result."""
         self._res = None
 
     def is_inputs_ready(self):
-        """ Check if data in all inputs is ready. """
+        """Check if data in all inputs is ready."""
         for inpt in self._inputs:
             if not inpt.is_output_ready():
                 return False
         return True
 
     def get_result(self):
-        """ Return the calculated data. """
+        """Return the calculated data."""
         return self._res
 
     def set_result_info(self, info):
@@ -128,14 +131,18 @@ class Node(Activity):
 
 
 class WorkNode(Node):
-    """ Node with work. """
+    """Node with work."""
     def __init__(self, work=None, inputs=None):
         super().__init__(inputs)
         self._work = work
 
-    def info(self):
-        self._info['work'] = self._work.info().copy()
-        return super().info()
+    def info(self, as_string=False):
+        LOG.debug("call info() for work node {}".format(self.node_id))
+        info = super().info()
+        info['work'] = self._work.info().copy()
+        if as_string:
+            return pretty_json(info)
+        return info
 
     def get_work(self):
         """Return work of the node."""
@@ -180,9 +187,12 @@ class SelectNode(Node):
         super().__init__(inputs)
         self.index = index
 
-    def info(self):
-        self._info['index'] = self.index
-        return super().info()
+    def info(self, as_string=False):
+        info = super().info()
+        info['index'] = self.index
+        if as_string:
+            return pretty_json(info)
+        return info
 
     def __call__(self, data):
         if len(data) > 1:
@@ -195,7 +205,7 @@ class SelectNode(Node):
 
 
 class PackNode(Node):
-    """ Pack input to output. """
+    """Pack input to output."""
     def __init__(self, inputs=None):
         super().__init__(inputs)
 
@@ -204,7 +214,7 @@ class PackNode(Node):
 
 
 class Plan(Activity):
-    """ The plan. Plan is the system of linked nodes. """
+    """The plan. Plan is the system of linked nodes."""
     def __init__(self, descr=None, quick=False):
         super().__init__()
         if descr is not None:
@@ -253,7 +263,7 @@ class Plan(Activity):
                 break
 
     def add_node(self, node, inputs=None):
-        """ Add node to plan. """
+        """Add node to plan."""
         self._nodes.append(node)
         if inputs is not None:
             node.inputs = inputs
@@ -261,7 +271,7 @@ class Plan(Activity):
         self._detect_sequence()
 
     def remove_node(self, node):
-        """ Remove node from plan. """
+        """Remove node from plan."""
         if node not in self._nodes:
             raise RuntimeError("No such node")
         for n in self._nodes:
@@ -279,11 +289,11 @@ class Plan(Activity):
         self._sequence = []
 
     def get_outputs(self):
-        """ Return output nodes. """
+        """Return output nodes."""
         return self._outputs
 
     def set_outputs(self, outputs):
-        """ Set output nodes. """
+        """Set output nodes."""
         self._outputs = outputs
 
     outputs = property(get_outputs,
@@ -291,11 +301,11 @@ class Plan(Activity):
                        doc="The nodes with are outputs.")
 
     def get_inputs(self):
-        """ Return input nodes. """
+        """Return input nodes."""
         return self._inputs
 
     def set_inputs(self, inputs):
-        """ Set input nodes. """
+        """Set input nodes."""
         self._inputs = inputs
         self._detect_sequence()
 
@@ -305,17 +315,20 @@ class Plan(Activity):
 
     def info(self, as_string=False):
         """Return info about the plan."""
-        self._info['nodes'] = [node.info() for node in self._nodes]
-        self._info['inputs'] = [inp.get_id() for inp in self.inputs]
-        self._info['outputs'] = [inp.get_id() for inp in self.outputs]
-        return super().info(as_string)
+        info = super().info()
+        info['nodes'] = [node.info() for node in self._nodes]
+        info['inputs'] = [inp.get_id() for inp in self.inputs]
+        info['outputs'] = [inp.get_id() for inp in self.outputs]
+        if as_string:
+            return pretty_json(info)
+        return info
 
     def get_nodes(self):
-        """ Return list of nodes. """
+        """Return the list of nodes."""
         return self._nodes
 
     def set_progress_hook(self, func):
-        """ Set progress handler. """
+        """Set progress handler."""
         self._progress_func = func
 
     def run(self, data):
@@ -383,7 +396,7 @@ class Plan(Activity):
 
 
 def get_plan_from_dict(settings):
-    """ Create and return instance of Plan described in dictionary.
+    """Create and return instance of Plan described in dictionary.
 
     **Keys**
 
@@ -396,6 +409,7 @@ def get_plan_from_dict(settings):
 
     - 'id' - id of node
     - 'inputs' - list of ids of input nodes for this node
+    - 'result' - result description
 
     **Settings for WorkNode and MapNode**
 
@@ -404,7 +418,6 @@ def get_plan_from_dict(settings):
     **Settings for PackNode**
 
     - 'index' - index of selected item
-
     """
     LOG.debug("call get_plan_from_dict()")
     plan = Plan()

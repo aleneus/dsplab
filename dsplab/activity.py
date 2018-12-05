@@ -17,7 +17,7 @@
 
 import json
 import logging
-from dsplab.helpers import import_entity
+from dsplab.helpers import import_entity, pretty_json
 
 LOG = logging.getLogger(__name__)
 
@@ -75,12 +75,7 @@ class Activity(metaclass=ActivityMeta):
 
         """
         if as_string:
-            return json.dumps(
-                self._info,
-                sort_keys=True,
-                indent=4,
-                separators=(',', ': ')
-            )
+            return pretty_json(self._info)
         return self._info
 
 
