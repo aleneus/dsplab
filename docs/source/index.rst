@@ -18,12 +18,11 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.34
+What's new in 0.35
 ------------------
 
-* The possibility of describing of the resulting data of node was added.
-* The code in info() was refactored.
-* Examples of using the Plan were updated.
+* PassNode has been added.
+* Deprecated stuff in player has been deleted.
 
 Modules
 -------
