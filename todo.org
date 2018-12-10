@@ -264,6 +264,8 @@
 ** DONE [t] Use user-specified outputs example instead of example of basic usage
 ** DONE [t] Remove MultipleList from demo workers
 ** DONE [t] Update what's new in docs
+* 0.34.1
+** DONE [b] Fix: CsvDataProducer can get sample from closed input buffer
 * later
 ** TODO [t] Remove deprecated stuff in player
 ** TODO [t] Brush demos

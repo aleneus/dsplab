@@ -161,6 +161,8 @@ class CsvDataProducer(DataProducer):
         self._buf = None
         self._headers = None
         self._indexes = None
+        self._can_close_buff = Event()
+        self._can_close_buff.set()
 
     def set_delimiter(self, delimiter):
         """Set delimiter."""
@@ -203,6 +205,7 @@ class CsvDataProducer(DataProducer):
 
     def stop(self):
         """Close buffer."""
+        self._can_close_buff.wait()
         self._buf.close()
 
     def select_columns(self, keys):
@@ -226,6 +229,7 @@ class CsvDataProducer(DataProducer):
 
     def get_sample(self):
         """ Return sample. """
+        self._can_close_buff.clear()
         sample = []
         try:
             full_sample = next(self._csv_reader)
@@ -235,4 +239,5 @@ class CsvDataProducer(DataProducer):
                 sample.append(full_sample[ind])
         except StopIteration:
             sample = ['' for ind in self._indexes]
+        self._can_close_buff.set()
         return sample
