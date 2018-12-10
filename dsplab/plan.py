@@ -439,7 +439,8 @@ def get_plan_from_dict(settings):
         elif node_class == 'PassNode':
             node = PassNode()
         else:
-            raise ValueError("Unsupported class of node: {}".format(node_class))
+            message = "Unsupported class of node: %s" % node_class
+            raise ValueError(message)
 
         if 'result' in node_settings:
             node.set_result_info(node_settings['result'])

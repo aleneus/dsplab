@@ -21,7 +21,6 @@ from collections import deque
 import time
 import random
 import csv
-from warnings import warn
 import logging
 
 LOG = logging.getLogger(__name__)
