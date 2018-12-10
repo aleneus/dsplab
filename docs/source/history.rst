@@ -1,6 +1,13 @@
 History
 =======
 
+0.34
+----
+
+* The possibility of describing of the resulting data of node was added.
+* The code in info() was refactored.
+* Examples of using the Plan were updated.
+
 0.33
 ----
 

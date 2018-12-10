@@ -21,7 +21,6 @@ from collections import deque
 import time
 import random
 import csv
-from warnings import warn
 import logging
 
 LOG = logging.getLogger(__name__)
@@ -181,16 +180,6 @@ class CsvDataProducer(DataProducer):
         if delimiter is not None:
             self.set_delimiter(delimiter)
         self.encoding = encoding
-
-    def open_file(self, file_name, delimiter=None, encoding='utf-8'):
-        """Deprecated. Use set_file()."""
-        warn("CsvDataProducer.open_file() is deprecated. Use set_file()")
-        self.set_file(file_name, delimiter, encoding)
-
-    def close_file(self):
-        """Deprecated."""
-        warn("CsvDataProducer.close_file() is deprecated.")
-        self._buf.close()
 
     def start(self):
         """Init reader."""
