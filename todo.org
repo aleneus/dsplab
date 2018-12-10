@@ -268,7 +268,7 @@
 ** DONE [b] Fix: CsvDataProducer can get sample from closed input buffer
 * 0.35.0
 ** DONE [t] Add PassNode
-** TODO [t] Remove deprecated stuff in player
+** DONE [t] Remove deprecated stuff in player
 ** TODO [t] Update docs
 * later
 ** TODO [t] Brush demos
