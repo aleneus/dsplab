@@ -206,11 +206,14 @@ class SelectNode(Node):
 
 class PackNode(Node):
     """Pack input to output."""
-    def __init__(self, inputs=None):
-        super().__init__(inputs)
-
     def __call__(self, data=None):
         self._res = data
+
+
+class PassNode(Node):
+    """Pass input to ouput."""
+    def __call__(self, data):
+        self._res = data[0]
 
 
 class Plan(Activity):
@@ -401,7 +404,7 @@ def get_plan_from_dict(settings):
 
     - 'index' - index of selected item
     """
-    LOG.debug("call get_plan_from_dict()")
+    LOG.debug("get_plan_from_dict()")
     plan = Plan()
     if 'descr' in settings:
         plan.set_descr(settings['descr'])
@@ -433,8 +436,10 @@ def get_plan_from_dict(settings):
         elif node_class == 'SelectNode':
             index = node_settings['index']
             node = SelectNode(index)
+        elif node_class == 'PassNode':
+            node = PassNode()
         else:
-            raise ValueError('Unsupported class of node')
+            raise ValueError("Unsupported class of node: {}".format(node_class))
 
         if 'result' in node_settings:
             node.set_result_info(node_settings['result'])

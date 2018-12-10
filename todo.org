@@ -266,8 +266,11 @@
 ** DONE [t] Update what's new in docs
 * 0.34.1
 ** DONE [b] Fix: CsvDataProducer can get sample from closed input buffer
-* later
+* 0.35.0
+** DONE [t] Add PassNode
 ** TODO [t] Remove deprecated stuff in player
+** TODO [t] Update docs
+* later
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [e] Add separate online filter without step stuff
