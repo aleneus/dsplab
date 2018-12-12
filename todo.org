@@ -270,6 +270,10 @@
 ** DONE [t] Add PassNode
 ** DONE [t] Remove deprecated stuff in player
 ** DONE [t] Update docs
+* 0.35.1
+** DONE [b] CsvDataProducer: load file to memory ant then iterate it
+* 0.35.2
+** TODO [t] Debug repeated timer, it works strange
 * later
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Playing signal from file. Online mode for offline data. """
+"""Playing signal from file. Online mode for offline data."""
 
 import threading
 from threading import Lock, Event
@@ -61,6 +61,7 @@ class RepeatedTimer:
         self.is_running = False
 
     def _repeat(self):
+        # LOG.debug("%s._repeat" % self.__class__.__name__)
         if not self.is_running:
             return
         with self.lock:
@@ -89,7 +90,7 @@ class SignalPlayer:
 
     def start(self):
         """ Start player. """
-        LOG.debug('call SignalPlayer.start()')
+        # LOG.debug('call SignalPlayer.start()')
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
         self.data_producer.start()
@@ -97,10 +98,12 @@ class SignalPlayer:
 
     def stop(self):
         """ Stop player. """
+        # LOG.debug("%s.stop()" % self.__class__.__name__)
         self.timer.stop()
         self.data_producer.stop()
 
     def _produce_data(self):
+        # LOG.debug("%s._produce_data()" % self.__class__.__name__)
         with self.lock:
             sample = self.data_producer.get_sample()
         self.queue.append(sample)
@@ -155,13 +158,9 @@ class CsvDataProducer(DataProducer):
         self._keys = None
         if columns is not None:
             self.select_columns(columns)
-
-        self._csv_reader = None
-        self._buf = None
         self._headers = None
         self._indexes = None
-        self._can_close_buff = Event()
-        self._can_close_buff.set()
+        self._lines = None
 
     def set_delimiter(self, delimiter):
         """Set delimiter."""
@@ -180,22 +179,6 @@ class CsvDataProducer(DataProducer):
         if delimiter is not None:
             self.set_delimiter(delimiter)
         self.encoding = encoding
-
-    def start(self):
-        """Init reader."""
-        LOG.debug('Call CsvDataProducer.start()')
-        self._buf = open(self.file_name, encoding=self.encoding)
-        self._csv_reader = csv.reader(
-            self._buf,
-            delimiter=self._delimiter
-        )
-        self._headers = next(self._csv_reader)
-        self._detect_indexes()
-
-    def stop(self):
-        """Close buffer."""
-        self._can_close_buff.wait()
-        self._buf.close()
 
     def select_columns(self, keys):
         """Select returned columns. Numbers or names of columns can be
@@ -216,17 +199,25 @@ class CsvDataProducer(DataProducer):
                     pass
             self._indexes = indexes
 
+    def start(self):
+        """Init reader."""
+        # LOG.debug('Call CsvDataProducer.start()')
+        with open(self.file_name, encoding=self.encoding) as buf:
+            self._lines = iter(buf.read().split('\n'))
+        line = next(self._lines)
+        self._headers = line.split(self._delimiter)
+        self._detect_indexes()
+
     def get_sample(self):
-        """ Return sample. """
-        self._can_close_buff.clear()
+        """Return sample."""
         sample = []
         try:
-            full_sample = next(self._csv_reader)
+            line = next(self._lines)
+            full_sample = line.split(self._delimiter)
             if self._indexes is None:
                 return full_sample
             for ind in self._indexes:
                 sample.append(full_sample[ind])
         except StopIteration:
             sample = ['' for ind in self._indexes]
-        self._can_close_buff.set()
         return sample
