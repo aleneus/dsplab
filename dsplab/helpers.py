@@ -33,7 +33,7 @@ def import_entity(name):
     parts = name.split('.')
     module_name = '.'.join(parts[:-1])
     entity_name = parts[-1]
-    if len(module_name) == 0:
+    if module_name == "":
         module_name = '__main__'
     module = importlib.import_module(module_name)
     entity = getattr(module, entity_name)

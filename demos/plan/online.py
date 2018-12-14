@@ -20,6 +20,7 @@ def main():
     plan.inputs = [node_1]
     plan.outputs = [node_3]
 
+    plan.reduce_calls()
     xs = [1, 2, 3, 4, 5]
     for x in xs:
         y = plan([x])[0]
