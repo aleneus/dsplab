@@ -20,7 +20,6 @@ from threading import Lock, Event
 from collections import deque
 import time
 import random
-import csv
 import logging
 
 LOG = logging.getLogger(__name__)

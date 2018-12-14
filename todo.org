@@ -275,6 +275,7 @@
 * 0.35.2
 ** DONE [t] Optimize calls in plan
 ** DONE [t] Add optimization to demo
+** DONE [t] Brush
 * 0.35.3
 ** TODO [t] Debug repeated timer, it works strange
 * later

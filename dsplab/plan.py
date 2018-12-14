@@ -135,7 +135,6 @@ class WorkNode(Node):
     def __init__(self, work=None, inputs=None):
         super().__init__(inputs)
         self.work = work
-        self._func = self._work
 
     def info(self, as_string=False):
         # LOG.debug("call info() for work node {}".format(self.node_id))
@@ -152,6 +151,7 @@ class WorkNode(Node):
     def set_work(self, work):
         """Set work for the node."""
         self._work = work
+        self._func = work
 
     work = property(get_work, set_work, doc="Work in node")
 
@@ -163,7 +163,7 @@ class WorkNode(Node):
             pass
 
     def __call__(self, data):
-        self._res = self._func(*data)
+        self._res = self.work(*data)
 
 
 class MapNode(WorkNode):
