@@ -274,6 +274,7 @@
 ** DONE [b] CsvDataProducer: load file to memory ant then iterate it
 * 0.35.2
 ** DONE [t] Optimize calls in plan
+** DONE [t] Add optimization to demo
 * 0.35.3
 ** TODO [t] Debug repeated timer, it works strange
 * later
@@ -293,3 +294,4 @@
 ** TODO [p] Split plan.py to node.py and plan.py
 ** TODO [e] Refactor player.CsvDataProducer
 ** TODO [p] Rename Worker._add_param() to Worker._add_param()
+** TODO [t] Update license years
