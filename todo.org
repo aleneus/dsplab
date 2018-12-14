@@ -273,6 +273,8 @@
 * 0.35.1
 ** DONE [b] CsvDataProducer: load file to memory ant then iterate it
 * 0.35.2
+** DONE [t] Optimize calls in plan
+* 0.35.3
 ** TODO [t] Debug repeated timer, it works strange
 * later
 ** TODO [t] Brush demos

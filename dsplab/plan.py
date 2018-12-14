@@ -134,7 +134,8 @@ class WorkNode(Node):
     """Node with work."""
     def __init__(self, work=None, inputs=None):
         super().__init__(inputs)
-        self._work = work
+        self.work = work
+        self._func = self._work
 
     def info(self, as_string=False):
         # LOG.debug("call info() for work node {}".format(self.node_id))
@@ -152,10 +153,17 @@ class WorkNode(Node):
         """Set work for the node."""
         self._work = work
 
-    work = property(get_work, set_work)
+    work = property(get_work, set_work, doc="Work in node")
+
+    def reduce_call(self):
+        """Try to reduce call chain."""
+        try:
+            self._func = self._work.worker.__call__
+        except AttributeError:
+            pass
 
     def __call__(self, data):
-        self._res = self.work(*data)
+        self._res = self._func(*data)
 
 
 class MapNode(WorkNode):
@@ -346,6 +354,15 @@ class Plan(Activity):
                 break
 
         return [output.get_result() for output in self._outputs]
+
+    def reduce_calls(self):
+        """Reduce call chains for all nodes. Recommended before run
+        quick plans."""
+        for node in self._nodes:
+            if isinstance(node, WorkNode):
+                node.reduce_call()
+            if isinstance(node, MapNode):
+                node.reduce_call()
 
     def quick_run(self, data):
         """Sequential execution of plan with no hooks (for on-line
