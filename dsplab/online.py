@@ -60,8 +60,40 @@ class QueueFilter(Worker):
 
 class Delayer(QueueFilter):
     """Provide delay in online processing."""
-    def __call__(self, sample):
+    def proc_queue(self):
         return self.queue[0]
+
+
+class And(Worker):
+    """And operation."""
+    def __call__(self, sample):
+        """Do operation.
+
+        Parameters
+        ----------
+        sample: array_like of floats
+            Input values.
+        """
+        res = 1
+        for value in sample:
+            res *= value
+        return res
+
+
+class Or(Worker):
+    """Or operation."""
+    def __call__(self, sample):
+        """Do operation.
+
+        Parameters
+        ----------
+        sample: array_like of floats
+            Input values.
+        """
+        res = 0
+        for value in sample:
+            res += value * (1 - res)
+        return res
 
 
 class OnlineFilter(Worker):
@@ -188,55 +220,3 @@ class OnlineFilter(Worker):
         : float
             Output value.
         """
-
-
-class OnlineLogic(OnlineFilter):
-    """Base class for logical connectors of outputs of several
-    detectors or other connectors.
-
-    Parameters
-    ----------
-    inputs : list
-        Input filters.
-    """
-    def __init__(self, inputs=None):
-        super().__init__()
-        self._info['descr'] = 'Logical operation'
-        self._info['inputs'] = []
-        if inputs is None:
-            self.inputs = []
-        else:
-            for inpt in inputs:
-                self.add_input(inpt)
-
-    def add_input(self, inpt):
-        """Add input of other connector.
-
-        Parameters
-        ----------
-        inpt : Object
-            Input.
-        """
-        self.inputs.append(inpt)
-        self._info['inputs'].append(inpt.info())
-
-    def add_sample(self, sample):
-        raise NotImplementedError
-
-
-class And(OnlineLogic):
-    """And connector."""
-    def add_sample(self, sample):
-        result = 1
-        for (inpt, value) in zip(self.inputs, sample):
-            result *= inpt.add_sample(value)
-        return result
-
-
-class Or(OnlineLogic):
-    """Or connector."""
-    def add_sample(self, sample):
-        res = 0
-        for (inpt, value) in zip(self.inputs, sample):
-            res += inpt.add_sample(value) * (1 - res)
-        return res

@@ -281,7 +281,9 @@
 ** DONE [t] Add ligthweigth QueueFilter class to online module
 ** DONE [t] Update unwrap point function
 ** DONE [t] Add online delayer worker
-** TODO [t] Refactor online logic
+** DONE [t] Refactor online logic
+** TODO [t] Remove add_sample from online filter, use __call__
+** TODO [t] Fix floats in docstrings in online module
 ** TODO [t] Add online smoother
 * later
 ** TODO [p] Add online summator
