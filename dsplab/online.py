@@ -13,40 +13,103 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" This module implements the base class for online filters. """
+"""This module implements the base class for online filters."""
 
 from math import pi
 from collections import deque
 import numpy as np
-from dsplab.activity import Activity
+from dsplab.activity import Worker
 
 PI = pi
 PI2 = 2 * PI
 
 
-def unwrap_point(w):
-    """ Unwrap angle (for signle value). """
-    if w < -PI:
-        return w + PI2
-    if w > PI:
-        return w - PI2
-    return w
+def unwrap_point(phi):
+    """Unwrap angle (for signle value)."""
+    if phi < -pi:
+        return phi + (1 + int(phi / -pi)) * pi
+    if phi > pi:
+        return phi - (1 + int(phi / pi)) * pi
+    return phi
 
 
-class OnlineFilter(Activity):
-    """Base class for online filter.
+class QueueFilter(Worker):
+    """Online filter with queue.
 
     Parameters
     ----------
-    ntaps : int
+    ntaps: int
+        Lenght of filter.
+    fill_with: object
+        Initial value of every element of queue.
+    """
+    def __init__(self, ntaps, fill_with=0):
+        super().__init__()
+        self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
+        self.ntaps = ntaps
+
+    def __call__(self, sample):
+        """Add sample to queue."""
+        self.queue.append(sample)
+        return self.proc_queue()
+
+    def proc_queue(self):
+        """Process queue."""
+        raise NotImplementedError
+
+
+class Delayer(QueueFilter):
+    """Provide delay in online processing."""
+    def proc_queue(self):
+        return self.queue[0]
+
+
+class And(Worker):
+    """And operation."""
+    def __call__(self, sample):
+        """Do operation.
+
+        Parameters
+        ----------
+        sample: array_like of floats
+            Input values.
+        """
+        res = 1
+        for value in sample:
+            res *= value
+        return res
+
+
+class Or(Worker):
+    """Or operation."""
+    def __call__(self, sample):
+        """Do operation.
+
+        Parameters
+        ----------
+        sample: array_like of floats
+            Input values.
+        """
+        res = 0
+        for value in sample:
+            res += value * (1 - res)
+        return res
+
+
+class OnlineFilter(Worker):
+    """Universal online filter.
+
+    Parameters
+    ----------
+    ntaps: int
         Length of internal queue using for accumulation of input
         samples. Default is None.
-    smooth_ntaps : int
+    smooth_ntaps: int
         Length of queue using for smoothing output values. Default
         id None.
-    fill_with : float
+    fill_with: object
         Initial value of every element of queues.
-    step : int
+    step: int
         Step. Must be positive.
     """
     def __init__(self, ntaps=None, smooth_ntaps=None, fill_with=0, step=1):
@@ -61,8 +124,6 @@ class OnlineFilter(Activity):
         else:
             self.add_sample_func = self.__add_sample_full
 
-        self.queue = None
-        self.smooth_queue = None
         if ntaps is not None:
             self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
         if smooth_ntaps is not None:
@@ -79,57 +140,54 @@ class OnlineFilter(Activity):
         self.ntaps = ntaps
         self.smooth_ntaps = smooth_ntaps
 
-    def add_sample(self, value):
-        """
-        Add input sample to filter and return output value.
+    def __call__(self, sample):
+        """Add input sample to filter and return output value.
 
         Parameters
         ----------
-        value : float
-            Input value.
+        sample: object
+            Input sample.
 
         Returns
         -------
-        : float
+        : object
             Output value.
-
         """
-        return self.add_sample_func(value)
+        return self.add_sample_func(sample)
 
-    def __call__(self, value):
-        return self.add_sample_func(value)
-
-    def __add_sample_simple(self, value):
-        """ Add sample without using queues. """
+    def __add_sample_simple(self, sample):
+        """Add sample without using queues."""
         self.steps += 1
         if self.steps == self.step:
             self.steps = 0
-            return self.proc_sample(value)
+            return self.proc_sample(sample)
         return None
 
-    def __add_sample_only_queue(self, value):
-        """ Add sample with no smoothing. """
+    def __add_sample_only_queue(self, sample):
+        """Add sample with no smoothing."""
         self.steps += 1
-        self.queue.append(value)
+        self.queue.append(sample)
         if self.steps == self.step:
             self.steps = 0
             return self.proc_queue()
         return None
 
-    def __add_sample_only_smooth(self, value):
-        """ Add sample with not internal queue but with smoothed ouput. """
+    def __add_sample_only_smooth(self, sample):
+        """Add sample with not internal queue but with smoothed
+        ouput."""
         self.steps += 1
         if self.steps == self.step:
             self.steps = 0
-            self.smooth_queue.append(self.proc_sample(value))
+            self.smooth_queue.append(self.proc_sample(sample))
             resm = np.dot(np.array(self.smooth_queue), self.wind)
             return resm
         return None
 
-    def __add_sample_full(self, value):
-        """ Add sample with internal queue and smoothing of ouput values. """
+    def __add_sample_full(self, sample):
+        """Add sample with internal queue and smoothing of ouput
+        values."""
         self.steps += 1
-        self.queue.append(value)
+        self.queue.append(sample)
         if self.steps == self.step:
             self.steps = 0
             self.smooth_queue.append(self.proc_queue())
@@ -138,83 +196,24 @@ class OnlineFilter(Activity):
         return None
 
     def proc_queue(self):
-        """
-        Process queue.
+        """Process queue.
 
         Returns
         -------
-        : float
+        : object
             Ouput value.
-
         """
-        pass
 
-    def proc_sample(self, value):
-        """
-        Process sample.
+    def proc_sample(self, sample):
+        """Process sample.
 
         Parameters
         ----------
-        x : float
-            Input value.
+        sample: object
+            Input sample.
 
         Returns
         -------
-        : float
+        : object
             Output value.
-
         """
-        pass
-
-
-class OnlineLogic(OnlineFilter):
-    """Base class for logical connectors of outputs of several
-    detectors or other connectors.
-
-    Parameters
-    ----------
-    inputs : list
-        Input filters.
-    """
-    def __init__(self, inputs=None):
-        super().__init__()
-        self._info['descr'] = 'Logical operation'
-        self._info['inputs'] = []
-        if inputs is None:
-            self.inputs = []
-        else:
-            for inpt in inputs:
-                self.add_input(inpt)
-
-    def add_input(self, inpt):
-        """ Add input of other connector.
-
-        Parameters
-        ----------
-        inpt : Object
-            Input.
-
-        """
-        self.inputs.append(inpt)
-        self._info['inputs'].append(inpt.info())
-
-    def add_sample(self, xs):
-        raise NotImplementedError
-
-
-class And(OnlineLogic):
-    """ And connector. """
-    def add_sample(self, values):
-        result = 1
-        for (inpt, value) in zip(self.inputs, values):
-            result *= inpt.add_sample(value)
-        return result
-
-
-class Or(OnlineLogic):
-    """ Or connector. """
-    def add_sample(self, values):
-        res = 0
-        for (inpt, value) in zip(self.inputs, values):
-            res += inpt.add_sample(value) * (1 - res)
-        return res

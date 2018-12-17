@@ -19,10 +19,10 @@ import importlib
 import json
 
 
-def is_iterable(x):
-    """ Check if x is iterable. """
+def is_iterable(obj):
+    """Check if obj is iterable."""
     try:
-        [e for e in x]
+        [e for e in obj]
     except TypeError:
         return False
     return True
