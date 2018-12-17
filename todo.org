@@ -276,19 +276,20 @@
 ** DONE [t] Optimize calls in plan
 ** DONE [t] Add optimization to demo
 ** DONE [t] Brush
-* 0.35.3
-** TODO [t] Debug repeated timer, it works strange
+* 0.36.0
+** DONE [t] Inherit OnlineFilter from Worker
+** DONE [t] Add ligthweigth QueueFilter class to online module
+** TODO [t] Update unwrap point function
 * later
+** TODO [t] Debug repeated timer, it works strange
 ** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
-** TODO [e] Add separate online filter without step stuff
-** TODO [t] Inherit OnlineFilter from Worker
 ** TODO [e] Use add_param() in OnlineFilter
 ** TODO [p] Add example of verification of plan
 ** TODO [e] Optimize the work with data in Plan and Nodes
 ** TODO [p] Add parallelism to Plan execution
 ** TODO [p] Add instance_info for activity
-** TODO [p] Online filter. add arguments to self._info
+** TODO [p] Online filter add arguments to self._info
 ** TODO [e] Add function for calculating of frequency using Hilbert transform
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [t] Make interval an option in timer

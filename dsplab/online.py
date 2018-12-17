@@ -18,7 +18,7 @@
 from math import pi
 from collections import deque
 import numpy as np
-from dsplab.activity import Activity
+from dsplab.activity import Activity, Worker
 
 PI = pi
 PI2 = 2 * PI
@@ -33,7 +33,31 @@ def unwrap_point(w):
     return w
 
 
-class OnlineFilter(Activity):
+class QueueFilter(Worker):
+    """Online filter with queue.
+
+    Parameters
+    ----------
+    ntaps: int
+        Lenght of filter.
+    fill_with: object
+        Initial value of every element of queue.
+    """
+    def __init__(self, ntaps, fill_with=0):
+        super().__init__()
+        self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
+
+    def __call__(self, sample):
+        """Add sample to queue."""
+        self.queue.append(sample)
+        return self.proc_queue()
+
+    def proc_queue(self):
+        """Process queue."""
+        raise NotImplementedError
+
+
+class OnlineFilter(Worker):
     """Base class for online filter.
 
     Parameters
