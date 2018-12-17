@@ -18,11 +18,13 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.35
+What's new in 0.36
 ------------------
 
-* PassNode has been added.
-* Deprecated stuff in player has been deleted.
+* Lightweight QueueFilter class has been added.
+* Function for unwrapping point has been updated.
+* Online delayer has been added.
+* Online logic classes have been refactored.
 
 Modules
 -------

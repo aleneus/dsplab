@@ -1,6 +1,12 @@
 History
 =======
 
+0.35
+----
+
+* PassNode has been added.
+* Deprecated stuff in player has been deleted.
+
 0.34
 ----
 

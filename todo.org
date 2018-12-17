@@ -278,15 +278,17 @@
 ** DONE [t] Brush
 * 0.36.0
 ** DONE [t] Inherit OnlineFilter from Worker
-** DONE [t] Add ligthweigth QueueFilter class to online module
+** DONE [t] Add lightweight QueueFilter class to online module
 ** DONE [t] Update unwrap point function
 ** DONE [t] Add online delayer worker
 ** DONE [t] Refactor online logic
 ** DONE Refactoring
 *** DONE [t] Remove add_sample from online filter, use __call__
 *** DONE [t] Fix floats in docstrings in online module
-** TODO [t] Add online smoother
+** DONE [t] Update what's new in docs
 * later
+** TODO [t] Think about place (module or modules) for common workers
+** TODO [t] Add online smoother
 ** TODO [p] Add online summator
 ** TODO [p] Add online subtractor
 ** TODO [t] Debug repeated timer, it works strange
