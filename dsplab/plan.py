@@ -61,7 +61,7 @@ class Node(Activity):
         for inpt in self.get_inputs():
             input_id = '{}'.format(inpt.node_id)
             input_ids.append(input_id)
-        if len(input_ids) != 0:
+        if input_ids:
             info['inputs'] = input_ids
 
         if as_string:
@@ -134,7 +134,9 @@ class WorkNode(Node):
     """Node with work."""
     def __init__(self, work=None, inputs=None):
         super().__init__(inputs)
-        self.work = work
+        self._work = None
+        self._func = work
+        self.set_work(work)
 
     def info(self, as_string=False):
         # LOG.debug("call info() for work node {}".format(self.node_id))
@@ -169,9 +171,6 @@ class WorkNode(Node):
 class MapNode(WorkNode):
     """Apply work to all components of iterable input and build
     iterable output."""
-    def __init__(self, work=None, inputs=None):
-        super().__init__(work, inputs)
-
     def __call__(self, data):
         self._res = []
 
@@ -386,9 +385,9 @@ class Plan(Activity):
         : str
             Empty string or description of error.
         """
-        if len(self._inputs) == 0:
+        if not self._inputs:
             return False, "There are no inputs in the plan."
-        if len(self._outputs) == 0:
+        if not self._outputs:
             return False, "There are no outputs in the plan."
         return True, ""
 

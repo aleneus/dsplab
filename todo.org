@@ -279,7 +279,8 @@
 * 0.36.0
 ** DONE [t] Inherit OnlineFilter from Worker
 ** DONE [t] Add ligthweigth QueueFilter class to online module
-** TODO [t] Update unwrap point function
+** DONE [t] Update unwrap point function
+** TODO [t] Add smoother to online module
 * later
 ** TODO [t] Debug repeated timer, it works strange
 ** TODO [t] Brush demos
