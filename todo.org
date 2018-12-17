@@ -282,8 +282,9 @@
 ** DONE [t] Update unwrap point function
 ** DONE [t] Add online delayer worker
 ** DONE [t] Refactor online logic
-** TODO [t] Remove add_sample from online filter, use __call__
-** TODO [t] Fix floats in docstrings in online module
+** DONE Refactoring
+*** DONE [t] Remove add_sample from online filter, use __call__
+*** DONE [t] Fix floats in docstrings in online module
 ** TODO [t] Add online smoother
 * later
 ** TODO [p] Add online summator

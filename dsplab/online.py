@@ -97,19 +97,19 @@ class Or(Worker):
 
 
 class OnlineFilter(Worker):
-    """Base class for online filter.
+    """Universal online filter.
 
     Parameters
     ----------
-    ntaps : int
+    ntaps: int
         Length of internal queue using for accumulation of input
         samples. Default is None.
-    smooth_ntaps : int
+    smooth_ntaps: int
         Length of queue using for smoothing output values. Default
         id None.
-    fill_with : float
+    fill_with: object
         Initial value of every element of queues.
-    step : int
+    step: int
         Step. Must be positive.
     """
     def __init__(self, ntaps=None, smooth_ntaps=None, fill_with=0, step=1):
@@ -140,22 +140,19 @@ class OnlineFilter(Worker):
         self.ntaps = ntaps
         self.smooth_ntaps = smooth_ntaps
 
-    def add_sample(self, sample):
+    def __call__(self, sample):
         """Add input sample to filter and return output value.
 
         Parameters
         ----------
-        sample : float
+        sample: object
             Input sample.
 
         Returns
         -------
-        : float
+        : object
             Output value.
         """
-        return self.add_sample_func(sample)
-
-    def __call__(self, sample):
         return self.add_sample_func(sample)
 
     def __add_sample_simple(self, sample):
@@ -203,7 +200,7 @@ class OnlineFilter(Worker):
 
         Returns
         -------
-        : float
+        : object
             Ouput value.
         """
 
@@ -212,11 +209,11 @@ class OnlineFilter(Worker):
 
         Parameters
         ----------
-        sample : float
+        sample: object
             Input sample.
 
         Returns
         -------
-        : float
+        : object
             Output value.
         """
