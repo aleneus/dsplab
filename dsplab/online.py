@@ -46,6 +46,7 @@ class QueueFilter(Worker):
     def __init__(self, ntaps, fill_with=0):
         super().__init__()
         self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
+        self.ntaps = ntaps
 
     def __call__(self, sample):
         """Add sample to queue."""
@@ -55,6 +56,12 @@ class QueueFilter(Worker):
     def proc_queue(self):
         """Process queue."""
         raise NotImplementedError
+
+
+class Delayer(QueueFilter):
+    """Provide delay in online processing."""
+    def __call__(self, sample):
+        return self.queue[0]
 
 
 class OnlineFilter(Worker):
