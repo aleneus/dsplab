@@ -293,6 +293,7 @@
 ** DONE [t] Update whats new in docs
 ** DONE [t] Update years in license
 * later
+** TODO [t] Inspect tests folder
 ** TODO [e] Up pylint result for demos to 6
 ** TODO [e] activity.get_work_from_dict(): Too nested work with params
 ** TODO [t] Think about place (module or modules) for common workers

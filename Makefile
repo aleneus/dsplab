@@ -35,8 +35,6 @@ release:
 	@echo 'Add tag: OK'
 	hg up develop
 	@echo 'Update to develop: OK'
-	hg push
-	@echo 'Push: OK'
 
 upload:
 	python3 setup.py sdist upload
