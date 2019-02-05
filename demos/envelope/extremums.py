@@ -1,14 +1,17 @@
-""" Example of calculating amplitude by extremums. """
+"""Example of calculating amplitude by extremums."""
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-from dsplab.modulation import envelope_by_extremums
+
 import matplotlib.pyplot as plt
 import numpy as np
 
+sys.path.insert(0, os.path.abspath('.'))
+from dsplab.modulation import envelope_by_extremums
+
+
 def main():
-    """ Run example. """
+    """Run example."""
     fs = 50
     f = 0.2
     T = 60
@@ -24,6 +27,6 @@ def main():
     plt.tight_layout()
     plt.show()
 
+
 if __name__ == "__main__":
     main()
-

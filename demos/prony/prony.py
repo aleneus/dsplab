@@ -1,11 +1,12 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
 
-from dsplab import prony
 import matplotlib.pyplot as plt
 from pylab import rcParams
 import numpy as np
+
+sys.path.insert(0, os.path.abspath('.'))
+from dsplab import prony
 
 fs = 50
 T = 60
@@ -28,6 +29,6 @@ for i in range(L):
     plt.subplot(L*100 + 10 + i+1)
     plt.plot(es[i])
     plt.grid(True)
-    
+
 plt.tight_layout()
 plt.savefig("decomp.png")

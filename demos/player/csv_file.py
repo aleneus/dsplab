@@ -3,7 +3,6 @@ import sys
 import os
 
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../..'))
 from dsplab.player import CsvDataProducer, SignalPlayer
 
 
@@ -24,5 +23,4 @@ def main():
     player.stop()
 
 
-if __name__ == "__main__":
-    main()
+main()

@@ -1,11 +1,12 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath('../..'))
 
 import matplotlib.pyplot as plt
 import numpy as np
-from dsplab.modulation import iq_demod
 from scipy.signal import firwin
+
+sys.path.insert(0, os.path.abspath('../..'))
+from dsplab.modulation import iq_demod
 
 fs = 100
 

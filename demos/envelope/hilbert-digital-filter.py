@@ -1,15 +1,17 @@
-""" Amplitude with Hilbert digital filter. """
+"""Amplitude with Hilbert digital filter."""
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-from dsplab.modulation import digital_hilbert_filter
+
 import matplotlib.pyplot as plt
 import numpy as np
 
+sys.path.insert(0, os.path.abspath('.'))
+from dsplab.modulation import digital_hilbert_filter
+
 
 def main():
-    """ Run  example. """
+    """Run example."""
     fs = 50
     f = 0.4
     T = 100
@@ -28,5 +30,4 @@ def main():
     plt.show()
 
 
-if __name__ == "__main__":
-    main()
+main()

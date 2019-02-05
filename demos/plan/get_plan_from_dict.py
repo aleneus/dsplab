@@ -4,7 +4,6 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
 from dsplab.plan import get_plan_from_dict
-from workers import *
 
 
 SETTINGS = {
@@ -16,7 +15,7 @@ SETTINGS = {
             'work': {
                 'descr': "First step",
                 'worker': {
-                    'class': "Linear",
+                    'class': "workers.Linear",
                     'params': {
                         'k': 1,
                         'b': 1,
@@ -43,7 +42,7 @@ SETTINGS = {
             'work': {
                 'descr': "Third step",
                 'worker': {
-                    'class': "Inc"
+                    'class': "workers.Inc"
                 }
             },
             'inputs': ['b'],

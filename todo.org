@@ -289,16 +289,17 @@
 * 0.37.0
 ** DONE [t] Add possibility to use params as "$name" in JSON with plan
 ** DONE [t] Add set_quick() method to Plan
+** TODO [t] Brush demos
 ** TODO [t] Update whats new in docs
 ** TODO [t] Update years in license
 * later
+** TODO [e] Up pylint result for demos to 6
 ** TODO [e] activity.get_work_from_dict(): Too nested work with params
 ** TODO [t] Think about place (module or modules) for common workers
 ** TODO [t] Add online smoother
 ** TODO [p] Add online summator
 ** TODO [p] Add online subtractor
 ** TODO [t] Debug repeated timer, it works strange
-** TODO [t] Brush demos
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [e] Use add_param() in OnlineFilter
 ** TODO [p] Add example of verification of plan

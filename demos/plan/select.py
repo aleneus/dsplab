@@ -27,10 +27,10 @@ def main():
     plan.outputs = [select_node_m, select_node_s]
 
     res = plan([
-        [1,2,3],
-        [2,3,4]
+        [1, 2, 3],
+        [2, 3, 4]
     ])
     print("Outputs: ", res)
 
-main()
 
+main()

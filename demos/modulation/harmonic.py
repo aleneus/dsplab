@@ -2,10 +2,11 @@
 
 import sys
 import os
-sys.path.insert(0, os.path.abspath('.'))
-import matplotlib.pyplot as plt
-import numpy as np
 import random
+
+import matplotlib.pyplot as plt
+
+sys.path.insert(0, os.path.abspath('.'))
 from dsplab.modulation import harm
 
 
@@ -19,8 +20,6 @@ def main():
     """ Run example. """
     T = 10
     fs = 100
-    a = 1
-    phi = 0
     x, t = harm(
         length=T, sample_rate=fs,
         amp=1, freq=1,

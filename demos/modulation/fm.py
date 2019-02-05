@@ -2,9 +2,10 @@
 
 import sys
 import os
-sys.path.insert(0, os.path.abspath('.'))
+
 import matplotlib.pyplot as plt
-import numpy as np
+
+sys.path.insert(0, os.path.abspath('.'))
 from dsplab.modulation import freq_mod
 
 
@@ -19,7 +20,6 @@ def main():
     T = 10
     fs = 100
     a = 1
-    phi = 0
     x, ph, t = freq_mod(
         length=T,
         sample_rate=fs,

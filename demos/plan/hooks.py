@@ -25,7 +25,7 @@ def stop_handler(node):
 def progress_handler():
     """Progress handler."""
     print("Calculated one node.")
-    
+
 
 def main():
     print(__doc__)

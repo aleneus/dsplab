@@ -1,11 +1,11 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
 
-from dsplab import spectran as sp
-from dsplab import filtration as flt
 import matplotlib.pyplot as plt
 import numpy as np
+
+sys.path.insert(0, os.path.abspath('.'))
+from dsplab import spectran as sp
 
 fs = 50
 f1 = 0.2
@@ -26,13 +26,13 @@ X, f_X = sp.spectrum(x, fs, one_side=True)
 # plotting
 plt.figure(figsize=(9, 9))
 
-plt.subplot(2,1,1)
-plt.plot(t,x)
+plt.subplot(2, 1, 1)
+plt.plot(t, x)
 plt.xlabel("Time [sec]")
 plt.ylabel("Amplitude")
 plt.grid(True)
 
-plt.subplot(2,1,2)
+plt.subplot(2, 1, 2)
 plt.plot(f_X, X)
 plt.xlabel("Frequency [Hz]")
 plt.ylabel("Amplitude")

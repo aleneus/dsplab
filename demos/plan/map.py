@@ -36,5 +36,5 @@ def main():
     ])
     print("Outputs:", res)
 
-main()
 
+main()

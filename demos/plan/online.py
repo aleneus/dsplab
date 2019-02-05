@@ -26,5 +26,6 @@ def main():
         y = plan([x])[0]
         print("{} -> {}".format(x, y))
 
+
 if __name__ == "__main__":
     main()

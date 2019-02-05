@@ -1,10 +1,9 @@
-""" Example of getting the work from dictionary. """
+"""Example of getting the work from dictionary."""
 
 import sys
 import os
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../..'))
 
+sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Worker
 from dsplab.activity import get_work_from_dict
 
@@ -22,7 +21,7 @@ class Linear(Worker):
 
 
 def main():
-    """ Entry point. """
+    """Entry point."""
     work_settings = {
         'descr': 'Transformation',
         'worker': {
@@ -41,5 +40,4 @@ def main():
     print(transfrom.info(as_string=True))
 
 
-if __name__ == "__main__":
-    main()
+main()

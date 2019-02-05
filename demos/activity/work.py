@@ -1,9 +1,9 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../..'))
 
+sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Worker, Work
+
 
 class Linear(Worker):
     """Linear transformation: y = k*x + b"""
@@ -16,6 +16,7 @@ class Linear(Worker):
         y = x*self.k + self.b
         return y
 
+
 def sqr(x):
     y = x**2
     return y
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     transfrom = Work('Some transformation')
 
     x = 5
-    
+
     transfrom.set_worker(lin1)
     print(transfrom.info(as_string=True))
     print(transfrom(x))

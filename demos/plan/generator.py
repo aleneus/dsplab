@@ -10,7 +10,7 @@ from dsplab.plan import WorkNode, Plan
 
 def gen():
     """Generate random number."""
-    y = randint(1,10)
+    y = randint(1, 10)
     print("gen -> {}".format(y))
     return y
 

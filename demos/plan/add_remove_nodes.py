@@ -26,7 +26,7 @@ def main():
     print(d.inputs)
 
     try:
-        p.remove_node(a) # must raise an exception
+        p.remove_node(a)  # must raise an exception
     except RuntimeError as ex:
         print(ex)
 
