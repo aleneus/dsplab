@@ -288,7 +288,7 @@
 ** DONE [t] Update what's new in docs
 * 0.37.0
 ** DONE [t] Add possibility to use params as "$name" in JSON with plan
-** TODO [t] Add set_quick() method to Plan
+** DONE [t] Add set_quick() method to Plan
 ** TODO [t] Update whats new in docs
 ** TODO [t] Update years in license
 * later

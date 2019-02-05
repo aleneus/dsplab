@@ -234,13 +234,18 @@ class Plan(Activity):
         self._outputs = []
         self._progress_func = None
 
-        self._quick = quick
-        if not self._quick:
+        self._quick = None
+        self.set_quick(quick)
+
+        self._sequence = []
+
+    def set_quick(self, value=True):
+        """Make plan quick (for online with no hooks) or not."""
+        self._quick = value
+        if not value:
             self._run_func = self.run
         else:
             self._run_func = self.quick_run
-
-        self._sequence = []
 
     def _detect_sequence(self):
         """Find sequence of nodes for execution."""
