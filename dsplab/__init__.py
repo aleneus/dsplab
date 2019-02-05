@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2018 Aleksandr Popov
+# Copyright (C) 2017-2019 Aleksandr Popov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -16,4 +16,4 @@
 """Constants."""
 
 PACKAGE = 'dsplab'
-__version__ = '0.36.0'
+__version__ = '0.37.0'

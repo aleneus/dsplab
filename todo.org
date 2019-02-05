@@ -291,7 +291,7 @@
 ** DONE [t] Add set_quick() method to Plan
 ** DONE [t] Brush demos
 ** DONE [t] Update whats new in docs
-** TODO [t] Update years in license
+** DONE [t] Update years in license
 * later
 ** TODO [e] Up pylint result for demos to 6
 ** TODO [e] activity.get_work_from_dict(): Too nested work with params
