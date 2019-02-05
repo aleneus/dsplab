@@ -18,13 +18,12 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.36
+What's new in 0.37
 ------------------
 
-* Lightweight QueueFilter class has been added.
-* Function for unwrapping point has been updated.
-* Online delayer has been added.
-* Online logic classes have been refactored.
+* Possibility to use params as "$name" in JSON with plan
+* New method of Plan: set_quick()
+* Examples have been brushed (style and flakes)
 
 Modules
 -------

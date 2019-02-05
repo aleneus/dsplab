@@ -1,6 +1,13 @@
 History
 =======
 
+0.36
+----
+* Lightweight QueueFilter class has been added.
+* Function for unwrapping point has been updated.
+* Online delayer has been added.
+* Online logic classes have been refactored.
+
 0.35
 ----
 
