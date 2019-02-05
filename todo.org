@@ -286,7 +286,13 @@
 *** DONE [t] Remove add_sample from online filter, use __call__
 *** DONE [t] Fix floats in docstrings in online module
 ** DONE [t] Update what's new in docs
+* 0.37.0
+** DONE [t] Add possibility to use params as "$name" in JSON with plan
+** TODO [t] Add set_quick() method to Plan
+** TODO [t] Update whats new in docs
+** TODO [t] Update years in license
 * later
+** TODO [e] activity.get_work_from_dict(): Too nested work with params
 ** TODO [t] Think about place (module or modules) for common workers
 ** TODO [t] Add online smoother
 ** TODO [p] Add online summator
@@ -305,4 +311,3 @@
 ** TODO [t] Make interval an option in timer
 ** TODO [e] Refactor player.CsvDataProducer
 ** TODO [p] Rename Worker.add_param() to Worker._add_param()
-** TODO [t] Update license years

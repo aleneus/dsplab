@@ -396,10 +396,22 @@ class Plan(Activity):
         return self._run_func(data)
 
 
-def get_plan_from_dict(settings):
+def get_plan_from_dict(settings, params=None):
     """Create and return instance of Plan described in dictionary.
 
-    **Keys**
+    Parameters
+    ----------
+    setting: dict
+        Dictionary with plan.
+    params: dict
+        Dictionary with parameters like "$name" for plan.
+
+    Returns
+    -------
+    : Plan
+        The instance of Plan.
+
+    **Keys in settings**
 
     - 'descr' - description of the plan (optional)
     - 'nodes' - list of dicts with nodes settings
@@ -420,7 +432,7 @@ def get_plan_from_dict(settings):
 
     - 'index' - index of selected item
     """
-    LOG.debug("get_plan_from_dict()")
+    # LOG.debug("get_plan_from_dict()")
     plan = Plan()
     if 'descr' in settings:
         plan.set_descr(settings['descr'])
@@ -430,7 +442,7 @@ def get_plan_from_dict(settings):
     for node_settings in nodes_settings:
         # LOG.debug('Node settings:{} '.format(node_settings))
         node_id = node_settings['id']
-        LOG.debug("Parse node with id={}".format(node_id))
+        # LOG.debug("Parse node with id=%s", node_id)
 
         try:
             node_class = node_settings['class']
@@ -440,12 +452,12 @@ def get_plan_from_dict(settings):
         if node_class == 'WorkNode':
             node = WorkNode()
             work_settings = node_settings['work']
-            work = get_work_from_dict(work_settings)
+            work = get_work_from_dict(work_settings, params)
             node.work = work
         elif node_class == 'MapNode':
             node = MapNode()
             work_settings = node_settings['work']
-            work = get_work_from_dict(work_settings)
+            work = get_work_from_dict(work_settings, params)
             node.work = work
         elif node_class == 'PackNode':
             node = PackNode()
@@ -455,7 +467,7 @@ def get_plan_from_dict(settings):
         elif node_class == 'PassNode':
             node = PassNode()
         else:
-            message = "Unsupported class of node: %s" % node_class
+            message = "Unsupported node class: {}".format(node_class)
             raise ValueError(message)
 
         if 'result' in node_settings:

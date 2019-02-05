@@ -113,9 +113,8 @@ class Work(Activity):
         return res
 
 
-def get_work_from_dict(settings):
+def get_work_from_dict(settings, params=None):
     """Create and return Work instance described in dictionary."""
-
     if 'descr' in settings:
         descr = settings['descr']
     else:
@@ -136,6 +135,18 @@ def get_work_from_dict(settings):
 
     if 'params' in worker_settings.keys():
         worker_params = worker_settings['params']
+
+        for key in worker_params:
+            if isinstance(worker_params[key], str):
+                if worker_params[key]:
+                    if worker_params[key][0] == "$":
+                        params_key = worker_params[key][1:]
+                        try:
+                            worker_params[key] = params[params_key]
+                        except KeyError:
+                            msg = "${} not found in params".format(params_key)
+                            raise RuntimeError(msg)
+
         worker = import_entity(worker_name)(**worker_params)
     else:
         if key == 'class':
