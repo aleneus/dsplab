@@ -309,6 +309,8 @@
 *** DONE [t] Remove as_string from all demos
 *** DONE [e] Restructure todo (add level to hierarchy)
 *** DONE [e] Up lint result
+** 0.37.2
+*** DONE [e] plan: self.work -> self._work
 * 0.38.0
 ** TODO [t] Worker: Deprecate public add_param(), define _add_param()
 ** TODO [t] Deprecate as_string parameter in info()
