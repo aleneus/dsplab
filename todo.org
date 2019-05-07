@@ -294,7 +294,7 @@
 ** DONE [t] Update years in license
 * 0.37.1
 ** DONE [b] Update values of parameters of worker in info
-** TODO [t] Remove as_string from all demos
+** DONE [t] Remove as_string from all demos
 ** TODO [e] Restructure todo (add level to hierarchy)
 * 0.38.0
 ** TODO [t] Worker: Deprecate public add_param(), define _add_param()

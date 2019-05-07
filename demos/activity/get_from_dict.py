@@ -4,8 +4,8 @@ import sys
 import os
 
 sys.path.insert(0, os.path.abspath('.'))
-from dsplab.activity import Worker
-from dsplab.activity import get_work_from_dict
+from dsplab.activity import Worker, get_work_from_dict
+from dsplab.helpers import pretty_json
 
 
 class Linear(Worker):
@@ -37,7 +37,7 @@ def main():
     y = transfrom(x)
     print(y)
     print()
-    print(transfrom.info(as_string=True))
+    print(pretty_json(transfrom.info()))
 
 
 main()

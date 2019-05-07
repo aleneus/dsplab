@@ -4,6 +4,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
 from dsplab.plan import get_plan_from_dict
+from dsplab.helpers import pretty_json
 
 
 SETTINGS = {
@@ -68,7 +69,7 @@ def main():
     y = plan([x])
     print(y)
     print()
-    print(plan.info(as_string=True))
+    print(pretty_json(plan.info()))
 
 
 if __name__ == "__main__":
