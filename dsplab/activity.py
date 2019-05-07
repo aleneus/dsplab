@@ -69,7 +69,7 @@ class Activity(metaclass=ActivityMeta):
 
         Returns
         -------
-        : str or dict
+        : dict or str
             Information about activity.
 
         """
@@ -82,12 +82,36 @@ class Worker(Activity):
     """ Worker is activity for doing some work. """
     def __init__(self):
         super().__init__()
-        self._info['params'] = {}
+        self._params = []
 
     def add_param(self, name, value=None):
         """ Add parameter and make record about it in info. """
         setattr(self, name, value)
-        self._info['params'][name] = value
+        self._reg_param(name)
+
+    def _reg_param(self, name):
+        """Add parameter to the list of parameters whose values should
+        be included in the info."""
+        if name in self._params:
+            return
+        self._params.append(name)
+
+    def info(self, as_string=False):
+        """Return actual info about worker including parameters
+        values."""
+        res = self._info.copy()
+
+        if not self._params:
+            return res
+
+        res['params'] = {}
+        for key in self._params:
+            value = getattr(self, key)
+            res['params'][key] = value
+
+        if as_string:
+            return pretty_json(res)
+        return res
 
 
 class Work(Activity):

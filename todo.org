@@ -292,6 +292,16 @@
 ** DONE [t] Brush demos
 ** DONE [t] Update whats new in docs
 ** DONE [t] Update years in license
+* 0.37.1
+** DONE [b] Update values of parameters of worker in info
+** TODO [t] Remove as_string from all demos
+** TODO [e] Restructure todo (add level to hierarchy)
+* 0.38.0
+** TODO [t] Worker: Deprecate public add_param(), define _add_param()
+** TODO [t] Deprecate as_string parameter in info()
+* 0.40.0
+** TODO [t] Worker: remove deprecated add_param()
+** TODO [t] Remove deprecated as_string in info()
 * later
 ** TODO [t] Inspect tests folder
 ** TODO [e] Up pylint result for demos to 6

@@ -2,7 +2,9 @@ import sys
 import os
 
 sys.path.insert(0, os.path.abspath('.'))
+
 from dsplab.activity import Worker, Work
+from dsplab.helpers import pretty_json
 
 
 class Linear(Worker):
@@ -30,13 +32,17 @@ if __name__ == "__main__":
     x = 5
 
     transfrom.set_worker(lin1)
-    print(transfrom.info(as_string=True))
+    print(pretty_json(transfrom.info()))
     print(transfrom(x))
 
     transfrom.set_worker(lin2)
-    print(transfrom.info(as_string=True))
+    print(pretty_json(transfrom.info()))
     print(transfrom(x))
 
     transfrom.set_worker(sqr)
-    print(transfrom.info(as_string=True))
+    print(pretty_json(transfrom.info()))
     print(transfrom(x))
+
+    # Info updated after changing value of parameter
+    lin1.k = 2
+    print(pretty_json(lin1.info()))
