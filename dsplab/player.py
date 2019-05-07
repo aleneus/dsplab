@@ -128,11 +128,9 @@ class DataProducer:
 
     def start(self):
         """Do some operations in producer when player starts."""
-        pass
 
     def stop(self):
         """Do some operations in producer when player stops."""
-        pass
 
 
 class RandomDataProducer(DataProducer):
