@@ -42,38 +42,40 @@
 ** DONE [t!] Plan. Remove detection of terminals from call
 ** DONE [e] Replace plan examples to plan/ folder from activity/
 ** DONE [t] Plan. Add doc for auto_terminals 
-* 0.24.0
-** DONE [t] Plan: Rename Translator to Transmitter
-** DONE [e] Plan: Provide auto and manual terminals without auto_terminals option
-** DONE [t] Modulation: Add a function for phase modulation
-** DONE [t] Plan: Support the inputs and ouputs in the function for setup plan from dict 
-* 0.24.1
-** DONE [b] Call plan twice with different input values
-** DONE [t] Add doc to Node.reset()
-* 0.24.2
-** DONE [t] Plan: Support the nodes-generators
-** DONE [t] Plan: Add docstring for transmitter
-** DONE [e] Plan: Add an example with node-generator
-** DONE [e] Use version numbers for requirements
-** DONE [p] Activity examples: split the long file plan.py
-* 0.24.3
-** DONE [t] Plan. Add workers helper unit to doc.
-* 0.25.0
-** DONE [t] Add noise_a and noise_f parameters to am
-** DONE [t] Add noise_a and noise_f parameters to fm
-** DONE [t] Add noise_a and noise_f parameters to phm
-** DONE [b] Activity: Add * to kwargs in work.__call__()
-** DONE [t] Plan: Add a worker with no init args to the example of setup_plan
-** DONE [t] Plan: setup_plan(): add key 'function' to explicit description of worker
-** DONE [t] Plan: add setup plan example to docs
-* 0.25.1
-** DONE [e] Docs: Add explanation to Node-generator example
-** DONE [b] Demos: rename setup-plan to setup_plan
-* 0.25.2
-* 0.25.3
-** DONE [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
-** DONE [t] Modulation: Refactoring the functions for modulation
-** DONE [b] Modulation: different kind of modulation gives different length of output signal
+* 0.24
+** 0.24.0
+*** DONE [t] Plan: Rename Translator to Transmitter
+*** DONE [e] Plan: Provide auto and manual terminals without auto_terminals option
+*** DONE [t] Modulation: Add a function for phase modulation
+*** DONE [t] Plan: Support the inputs and ouputs in the function for setup plan from dict 
+** 0.24.1
+*** DONE [b] Call plan twice with different input values
+*** DONE [t] Add doc to Node.reset()
+** 0.24.2
+*** DONE [t] Plan: Support the nodes-generators
+*** DONE [t] Plan: Add docstring for transmitter
+*** DONE [e] Plan: Add an example with node-generator
+*** DONE [e] Use version numbers for requirements
+*** DONE [p] Activity examples: split the long file plan.py
+** 0.24.3
+*** DONE [t] Plan. Add workers helper unit to doc.
+* 0.25
+** 0.25.0
+*** DONE [t] Add noise_a and noise_f parameters to am
+*** DONE [t] Add noise_a and noise_f parameters to fm
+*** DONE [t] Add noise_a and noise_f parameters to phm
+*** DONE [b] Activity: Add * to kwargs in work.__call__()
+*** DONE [t] Plan: Add a worker with no init args to the example of setup_plan
+*** DONE [t] Plan: setup_plan(): add key 'function' to explicit description of worker
+*** DONE [t] Plan: add setup plan example to docs
+** 0.25.1
+*** DONE [e] Docs: Add explanation to Node-generator example
+*** DONE [b] Demos: rename setup-plan to setup_plan
+** 0.25.2
+** 0.25.3
+*** DONE [e] index.rst: Use subtitles like 'organization of calculations' and 'dsp'
+*** DONE [t] Modulation: Refactoring the functions for modulation
+*** DONE [b] Modulation: different kind of modulation gives different length of output signal
 * 0.26.0
 ** DONE [t] Modulation. Return angles from fm()
 ** DONE [p] Plan: Add setup_from_dict()
@@ -83,199 +85,208 @@
 ** DONE [t] Update version in doc
 ** DONE [t] Remove example with deprecated setup_plan()
 ** DONE [t] Demo. setup_plan.py -> get_plan_from_dict.py
-* 0.27.0
-** DONE [t] Add SignalPlayer
-** DONE [t] Add CsvDataProducer
-** DONE [e] Use standart csv in CsvDataProducer
-** DONE [t] Debug
-** DONE [t] Add examples for SignalPlayer
-** DONE [t] Add player stuff to docs
-* 0.27.1
-** DONE Add whats new in docs
-** DONE player: CsvDataProducer: Add delimiter option to open_file method
-* 0.27.2
-** DONE Little corrections in examples
-* 0.27.3
-** DONE [b] Setup plan from dict.
-* 0.27.4
-** DONE [p] Inherit Plan and Node from Activity
-** DONE [t] Fix errors in the docstrings for CSV example
-** DONE [t] Remove depracated setup_plan() function
-** DONE [e] Activity, Plan: doc keys in settings used in setup_from_dict()
-* 0.27.5
-** DONE [e] Add example demonstrated the producing Work instance from dict
-** DONE [e] Check activity unit with pep8
-** DONE [t] Info method must give full information for plan
-* 0.27.6
-** DONE [b] Get work info from work instead of worker in Plan.info()
-* 0.27.7
-** DONE [b] Fix error in start timer code
-** DONE [b] Add lock to get_sample in player
-** DONE [e] Interval of timer instance can be changes
-* 0.27.8
-** DONE [b] Error in timer
-** DONE [b] Clear queue in player
-* 0.27.9
-** DONE [t] Do not raise error in proc_queue and proc_sample, just pass
-** DONE [t] Refactoring
-* 0.27.10
-** DONE [t] Add encoding parameter to CSV data producer
-* 0.28.0
-** DONE [t] Add class info of Activity in metaclass
-** DONE [t] Split class info and instance info more explicitly
-** DONE [t] Get info from class_info in __init__ of Activity
-** DONE [p] Add method for adding and documenting parameters of activity
-** DONE [t] Brush activity with pylint
-** DONE [t] Make correct universal arguments of Activity.__call__
-** DONE [b] Overwise -> Otherwise
-* 0.28.1
-** DONE [b] Typo in docs: Ornanization -> Organization
-** DONE [b] Remove print from ActivityMeta
-** DONE [e] Update module docsting in activity.py
-* 0.29.0
-** DONE [t] Inspect all library and update todo list
-** DONE [t] Add worker subclass of activity class
-** DONE [t] Update examples
-* 0.29.1
-** DONE [b] Update what's new in docs
-* 0.30.0
-** DONE [t] Add descr option to __init__ of Plan
-** DONE [p] Add function for simultaneous amp and freq modulation
-** DONE [e] Brush modulation module
-** DONE [e] Rename functions names and arguments in modulation unit
-** DONE [t] Set default phi=0 in modulation
-** DONE [t] Merge envelop module to modulation one
-** DONE [t] Remove envelop from docs
-** DONE [t] Update envelop examples
-** DONE [t] Update modulation examples
-** DONE [e] Refactoring iq_demod()
-** DONE [e] Add header to history file
-** DONE [t] Update docs
-* 0.30.1
-** DONE [e] Use math instead of np where possible
-** DONE [t] Change History header in index.rst
-** DONE [b] Change docstring for set_descr() in Activity
-** DONE [e] Add examples of modulation to docs
-* 0.31.0
-** DONE [t] Add smooth function from es_analytics to filtration
-** DONE [e] Brush filtration module
-** DONE [e] Refactoring frequency module
-** DONE [t] Merge frequency unit to modulation one
-** DONE [p] Split activity unit to activity and online
-** DONE [t] Add online unit to docs
-** DONE [e] Refactoring trend_smooth()
-** DONE [e] Refactoring find_butt_bandpass_order()
-** DONE [e] Refactoring haar_one_step()
-** DONE [e] Refactoring haar_scaling()
-** DONE [p] Brush arguments names in filtration unit
-** DONE [p] Brush arguments names in modulation unit
-** DONE [e] Brush helpers module
-* 0.31.1
-** DONE [b] Update whats new
-* 0.31.2
-** DONE [e] Brush prony module
-** DONE [e] Brush spectran module
-* 0.31.3
-** DONE [b] Fix cos and sin error in iq_demod
-* 0.32.0
-** DONE [t] Support progress handling in plan
-** DONE [t] Add get_nodes() to Plan
-** DONE [t] Add args to hooks of nodes
-** DONE [t] Add superclass for nodes and rename Node to WorkNode
-** DONE [t] Rename result() to get_result() in Node
-** DONE [t] Update get_plan_from_dict()
-** DONE [t] Update all plan demos
-** DONE [t] Remove file plan.py from demos
-** DONE [t] Add example with PackNode
-** DONE [p] __call__(self, *args, **kwargs) -> __call__(self, data)
-** DONE [t] Add MapNode
-** DONE [t] Add example with MapNode
-** DONE [t] Add more types of nodes
-** DONE [t] Think better about MapMode
-** DONE [t] Remove PassNode at all
-** DONE [t] Remove PassNode example (from docs too)
-** DONE [t] Add pack example to docs
-** DONE [t] Add map example to docs
-** DONE [t] Add hooks processing to __call__ of all nodes
-** DONE [t] Support all types of nodes in get_plan_from_dict()
-** DONE [t] Use different classes of nodes in get_plan_from_dict example
-** DONE [t] Update info() of Plan
-** DONE [t] Update docstring in get_plan_from_dict()
-** DONE [t] Rename Transmitter to PassNode
-** DONE [t] Update examples with Transmitter (PassNode now)
-** DONE [t] Add pass_node example to docs
-** DONE [e] Use print(__doc__) in all plan examples 
-** DONE [t] Update history in docs
-* 0.32.1
-** DONE [b] Incorrect processing of single input in MapNode
-* 0.32.2
-** DONE [b] Fix SelectNode
-** DONE [t] Update examples with SelectNode
-* 0.32.3
-** DONE [t] Correct process multiple input in SelectNode
-** DONE [t] Add example of SelectNode to demos
-** DONE [t] Correct process multiple input in MapNode
-** DONE [t] Update example of MapNode
-** DONE [t] Add example of SelectNode to docs
-** DONE [b] Allow inputs in __init__ of each type of node
-* 0.32.4
-** DONE [e] Replace running of hooks of nodes to Plan.__call__()
-** DONE [e] Update hooks example
-** DONE [t] Update version number
-** DONE [t] Update the structure of todo list
-* 0.33.0
-** DONE [t] Add method for searching of path of calculations to Plan
-** DONE [t] Brush plan.py
-** DONE [p] Add verify() method to Plan
-** DONE [t] Add clear() method to Plan
-** DONE [p] plan demo: add example with online processing
-** DONE [e] Add Returns to the docstring of Plan.verify()
-** DONE [t] Add online example to docs
-** DONE [t] Update whats new in docs
-* 0.33.1
-** DONE [t] Write draft README.md
-** DONE [t] Add details to README.md
-** DONE [b] Fix nested outline in README.md
-* 0.33.2
-** DONE [b] Fix the license in setup.py
-** DONE [b] Fix the license name in every file
-* 0.33.3
-** DONE [p] Inherit node from activity because activity has info and node has __call__
-** DONE [e] Remove or replace docstrings from __init__()s
-** DONE [t] Replace version number to __init__.py
-** DONE [t] Fix typos in docs
-** DONE [t] Add Makefile
-** DONE [t] Close file in CSV data producer
-** DONE [e] Refactor player
-** DONE [b] Fix headers error in player
-** DONE [t] Update example for player
-* 0.33.4
-** DONE [e] Player: Use 'deprecated' in docs
-** DONE [t] Update docstring for player.CsvDataProducer.select_columns()
-** DONE [e] Allow to set selected columns in player.CsvDataProducer.__init__()
-* 0.34.0
-** DONE [t] Add merge_info() method to Activity
-** DONE [t] Use key 'rerult' instead of 'info' in node settings
-** DONE [p] Implement info() methods in nodes and use them in info() of plan
-** DONE [t] Refactor the info() implementations in plan.py
-** DONE [e] Add examples for result info of nodes
-** DONE [t] Remove processing of lists demo
-** DONE [p] Remove _detect_terminals() in plan
-** DONE [t] Use user-specified outputs example instead of example of basic usage
-** DONE [t] Remove MultipleList from demo workers
-** DONE [t] Update what's new in docs
-* 0.34.1
-** DONE [b] Fix: CsvDataProducer can get sample from closed input buffer
-* 0.35.0
-** DONE [t] Add PassNode
-** DONE [t] Remove deprecated stuff in player
-** DONE [t] Update docs
-* 0.35.1
-** DONE [b] CsvDataProducer: load file to memory ant then iterate it
-* 0.35.2
-** DONE [t] Optimize calls in plan
-** DONE [t] Add optimization to demo
-** DONE [t] Brush
+* 0.27
+** 0.27.0
+*** DONE [t] Add SignalPlayer
+*** DONE [t] Add CsvDataProducer
+*** DONE [e] Use standart csv in CsvDataProducer
+*** DONE [t] Debug
+*** DONE [t] Add examples for SignalPlayer
+*** DONE [t] Add player stuff to docs
+** 0.27.1
+*** DONE Add whats new in docs
+*** DONE player: CsvDataProducer: Add delimiter option to open_file method
+** 0.27.2
+*** DONE Little corrections in examples
+** 0.27.3
+*** DONE [b] Setup plan from dict.
+** 0.27.4
+*** DONE [p] Inherit Plan and Node from Activity
+*** DONE [t] Fix errors in the docstrings for CSV example
+*** DONE [t] Remove depracated setup_plan() function
+*** DONE [e] Activity, Plan: doc keys in settings used in setup_from_dict()
+** 0.27.5
+*** DONE [e] Add example demonstrated the producing Work instance from dict
+*** DONE [e] Check activity unit with pep8
+*** DONE [t] Info method must give full information for plan
+** 0.27.6
+*** DONE [b] Get work info from work instead of worker in Plan.info()
+** 0.27.7
+*** DONE [b] Fix error in start timer code
+*** DONE [b] Add lock to get_sample in player
+*** DONE [e] Interval of timer instance can be changes
+** 0.27.8
+*** DONE [b] Error in timer
+*** DONE [b] Clear queue in player
+** 0.27.9
+*** DONE [t] Do not raise error in proc_queue and proc_sample, just pass
+*** DONE [t] Refactoring
+** 0.27.10
+*** DONE [t] Add encoding parameter to CSV data producer
+* 0.28
+** 0.28.0
+*** DONE [t] Add class info of Activity in metaclass
+*** DONE [t] Split class info and instance info more explicitly
+*** DONE [t] Get info from class_info in __init__ of Activity
+*** DONE [p] Add method for adding and documenting parameters of activity
+*** DONE [t] Brush activity with pylint
+*** DONE [t] Make correct universal arguments of Activity.__call__
+*** DONE [b] Overwise -> Otherwise
+** 0.28.1
+*** DONE [b] Typo in docs: Ornanization -> Organization
+*** DONE [b] Remove print from ActivityMeta
+*** DONE [e] Update module docsting in activity.py
+* 0.29
+** 0.29.0
+*** DONE [t] Inspect all library and update todo list
+*** DONE [t] Add worker subclass of activity class
+*** DONE [t] Update examples
+** 0.29.1
+*** DONE [b] Update what's new in docs
+* 0.30
+** 0.30.0
+*** DONE [t] Add descr option to __init__ of Plan
+*** DONE [p] Add function for simultaneous amp and freq modulation
+*** DONE [e] Brush modulation module
+*** DONE [e] Rename functions names and arguments in modulation unit
+*** DONE [t] Set default phi=0 in modulation
+*** DONE [t] Merge envelop module to modulation one
+*** DONE [t] Remove envelop from docs
+*** DONE [t] Update envelop examples
+*** DONE [t] Update modulation examples
+*** DONE [e] Refactoring iq_demod()
+*** DONE [e] Add header to history file
+*** DONE [t] Update docs
+** 0.30.1
+*** DONE [e] Use math instead of np where possible
+*** DONE [t] Change History header in index.rst
+*** DONE [b] Change docstring for set_descr() in Activity
+*** DONE [e] Add examples of modulation to docs
+* 0.31
+** 0.31.0
+*** DONE [t] Add smooth function from es_analytics to filtration
+*** DONE [e] Brush filtration module
+*** DONE [e] Refactoring frequency module
+*** DONE [t] Merge frequency unit to modulation one
+*** DONE [p] Split activity unit to activity and online
+*** DONE [t] Add online unit to docs
+*** DONE [e] Refactoring trend_smooth()
+*** DONE [e] Refactoring find_butt_bandpass_order()
+*** DONE [e] Refactoring haar_one_step()
+*** DONE [e] Refactoring haar_scaling()
+*** DONE [p] Brush arguments names in filtration unit
+*** DONE [p] Brush arguments names in modulation unit
+*** DONE [e] Brush helpers module
+** 0.31.1
+*** DONE [b] Update whats new
+** 0.31.2
+*** DONE [e] Brush prony module
+*** DONE [e] Brush spectran module
+** 0.31.3
+*** DONE [b] Fix cos and sin error in iq_demod
+* 0.32
+** 0.32.0
+*** DONE [t] Support progress handling in plan
+*** DONE [t] Add get_nodes() to Plan
+*** DONE [t] Add args to hooks of nodes
+*** DONE [t] Add superclass for nodes and rename Node to WorkNode
+*** DONE [t] Rename result() to get_result() in Node
+*** DONE [t] Update get_plan_from_dict()
+*** DONE [t] Update all plan demos
+*** DONE [t] Remove file plan.py from demos
+*** DONE [t] Add example with PackNode
+*** DONE [p] __call__(self, *args, **kwargs) -> __call__(self, data)
+*** DONE [t] Add MapNode
+*** DONE [t] Add example with MapNode
+*** DONE [t] Add more types of nodes
+*** DONE [t] Think better about MapMode
+*** DONE [t] Remove PassNode at all
+*** DONE [t] Remove PassNode example (from docs too)
+*** DONE [t] Add pack example to docs
+*** DONE [t] Add map example to docs
+*** DONE [t] Add hooks processing to __call__ of all nodes
+*** DONE [t] Support all types of nodes in get_plan_from_dict()
+*** DONE [t] Use different classes of nodes in get_plan_from_dict example
+*** DONE [t] Update info() of Plan
+*** DONE [t] Update docstring in get_plan_from_dict()
+*** DONE [t] Rename Transmitter to PassNode
+*** DONE [t] Update examples with Transmitter (PassNode now)
+*** DONE [t] Add pass_node example to docs
+*** DONE [e] Use print(__doc__) in all plan examples 
+*** DONE [t] Update history in docs
+** 0.32.1
+*** DONE [b] Incorrect processing of single input in MapNode
+** 0.32.2
+*** DONE [b] Fix SelectNode
+*** DONE [t] Update examples with SelectNode
+** 0.32.3
+*** DONE [t] Correct process multiple input in SelectNode
+*** DONE [t] Add example of SelectNode to demos
+*** DONE [t] Correct process multiple input in MapNode
+*** DONE [t] Update example of MapNode
+*** DONE [t] Add example of SelectNode to docs
+*** DONE [b] Allow inputs in __init__ of each type of node
+** 0.32.4
+*** DONE [e] Replace running of hooks of nodes to Plan.__call__()
+*** DONE [e] Update hooks example
+*** DONE [t] Update version number
+*** DONE [t] Update the structure of todo list
+* 0.33
+** 0.33.0
+*** DONE [t] Add method for searching of path of calculations to Plan
+*** DONE [t] Brush plan.py
+*** DONE [p] Add verify() method to Plan
+*** DONE [t] Add clear() method to Plan
+*** DONE [p] plan demo: add example with online processing
+*** DONE [e] Add Returns to the docstring of Plan.verify()
+*** DONE [t] Add online example to docs
+*** DONE [t] Update whats new in docs
+** 0.33.1
+*** DONE [t] Write draft README.md
+*** DONE [t] Add details to README.md
+*** DONE [b] Fix nested outline in README.md
+** 0.33.2
+*** DONE [b] Fix the license in setup.py
+*** DONE [b] Fix the license name in every file
+** 0.33.3
+*** DONE [p] Inherit node from activity because activity has info and node has __call__
+*** DONE [e] Remove or replace docstrings from __init__()s
+*** DONE [t] Replace version number to __init__.py
+*** DONE [t] Fix typos in docs
+*** DONE [t] Add Makefile
+*** DONE [t] Close file in CSV data producer
+*** DONE [e] Refactor player
+*** DONE [b] Fix headers error in player
+*** DONE [t] Update example for player
+** 0.33.4
+*** DONE [e] Player: Use 'deprecated' in docs
+*** DONE [t] Update docstring for player.CsvDataProducer.select_columns()
+*** DONE [e] Allow to set selected columns in player.CsvDataProducer.__init__()
+* 0.34
+** 0.34.0
+*** DONE [t] Add merge_info() method to Activity
+*** DONE [t] Use key 'rerult' instead of 'info' in node settings
+*** DONE [p] Implement info() methods in nodes and use them in info() of plan
+*** DONE [t] Refactor the info() implementations in plan.py
+*** DONE [e] Add examples for result info of nodes
+*** DONE [t] Remove processing of lists demo
+*** DONE [p] Remove _detect_terminals() in plan
+*** DONE [t] Use user-specified outputs example instead of example of basic usage
+*** DONE [t] Remove MultipleList from demo workers
+*** DONE [t] Update what's new in docs
+** 0.34.1
+*** DONE [b] Fix: CsvDataProducer can get sample from closed input buffer
+* 0.35
+** 0.35.0
+*** DONE [t] Add PassNode
+*** DONE [t] Remove deprecated stuff in player
+*** DONE [t] Update docs
+** 0.35.1
+*** DONE [b] CsvDataProducer: load file to memory ant then iterate it
+** 0.35.2
+*** DONE [t] Optimize calls in plan
+*** DONE [t] Add optimization to demo
+*** DONE [t] Brush
 * 0.36.0
 ** DONE [t] Inherit OnlineFilter from Worker
 ** DONE [t] Add lightweight QueueFilter class to online module
@@ -286,16 +297,17 @@
 *** DONE [t] Remove add_sample from online filter, use __call__
 *** DONE [t] Fix floats in docstrings in online module
 ** DONE [t] Update what's new in docs
-* 0.37.0
-** DONE [t] Add possibility to use params as "$name" in JSON with plan
-** DONE [t] Add set_quick() method to Plan
-** DONE [t] Brush demos
-** DONE [t] Update whats new in docs
-** DONE [t] Update years in license
-* 0.37.1
-** DONE [b] Update values of parameters of worker in info
-** DONE [t] Remove as_string from all demos
-** TODO [e] Restructure todo (add level to hierarchy)
+* 0.37
+** 0.37.0
+*** DONE [t] Add possibility to use params as "$name" in JSON with plan
+*** DONE [t] Add set_quick() method to Plan
+*** DONE [t] Brush demos
+*** DONE [t] Update whats new in docs
+*** DONE [t] Update years in license
+** 0.37.1
+*** DONE [b] Update values of parameters of worker in info
+*** DONE [t] Remove as_string from all demos
+*** DONE [e] Restructure todo (add level to hierarchy)
 * 0.38.0
 ** TODO [t] Worker: Deprecate public add_param(), define _add_param()
 ** TODO [t] Deprecate as_string parameter in info()
