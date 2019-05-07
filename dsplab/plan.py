@@ -165,7 +165,7 @@ class WorkNode(Node):
             pass
 
     def __call__(self, data):
-        self._res = self.work(*data)
+        self._res = self._work(*data)
 
 
 class MapNode(WorkNode):
@@ -177,12 +177,12 @@ class MapNode(WorkNode):
         if len(self._inputs) > 1:
             self._res = []
             for zipped_args in map(list, zip(*data)):
-                res_part = self.work(*zipped_args)
+                res_part = self._work(*zipped_args)
                 self._res.append(res_part)
         elif len(self._inputs) == 1:
             self._res = []
             for comp in data[0]:
-                comp_res = self.work(comp)
+                comp_res = self._work(comp)
                 self._res.append(comp_res)
         else:
             raise RuntimeError('MapNode must have input.')
