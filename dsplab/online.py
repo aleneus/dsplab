@@ -48,6 +48,9 @@ class QueueFilter(Worker):
         self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
         self.ntaps = ntaps
 
+        # add parameters to info
+        self._reg_param('ntaps')
+
     def __call__(self, sample):
         """Add sample to queue."""
         self.queue.append(sample)
@@ -139,6 +142,10 @@ class OnlineFilter(Worker):
 
         self.ntaps = ntaps
         self.smooth_ntaps = smooth_ntaps
+
+        # add parameters to info
+        self._reg_param('ntaps')
+        self._reg_param('smooth_ntaps')
 
     def __call__(self, sample):
         """Add input sample to filter and return output value.

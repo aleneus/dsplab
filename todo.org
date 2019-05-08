@@ -311,24 +311,24 @@
 *** DONE [e] Up lint result
 ** 0.37.2
 *** DONE [e] plan: self.work -> self._work
-* 0.38.0
-** TODO [t] Worker: Deprecate public add_param(), define _add_param()
-** TODO [t] Deprecate as_string parameter in info()
-** TODO [e] Use _add_param() in OnlineFilter
-** TODO [p] Online filter add arguments to self._info
-** TODO [p] Add instance_info for activity
+** 0.37.3
+*** DONE [e] Add parameters to info in online filters
+*** DONE [t] Worker: Deprecate public add_param(), define _add_param()
+*** DONE [t] Deprecate as_string parameter in info()
 * 0.40.0
 ** TODO [t] Worker: remove deprecated add_param()
 ** TODO [t] Remove deprecated as_string in info()
-* later
+* near
 ** TODO [t] Inspect tests folder
-** TODO [e] Up pylint result for demos to 6
+** TODO [t] Debug repeated timer, it works strange
+* later
+** TODO [p] Add instance_info for activity
+** TODO [p] plan: Think about separate set_quick() and reduce_calls()
 ** TODO [e] activity.get_work_from_dict(): Too nested work with params
 ** TODO [t] Think about place (module or modules) for common workers
 ** TODO [t] Add online smoother
 ** TODO [p] Add online summator
 ** TODO [p] Add online subtractor
-** TODO [t] Debug repeated timer, it works strange
 ** TODO [e] Add comment showing desirable result in plan examples
 ** TODO [p] Add example of verification of plan
 ** TODO [e] Optimize the work with data in Plan and Nodes
@@ -337,3 +337,4 @@
 ** TODO [e] Add function for calculating of frequency using digital Hilbert filter
 ** TODO [t] Make interval an option in timer
 ** TODO [e] Refactor player.CsvDataProducer
+** TODO [p] Deprecate OnlineFilter (monster)
