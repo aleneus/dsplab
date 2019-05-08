@@ -314,7 +314,7 @@
 ** 0.37.3
 *** DONE [e] Add parameters to info in online filters
 *** DONE [t] Worker: Deprecate public add_param(), define _add_param()
-*** TODO [t] Deprecate as_string parameter in info()
+*** DONE [t] Deprecate as_string parameter in info()
 * 0.40.0
 ** TODO [t] Worker: remove deprecated add_param()
 ** TODO [t] Remove deprecated as_string in info()

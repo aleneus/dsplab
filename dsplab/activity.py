@@ -17,7 +17,7 @@
 
 import logging
 from warnings import warn
-from dsplab.helpers import import_entity, pretty_json
+from dsplab.helpers import import_entity
 
 LOG = logging.getLogger(__name__)
 
@@ -60,22 +60,17 @@ class Activity(metaclass=ActivityMeta):
         """ Set description of activity. """
         self._info['descr'] = descr
 
-    def info(self, as_string=False):
+    def info(self, as_string=None):
         """ Return the information about activity.
-
-        Parameters
-        ----------
-        as_string: bool
-            Method returns JSON-string if True and dict otherwise
 
         Returns
         -------
-        : dict or str
+        : dict
             Information about activity.
 
         """
-        if as_string:
-            return pretty_json(self._info)
+        if as_string is not None:
+            warn("as_string is deprecated and ignored")
         return self._info
 
 
@@ -98,7 +93,7 @@ class Worker(Activity):
             return
         self._params.append(name)
 
-    def info(self, as_string=False):
+    def info(self, as_string=None):
         """Return actual info about worker including parameters
         values."""
         res = self._info.copy()
@@ -111,8 +106,9 @@ class Worker(Activity):
             value = getattr(self, key)
             res['params'][key] = value
 
-        if as_string:
-            return pretty_json(res)
+        if as_string is not None:
+            warn("as_string is deprecated and ignored")
+
         return res
 
 

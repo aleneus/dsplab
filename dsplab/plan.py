@@ -18,10 +18,10 @@ understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes."""
 
 import logging
+from warnings import warn
 
 from dsplab.activity import get_work_from_dict
 from dsplab.activity import Activity
-from dsplab.helpers import pretty_json
 
 LOG = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ class Node(Activity):
 
     node_id = property(get_id, set_id, doc="ID of node.")
 
-    def info(self, as_string=False):
+    def info(self, as_string=None):
         """Return info about node."""
         info = super().info()
         info['id'] = self.node_id
@@ -64,8 +64,9 @@ class Node(Activity):
         if input_ids:
             info['inputs'] = input_ids
 
-        if as_string:
-            return pretty_json(info)
+        if as_string is not None:
+            warn("as_string is deprecated and ignored")
+
         return info
 
     def get_inputs(self):
@@ -138,12 +139,14 @@ class WorkNode(Node):
         self._func = work
         self.set_work(work)
 
-    def info(self, as_string=False):
+    def info(self, as_string=None):
         # LOG.debug("call info() for work node {}".format(self.node_id))
         info = super().info()
         info['work'] = self._work.info().copy()
-        if as_string:
-            return pretty_json(info)
+
+        if as_string is not None:
+            warn("as_string is deprecated and ignored")
+
         return info
 
     def get_work(self):
@@ -194,11 +197,13 @@ class SelectNode(Node):
         super().__init__(inputs)
         self.index = index
 
-    def info(self, as_string=False):
+    def info(self, as_string=None):
         info = super().info()
         info['index'] = self.index
-        if as_string:
-            return pretty_json(info)
+
+        if as_string is not None:
+            warn("as_string is deprecated and ignored")
+
         return info
 
     def __call__(self, data):
@@ -310,14 +315,16 @@ class Plan(Activity):
                       set_inputs,
                       doc="The nodes which are inputs.")
 
-    def info(self, as_string=False):
+    def info(self, as_string=None):
         """Return info about the plan."""
         info = super().info()
         info['nodes'] = [node.info() for node in self._nodes]
         info['inputs'] = [inp.get_id() for inp in self.inputs]
         info['outputs'] = [inp.get_id() for inp in self.outputs]
-        if as_string:
-            return pretty_json(info)
+
+        if as_string is not None:
+            warn("as_string is deprecated and ignored")
+
         return info
 
     def get_nodes(self):
