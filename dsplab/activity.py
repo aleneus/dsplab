@@ -16,6 +16,7 @@
 """ This module implements the base classes for Activities. """
 
 import logging
+from warnings import warn
 from dsplab.helpers import import_entity, pretty_json
 
 LOG = logging.getLogger(__name__)
@@ -86,6 +87,7 @@ class Worker(Activity):
 
     def add_param(self, name, value=None):
         """ Add parameter and make record about it in info. """
+        warn("Worker.add_param() is deprecated. Use _reg_param() instead.")
         setattr(self, name, value)
         self._reg_param(name)
 
