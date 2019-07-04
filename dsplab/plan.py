@@ -300,7 +300,7 @@ class Plan(Activity):
 
     outputs = property(get_outputs,
                        set_outputs,
-                       doc="The nodes with are outputs.")
+                       doc="The nodes wich are outputs.")
 
     def get_inputs(self):
         """Return input nodes."""
