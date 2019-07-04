@@ -317,11 +317,11 @@
 *** DONE [t] Deprecate as_string parameter in info()
 ** 0.37.4
 *** DONE [b] Fix typo in plan.outputs docstring
+*** TODO [t] Inspect tests folder
 * 0.40.0
 ** TODO [t] Worker: remove deprecated add_param()
 ** TODO [t] Remove deprecated as_string in info()
 * near
-** TODO [t] Inspect tests folder
 ** TODO [t] Debug repeated timer, it works strange
 * later
 ** TODO [p] Add instance_info for activity
