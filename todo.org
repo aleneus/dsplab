@@ -315,6 +315,9 @@
 *** DONE [e] Add parameters to info in online filters
 *** DONE [t] Worker: Deprecate public add_param(), define _add_param()
 *** DONE [t] Deprecate as_string parameter in info()
+** 0.37.4
+*** DONE [b] Fix typo in plan.outputs docstring
+*** DONE [e] Remove cos in Hilbert filter
 * 0.40.0
 ** TODO [t] Worker: remove deprecated add_param()
 ** TODO [t] Remove deprecated as_string in info()
