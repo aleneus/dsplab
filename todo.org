@@ -325,8 +325,7 @@
 ** DONE [t] Add unit tests for changes
 ** DONE [t] Deprecate Worker class
 ** DONE [t] Update demos
-** TODO [t] Remove set_descr() from examples
-** TODO [t] Deprecate descr=None in plan
+** DONE [t] Add descr property to the plan
 ** TODO [t] Refactor activity.get_work_from_dict()
 ** TODO [t] Check and update old tests
 ** TODO [t] Rename Node.reset() to Node.clear_result()

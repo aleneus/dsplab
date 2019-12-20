@@ -28,9 +28,9 @@ class ActivityMeta(type):
         super().__init__(name, bases, attrs)
         cls._class_info = {}
         try:
-            cls._class_info['descr'] = attrs['__doc__']
+            cls._class_info['doc'] = attrs['__doc__']
         except KeyError:
-            cls._class_info['descr'] = ""
+            cls._class_info['doc'] = ""
         cls._class_info['class'] = name
 
     def class_info(cls):

@@ -216,6 +216,16 @@ class Plan(Activity):
 
         self._sequence = []
 
+    def set_descr(self, text):
+        """Set description of plan."""
+        self._descr = text
+
+    def get_descr(self):
+        """Return description of plan."""
+        return self._descr
+
+    descr = property(get_descr, set_descr, doc="Description of plan")
+
     def set_quick(self, value=True):
         """Make plan quick (for online with no hooks) or not."""
         self._quick = value
