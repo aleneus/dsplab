@@ -328,9 +328,7 @@
 ** DONE [t] Add descr property to the plan
 ** DONE [t] Update old tests
 ** DONE [t] Rename Node.reset() to Node.clear_result()
-** TODO [t] Update docs
-- [ ] Check structure
-- [ ] What's new in docs
+** DONE [t] Update docs
 * 0.38.1
 ** TODO [t] Refactor activity.get_work_from_dict()
 ** TODO [t] Update 2019 -> 2020 in license

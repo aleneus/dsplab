@@ -1,6 +1,13 @@
 History
 =======
 
+0.37
+----
+
+* Possibility to use params as "$name" in JSON with plan
+* New method of Plan: set_quick()
+* Examples have been brushed (style and flakes)
+
 0.36
 ----
 * Lightweight QueueFilter class has been added.
@@ -38,7 +45,7 @@ History
 * Add get_nodes() to Plan
 * Support progress handling in plan
 * Add arguments to hooks of nodes
-* Refactoring of plan.py    
+* Refactoring of plan.py
 
 0.31
 ----
@@ -113,7 +120,7 @@ History
 ----
 
 * Plan: Provide auto and manual terminals without auto_terminals option
-* Plan: Support the inputs and ouputs in the function for setup plan from dict 
+* Plan: Support the inputs and ouputs in the function for setup plan from dict
 * Plan: Rename Translator to Transmitter
 * Modulation: Add a function for phase modulation
 
@@ -224,7 +231,7 @@ History
 0.9
 ---
 
-* Function for calculation digital Hilbert filter was added 
+* Function for calculation digital Hilbert filter was added
 * Demo for digital Hilbert filter was added
 
 0.8

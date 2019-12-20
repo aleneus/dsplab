@@ -18,12 +18,18 @@ Requirements
 * numpy
 * scipy
 
-What's new in 0.37
+What's new in 0.38
 ------------------
 
-* Possibility to use params as "$name" in JSON with plan
-* New method of Plan: set_quick()
-* Examples have been brushed (style and flakes)
+* Deprecate info() in activities
+* Deprecate Worker class (just use Activity)
+* Add Node.get_result_info()
+* Deprecate Activity.set_descr()
+* Add Work.set_descr()
+* Add tests
+* Update examples
+* Add Plan.descr property
+* Rename Node.reset() to Node.clear_result(). Deprecate reset().
 
 Modules
 -------
@@ -56,10 +62,10 @@ Online processing
    :maxdepth: 2
 
    player
-	      
+
 Project
--------   
-   
+-------
+
 .. toctree::
    :maxdepth: 1
 
