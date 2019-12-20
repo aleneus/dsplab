@@ -323,7 +323,8 @@
 ** DONE [t] Add Node.get_result_info()
 ** DONE [t] Deprecare set_descr() in activities
 ** DONE [t] Add unit tests for changes
-** TODO [t] Remove info from examples
+** DONE [t] Deprecate Worker class
+** DONE [t] Update demos
 ** TODO [t] Remove set_descr() from examples
 ** TODO [t] Deprecate descr=None in plan
 ** TODO [t] Refactor activity.get_work_from_dict()

@@ -4,16 +4,16 @@ import sys
 import os
 
 sys.path.insert(0, os.path.abspath('.'))
-from dsplab.activity import Worker, get_work_from_dict
+from dsplab.activity import Activity, get_work_from_dict
 from dsplab.helpers import pretty_json
 
 
-class Linear(Worker):
+class Linear(Activity):
     """Linear transformation."""
     def __init__(self, k, b):
         super().__init__()
-        self.add_param('k', k)
-        self.add_param('b', b)
+        self.k = k
+        self.b = b
 
     def __call__(self, x):
         y = x*self.k + self.b
@@ -36,8 +36,6 @@ def main():
     x = 11
     y = transfrom(x)
     print(y)
-    print()
-    print(pretty_json(transfrom.info()))
 
 
 main()

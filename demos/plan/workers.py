@@ -3,29 +3,29 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
-from dsplab.activity import Worker
+from dsplab.activity import Activity
 
 
-class Linear(Worker):
+class Linear(Activity):
     """Linear transformation: y = k*x + b."""
     def __init__(self, k, b):
         super().__init__()
-        self.add_param('k', k)
-        self.add_param('b', b)
+        self.k = k
+        self.b = b
 
     def __call__(self, x):
         y = x*self.k + self.b
         return y
 
 
-class Sum(Worker):
+class Sum(Activity):
     """Sum."""
     def __call__(self, *xs):
         y = sum(xs)
         return y
 
 
-class Inc(Worker):
+class Inc(Activity):
     """Add 1 to value."""
     def __init__(self):
         super().__init__()
@@ -35,7 +35,7 @@ class Inc(Worker):
         return y
 
 
-class DoNothing(Worker):
+class DoNothing(Activity):
     """Just pass input to output."""
     def __init__(self):
         super().__init__()

@@ -80,6 +80,7 @@ class Worker(Activity):
     def add_param(self, name, value=None):
         """Deprecated."""
         warn("Worker.add_param() is deprecated. Don't use it.")
+        setattr(self, name, value)
 
     def _reg_param(self, name):
         """Deprecated."""
@@ -88,9 +89,20 @@ class Worker(Activity):
 
 class Work(Activity):
     """Work is data processing that can be done in a variety of ways."""
-    def __init__(self, descr="", worker=None):
+    def __init__(self, descr=None, worker=None):
         super().__init__()
+        self.set_descr(descr)
         self.set_worker(worker)
+
+    def set_descr(self, text):
+        """Set description."""
+        self._descr = text
+
+    def get_descr(self):
+        """Return description."""
+        return self._descr
+
+    descr = property(get_descr, set_descr, doc="Description of work")
 
     def set_worker(self, act):
         """ Set worker for doing work. Worker must be callable."""

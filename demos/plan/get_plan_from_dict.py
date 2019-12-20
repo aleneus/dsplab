@@ -8,7 +8,6 @@ from dsplab.helpers import pretty_json
 
 
 SETTINGS = {
-    'descr': 'Three-step plan',
     'nodes': [
         {
             'id': 'a',
@@ -68,8 +67,6 @@ def main():
     x = 1
     y = plan([x])
     print(y)
-    print()
-    print(pretty_json(plan.info()))
 
 
 if __name__ == "__main__":

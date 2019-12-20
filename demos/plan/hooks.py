@@ -2,6 +2,7 @@
 
 import sys
 import os
+
 sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Work
 from dsplab.plan import WorkNode, Plan
@@ -14,12 +15,12 @@ def func(x):
 
 def start_handler(node):
     """Node start handler."""
-    print("'{}' started".format(node.work.info()['descr']))
+    print("'{}' started".format(node.work.descr))
 
 
 def stop_handler(node):
     """Node stop handler."""
-    print("'{}' finished".format(node.work.info()['descr']))
+    print("'{}' finished".format(node.work.descr))
 
 
 def progress_handler():
