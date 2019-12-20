@@ -93,9 +93,14 @@ class Node(Activity):
         ans = self._res is not None
         return ans
 
-    def reset(self):
+    def clear_result(self):
         """Clear the result."""
         self._res = None
+
+    def reset(self):
+        """Deprecated."""
+        warn("Node.reset() is deprecated. Use clear_result() instead.")
+        self.clear_result()
 
     def is_inputs_ready(self):
         """Check if data in all inputs is ready."""
@@ -308,7 +313,7 @@ class Plan(Activity):
     def run(self, data):
         """Run plan."""
         for node in self._nodes:
-            node.reset()
+            node.clear_result()
 
         for [node, node_data] in zip(self._inputs, data):
             node.run_start_hook()

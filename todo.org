@@ -327,7 +327,7 @@
 ** DONE [t] Update demos
 ** DONE [t] Add descr property to the plan
 ** DONE [t] Update old tests
-** TODO [t] Rename Node.reset() to Node.clear_result()
+** DONE [t] Rename Node.reset() to Node.clear_result()
 ** TODO [t] Update docs
 - [ ] Check structure
 - [ ] What's new in docs
@@ -340,6 +340,7 @@
 ** TODO [t] Remove deprecated set_descr() in activities
 ** TODO [t] Remove deprecated Activity.set_descr()
 ** TODO [t] plan.py: Remove self._info['result'] = info
+** TODO [t] Remove deprecated Node.reset()
 * near
 ** TODO [t] Inspect tests folder
 ** TODO [t] Debug repeated timer, it works strange
