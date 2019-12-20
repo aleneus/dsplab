@@ -56,82 +56,49 @@ class Activity(metaclass=ActivityMeta):
     def __init__(self):
         self._info = self._class_info.copy()
 
+    def __call__(self, *args, **kwargs):
+        """Call activity."""
+        raise NotImplementedError
+
     def set_descr(self, descr):
-        """ Set description of activity. """
-        self._info['descr'] = descr
+        """Deprecated."""
+        warn("Activity.set_descr() is deprecated. Use it for works only.")
+        pass
 
     def info(self, as_string=None):
-        """ Return the information about activity.
-
-        Returns
-        -------
-        : dict
-            Information about activity.
-
-        """
-        if as_string is not None:
-            warn("as_string is deprecated and ignored")
+        """Deprecated."""
+        warn("info() is deprecated, don't use it")
         return self._info
 
 
 class Worker(Activity):
-    """ Worker is activity for doing some work. """
+    """Deprecated."""
     def __init__(self):
         super().__init__()
-        self._params = []
+        warn("Worker is deprecated. Use Activity instead.")
 
     def add_param(self, name, value=None):
-        """ Add parameter and make record about it in info. """
-        warn("Worker.add_param() is deprecated. Use _reg_param() instead.")
-        setattr(self, name, value)
-        self._reg_param(name)
+        """Deprecated."""
+        warn("Worker.add_param() is deprecated. Don't use it.")
 
     def _reg_param(self, name):
-        """Add parameter to the list of parameters whose values should
-        be included in the info."""
-        if name in self._params:
-            return
-        self._params.append(name)
-
-    def info(self, as_string=None):
-        """Return actual info about worker including parameters
-        values."""
-        res = self._info.copy()
-
-        if not self._params:
-            return res
-
-        res['params'] = {}
-        for key in self._params:
-            value = getattr(self, key)
-            res['params'][key] = value
-
-        if as_string is not None:
-            warn("as_string is deprecated and ignored")
-
-        return res
+        """Deprecated."""
+        warn("Worker._reg_param() is deprecated. Don't use it.")
 
 
 class Work(Activity):
-    """ Work is activity which has some worker. Different workers can
-    be used for doing the same work. """
+    """Work is data processing that can be done in a variety of ways."""
     def __init__(self, descr="", worker=None):
         super().__init__()
-        self.set_descr(descr)
         self.set_worker(worker)
 
-    def set_worker(self, worker):
-        """ Set worker for doing work. """
-        self.worker = worker
-        self._info['worker'] = None
-        try:
-            self._info['worker'] = worker.info()
-        except (KeyError, AttributeError):
-            pass
+    def set_worker(self, act):
+        """ Set worker for doing work. Worker must be callable."""
+        self._worker = act
 
     def __call__(self, *args, **kwargs):
         """ Do work. """
-        res = self.worker(*args, **kwargs)
+        res = self._worker(*args, **kwargs)
         return res
 
 
@@ -156,7 +123,7 @@ def get_work_from_dict(settings, params=None):
     worker_name = worker_settings[key]
 
     if 'params' in worker_settings.keys():
-        worker_params = worker_settings['params']
+        worker_params = worker_settings['params'].copy()
 
         for key in worker_params:
             if isinstance(worker_params[key], str):

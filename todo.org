@@ -41,13 +41,13 @@
 ** DONE [t] Add remove node to Plan and demo
 ** DONE [t!] Plan. Remove detection of terminals from call
 ** DONE [e] Replace plan examples to plan/ folder from activity/
-** DONE [t] Plan. Add doc for auto_terminals 
+** DONE [t] Plan. Add doc for auto_terminals
 * 0.24
 ** 0.24.0
 *** DONE [t] Plan: Rename Translator to Transmitter
 *** DONE [e] Plan: Provide auto and manual terminals without auto_terminals option
 *** DONE [t] Modulation: Add a function for phase modulation
-*** DONE [t] Plan: Support the inputs and ouputs in the function for setup plan from dict 
+*** DONE [t] Plan: Support the inputs and ouputs in the function for setup plan from dict
 ** 0.24.1
 *** DONE [b] Call plan twice with different input values
 *** DONE [t] Add doc to Node.reset()
@@ -212,7 +212,7 @@
 *** DONE [t] Rename Transmitter to PassNode
 *** DONE [t] Update examples with Transmitter (PassNode now)
 *** DONE [t] Add pass_node example to docs
-*** DONE [e] Use print(__doc__) in all plan examples 
+*** DONE [e] Use print(__doc__) in all plan examples
 *** DONE [t] Update history in docs
 ** 0.32.1
 *** DONE [b] Incorrect processing of single input in MapNode
@@ -318,9 +318,25 @@
 ** 0.37.4
 *** DONE [b] Fix typo in plan.outputs docstring
 *** DONE [e] Remove cos in Hilbert filter
+* 0.38.0
+** DONE [t] Deprecate info() in activities
+** DONE [t] Add Node.get_result_info()
+** DONE [t] Deprecare set_descr() in activities
+** DONE [t] Add unit tests for changes
+** TODO [t] Remove info from examples
+** TODO [t] Remove set_descr() from examples
+** TODO [t] Deprecate descr=None in plan
+** TODO [t] Refactor activity.get_work_from_dict()
+** TODO [t] Check and update old tests
+** TODO [t] Rename Node.reset() to Node.clear_result()
+* 0.38.1
+** TODO [t] Update 2019 -> 2020 in license
 * 0.40.0
-** TODO [t] Worker: remove deprecated add_param()
-** TODO [t] Remove deprecated as_string in info()
+** TODO [t] Remove deprecated Worker.add_param()
+** TODO [t] Remove deprecated info()
+** TODO [t] Remove deprecated set_descr() in activities
+** TODO [t] Remove deprecated Activity.set_descr()
+** TODO [t] plan.py: Remove self._info['result'] = info
 * near
 ** TODO [t] Inspect tests folder
 ** TODO [t] Debug repeated timer, it works strange

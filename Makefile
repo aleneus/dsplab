@@ -9,7 +9,6 @@ help:
 	@echo "make flakes"
 	@echo "make lint"
 	@echo "make uml"
-	# @echo "make release ver=value"
 	@echo "make upload"
 
 style:
@@ -24,17 +23,9 @@ lint:
 uml:
 	pyreverse $(PACKAGE) -o png
 
-# release:
-# 	@echo $(ver)
-# 	hg up default
-# 	@echo 'Update to default: OK'
-# 	hg merge develop
-# 	@echo 'Merge from develop: OK'
-# 	hg ci -m 'merge from develop'
-# 	hg tag $(ver)
-# 	@echo 'Add tag: OK'
-# 	hg up develop
-# 	@echo 'Update to develop: OK'
-
 upload:
 	python3 setup.py sdist upload
+
+check:
+	python3 tests/test_activity.py
+	python3 tests/test_plan.py

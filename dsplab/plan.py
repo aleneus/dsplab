@@ -42,6 +42,8 @@ class Node(Activity):
         self._stop_hook_args = None
         self._stop_hook_kwargs = None
 
+        self._res_info = None
+
     def set_id(self, value):
         """Set ID for node."""
         self._id = value
@@ -51,23 +53,6 @@ class Node(Activity):
         return self._id
 
     node_id = property(get_id, set_id, doc="ID of node.")
-
-    def info(self, as_string=None):
-        """Return info about node."""
-        info = super().info()
-        info['id'] = self.node_id
-
-        input_ids = []
-        for inpt in self.get_inputs():
-            input_id = '{}'.format(inpt.node_id)
-            input_ids.append(input_id)
-        if input_ids:
-            info['inputs'] = input_ids
-
-        if as_string is not None:
-            warn("as_string is deprecated and ignored")
-
-        return info
 
     def get_inputs(self):
         """Return inputs."""
@@ -126,8 +111,16 @@ class Node(Activity):
     def set_result_info(self, info):
         """Appent to info the desctription of the output data."""
         self._info['result'] = info
+        self._res_info = info
 
-    def __call__(self, data):
+    def get_result_info(self):
+        """Return result info."""
+        return self._res_info
+
+    result_info = property(get_result_info, set_result_info,
+                           doc="Information about result")
+
+    def __call__(self, *args, **kwargs):
         raise NotImplementedError
 
 
@@ -138,16 +131,6 @@ class WorkNode(Node):
         self._work = None
         self._func = work
         self.set_work(work)
-
-    def info(self, as_string=None):
-        # LOG.debug("call info() for work node {}".format(self.node_id))
-        info = super().info()
-        info['work'] = self._work.info().copy()
-
-        if as_string is not None:
-            warn("as_string is deprecated and ignored")
-
-        return info
 
     def get_work(self):
         """Return work of the node."""
@@ -197,15 +180,6 @@ class SelectNode(Node):
         super().__init__(inputs)
         self.index = index
 
-    def info(self, as_string=None):
-        info = super().info()
-        info['index'] = self.index
-
-        if as_string is not None:
-            warn("as_string is deprecated and ignored")
-
-        return info
-
     def __call__(self, data):
         if len(data) > 1:
             data_tr = list(map(list, zip(*data)))
@@ -232,8 +206,6 @@ class Plan(Activity):
     """The plan. Plan is the system of linked nodes."""
     def __init__(self, descr=None, quick=False):
         super().__init__()
-        if descr is not None:
-            self._info['descr'] = descr
         self._nodes = []
         self._inputs = []
         self._outputs = []
@@ -314,18 +286,6 @@ class Plan(Activity):
     inputs = property(get_inputs,
                       set_inputs,
                       doc="The nodes which are inputs.")
-
-    def info(self, as_string=None):
-        """Return info about the plan."""
-        info = super().info()
-        info['nodes'] = [node.info() for node in self._nodes]
-        info['inputs'] = [inp.get_id() for inp in self.inputs]
-        info['outputs'] = [inp.get_id() for inp in self.outputs]
-
-        if as_string is not None:
-            warn("as_string is deprecated and ignored")
-
-        return info
 
     def get_nodes(self):
         """Return the list of nodes."""

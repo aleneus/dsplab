@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2018 Aleksandr Popov
+# Copyright (C) 2017-2019 Aleksandr Popov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the Lesser GNU General Public License as published by
@@ -16,6 +16,5 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))
-print(sys.path)
 
 import dsplab
