@@ -326,10 +326,13 @@
 ** DONE [t] Deprecate Worker class
 ** DONE [t] Update demos
 ** DONE [t] Add descr property to the plan
-** TODO [t] Refactor activity.get_work_from_dict()
-** TODO [t] Check and update old tests
+** DONE [t] Update old tests
 ** TODO [t] Rename Node.reset() to Node.clear_result()
+** TODO [t] Update docs
+- [ ] Check structure
+- [ ] What's new in docs
 * 0.38.1
+** TODO [t] Refactor activity.get_work_from_dict()
 ** TODO [t] Update 2019 -> 2020 in license
 * 0.40.0
 ** TODO [t] Remove deprecated Worker.add_param()

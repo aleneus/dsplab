@@ -455,7 +455,7 @@ def freqs_by_wave_len(xdata, tdata, cut_nans=True):
         Freqs values.
     """
     wl, t_wl = wave_lens(xdata, tdata)
-    freqs = 1/linint(wl, t_wl, tdata)
+    freqs = 1 / linint(wl, t_wl, tdata)
     if cut_nans:
         freqs_cut = []
         t_cut = []

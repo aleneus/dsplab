@@ -29,3 +29,7 @@ upload:
 check:
 	python3 tests/test_activity.py
 	python3 tests/test_plan.py
+	python3 tests/test_modulation.py
+	python3 tests/test_filtration.py
+	python3 tests/test_prony.py
+	python3 tests/test_spectran.py

@@ -14,48 +14,53 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from .context import dsplab
+
 import numpy as np
+
+from context import dsplab
 from dsplab import filtration as flt
+
 
 class TestHaarOneStep(unittest.TestCase):
     def test_haar_one_step_even_len(self):
-        t = [0,1,2,3,4,5]
-        x = [1,2,3,4,5,6]
+        t = [0, 1, 2, 3, 4, 5]
+        x = [1, 2, 3, 4, 5, 6]
         x_s, x_d, t_new = flt.haar_one_step(x, t)
         self.assertEqual(len(x_s), 3)
         self.assertEqual(len(x_d), 3)
         self.assertEqual(len(t_new), 3)
 
     def test_haar_one_step_sum_of_values(self):
-        t = [0,1,2,3,4,5]
-        x = [1,2,3,4,5,6]
+        t = [0, 1, 2, 3, 4, 5]
+        x = [1, 2, 3, 4, 5, 6]
         x_s, x_d, t_new = flt.haar_one_step(x, t, denominator=2)
         self.assertEqual(sum(x_s), 10.5)
         self.assertEqual(sum(x_d), -1.5)
-        
+
     def test_haar_one_step_odd_len(self):
-        t = [0,1,2,3,4,5,6]
-        x = [1,2,3,4,5,6,7]
+        t = [0, 1, 2, 3, 4, 5, 6]
+        x = [1, 2, 3, 4, 5, 6, 7]
         x_s, x_d, t_new = flt.haar_one_step(x, t)
         self.assertEqual(len(x_s), 3)
         self.assertEqual(len(x_d), 3)
         self.assertEqual(len(t_new), 3)
 
+
 class TestHaarScaling(unittest.TestCase):
     def test_haar_scaling_len_sum(self):
-        t = [0,1,2,3,4,5,6,7]
-        x = [1,2,3,4,5,6,7,8]
+        t = [0, 1, 2, 3, 4, 5, 6, 7]
+        x = [1, 2, 3, 4, 5, 6, 7, 8]
         x_resampled, t_new = flt.haar_scaling(x, t, 3)
         self.assertEqual(len(x_resampled), 1)
         self.assertEqual(sum(x_resampled), 4.5)
 
     def test_haar_scaling_time(self):
-        t = [0,1,2,3,4,5,6,7]
-        x = [1,2,3,4,5,6,7,8]
+        t = [0, 1, 2, 3, 4, 5, 6, 7]
+        x = [1, 2, 3, 4, 5, 6, 7, 8]
         x_resampled, t_new = flt.haar_scaling(x, t, 3)
         self.assertEqual(len(t_new), 1)
         self.assertEqual(t_new[0], 7)
+
 
 class TestOrder(unittest.TestCase):
     def test_find_butt_bandpass_order_1(self):
@@ -72,52 +77,25 @@ class TestOrder(unittest.TestCase):
         order = flt.find_butt_bandpass_order(band, fs)
         self.assertTrue(order > 5)
 
-class TestButter(unittest.TestCase):
-    def test_butter_lowpass_just_run(self):
-        fs = 50
-        cutoff = 10
-        order = 5
-        flt.butter_lowpass(cutoff, fs, order)
-        self.assertTrue(True)
-
-    def test_butter_lowpass_filter_just_run(self):
-        fs = 50
-        x = np.arange(1, 100, 1/fs)
-        cutoff = 10
-        order = 5
-        flt.butter_lowpass_filter(x, cutoff, fs, order)
-        self.assertTrue(True)
-
-    def test_butter_bandpass_just_run(self):
-        fs = 50
-        order = 10
-        lowcut = 5
-        highcut = 10
-        flt.butter_bandpass(lowcut, highcut, fs, order)
-        self.assertTrue(True)
-        
-    def test_butter_bandpass_filter_just_run(self):
-        fs = 50
-        x = np.arange(1, 100, 1/fs)
-        order = 10
-        lowcut = 5
-        highcut = 10
-        flt.butter_bandpass_filter(x, lowcut, highcut, fs, order)
-        self.assertTrue(True)
 
 class TestStupidFilters(unittest.TestCase):
     def test_stupid_lowpass_filter_just_run(self):
-        x = [1,2,3,4,5,6]
-        xf = flt.stupid_lowpass_filter(x, fs=1, cutoff=0.25)
+        x = [1, 2, 3, 4, 5, 6]
+        flt.stupid_lowpass_filter(x, sample_rate=1, cutoff=0.25)
         self.assertTrue(True)
 
     def test_stupid_bandpass_filter_just_run(self):
-        x = [1,2,3,4,5,6]
-        xf = flt.stupid_bandpass_filter(x, fs=1, bandpass=(0.1, 0.2))
+        x = [1, 2, 3, 4, 5, 6]
+        flt.stupid_bandpass_filter(x, sample_rate=1, bandpass=(0.1, 0.2))
         self.assertTrue(True)
+
 
 class TestTrend(unittest.TestCase):
     def test_trend_smooth_just_run(self):
-        x = [1,2,3,4,5,6,7,8]
+        x = [1, 2, 3, 4, 5, 6, 7, 8]
         flt.trend_smooth(x)
         self.assertTrue(True)
+
+
+if __name__ == "__main__":
+    unittest.main()

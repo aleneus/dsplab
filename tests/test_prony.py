@@ -14,31 +14,40 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from .context import dsplab
-import numpy as np
-from dsplab import prony
+
+from context import dsplab
+from dsplab.prony import prony_decomp
+
 
 class TestProny(unittest.TestCase):
     def test_prony_sum_length_of_result(self):
-        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8, 4, -4, 2, -2, 1, -1, 0, 0]
+        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8,
+             4, -4, 2, -2, 1, -1, 0, 0]
         L = 4
-        ms, cs, es = prony.prony_decomp(x, L)
+        ms, cs, es = prony_decomp(x, L)
         self.assertEqual(len(ms) + len(cs) + len(es), 4 + 4 + 4)
 
     def test_prony_length_of_components(self):
-        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8, 4, -4, 2, -2, 1, -1, 0, 0]
+        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8,
+             4, -4, 2, -2, 1, -1, 0, 0]
         L = 4
-        ms, cs, es = prony.prony_decomp(x, L)
+        ms, cs, es = prony_decomp(x, L)
         self.assertEqual(len(es[0]), len(x))
 
     def test_prony_wrong_number_of_components(self):
-        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8, 4, -4, 2, -2, 1, -1, 0, 0]
+        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8,
+             4, -4, 2, -2, 1, -1, 0, 0]
         L = len(x)//2 + 1
-        res = prony.prony_decomp(x, L)
+        res = prony_decomp(x, L)
         self.assertEqual(res, None)
 
     def test_prony_double_number_of_components_equal_to_n(self):
-        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8, 4, -4, 2, -2, 1, -1, 0, 0]
+        x = [255, -255, 128, -128, 64, -64, 32, -32, 16, -16, 8, -8,
+             4, -4, 2, -2, 1, -1, 0, 0]
         L = 10
-        ms, cs, es = prony.prony_decomp(x, L)
+        ms, cs, es = prony_decomp(x, L)
         self.assertEqual(len(ms) + len(cs) + len(es), 10 + 10 + 10)
+
+
+if __name__ == "__main__":
+    unittest.main()
