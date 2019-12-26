@@ -18,7 +18,7 @@
 from math import pi
 from collections import deque
 import numpy as np
-from dsplab.activity import Worker
+from dsplab.activity import Activity
 
 PI = pi
 PI2 = 2 * PI
@@ -33,7 +33,7 @@ def unwrap_point(phi):
     return phi
 
 
-class QueueFilter(Worker):
+class QueueFilter(Activity):
     """Online filter with queue.
 
     Parameters
@@ -64,7 +64,7 @@ class Delayer(QueueFilter):
         return self.queue[0]
 
 
-class And(Worker):
+class And(Activity):
     """And operation."""
     def __call__(self, sample):
         """Do operation.
@@ -80,23 +80,7 @@ class And(Worker):
         return res
 
 
-class Or(Worker):
-    """Or operation."""
-    def __call__(self, sample):
-        """Do operation.
-
-        Parameters
-        ----------
-        sample: array_like of floats
-            Input values.
-        """
-        res = 0
-        for value in sample:
-            res += value * (1 - res)
-        return res
-
-
-class OnlineFilter(Worker):
+class Or(Activity):
     """Universal online filter.
 
     Parameters

@@ -330,6 +330,8 @@
 ** DONE [t] Rename Node.reset() to Node.clear_result()
 ** DONE [t] Update docs
 * 0.38.1
+** DONE [b] Do not use worker in online.py
+* 0.38.2
 ** TODO [t] Refactor activity.get_work_from_dict()
 ** TODO [t] Update 2019 -> 2020 in license
 * 0.40.0
@@ -340,8 +342,8 @@
 ** TODO [t] plan.py: Remove self._info['result'] = info
 ** TODO [t] Remove deprecated Node.reset()
 * near
-** TODO [t] Inspect tests folder
 ** TODO [t] Debug repeated timer, it works strange
+** TODO [t] check online.upnwarp_point function
 * later
 ** TODO [p] Add instance_info for activity
 ** TODO [p] plan: Think about separate set_quick() and reduce_calls()
