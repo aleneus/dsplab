@@ -70,7 +70,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'dsplab'
-copyright = '2017, Aleksandr Popov'
+copyright = '2017-2020, Aleksandr Popov'
 author = 'Aleksandr Popov'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -190,6 +190,3 @@ texinfo_documents = [
      author, 'dsplab', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-

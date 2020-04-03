@@ -332,8 +332,10 @@
 * 0.38.1
 ** DONE [b] Do not use worker in online.py
 * 0.38.2
+** DONE [t] Update years in copyrights
+** TODO [t] Check spaces in docstrings
+* 0.38.3
 ** TODO [t] Refactor activity.get_work_from_dict()
-** TODO [t] Update 2019 -> 2020 in license
 * 0.40.0
 ** TODO [t] Remove deprecated Worker.add_param()
 ** TODO [t] Remove deprecated info()
