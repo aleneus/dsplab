@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Functions for modulation and demodulation. """
+"""Functions for modulation and demodulation."""
 
 from math import pi, cos
 import numpy as np
@@ -27,7 +27,7 @@ _2PI = 2 * PI
 
 def harm(length, sample_rate, amp, freq, phi=0,
          noise_f=None, noise_a=None):
-    """ Harmonic signal.
+    """Harmonic signal.
 
     Parameters
     ----------
@@ -69,7 +69,7 @@ def harm(length, sample_rate, amp, freq, phi=0,
 
 def amp_mod(length, sample_rate, func, freq, phi=0,
             noise_f=None, noise_a=None):
-    """ Amplitude modulation.
+    """Amplitude modulation.
 
     Parameters
     ----------
@@ -115,7 +115,7 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
 
 def freq_mod(length, sample_rate, amp, func, phi=0,
              noise_f=None, noise_a=None):
-    """ Amplitude modulation.
+    """Amplitude modulation.
 
     Parameters
     ----------
@@ -165,7 +165,7 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
 
 def phase_mod(length, sample_rate, amp, freq, func,
               noise_f=None, noise_a=None):
-    """ Phase modulation.
+    """Phase modulation.
 
     Parameters
     ----------
@@ -207,7 +207,7 @@ def phase_mod(length, sample_rate, amp, freq, func,
 
 
 def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
-    """ Simultaneous frequency and amplitude modulation.
+    """Simultaneous frequency and amplitude modulation.
 
     Parameters
     ----------
@@ -248,7 +248,7 @@ def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
 
 
 def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
-    """ Return instantaneous frequency of modulated signal using IQ processign.
+    """Return instantaneous frequency of modulated signal using IQ processign.
 
     Parameters
     ----------
@@ -281,7 +281,7 @@ def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
 
 
 def envelope_by_extremums(xdata, sample_rate=1, tdata=None):
-    """ Calculate envelope by local extremums of signals.
+    """Calculate envelope by local extremums of signals.
 
     Parameters
     ----------
@@ -316,7 +316,7 @@ def envelope_by_extremums(xdata, sample_rate=1, tdata=None):
 
 
 def digital_hilbert_filter(ntaps=101, window='hamming'):
-    """ Calculate digital hilbert filter.
+    """Calculate digital hilbert filter.
 
     Parameters
     ----------
@@ -345,7 +345,7 @@ def digital_hilbert_filter(ntaps=101, window='hamming'):
 
 
 def freq_by_extremums(xdata, sample_rate):
-    """ Calculate frequency of oscillating signal by extremums.
+    """Calculate frequency of oscillating signal by extremums.
 
     Parameters
     ----------
@@ -372,8 +372,8 @@ def freq_by_extremums(xdata, sample_rate):
 
 
 def freq_by_zeros(xdata, sample_rate):
-    """ Calculate frequency of oscillating signal by zeros. Signal
-    must be detrended before. """
+    """Calculate frequency of oscillating signal by zeros. Signal
+    must be detrended before."""
     T = len(xdata) / sample_rate
     n = 0
     for x_p, x_c in zip(xdata[:-1], xdata[1:]):
@@ -383,7 +383,7 @@ def freq_by_zeros(xdata, sample_rate):
 
 
 def linint(xdata, tdata, ts_new):
-    """ Find values of xdata in ts_new points.
+    """Find values of xdata in ts_new points.
 
     Parameters
     ----------
@@ -410,7 +410,7 @@ def linint(xdata, tdata, ts_new):
 
 
 def wave_lens(xdata, tdata):
-    """ Calculate wave lengths of signal by space between zeros.
+    """Calculate wave lengths of signal by space between zeros.
 
     Parameters
     ----------
@@ -436,7 +436,7 @@ def wave_lens(xdata, tdata):
 
 
 def freqs_by_wave_len(xdata, tdata, cut_nans=True):
-    """ Calculate frequencies using lenghs of waves and linear
+    """Calculate frequencies using lenghs of waves and linear
     interpolation.
 
     Parameters

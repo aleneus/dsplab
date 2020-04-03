@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Some functions for spectral analysis. """
+"""Some functions for spectral analysis."""
 
 import numpy as np
 import scipy.fftpack as fftpack
@@ -22,7 +22,7 @@ import scipy.signal as sig
 
 def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
              return_amplitude=True, extra_len=None, save_energy=False):
-    """ Return the Fourier spectrum of signal.
+    """Return the Fourier spectrum of signal.
 
     Parameters
     ----------
@@ -75,7 +75,7 @@ def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
 
 def stft(xdata, sample_rate=1, nseg=256,
          nstep=None, window='hamming', nfft=None, padded=False):
-    """ Return result of short-time fourier transform.
+    """Return result of short-time fourier transform.
 
     Parameters
     ----------
@@ -120,7 +120,7 @@ def stft(xdata, sample_rate=1, nseg=256,
 
 def calc_specgram(xdata, sample_rate=1, tdata=None, nseg=256,
                   nstep=None, freq_bounds=None, extra_len=None):
-    """ Return spectrogram data prepared to further plotting.
+    """Return spectrogram data prepared to further plotting.
 
     Parameters
     ----------

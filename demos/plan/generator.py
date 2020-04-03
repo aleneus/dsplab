@@ -1,4 +1,4 @@
-""" Node may not have inputs."""
+"""Node may not have inputs."""
 
 import sys
 import os

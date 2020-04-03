@@ -7,7 +7,7 @@ from dsplab.plan import WorkNode, Plan
 
 
 def main():
-    """ Run example. """
+    """Run example."""
     print(__doc__)
     p = Plan()
     a = WorkNode()

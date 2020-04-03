@@ -1,4 +1,4 @@
-""" Harmonics with noise. """
+"""Harmonics with noise."""
 
 import sys
 import os
@@ -11,13 +11,13 @@ from dsplab.modulation import harm
 
 
 def noise(t):
-    """ Return random value. """
+    """Return random value."""
     x = random.normalvariate(0, 0.1)
     return x
 
 
 def main():
-    """ Run example. """
+    """Run example."""
     T = 10
     fs = 100
     x, t = harm(

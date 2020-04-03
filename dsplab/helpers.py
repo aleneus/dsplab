@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Helpers. """
+"""Helpers."""
 
 import importlib
 import json
@@ -29,7 +29,7 @@ def is_iterable(obj):
 
 
 def import_entity(name):
-    """ Import class by name. """
+    """Import class by name."""
     parts = name.split('.')
     module_name = '.'.join(parts[:-1])
     entity_name = parts[-1]

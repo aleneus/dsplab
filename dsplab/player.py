@@ -26,7 +26,7 @@ LOG = logging.getLogger(__name__)
 
 
 class RepeatedTimer:
-    """ Timer. """
+    """Timer."""
     def __init__(self, interval, function, *args, **kwargs):
         self._timer = None
         self._interval = interval
@@ -38,24 +38,24 @@ class RepeatedTimer:
         self.lock = Lock()
 
     def set_interval(self, interval):
-        """ Set interval. """
+        """Set interval."""
         self._interval = interval
 
     def get_interval(self):
-        """ Get interval. """
+        """Get interval."""
         return self._interval
 
     interval = property(get_interval, set_interval,
                         doc="Timeout interval (sec)")
 
     def start(self):
-        """ Start timer. """
+        """Start timer."""
         self.next_call = time.time()
         self.is_running = True
         self._repeat()
 
     def stop(self):
-        """ Stop timer. """
+        """Stop timer."""
         self._timer.cancel()
         self.is_running = False
 
@@ -74,7 +74,7 @@ class RepeatedTimer:
 
 
 class SignalPlayer:
-    """ Class for playing text file as stream. """
+    """Class for playing text file as stream."""
     def __init__(self, interval):
         self.interval = interval
         self.queue = deque([], maxlen=100)
@@ -84,11 +84,11 @@ class SignalPlayer:
         self.data_producer = None
 
     def set_data_producer(self, data_producer):
-        """ Set adapter with get_sample() method. """
+        """Set adapter with get_sample() method."""
         self.data_producer = data_producer
 
     def start(self):
-        """ Start player. """
+        """Start player."""
         # LOG.debug('call SignalPlayer.start()')
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
@@ -96,7 +96,7 @@ class SignalPlayer:
         self.timer.start()
 
     def stop(self):
-        """ Stop player. """
+        """Stop player."""
         # LOG.debug("%s.stop()" % self.__class__.__name__)
         self.timer.stop()
         self.data_producer.stop()
@@ -110,7 +110,7 @@ class SignalPlayer:
         return sample
 
     def get_sample(self):
-        """ Return sample. """
+        """Return sample."""
         try:
             sample = self.queue.popleft()
         except IndexError:

@@ -1,4 +1,4 @@
-""" Example of frequency modulation. """
+"""Example of frequency modulation."""
 
 import sys
 import os
@@ -10,13 +10,13 @@ from dsplab.modulation import freq_mod
 
 
 def modulator(t):
-    """ Return frequency value. """
+    """Return frequency value."""
     x = 0.05*t + 0.5
     return x
 
 
 def main():
-    """ Run example. """
+    """Run example."""
     T = 10
     fs = 100
     a = 1

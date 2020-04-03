@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" Filtration of signals. """
+"""Filtration of signals."""
 
 import numpy as np
 import scipy.signal as sig
@@ -21,7 +21,7 @@ from scipy.fftpack import fft, ifft
 
 
 def _stupid_filter(xdata, fr_resp):
-    """ Filter signal using setted frequency response.
+    """Filter signal using setted frequency response.
 
     Parameters
     ----------
@@ -41,7 +41,7 @@ def _stupid_filter(xdata, fr_resp):
 
 
 def stupid_lowpass_filter(xdata, sample_rate, cutoff):
-    """ Return low-pass filtered signal.
+    """Return low-pass filtered signal.
 
     Parameters
     ----------
@@ -66,7 +66,7 @@ def stupid_lowpass_filter(xdata, sample_rate, cutoff):
 
 
 def stupid_bandpass_filter(xdata, sample_rate, bandpass):
-    """ Return low-pass filtered signal.
+    """Return low-pass filtered signal.
 
     Parameters
     ----------
@@ -91,7 +91,7 @@ def stupid_bandpass_filter(xdata, sample_rate, bandpass):
 
 
 def butter_filter(xdata, sample_rate, freqs, order, btype='band'):
-    """ Butterworth filter.
+    """Butterworth filter.
 
     Parameters
     ----------
@@ -120,7 +120,7 @@ def butter_filter(xdata, sample_rate, freqs, order, btype='band'):
 
 
 def find_butt_bandpass_order(band, sample_rate):
-    """ Claculate the order of Butterworth bandpass filter using
+    """Calculate the order of Butterworth bandpass filter using
     minimization of metric between ideal and real frequency response.
 
     Parameters
@@ -134,6 +134,7 @@ def find_butt_bandpass_order(band, sample_rate):
     -------
     : integer
         Order of filter.
+
     """
     spectrum_len = round(60 * 120 * sample_rate)
     unit_pulse = np.zeros(spectrum_len)
@@ -162,7 +163,7 @@ def find_butt_bandpass_order(band, sample_rate):
 
 
 def haar_one_step(xdata, tdata, denominator=2):
-    """ One cascade of Haar transform.
+    """One cascade of Haar transform.
 
     Parameters
     ----------
@@ -193,7 +194,7 @@ def haar_one_step(xdata, tdata, denominator=2):
 
 
 def haar_scaling(xdata, tdata, steps_number):
-    """ Scaling with Haar transform.
+    """Scaling with Haar transform.
 
     Parameters
     ----------
@@ -222,7 +223,7 @@ def haar_scaling(xdata, tdata, steps_number):
 
 
 def smooth(xdata, ntaps=3, cut=True):
-    """ Smooth signal with Hamming window. """
+    """Smooth signal with Hamming window."""
     wind = np.hamming(ntaps)
     wind = wind / sum(wind)
     res = sig.lfilter(wind, [1], xdata)
@@ -232,7 +233,7 @@ def smooth(xdata, ntaps=3, cut=True):
 
 
 def trend_smooth(xdata, sample_rate=1, tdata=None, cut_off=0.5):
-    """ Calculate trend of signal using smoothing filter.
+    """Calculate trend of signal using smoothing filter.
 
     Parameters
     ----------

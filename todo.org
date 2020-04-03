@@ -333,8 +333,9 @@
 ** DONE [b] Do not use worker in online.py
 * 0.38.2
 ** DONE [t] Update years in copyrights
-** TODO [t] Check spaces in docstrings
+** DONE [t] Fix spaces in docstrings
 * 0.38.3
+** TODO [t] check self._class_info.copy() in Activity
 ** TODO [t] Refactor activity.get_work_from_dict()
 * 0.40.0
 ** TODO [t] Remove deprecated Worker.add_param()

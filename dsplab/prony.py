@@ -13,14 +13,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" This module implements Prony decomposition of signal. """
+"""This module implements Prony decomposition of signal."""
 
 import numpy as np
 import numpy.linalg as linalg
 
 
 def prony_decomp(xdata, ncomp):
-    """ Prony decomposition of signal.
+    """Prony decomposition of signal.
 
     Parameters
     ----------

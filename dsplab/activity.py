@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-""" This module implements the base classes for Activities. """
+"""This module implements the base classes for Activities."""
 
 import logging
 from warnings import warn
@@ -23,7 +23,7 @@ LOG = logging.getLogger(__name__)
 
 
 class ActivityMeta(type):
-    """ Metaclass for Activity. """
+    """Metaclass for Activity."""
     def __init__(cls, name, bases, attrs):
         super().__init__(name, bases, attrs)
         cls._class_info = {}
@@ -34,7 +34,7 @@ class ActivityMeta(type):
         cls._class_info['class'] = name
 
     def class_info(cls):
-        """ Return the information about activity.
+        """Return the information about activity.
 
         Returns
         -------
@@ -50,9 +50,9 @@ class ActivityMeta(type):
 
 
 class Activity(metaclass=ActivityMeta):
-    """ Any activity -- something that may be called and can provide
+    """Any activity -- something that may be called and can provide
     the information about itself. To get working activity the __call__
-    method must be implemented. """
+    method must be implemented."""
     def __init__(self):
         self._info = self._class_info.copy()
 
@@ -105,11 +105,11 @@ class Work(Activity):
     descr = property(get_descr, set_descr, doc="Description of work")
 
     def set_worker(self, act):
-        """ Set worker for doing work. Worker must be callable."""
+        """Set worker for doing work. Worker must be callable."""
         self._worker = act
 
     def __call__(self, *args, **kwargs):
-        """ Do work. """
+        """Do work."""
         res = self._worker(*args, **kwargs)
         return res
 
