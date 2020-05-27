@@ -336,9 +336,10 @@
 ** DONE [t] Fix spaces in docstrings
 ** DONE [t] docs: spectrum: add description for extra_len
 ** DONE [t] ref: remove _info field from activity
-** TODO [e] ref: add x, t, xs, ts, X, Xs, fs to lint config as okay names
+** DONE [e] ref: add x, t, xs, ts, X, Xs, fs to linter config as good names
 * 0.38.3
 ** TODO [t] ref: get_work_from_dict()
+** TODO [e] up lint result
 * 0.40.0
 ** TODO [t] Remove deprecated Worker.add_param()
 ** TODO [t] Remove deprecated info()
