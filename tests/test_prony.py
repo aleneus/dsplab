@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
+from context import dsplab
 from dsplab.prony import prony_decomp
 
 

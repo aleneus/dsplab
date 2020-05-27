@@ -115,7 +115,6 @@ class Node(Activity):
 
     def set_result_info(self, info):
         """Appent to info the desctription of the output data."""
-        self._info['result'] = info
         self._res_info = info
 
     def get_result_info(self):

@@ -50,12 +50,9 @@ class ActivityMeta(type):
 
 
 class Activity(metaclass=ActivityMeta):
-    """Any activity -- something that may be called and can provide
-    the information about itself. To get working activity the __call__
-    method must be implemented."""
-    def __init__(self):
-        self._info = self._class_info.copy()
-
+    """Any activity is the something that may be called and can
+    provide the information about itself. To get working activity the
+    __call__ method must be implemented."""
     def __call__(self, *args, **kwargs):
         """Call activity."""
         raise NotImplementedError
@@ -67,8 +64,8 @@ class Activity(metaclass=ActivityMeta):
 
     def info(self, as_string=None):
         """Deprecated."""
-        warn("info() is deprecated, don't use it")
-        return self._info
+        warn("info() is deprecated and returns stub, don't use it")
+        return self.__class__.__name__
 
 
 class Worker(Activity):
