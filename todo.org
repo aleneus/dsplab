@@ -334,8 +334,10 @@
 * 0.38.2
 ** DONE [t] Update years in copyrights
 ** DONE [t] Fix spaces in docstrings
-* 0.38.3
+** DONE [t] docs: spectrum: add description for extra_len
 ** TODO [t] check self._class_info.copy() in Activity
+** TODO [e] ref: add x, t, xs, ts, X, Xs, fs to lint config as okay names
+* 0.38.3
 ** TODO [t] Refactor activity.get_work_from_dict()
 * 0.40.0
 ** TODO [t] Remove deprecated Worker.add_param()

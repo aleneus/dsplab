@@ -14,16 +14,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from context import dsplab
 from dsplab.plan import Node
 
 
 class TestNode(unittest.TestCase):
-    def test_deprecated_info(self):
-        n = Node()
-        info = n.info()
-        self.assertTrue(info is not None)
-
     def test_result_info(self):
         n = Node()
         n.result_info = "Signal"

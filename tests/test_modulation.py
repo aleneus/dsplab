@@ -14,10 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-
 import numpy as np
-
-from context import dsplab
 from dsplab.modulation import (envelope_by_extremums,
                                digital_hilbert_filter, linint,
                                wave_lens, freqs_by_wave_len)

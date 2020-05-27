@@ -14,9 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from context import dsplab
-from dsplab.activity import (Activity, Worker, Work,
-                             get_work_from_dict)
+from dsplab.activity import (Activity, Work, get_work_from_dict)
 
 
 class TestActivity(unittest.TestCase):
@@ -26,17 +24,6 @@ class TestActivity(unittest.TestCase):
         self.assertEqual(len(info), 2)
         self.assertTrue('class' in info)
 
-    def test_info(self):
-        a = Activity()
-        info = a.info()
-        self.assertEqual(len(info), 2)
-        self.assertTrue('class' in info)
-
-    def test_set_descr(self):
-        a = Activity()
-        a.set_descr("description")
-        self.assertTrue(True)
-
     def test_set_call(self):
         a = Activity()
         try:
@@ -45,12 +32,6 @@ class TestActivity(unittest.TestCase):
             self.assertTrue(True)
         else:
             self.assertTrue(False)
-
-
-class TestWorker(unittest.TestCase):
-    def test_worker(self):
-        w = Worker()
-        self.assertTrue(w is not None)
 
 
 class TestWork(unittest.TestCase):

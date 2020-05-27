@@ -14,10 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-
-import numpy as np
-
-from context import dsplab
 from dsplab import filtration as flt
 
 

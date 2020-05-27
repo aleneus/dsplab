@@ -37,6 +37,9 @@ def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
         False)
     return_amplitude: boolean
         If True, the amplitude spectrum is calculated
+    extra_len: int
+        If the value is set, the signal is padded with zeros to the
+        extra_len value.
     save_energy: boolean
         If True, the result of FFT has the same energy as signal.  If
         False, the X (spectrum) is multiplied to 2/len(xdata). Use False

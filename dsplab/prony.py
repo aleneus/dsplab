@@ -49,7 +49,7 @@ def prony_decomp(xdata, ncomp):
             D_row.append(xdata[i-j-1])
         D.append(np.array(D_row))
     D = np.array(D)
-    a = linalg.lstsq(D, d)[0]
+    a = linalg.lstsq(D, d, rcond=None)[0]
 
     p = np.array([1] + [-ai for ai in a])
     ms = np.roots(p)
@@ -63,7 +63,7 @@ def prony_decomp(xdata, ncomp):
         D.append(np.array(D_row))
     D = np.array(D)
 
-    cs = linalg.lstsq(D, d)[0]
+    cs = linalg.lstsq(D, d, rcond=None)[0]
 
     es = []
     for i in range(0, ncomp):
