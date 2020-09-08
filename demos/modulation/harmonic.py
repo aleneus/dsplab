@@ -1,9 +1,8 @@
 """Harmonics with noise."""
-
 import sys
 import os
-import random
 
+import random
 import matplotlib.pyplot as plt
 
 sys.path.insert(0, os.path.abspath('.'))
@@ -12,8 +11,7 @@ from dsplab.modulation import harm
 
 def noise(t):
     """Return random value."""
-    x = random.normalvariate(0, 0.1)
-    return x
+    return random.normalvariate(0, 0.1)
 
 
 def main():

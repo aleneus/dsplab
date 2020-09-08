@@ -1,34 +1,40 @@
+"""Prony decomposition example."""
 import os
 import sys
 
 import matplotlib.pyplot as plt
-from pylab import rcParams
 import numpy as np
 
 sys.path.insert(0, os.path.abspath('.'))
 from dsplab import prony
 
-fs = 50
-T = 60
-t = np.linspace(0, T, T*fs + 1)
-x = np.cos(2*np.pi*1*t) * np.exp(-0.2*t) + np.cos(2*np.pi*2*t) * np.exp(-1*t)
 
-L = 4
-ms, cs, es = prony.prony_decomp(x, L)
+def main():
+    """Entry point."""
+    fs = 50
+    T = 60
+    t = np.linspace(0, T, T*fs + 1)
+    x = np.cos(2*np.pi*1*t) * np.exp(-0.2*t) + \
+        np.cos(2*np.pi*2*t) * np.exp(-1*t)
 
-rcParams['figure.figsize'] = 6, 6
-plt.figure()
-plt.plot(x)
-plt.grid(True)
-plt.tight_layout()
-plt.savefig("x.png")
+    es = prony.prony_decomp(x, 4)[2]
 
-rcParams['figure.figsize'] = 6, 12
-plt.figure()
-for i in range(L):
-    plt.subplot(L*100 + 10 + i+1)
-    plt.plot(es[i])
+    fig = plt.figure()
+    gs = fig.add_gridspec(2, len(es) // 2)
+    fig.add_subplot(gs[0, :])
+
+    plt.plot(x)
     plt.grid(True)
 
-plt.tight_layout()
-plt.savefig("decomp.png")
+    for i, e in enumerate(es):
+        if i % 2 == 1:
+            continue
+        fig.add_subplot(gs[1, i // 2])
+        plt.plot(e)
+        plt.grid(True)
+
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()

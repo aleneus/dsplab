@@ -367,19 +367,19 @@ def freq_by_extremums(xdata, sample_rate):
             n_max += 1
         if (x_p > x_c) and (x_c <= x_n):
             n_min += 1
-    n = (n_max + n_min) / 2
-    return n / T
+
+    return (n_max + n_min) / 2 / T
 
 
 def freq_by_zeros(xdata, sample_rate):
     """Calculate frequency of oscillating signal by zeros. Signal
     must be detrended before."""
     T = len(xdata) / sample_rate
-    n = 0
+    zeros_total = 0
     for x_p, x_c in zip(xdata[:-1], xdata[1:]):
         if x_p * x_c < 0:
-            n += 1
-    return n / 2 / T
+            zeros_total += 1
+    return zeros_total / 2 / T
 
 
 def linint(xdata, tdata, ts_new):
@@ -454,8 +454,8 @@ def freqs_by_wave_len(xdata, tdata, cut_nans=True):
     : np.ndarray
         Freqs values.
     """
-    wl, t_wl = wave_lens(xdata, tdata)
-    freqs = 1 / linint(wl, t_wl, tdata)
+    wls, t_wl = wave_lens(xdata, tdata)
+    freqs = 1 / linint(wls, t_wl, tdata)
     if cut_nans:
         freqs_cut = []
         t_cut = []

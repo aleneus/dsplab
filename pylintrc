@@ -422,10 +422,14 @@ good-names=i,
 	   _,
 	   x,
 	   xs,
+	   y,
+	   ys,
 	   t,
 	   ts,
+	   T,
 	   X,
 	   Xs,
+	   f,
 	   fs
 
 # Include a hint for the correct naming format with invalid-name.

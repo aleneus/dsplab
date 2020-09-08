@@ -1,5 +1,4 @@
-"""Examle of amplitude modulation."""
-
+"""Example of amplitude modulation."""
 import sys
 import os
 

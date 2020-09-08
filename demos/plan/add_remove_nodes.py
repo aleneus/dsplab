@@ -1,5 +1,4 @@
 """Construct the plan and delete one node linked to others."""
-
 import sys
 import os
 sys.path.insert(0, os.path.abspath('.'))

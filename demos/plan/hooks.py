@@ -1,9 +1,8 @@
 """Start and stop hooks."""
-
 import sys
 import os
-
 sys.path.insert(0, os.path.abspath('.'))
+
 from dsplab.activity import Work
 from dsplab.plan import WorkNode, Plan
 
@@ -29,6 +28,7 @@ def progress_handler():
 
 
 def main():
+    """Entry point."""
     print(__doc__)
     node = WorkNode(work=Work("Increment", worker=func))
     node.set_start_hook(start_handler, node)

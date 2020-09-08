@@ -1,5 +1,4 @@
 """Node may not have inputs."""
-
 import sys
 import os
 from random import randint

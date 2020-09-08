@@ -1,5 +1,4 @@
 """Example of frequency modulation."""
-
 import sys
 import os
 
@@ -11,25 +10,24 @@ from dsplab.modulation import freq_mod
 
 def modulator(t):
     """Return frequency value."""
-    x = 0.05*t + 0.5
-    return x
+    return 0.05*t + 0.5
 
 
 def main():
     """Run example."""
     T = 10
     fs = 100
-    a = 1
-    x, ph, t = freq_mod(
+    amp = 1
+    xs, phases, ts = freq_mod(
         length=T,
         sample_rate=fs,
-        amp=a,
+        amp=amp,
         func=modulator,
     )
     plt.subplot(211)
-    plt.plot(t, x)
+    plt.plot(ts, xs)
     plt.subplot(212)
-    plt.plot(t, ph)
+    plt.plot(ts, phases)
     plt.show()
 
 

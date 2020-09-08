@@ -4,7 +4,7 @@ Release checklist
 Code
 ----
 * No TODO in code
-* The result of pylint is not less than 9.4
+* The result of pylint is not less than 9.5
 * No violations of the style
 * No flakes
 * All unit tests passed
@@ -20,4 +20,4 @@ Docs
 Demo
 ----
 * All examples works
-* The result of pylint is not less than 7.0
+* The result of pylint is not less than 8.45

@@ -1,9 +1,8 @@
 """Basic usage of plan."""
-
 import sys
 import os
-
 sys.path.insert(0, os.path.abspath('.'))
+
 from dsplab.activity import Work
 from dsplab.plan import WorkNode, Plan
 from workers import Linear
@@ -11,20 +10,18 @@ from workers import Linear
 
 def main():
     """Run example."""
-    print(__doc__)
-    p = Plan()
-    a = WorkNode(work=Work("Linear transformation", worker=Linear(1, 1)))
-    b = WorkNode(work=Work("Linear transformation", worker=Linear(2, 2)))
-    c = WorkNode(work=Work("Linear transformation", worker=Linear(3, 3)))
-    p.add_node(a)
-    p.add_node(b, inputs=[a])
-    p.add_node(c, inputs=[b])
-    p.inputs = [a]
-    p.outputs = [c, b]
+    plan = Plan()
+    node_a = WorkNode(work=Work("Linear transformation", worker=Linear(1, 1)))
+    node_b = WorkNode(work=Work("Linear transformation", worker=Linear(2, 2)))
+    node_c = WorkNode(work=Work("Linear transformation", worker=Linear(3, 3)))
+    plan.add_node(node_a)
+    plan.add_node(node_b, inputs=[node_a])
+    plan.add_node(node_c, inputs=[node_b])
+    plan.inputs = [node_a]
+    plan.outputs = [node_c, node_b]
 
-    x = 5
-    y = p([x])
-    print(y)
+    print(plan([5]))
 
 
-main()
+if __name__ == "__main__":
+    main()

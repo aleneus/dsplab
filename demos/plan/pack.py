@@ -1,10 +1,6 @@
-"""
-Pack inputs to list.
-"""
-
+"""Pack inputs to list."""
 import sys
 import os
-
 sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Work
 from dsplab.plan import WorkNode, PackNode, Plan
