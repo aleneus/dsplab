@@ -337,32 +337,35 @@
 ** DONE [t] docs: spectrum: add description for extra_len
 ** DONE [t] ref: remove _info field from activity
 ** DONE [e] ref: add x, t, xs, ts, X, Xs, fs to linter config as good names
-* 0.38.3
-** TODO [t] ref: get_work_from_dict()
-** TODO [e] up lint result
-* 0.40.0
-** TODO [t] Remove deprecated Worker.add_param()
-** TODO [t] Remove deprecated info()
-** TODO [t] Remove deprecated set_descr() in activities
-** TODO [t] Remove deprecated Activity.set_descr()
-** TODO [t] Remove deprecated Node.reset()
+* 0.39.0
+** DONE docs: add release checklist
+** TODO test: use nose2 and output coverage
+** TODO ref: up lint result
+** TODO ref: demos: up lint results
+** TODO test: rename folder tests
+** TODO feat: remove deprecated Worker.add_param()
+** TODO feat: remove deprecated info()
+** TODO feat: remove deprecated set_descr() in activities
+** TODO feat: remove deprecated Activity.set_descr()
+** TODO feat: remove deprecated Node.reset()
+** TODO ref: get_work_from_dict()
 * near
-** TODO [t] Debug repeated timer, it works strange
-** TODO [t] check online.upnwarp_point function
+** TODO Debug repeated timer, it works strange
+** TODO check online.upnwarp_point function
 * later
-** TODO [p] Add instance_info for activity
-** TODO [p] plan: Think about separate set_quick() and reduce_calls()
-** TODO [e] activity.get_work_from_dict(): Too nested work with params
-** TODO [t] Think about place (module or modules) for common workers
-** TODO [t] Add online smoother
-** TODO [p] Add online summator
-** TODO [p] Add online subtractor
-** TODO [e] Add comment showing desirable result in plan examples
-** TODO [p] Add example of verification of plan
-** TODO [e] Optimize the work with data in Plan and Nodes
-** TODO [p] Add parallelism to Plan execution
-** TODO [e] Add function for calculating of frequency using Hilbert transform
-** TODO [e] Add function for calculating of frequency using digital Hilbert filter
-** TODO [t] Make interval an option in timer
-** TODO [e] Refactor player.CsvDataProducer
-** TODO [p] Deprecate OnlineFilter (monster)
+** TODO Add instance_info for activity
+** TODO plan: Think about separate set_quick() and reduce_calls()
+** TODO activity.get_work_from_dict(): Too nested work with params
+** TODO Think about place (module or modules) for common workers
+** TODO Add online smoother
+** TODO Add online summator
+** TODO Add online subtractor
+** TODO Add comment showing desirable result in plan examples
+** TODO Add example of verification of plan
+** TODO Optimize the work with data in Plan and Nodes
+** TODO Add parallelism to Plan execution
+** TODO Add function for calculating of frequency using Hilbert transform
+** TODO Add function for calculating of frequency using digital Hilbert filter
+** TODO Make interval an option in timer
+** TODO Refactor player.CsvDataProducer
+** TODO Deprecate OnlineFilter (monster)

@@ -15,12 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from setuptools import setup
 import os
+from setuptools import setup
 from dsplab import __version__
 
 
 def read(fname):
+    """Read content of the text file."""
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
@@ -30,12 +31,12 @@ setup(
     description="Some tools for digital signal processing",
     author="Aleksandr Popov",
     author_email="aleneus@gmail.com",
-    license = "LGPLv3",
-    keywords = "digital signal processing",
-    url = "https://bitbucket.org/aleneus/dsplab",
+    license="LGPLv3",
+    keywords="digital signal processing",
+    url="https://bitbucket.org/aleneus/dsplab",
     long_description=read('README.md'),
     packages=['dsplab'],
-    install_requires = [
+    install_requires=[
         'numpy>=1.14.2',
         'scipy>=0.19.0',
     ],
