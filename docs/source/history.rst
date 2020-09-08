@@ -1,10 +1,19 @@
 History
 =======
 
+0.38
+----
+
+* Activity methods **info()** and **set_descr()** have been marked as deprecated
+* **Worker** class has been marked as deprecated
+* New Node's method **get_result_info()**
+* New Plan's property **descr**
+* **reset()** method of the Node has been renamed to **clear_result()**
+
 0.37
 ----
 
-* Possibility to use params as "$name" in JSON with plan
+* Possibility to use parameters as "$name" in JSON with plan
 * New method of Plan: set_quick()
 * Examples have been brushed (style and flakes)
 
@@ -83,7 +92,7 @@ History
 ----
 
 * Add class info of Activity in metaclass
-* Add method for getting information about class of Activity whithout creating instance
+* Add method for getting information about class of Activity without creating instance
 * Add method for adding and documenting parameters of activity
 * Brush activity module with pylint
 * Some fixes
@@ -91,8 +100,8 @@ History
 0.27
 ----
 
-* Add tool for playin of archive data as if they are being get in online mode.
-* Add adapter for procuding data for player.
+* Add tool for playing of archive data as if they are being get in online mode.
+* Add adapter for producing data for player.
 * Add CSV data producer.
 * Add Random data producer.
 * Add examples of playing signals.
@@ -120,7 +129,7 @@ History
 ----
 
 * Plan: Provide auto and manual terminals without auto_terminals option
-* Plan: Support the inputs and ouputs in the function for setup plan from dict
+* Plan: Support the inputs and outputs in the function for setup plan from dict
 * Plan: Rename Translator to Transmitter
 * Modulation: Add a function for phase modulation
 
@@ -165,7 +174,7 @@ History
 * Activity module redesigned.
 * Info stuff of activities redesigned.
 * Work class added. Work is the activity that can be done by different
-  ways. Work has worker. Wroker is the activity.
+  ways. Work has worker. Worker is the activity.
 * Added tools for constructing the plans of works. Plan is the number
   of linked nodes and every node is the 'work place' for some worker.
 
@@ -189,7 +198,7 @@ History
 0.15
 ----
 
-* More universal function for QI-processing was added.
+* More universal function for IQ-processing was added.
 
 0.14
 ----
@@ -210,7 +219,7 @@ History
 * Function for calculation of spectrogram was added.
 * Function for finding the trend with smoothing filtration was added.
 * Stupid filters (FFT and back) were added.
-* Spectrum function was rewrited.
+* Spectrum function was rewritten.
 * Some code was cleaned.
 * More tests were added.
 
@@ -237,8 +246,8 @@ History
 0.8
 ---
 
-* Specfic module damping was removed
-* Function for read signal from csv was added
+* Specific module damping was removed
+* Function for read signal from CSV was added
 * More tests were added
 
 0.7
@@ -257,4 +266,4 @@ History
 0.5
 ---
 
-* Stupid procedure for calculationg damping time is added.
+* Stupid procedure for calculation damping time is added.
