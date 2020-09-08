@@ -340,7 +340,7 @@
 * 0.39.0
 ** DONE docs: add release checklist
 ** DONE test: use nose2
-** TODO ref: up lint result
+** DONE ref: up lint result
 ** TODO ref: demos: up lint results
 ** TODO test: rename folder tests
 ** TODO feat: remove deprecated Worker.add_param()

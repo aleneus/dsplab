@@ -60,7 +60,6 @@ class Activity(metaclass=ActivityMeta):
     def set_descr(self, descr):
         """Deprecated."""
         warn("Activity.set_descr() is deprecated. Use it for works only.")
-        pass
 
     def info(self, as_string=None):
         """Deprecated."""

@@ -38,37 +38,33 @@ def prony_decomp(xdata, ncomp):
     : np.array
         Components.
     """
-    N = len(xdata)
-    if 2*ncomp > N:
+    samples_total = len(xdata)
+    if 2*ncomp > samples_total:
         return None
-    d = np.array([xdata[i] for i in range(ncomp, N)])
-    D = []
-    for i in range(ncomp, N):
-        D_row = []
-        for j in range(0, ncomp):
-            D_row.append(xdata[i-j-1])
-        D.append(np.array(D_row))
-    D = np.array(D)
-    a = linalg.lstsq(D, d, rcond=None)[0]
+    d_matrix = []
+    for i in range(ncomp, samples_total):
+        row = [xdata[i-j-1] for j in range(0, ncomp)]
+        d_matrix.append(np.array(row))
+    d_matrix = np.array(d_matrix)
+    d_column = np.array([xdata[i] for i in range(ncomp, samples_total)])
 
+    a = linalg.lstsq(d_matrix, d_column, rcond=None)[0]
     p = np.array([1] + [-ai for ai in a])
-    ms = np.roots(p)
+    mu_vals = np.roots(p)
 
-    d = np.array([xdata[i] for i in range(0, N)])
-    D = []
-    for i in range(0, N):
-        D_row = []
-        for j in range(0, ncomp):
-            D_row.append(ms[j]**i)
-        D.append(np.array(D_row))
-    D = np.array(D)
+    d_matrix = []
+    for i in range(samples_total):
+        row = [mu_vals[j]**i for j in range(ncomp)]
+        d_matrix.append(np.array(row))
+    d_matrix = np.array(d_matrix)
+    d_column = np.array([xdata[i] for i in range(samples_total)])
 
-    cs = linalg.lstsq(D, d, rcond=None)[0]
+    c_vals = linalg.lstsq(d_matrix, d_column, rcond=None)[0]
 
-    es = []
+    components = []
     for i in range(0, ncomp):
-        e = [cs[i]*(ms[i]**k) for k in range(0, N)]
-        es.append(np.array(e).real)
-    es = np.array(es)
+        comp = [c_vals[i] * (mu_vals[i]**k) for k in range(samples_total)]
+        components.append(np.array(comp).real)
+    components = np.array(components)
 
-    return ms, cs, es
+    return mu_vals, c_vals, components
