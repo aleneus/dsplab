@@ -1,11 +1,6 @@
 """Smooth signal example."""
-import sys
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
-
-sys.path.insert(0, os.path.abspath('.'))
 from dsplab.filtration import trend_smooth
 
 

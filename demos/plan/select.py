@@ -1,10 +1,6 @@
 """Using of SelectNode with multiple input."""
-import sys
-import os
-sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Work
 from dsplab.plan import SelectNode, WorkNode, Plan
-
 from workers import DoNothing
 
 
@@ -33,4 +29,5 @@ def main():
     print("Outputs: ", res)
 
 
-main()
+if __name__ == "__main__":
+    main()

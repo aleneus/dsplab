@@ -342,6 +342,8 @@
 ** DONE test: use nose2
 ** DONE ref: up lint result
 ** DONE ref: demos: up lint results
+** DONE ref: demos: remove sys.path.insert
+** TODO docs: how to run demos
 ** TODO test: rename folder tests
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()

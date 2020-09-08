@@ -1,12 +1,6 @@
 """Example of calculating amplitude by extremums."""
-
-import os
-import sys
-
 import matplotlib.pyplot as plt
 import numpy as np
-
-sys.path.insert(0, os.path.abspath('.'))
 from dsplab.modulation import envelope_by_extremums
 
 

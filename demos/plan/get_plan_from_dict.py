@@ -1,7 +1,4 @@
 """Get plan from dictionary."""
-import sys
-import os
-sys.path.insert(0, os.path.abspath('.'))
 from dsplab.plan import get_plan_from_dict
 
 

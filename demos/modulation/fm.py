@@ -1,10 +1,5 @@
 """Example of frequency modulation."""
-import sys
-import os
-
 import matplotlib.pyplot as plt
-
-sys.path.insert(0, os.path.abspath('.'))
 from dsplab.modulation import freq_mod
 
 

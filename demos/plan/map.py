@@ -1,7 +1,4 @@
 """Mapping."""
-import sys
-import os
-sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Work
 from dsplab.plan import MapNode, WorkNode, Plan
 from workers import Sum, DoNothing
@@ -36,4 +33,5 @@ def main():
     print("Outputs:", res)
 
 
-main()
+if __name__ == "__main__":
+    main()

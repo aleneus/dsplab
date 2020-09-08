@@ -1,9 +1,4 @@
 """Example of playing random signal."""
-
-import sys
-import os
-sys.path.insert(0, os.path.abspath('.'))
-
 from dsplab.player import RandomDataProducer, SignalPlayer
 
 
@@ -22,4 +17,5 @@ def main():
     player.stop()
 
 
-main()
+if __name__ == "__main__":
+    main()
