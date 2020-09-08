@@ -337,7 +337,7 @@
 ** DONE [t] docs: spectrum: add description for extra_len
 ** DONE [t] ref: remove _info field from activity
 ** DONE [e] ref: add x, t, xs, ts, X, Xs, fs to linter config as good names
-* 0.39.0
+* 0.38.3
 ** DONE docs: add release checklist
 ** DONE test: use nose2
 ** DONE ref: up lint result
@@ -346,7 +346,10 @@
 ** DONE docs: how to run demos
 ** DONE docs: fix: add history notes for 0.38
 ** DONE demo: rename demos -> demo
-** TODO test: rename tests -> test
+** DONE ref: tests: no need for context.py, remove
+** TODO test: up coverage
+** TODO setup: update dependencies
+* 0.40.0
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()
 ** TODO feat: remove deprecated set_descr() in activities

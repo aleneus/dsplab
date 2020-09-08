@@ -1,4 +1,4 @@
-.PHONY: help style flakes lint uml release upload docs
+.PHONY: docs
 
 PACKAGE_FOLDER = dsplab
 DEMO_FOLDER = demo

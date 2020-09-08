@@ -15,7 +15,6 @@
 
 import unittest
 import numpy as np
-import context
 from dsplab.spectran import spectrum, stft, calc_specgram
 
 

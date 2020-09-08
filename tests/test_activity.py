@@ -14,7 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-import context
 from dsplab.activity import (Activity, Work, get_work_from_dict)
 
 
