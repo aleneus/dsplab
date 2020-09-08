@@ -15,7 +15,7 @@
 
 import unittest
 import numpy as np
-from context import dsplab
+import context
 from dsplab.spectran import spectrum, stft, calc_specgram
 
 
@@ -110,7 +110,3 @@ class TestSpecgram(unittest.TestCase):
         x = np.cos(2*np.pi*1*t)
         calc_specgram(x, sample_rate=fs)
         self.assertTrue(True)
-
-
-if __name__ == "__main__":
-    unittest.main()

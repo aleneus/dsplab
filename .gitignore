@@ -5,3 +5,7 @@
 build/*
 dist/*
 dsplab.egg-info/*
+
+.coverage
+
+htmlcov

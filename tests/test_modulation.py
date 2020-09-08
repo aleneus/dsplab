@@ -15,7 +15,7 @@
 
 import unittest
 import numpy as np
-from context import dsplab
+import context
 from dsplab.modulation import (envelope_by_extremums,
                                digital_hilbert_filter, linint,
                                wave_lens, freqs_by_wave_len)
@@ -71,6 +71,3 @@ class TestFrequency(unittest.TestCase):
         self.assertEqual(len(f), 9)
         self.assertEqual(len(t_f), 9)
         self.assertEqual(np.sum(f), 9)
-
-
-unittest.main()

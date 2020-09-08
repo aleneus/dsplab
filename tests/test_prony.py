@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from context import dsplab
+import context
 from dsplab.prony import prony_decomp
 
 
@@ -46,7 +46,3 @@ class TestProny(unittest.TestCase):
         L = 10
         ms, cs, es = prony_decomp(x, L)
         self.assertEqual(len(ms) + len(cs) + len(es), 10 + 10 + 10)
-
-
-if __name__ == "__main__":
-    unittest.main()

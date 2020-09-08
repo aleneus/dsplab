@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from context import dsplab
+import context
 from dsplab import filtration as flt
 
 
@@ -92,7 +92,3 @@ class TestTrend(unittest.TestCase):
         x = [1, 2, 3, 4, 5, 6, 7, 8]
         flt.trend_smooth(x)
         self.assertTrue(True)
-
-
-if __name__ == "__main__":
-    unittest.main()

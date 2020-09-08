@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from context import dsplab
+import context
 from dsplab.plan import Node
 
 
@@ -23,6 +23,3 @@ class TestNode(unittest.TestCase):
         n = Node()
         n.result_info = "Signal"
         self.assertEqual(n.result_info, "Signal")
-
-
-unittest.main()

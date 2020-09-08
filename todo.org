@@ -339,7 +339,7 @@
 ** DONE [e] ref: add x, t, xs, ts, X, Xs, fs to linter config as good names
 * 0.39.0
 ** DONE docs: add release checklist
-** TODO test: use nose2 and output coverage
+** DONE test: use nose2
 ** TODO ref: up lint result
 ** TODO ref: demos: up lint results
 ** TODO test: rename folder tests

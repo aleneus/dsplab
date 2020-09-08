@@ -7,6 +7,7 @@ all: help
 
 help:
 	@echo "make check"
+	@echo "make cover"
 	@echo "make style"
 	@echo "make flakes"
 	@echo "make lint"
@@ -14,13 +15,12 @@ help:
 	@echo "make uml"
 	@echo "make upload"
 
+
 check:
-	python3 tests/test_activity.py
-	python3 tests/test_plan.py
-	python3 tests/test_modulation.py
-	python3 tests/test_filtration.py
-	python3 tests/test_prony.py
-	python3 tests/test_spectran.py
+	@nose2 -vvv
+
+cover:
+	@nose2 --with-coverage --coverage-report=html
 
 style:
 	pycodestyle $(PACKAGE_FOLDER)

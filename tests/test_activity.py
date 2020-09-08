@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from context import dsplab
+import context
 from dsplab.activity import (Activity, Work, get_work_from_dict)
 
 
@@ -27,12 +27,13 @@ class TestActivity(unittest.TestCase):
 
     def test_set_call(self):
         a = Activity()
+        raised = False
         try:
             a(1)
         except NotImplementedError:
-            self.assertTrue(True)
-        else:
-            self.assertTrue(False)
+            raised = True
+
+        self.assertTrue(raised)
 
 
 class TestWork(unittest.TestCase):
@@ -50,19 +51,20 @@ class TestWork(unittest.TestCase):
 
     def test_no_worker(self):
         w = Work()
+        raised = False
         try:
             w(1)
         except TypeError:
-            self.assertTrue(True)
-        else:
-            self.assertTrue(False)
+            raised = True
+
+        self.assertTrue(raised)
 
 
 class Test_get_from_dict(unittest.TestCase):
     def test_worker_is_function(self):
         settings = {
             'worker': {
-                'function': 'inc',
+                'function': 'tests.test_activity.inc',
             }
         }
         w = get_work_from_dict(settings)
@@ -72,7 +74,7 @@ class Test_get_from_dict(unittest.TestCase):
     def test_worker_is_object(self):
         settings = {
             'worker': {
-                'class': 'Inc',
+                'class': 'tests.test_activity.Inc',
                 'params': {'val': 2},
             }
         }
@@ -83,7 +85,7 @@ class Test_get_from_dict(unittest.TestCase):
     def test_variable_params(self):
         settings = {
             'worker': {
-                'class': 'Inc',
+                'class': 'tests.test_activity.Inc',
                 'params': {'val': '$var'},
             }
         }
@@ -98,7 +100,7 @@ class Test_get_from_dict(unittest.TestCase):
     def test_combination_conatnt_and_variable_parameters(self):
         settings = {
             'worker': {
-                'class': 'Lin',
+                'class': 'tests.test_activity.Lin',
                 'params': {'a': '$a', 'b': 0},
             }
         }
@@ -130,6 +132,3 @@ class Lin:
 
     def __call__(self, x):
         return self.a * x + self.b
-
-
-unittest.main()
