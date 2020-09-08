@@ -234,7 +234,7 @@ History
 
 * Tools for spectral analysis were added
 * Haar transform was added
-* More demos were added
+* More demo were added
 * Some bugs were fixed
 
 0.9
@@ -254,7 +254,7 @@ History
 ---
 
 * Envelope by maximums replaced to envelope by extremums.
-* Demos added.
+* Demo added.
 * More tests added.
 
 0.6

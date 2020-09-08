@@ -7,19 +7,19 @@ Examples
 Harmonic
 ^^^^^^^^
 
-.. literalinclude:: ../../demos/modulation/harmonic.py
+.. literalinclude:: ../../demo/modulation/harmonic.py
    :language: python
 
 Amplitude
 ^^^^^^^^^
 
-.. literalinclude:: ../../demos/modulation/am.py
+.. literalinclude:: ../../demo/modulation/am.py
    :language: python
 
 Frequency
 ^^^^^^^^^
 
-.. literalinclude:: ../../demos/modulation/fm.py
+.. literalinclude:: ../../demo/modulation/fm.py
    :language: python
 
 Members

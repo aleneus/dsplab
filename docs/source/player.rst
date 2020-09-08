@@ -7,13 +7,13 @@ Examples
 Random numbers
 ^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/player/random_numbers.py
+.. literalinclude:: ../../demo/player/random_numbers.py
    :language: python
 
 CSV-file
 ^^^^^^^^
 
-.. literalinclude:: ../../demos/player/csv_file.py
+.. literalinclude:: ../../demo/player/csv_file.py
    :language: python
 
 Members

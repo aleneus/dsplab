@@ -7,59 +7,59 @@ Examples
 Helper module with workers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/workers.py
+.. literalinclude:: ../../demo/plan/workers.py
    :language: python
 
 Basic usage
 ^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/basic.py
+.. literalinclude:: ../../demo/plan/basic.py
    :language: python
 
 Using of start and stop hooks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/hooks.py
+.. literalinclude:: ../../demo/plan/hooks.py
    :language: python
-	   
+
 MapNode (applying work for iterable input)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/map.py
+.. literalinclude:: ../../demo/plan/map.py
    :language: python
 
 PackNode (pack inputs to list)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/pack.py
+.. literalinclude:: ../../demo/plan/pack.py
    :language: python
 
 SelectNode
 ^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/select.py
+.. literalinclude:: ../../demo/plan/select.py
    :language: python
-	      
+
 Node-generator
 ^^^^^^^^^^^^^^
 
 'Node-generator' means the no input node with no inputs.
 
-.. literalinclude:: ../../demos/plan/generator.py
+.. literalinclude:: ../../demo/plan/generator.py
    :language: python
 
 Get Plan instance from dict
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/get_plan_from_dict.py
+.. literalinclude:: ../../demo/plan/get_plan_from_dict.py
    :language: python
-	   
+
 Quick plan for on-line processing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../demos/plan/online.py
+.. literalinclude:: ../../demo/plan/online.py
    :language: python
-	      
+
 Members
 -------
 

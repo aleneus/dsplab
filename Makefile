@@ -1,7 +1,7 @@
 .PHONY: help style flakes lint uml release upload docs
 
 PACKAGE_FOLDER = dsplab
-DEMO_FOLDER = demos
+DEMO_FOLDER = demo
 
 all: help
 
@@ -15,6 +15,7 @@ help:
 	@echo "make uml"
 	@echo "make docs"
 	@echo "make upload"
+	@echo "make clear"
 
 
 check:
@@ -44,3 +45,7 @@ docs:
 
 upload:
 	python3 setup.py sdist upload
+
+clear:
+	@rm -rf htmlcov/
+	@rm -rf docs/build/

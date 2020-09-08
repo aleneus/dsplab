@@ -7,5 +7,5 @@ If dsplab is not installed you can go to dsplab root folder, run python interpre
 
    path/to/dsplab$ python3
    ...
-   >>> from demos.prony import prony
+   >>> from demo.prony import prony
    >>> prony.main()

@@ -345,7 +345,7 @@
 ** DONE ref: demos: remove sys.path.insert
 ** DONE docs: how to run demos
 ** DONE docs: fix: add history notes for 0.38
-** TODO demo: rename demos -> demo
+** DONE demo: rename demos -> demo
 ** TODO test: rename tests -> test
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()
