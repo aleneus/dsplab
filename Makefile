@@ -1,4 +1,4 @@
-.PHONY: help style flakes lint uml release upload
+.PHONY: help style flakes lint uml release upload docs
 
 PACKAGE_FOLDER = dsplab
 DEMO_FOLDER = demos
@@ -13,6 +13,7 @@ help:
 	@echo "make lint"
 	@echo "make lint-demo"
 	@echo "make uml"
+	@echo "make docs"
 	@echo "make upload"
 
 
@@ -36,6 +37,10 @@ lint-demo:
 
 uml:
 	pyreverse $(PACKAGE_FOLDER) -o png
+
+docs:
+	sphinx-build docs/source/ docs/build/
+
 
 upload:
 	python3 setup.py sdist upload

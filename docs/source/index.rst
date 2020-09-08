@@ -70,6 +70,8 @@ Project
    :maxdepth: 1
 
    history
+   run-demo
+
 
 Indices and tables
 ==================
