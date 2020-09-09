@@ -1,4 +1,7 @@
 """Example of getting the work from dictionary."""
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Activity, get_work_from_dict
 
 

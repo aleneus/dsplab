@@ -1,11 +1,8 @@
 Demo
 ====
 
-If dsplab is not installed you can go to dsplab root folder, run python interpreter, import example needed, and call **main()** function:
+If dsplab is not installed you can go to dsplab root folder and run examples such way:
 
 ::
 
-   path/to/dsplab$ python3
-   ...
-   >>> from demo.prony import prony
-   >>> prony.main()
+   path/to/dsplab$ python3 demo/prony/demo.prony

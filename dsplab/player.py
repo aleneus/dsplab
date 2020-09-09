@@ -217,4 +217,6 @@ class CsvDataProducer(DataProducer):
                 sample.append(full_sample[ind])
         except StopIteration:
             sample = ['' for ind in self._indexes]
+        except IndexError:
+            sample = ['' for ind in self._indexes]
         return sample

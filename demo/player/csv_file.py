@@ -1,10 +1,13 @@
 """Example of playing signal from CSV file."""
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 from dsplab.player import CsvDataProducer, SignalPlayer
 
 
 def main():
     """Play CSV file."""
-    data_producer = CsvDataProducer(file_name="test.csv", delimiter=',')
+    data_producer = CsvDataProducer(file_name="demo/player/test.csv", delimiter=',')
     data_producer.select_columns(['F', 'Ua1'])
     # data_producer.select_columns([0, 1]) # <--- It's all right too
     player = SignalPlayer(interval=0.02)

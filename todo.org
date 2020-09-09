@@ -348,7 +348,9 @@
 ** DONE demo: rename demos -> demo
 ** DONE ref: tests: no need for context.py, remove
 ** DONE test: up coverage
-** TODO setup: update dependencies
+** DONE setup: update dependencies
+** DONE demo: fix simpe run
+** DONE fix: player: get_sample(): catch IndexError
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args

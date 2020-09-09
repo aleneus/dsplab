@@ -1,4 +1,7 @@
 """Basic usage of plan."""
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 from dsplab.activity import Work
 from dsplab.plan import WorkNode, Plan
 from workers import Linear
