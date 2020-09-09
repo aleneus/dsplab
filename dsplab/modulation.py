@@ -26,8 +26,8 @@ _2PI = 2 * PI
 
 
 def harm(length, sample_rate, amp, freq, phi=0,
-         noise_f=None, noise_a=None):
-    """Harmonic signal.
+         noise_a=None, noise_f=None):
+    """Generate harmonic signal.
 
     Parameters
     ----------
@@ -41,10 +41,10 @@ def harm(length, sample_rate, amp, freq, phi=0,
         Frequency of signal (Hz).
     phi: float
         Initial phase (radians).
-    noise_f: Object
-        Function that returns noise value added to frequency.
-    noise_a: Object
-        Function that returns noise value added to amplitude.
+    noise_a: callable
+        Returns noise value added to amplitude.
+    noise_f: callable
+        Returns noise value added to frequency.
 
     Returns
     -------
@@ -53,18 +53,22 @@ def harm(length, sample_rate, amp, freq, phi=0,
     : np.array
         Time values.
     """
+
     times = np.arange(0, length, 1 / sample_rate)
+
     values = []
     for time_value in times:
         amp_value = amp
         if noise_a is not None:
             amp_value += noise_a(time_value)
+
         arg = _2PI * freq * time_value + phi
         if noise_f is not None:
             arg += noise_f(time_value)
+
         values.append(amp_value * cos(arg))
-    values = np.array(values)
-    return values, times
+
+    return np.array(values), times
 
 
 def amp_mod(length, sample_rate, func, freq, phi=0,
@@ -359,26 +363,42 @@ def freq_by_extremums(xdata, sample_rate):
     : float
         Frequency.
     """
-    T = len(xdata) / sample_rate
-    n_max = 0
-    n_min = 0
-    for x_p, x_c, x_n in zip(xdata[:-2], xdata[1:-1], xdata[2:]):
-        if (x_p < x_c) and (x_c >= x_n):
-            n_max += 1
-        if (x_p > x_c) and (x_c <= x_n):
-            n_min += 1
 
-    return (n_max + n_min) / 2 / T
+    if len(xdata) < 3:
+        raise ValueError("Short signal")
+
+    T = len(xdata) / sample_rate
+
+    max_total = 0
+    min_total = 0
+    for prev, curr, nxt in zip(xdata[:-2], xdata[1:-1], xdata[2:]):
+        if (prev < curr) and (curr >= nxt):
+            max_total += 1
+        if (prev > curr) and (curr <= nxt):
+            min_total += 1
+
+    if xdata[0] > xdata[1]:
+        max_total += 1
+
+    if xdata[0] < xdata[1]:
+        min_total += 1
+
+    return (max_total + min_total) / 2 / T
 
 
 def freq_by_zeros(xdata, sample_rate):
-    """Calculate frequency of oscillating signal by zeros. Signal
-    must be detrended before."""
+    """Calculate average frequency of detrended oscillating signal by
+    counting zeros."""
+
     T = len(xdata) / sample_rate
+
     zeros_total = 0
-    for x_p, x_c in zip(xdata[:-1], xdata[1:]):
-        if x_p * x_c < 0:
+    for prev, curr in zip(xdata[:-1], xdata[1:]):
+        if prev * curr < 0:
             zeros_total += 1
+        elif prev != 0 and curr == 0:
+            zeros_total += 1
+
     return zeros_total / 2 / T
 
 

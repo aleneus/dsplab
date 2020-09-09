@@ -15,9 +15,55 @@
 
 import unittest
 import numpy as np
-from dsplab.modulation import (envelope_by_extremums,
-                               digital_hilbert_filter, linint,
-                               wave_lens, freqs_by_wave_len)
+from dsplab.modulation import (harm, digital_hilbert_filter, linint,
+                               envelope_by_extremums, wave_lens,
+                               freqs_by_wave_len, freq_by_zeros,
+                               freq_by_extremums)
+
+
+class TestHarm(unittest.TestCase):
+    def test_simple_harmonic(self):
+        rate = 50
+        length = 60
+        amp = 1
+
+        xs, ts = harm(length=length, sample_rate=rate, amp=amp, freq=1)
+        self.assertEqual(len(xs), len(ts))
+        self.assertEqual(len(xs), length*rate)
+        self.assertAlmostEqual(max(xs), amp)
+        self.assertAlmostEqual(min(xs), -amp)
+        self.assertAlmostEqual(sum(xs), 0)
+        self.assertAlmostEqual(ts[1]-ts[0], 1/rate)
+
+    def test_amplitude(self):
+        amp = 2.5
+
+        xs = harm(length=60, sample_rate=50, amp=amp, freq=1)[0]
+        self.assertAlmostEqual(max(xs), amp)
+        self.assertAlmostEqual(min(xs), -amp)
+        self.assertAlmostEqual(sum(xs), 0)
+
+    def test_frequency(self):
+        """Scenario: frequency and sample rate are equal."""
+        xs = harm(length=60, sample_rate=1, amp=1, freq=1)[0]
+        self.assertAlmostEqual(sum(xs), 60)
+
+    def test_noised_amplitude(self):
+        def noise(t):
+            return 1
+
+        xs = harm(length=60, sample_rate=50, amp=1, freq=1, noise_a=noise)[0]
+        self.assertAlmostEqual(max(xs), 2)
+        self.assertAlmostEqual(min(xs), -2)
+
+    def test_noised_phase(self):
+        def noise(t):
+            return np.pi / 2
+
+        xs = harm(length=60, sample_rate=1, amp=1, freq=1, noise_f=noise)[0]
+        self.assertAlmostEqual(sum(xs), 0)
+        self.assertAlmostEqual(max(xs), 0)
+        self.assertAlmostEqual(min(xs), 0)
 
 
 class TestModulation(unittest.TestCase):
@@ -70,3 +116,22 @@ class TestFrequency(unittest.TestCase):
         self.assertEqual(len(f), 9)
         self.assertEqual(len(t_f), 9)
         self.assertEqual(np.sum(f), 9)
+
+    def test_freq_by_zeros(self):
+        x = np.array([1, 0, -1,  0])
+        self.assertAlmostEqual(freq_by_zeros(x, 4), 1)
+
+
+class TestFreqByExtremums(unittest.TestCase):
+    def test_short_signal(self):
+        raised = False
+        try:
+            freq_by_extremums([1, 0], 4)
+        except ValueError:
+            raised = True
+
+        self.assertTrue(raised)
+
+    def test_single_wave(self):
+        x = np.array([1, 0, -1,  0])
+        self.assertAlmostEqual(freq_by_extremums(x, 4), 1)

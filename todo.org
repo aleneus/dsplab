@@ -347,9 +347,13 @@
 ** DONE docs: fix: add history notes for 0.38
 ** DONE demo: rename demos -> demo
 ** DONE ref: tests: no need for context.py, remove
-** TODO test: up coverage
+** DONE test: up coverage
 ** TODO setup: update dependencies
 * 0.40.0
+** TODO feat: remove t argument from noise functions
+** TODO feat: modulation: rearange args
+** TODO feat: modulation: rename noise_f -> noise_ph
+** TODO feat: modulation: rename noise_s -> noise_amp
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()
 ** TODO feat: remove deprecated set_descr() in activities
