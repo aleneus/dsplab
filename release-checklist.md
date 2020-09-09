@@ -19,4 +19,4 @@
 ## Demo
 
 - [ ] All examples works
-- [ ] The result of pylint is not less than 9
+- [ ] The result of pylint is not less than 8.5
