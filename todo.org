@@ -351,19 +351,23 @@
 ** DONE setup: update dependencies
 ** DONE demo: fix simpe run
 ** DONE fix: player: get_sample(): catch IndexError
-* 0.38.4
+* 0.39.0
 ** DONE ref: *args and **kwargs in all calls
 ** TODO feat: verification of the plan
+** TODO feat: verification of the nodes
+** TODO feat: verification of the works
+** TODO docs: update authors
+** TODO ref: add plan subpackage
 * 0.40.0
-** TODO feat: remove t argument from noise functions
-** TODO feat: modulation: rearange args
-** TODO feat: modulation: rename noise_f -> noise_ph
-** TODO feat: modulation: rename noise_s -> noise_amp
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()
 ** TODO feat: remove deprecated set_descr() in activities
 ** TODO feat: remove deprecated Activity.set_descr()
 ** TODO feat: remove deprecated Node.reset()
+** TODO feat: remove t argument from noise functions
+** TODO feat: modulation: rearange args
+** TODO feat: modulation: rename noise_f -> noise_ph
+** TODO feat: modulation: rename noise_s -> noise_amp
 ** TODO ref: get_work_from_dict()
 * near
 ** TODO Debug repeated timer, it works strange
