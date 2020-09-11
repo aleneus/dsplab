@@ -3,7 +3,7 @@
 ## Code
 
 - [ ] No TODO in code
-- [ ] The result of pylint is not less than 9.6 (make lint)
+- [ ] The result of pylint is not less than 9.7 (make lint)
 - [ ] No violations of the style (make style)
 - [ ] No flakes (make flakes)
 - [ ] All unit tests passed (make check)

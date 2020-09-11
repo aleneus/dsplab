@@ -73,6 +73,10 @@ class Worker(Activity):
         super().__init__()
         warn("Worker is deprecated. Use Activity instead.")
 
+    def __call__(self, *args, **kwargs):
+        """Call activity."""
+        raise NotImplementedError
+
     def add_param(self, name, value=None):
         """Deprecated."""
         warn("Worker.add_param() is deprecated. Don't use it.")

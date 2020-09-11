@@ -48,8 +48,11 @@ class QueueFilter(Activity):
         self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
         self.ntaps = ntaps
 
-    def __call__(self, sample):
+    def __call__(self, *args, **kwargs):
         """Add sample to queue."""
+        return self.__call(*args, **kwargs)
+
+    def __call(self, sample):
         self.queue.append(sample)
         return self.proc_queue()
 
@@ -66,7 +69,7 @@ class Delayer(QueueFilter):
 
 class And(Activity):
     """And operation."""
-    def __call__(self, sample):
+    def __call__(self, *args, **kwargs):
         """Do operation.
 
         Parameters
@@ -74,6 +77,9 @@ class And(Activity):
         sample: array_like of floats
             Input values.
         """
+        return self.__call(*args, **kwargs)
+
+    def __call(self, sample):
         res = 1
         for value in sample:
             res *= value
@@ -124,7 +130,7 @@ class Or(Activity):
         self.ntaps = ntaps
         self.smooth_ntaps = smooth_ntaps
 
-    def __call__(self, sample):
+    def __call__(self, *args, **kwargs):
         """Add input sample to filter and return output value.
 
         Parameters
@@ -137,6 +143,9 @@ class Or(Activity):
         : object
             Output value.
         """
+        self.__call(*args, **kwargs)
+
+    def __call(self, sample):
         return self.add_sample_func(sample)
 
     def __add_sample_simple(self, sample):

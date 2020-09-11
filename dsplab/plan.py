@@ -17,13 +17,10 @@
 understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes."""
 
-import logging
 from warnings import warn
 
 from dsplab.activity import get_work_from_dict
 from dsplab.activity import Activity
-
-LOG = logging.getLogger(__name__)
 
 
 class Node(Activity):
@@ -154,14 +151,20 @@ class WorkNode(Node):
         except AttributeError:
             pass
 
-    def __call__(self, data):
+    def __call__(self, *args, **kwarsg):
+        return self.__call(*args, **kwarsg)
+
+    def __call(self, data):
         self._res = self._work(*data)
 
 
 class MapNode(WorkNode):
     """Apply work to all components of iterable input and build
     iterable output."""
-    def __call__(self, data):
+    def __call__(self, *args, **kwargs):
+        return self.__call(*args, **kwargs)
+
+    def __call(self, data):
         self._res = []
 
         if len(self._inputs) > 1:
@@ -184,7 +187,10 @@ class SelectNode(Node):
         super().__init__(inputs)
         self.index = index
 
-    def __call__(self, data):
+    def __call__(self, *args, **kwargs):
+        return self.__call(*args, **kwargs)
+
+    def __call(self, data):
         if len(data) > 1:
             data_tr = list(map(list, zip(*data)))
             self._res = data_tr[self.index]
@@ -196,13 +202,19 @@ class SelectNode(Node):
 
 class PackNode(Node):
     """Pack input to output."""
-    def __call__(self, data=None):
+    def __call__(self, *args, **kwargs):
+        return self.__call(*args, **kwargs)
+
+    def __call(self, data=None):
         self._res = data
 
 
 class PassNode(Node):
-    """Pass input to ouput."""
-    def __call__(self, data):
+    """Pass input to output."""
+    def __call__(self, *args, **kwargs):
+        return self.__call(*args, **kwargs)
+
+    def __call(self, data):
         self._res = data[0]
 
 
@@ -362,7 +374,7 @@ class Plan(Activity):
         return [output.get_result() for output in self._outputs]
 
     def verify(self):
-        """Validate plan.
+        """Verify plan.
 
         Returns
         -------
@@ -377,9 +389,8 @@ class Plan(Activity):
             return False, "There are no outputs in the plan."
         return True, ""
 
-    def __call__(self, data):
-        """Run plan."""
-        return self._run_func(data)
+    def __call__(self, *args, **kwargs):
+        return self._run_func(*args, **kwargs)
 
 
 def get_plan_from_dict(settings, params=None):
@@ -418,7 +429,6 @@ def get_plan_from_dict(settings, params=None):
 
     - 'index' - index of selected item
     """
-    # LOG.debug("get_plan_from_dict()")
     plan = Plan()
     if 'descr' in settings:
         plan.set_descr(settings['descr'])
@@ -426,9 +436,7 @@ def get_plan_from_dict(settings, params=None):
     nodes = {}
     nodes_settings = settings['nodes']
     for node_settings in nodes_settings:
-        # LOG.debug('Node settings:{} '.format(node_settings))
         node_id = node_settings['id']
-        # LOG.debug("Parse node with id=%s", node_id)
 
         try:
             node_class = node_settings['class']

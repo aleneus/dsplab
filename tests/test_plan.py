@@ -22,3 +22,10 @@ class TestNode(unittest.TestCase):
         n = Node()
         n.result_info = "Signal"
         self.assertEqual(n.result_info, "Signal")
+
+
+# class TestVerification(unittest.TestCase):
+#     def test_empty_dict(self):
+#         d = {}
+#         errs = verify_plan_dict(d)
+#         self.asssertEqual(len(errs), 3)
