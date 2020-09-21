@@ -96,7 +96,7 @@ class Test_get_from_dict(unittest.TestCase):
         r = w(1)
         self.assertEqual(r, 4)
 
-    def test_combination_conatnt_and_variable_parameters(self):
+    def test_combination_constant_and_variable_parameters(self):
         settings = {
             'worker': {
                 'class': 'tests.test_activity.Lin',

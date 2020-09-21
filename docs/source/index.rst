@@ -21,15 +21,11 @@ Requirements
 What's new in 0.38
 ------------------
 
-* Deprecate info() in activities
-* Deprecate Worker class (just use Activity)
-* Add Node.get_result_info()
-* Deprecate Activity.set_descr()
-* Add Work.set_descr()
-* Add tests
-* Update examples
-* Add Plan.descr property
-* Rename Node.reset() to Node.clear_result(). Deprecate reset().
+* Activity methods **info()** and **set_descr()** have been marked as deprecated
+* **Worker** class has been marked as deprecated
+* New Node's method **get_result_info()**
+* New Plan's property **descr**
+* **reset()** method of the Node has been renamed to **clear_result()**
 
 Modules
 -------
