@@ -353,6 +353,7 @@
 ** DONE fix: player: get_sample(): catch IndexError
 * 0.38.4
 ** DONE fix: docs: release notes
+** DONE test: fix activity tests
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args
