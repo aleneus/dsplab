@@ -8,8 +8,7 @@ all: help
 help:
 	@echo "make check"
 	@echo "make cover"
-	@echo "make style"
-	@echo "make flakes"
+	@echo "make flake"
 	@echo "make lint"
 	@echo "make lint-demo"
 	@echo "make uml"
@@ -24,11 +23,8 @@ check:
 cover:
 	@nose2 --with-coverage --coverage-report=html
 
-style:
-	pycodestyle $(PACKAGE_FOLDER)
-
-flakes:
-	pyflakes $(PACKAGE_FOLDER)
+flake:
+	flake8 $(PACKAGE_FOLDER)
 
 lint:
 	pylint $(PACKAGE_FOLDER)
