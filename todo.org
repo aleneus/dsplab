@@ -354,6 +354,8 @@
 * 0.38.4
 ** DONE fix: docs: release notes
 ** DONE test: fix activity tests
+* 0.38.5
+** DONE test: add unittest.cfg
 * 0.39.0
 ** DONE ref: *args and **kwargs in all calls
 ** TODO feat: verification of the plan
@@ -361,6 +363,7 @@
 ** TODO feat: verification of the works
 ** TODO docs: update authors
 ** TODO ref: add plan subpackage
+=======
 * 0.40.0
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()
