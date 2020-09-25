@@ -16,4 +16,4 @@
 """Constants."""
 
 PACKAGE = 'dsplab'
-__version__ = '0.38.5'
+__version__ = '0.38.6'

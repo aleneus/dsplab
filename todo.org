@@ -356,6 +356,8 @@
 ** DONE test: fix activity tests
 * 0.38.5
 ** DONE test: add unittest.cfg
+* 0.38.6
+** DONE docs: update release-checklist
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args
