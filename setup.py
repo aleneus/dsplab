@@ -25,6 +25,12 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
+INSTALL_REQUIRES = [
+    'numpy>=1.14',
+    'scipy>=0.19',
+]
+
+
 setup(
     name='dsplab',
     version=__version__,
@@ -36,10 +42,7 @@ setup(
     url="https://bitbucket.org/aleneus/dsplab",
     long_description=read('README.md'),
     packages=['dsplab'],
-    install_requires=[
-        'numpy>=1.14.2',
-        'scipy>=0.19.0',
-    ],
+    install_requires=INSTALL_REQUIRES,
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",

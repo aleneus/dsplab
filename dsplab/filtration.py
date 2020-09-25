@@ -35,7 +35,7 @@ def _stupid_filter(xdata, fr_resp):
     : np.array
         Filteres signal.
     """
-    spectrum = fft(xdata * sig.tukey(len(xdata)))
+    spectrum = fft(xdata * sig.windows.tukey(len(xdata)))
     res_xs = np.real(ifft(spectrum * fr_resp))
     return res_xs
 

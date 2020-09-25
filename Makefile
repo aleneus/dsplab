@@ -6,15 +6,16 @@ DEMO_FOLDER = demo
 all: help
 
 help:
-	@echo "make check"
-	@echo "make cover"
-	@echo "make flake"
-	@echo "make lint"
-	@echo "make lint-demo"
-	@echo "make uml"
-	@echo "make docs"
-	@echo "make upload"
-	@echo "make clear"
+	@echo "check"
+	@echo "cover"
+	@echo "flake"
+	@echo "lint"
+	@echo "lint-e"
+	@echo "lint-demo"
+	@echo "uml"
+	@echo "docs"
+	@echo "upload"
+	@echo "clear"
 
 
 check:
@@ -28,6 +29,9 @@ flake:
 
 lint:
 	pylint $(PACKAGE_FOLDER)
+
+lint-e:
+	pylint --disable=R,C,W $(PACKAGE_FOLDER)
 
 lint-demo:
 	pylint $(DEMO_FOLDER)
