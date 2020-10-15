@@ -47,9 +47,7 @@ Organization of calculations
 .. toctree::
    :maxdepth: 2
 
-   activity
-   plan
-   online
+   flow
 
 Online processing
 ^^^^^^^^^^^^^^^^^

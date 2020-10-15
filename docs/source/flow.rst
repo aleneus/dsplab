@@ -1,3 +1,21 @@
+activity
+========
+
+.. automodule:: dsplab.flow.activity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+online
+======
+
+.. automodule:: dsplab.flow.online
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
 plan
 ====
 
@@ -5,43 +23,43 @@ Examples
 --------
 
 Helper module with workers
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/workers.py
    :language: python
 
 Basic usage
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/basic.py
    :language: python
 
 Using of start and stop hooks
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/hooks.py
    :language: python
 
 MapNode (applying work for iterable input)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/map.py
    :language: python
 
 PackNode (pack inputs to list)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/pack.py
    :language: python
 
 SelectNode
-^^^^^^^^^^
+~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/select.py
    :language: python
 
 Node-generator
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 'Node-generator' means the no input node with no inputs.
 
@@ -49,13 +67,13 @@ Node-generator
    :language: python
 
 Get Plan instance from dict
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/get_plan_from_dict.py
    :language: python
 
 Quick plan for on-line processing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/plan/online.py
    :language: python
@@ -63,7 +81,7 @@ Quick plan for on-line processing
 Members
 -------
 
-.. automodule:: dsplab.plan
+.. automodule:: dsplab.flow.plan
    :members:
    :undoc-members:
    :show-inheritance:
