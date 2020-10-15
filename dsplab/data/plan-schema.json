@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Plan",
+    "description": "dsplab plan schema",
+    "type": "object",
+    "properties": {
+        "descr": {
+            "type": "string",
+            "description": "plan info"
+        },
+        "nodes": {
+            "description": "List of nodes",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "description": "node in plan",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "node id"
+                    },
+                    "result": {},
+                    "inputs": {
+                        "type": "array",
+                        "description": "List of input nodes(ids) for this node",
+                        "items": {
+                            "type": "string"
+                        },
+                        "uniqueItems": true
+                    },
+                    "class": {
+                        "type": "string",
+                        "description": "node type",
+                        "enum": [
+                            "WorkNode",
+                            "PassNode",
+                            "SelectNode",
+                            "MapNode",
+                            "PackNode"
+                        ],
+                        "default": "WorkNode"
+                    },
+                    "index": {
+                        "type": "integer",
+                        "description": "index only for select node"
+                    },
+                    "work": {
+                        "type": "object",
+                        "description": "work in plan",
+                        "properties": {
+                            "descr": {
+                                "type": "string",
+                                "description": "work info"
+                            },
+                            "worker": {
+                                "type": "object",
+                                "description": "worker class",
+                                "properties": {
+                                    "class": {
+                                        "type": "string",
+                                        "description": "worker class name"
+                                    },
+                                    "params": {
+                                        "type": "object",
+                                        "description": "properties are params (can be different)",
+                                        "properties": {},
+                                        "additionalProperties": true
+                                    }
+                                }
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                            "worker"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "id"
+                ]
+            }
+        },
+        "inputs": {
+            "type": "array",
+            "description": "List of input works(ids)",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "outputs": {
+            "type": "array",
+            "description": "List of outputs nodes(ids)",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "$schema": {
+            "type": "string",
+            "description": "json-schema"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "nodes",
+        "outputs"
+    ]
+}

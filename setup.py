@@ -28,7 +28,15 @@ def read(fname):
 INSTALL_REQUIRES = [
     'numpy>=1.14',
     'scipy>=0.19',
+    'jsonschema>=3.2',
 ]
+
+
+PACKAGE_DATA = {
+    'dsplab': [
+        'data/*',
+    ],
+}
 
 
 setup(
@@ -42,6 +50,7 @@ setup(
     url="https://bitbucket.org/aleneus/dsplab",
     long_description=read('README.md'),
     packages=['dsplab'],
+    package_data=PACKAGE_DATA,
     install_requires=INSTALL_REQUIRES,
     classifiers=[
         "Development Status :: 3 - Alpha",

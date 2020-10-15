@@ -360,6 +360,8 @@
 ** DONE docs: update release-checklist
 * 0.39.0
 ** DONE ref: *args and **kwargs in all calls
+** DONE fix: plan: verification after installation the package
+** TODO doc: update license comment, abb Butin
 ** TODO feat: verification of the plan
 ** TODO feat: verification of the nodes
 ** TODO feat: verification of the works
