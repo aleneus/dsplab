@@ -27,8 +27,9 @@ class VerifyError(Exception):
     """Verification error."""
 
 
-def verify_plan_dict(plan_dict, file_name=SCHEMA_FILE_NAME):
-    """Verify plan dict."""
+def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
+    """Check plan's dictionary."""
+
     schema = _load_schema(file_name)
     _validate_schema(plan_dict, schema)
 

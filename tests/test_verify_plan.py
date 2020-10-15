@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from dsplab.verify_plan import verify_plan_dict, VerifyError
+from dsplab.flow.verify import check_plan, VerifyError
 
 
 SCHEMA_FILE_NAME = 'dsplab/data/plan-schema.json'
@@ -24,14 +24,14 @@ class TestVerification(unittest.TestCase):
     def test_empty(self):
         plan_dict = {}
         with self.assertRaises(VerifyError):
-            verify_plan_dict(plan_dict, SCHEMA_FILE_NAME)
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
 
     def test_empty_nodes(self):
         plan_dict = {
             'nodes': [],
         }
         with self.assertRaises(VerifyError):
-            verify_plan_dict(plan_dict, SCHEMA_FILE_NAME)
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
 
     def test_wrong_node_brakes_plan(self):
         plan_dict = {
@@ -46,4 +46,4 @@ class TestVerification(unittest.TestCase):
             'outputs': ['a'],
         }
         with self.assertRaises(VerifyError):
-            verify_plan_dict(plan_dict, SCHEMA_FILE_NAME)
+            check_plan(plan_dict, SCHEMA_FILE_NAME)

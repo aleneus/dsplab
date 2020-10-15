@@ -358,15 +358,16 @@
 ** DONE test: add unittest.cfg
 * 0.38.6
 ** DONE docs: update release-checklist
-* 0.39.0
+* 0.39.0 [44%] [4/9]
 ** DONE ref: *args and **kwargs in all calls
 ** DONE fix: plan: verification after installation the package
-** TODO doc: update license comment, abb Butin
+** DONE ref: add plan subpackage
+** DONE ref: add flow subpackage
+** TODO docs: flow: add
+** TODO depl: flow: add to setup script
+** TODO ref: fix deprecation warinings
 ** TODO feat: verification of the plan
-** TODO feat: verification of the nodes
-** TODO feat: verification of the works
 ** TODO docs: update authors
-** TODO ref: add plan subpackage
 * 0.40.0
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()
