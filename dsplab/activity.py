@@ -16,4 +16,4 @@
 from warnings import warn
 from dsplab.flow.activity import *
 
-warn(FutureWarning("activity is deprecates. Use flow.acitivty"))
+warn(FutureWarning("activity is deprecated. Use flow.acitivty"))
