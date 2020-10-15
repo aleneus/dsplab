@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from dsplab.plan import Node
+from dsplab.flow.plan import Node
 
 
 class TestNode(unittest.TestCase):

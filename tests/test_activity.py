@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from dsplab.activity import (Activity, Work, get_work_from_dict)
+from dsplab.flow.activity import (Activity, Work, get_work_from_dict)
 
 
 class TestActivity(unittest.TestCase):

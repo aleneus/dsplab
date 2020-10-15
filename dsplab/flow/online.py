@@ -18,7 +18,7 @@
 from math import pi
 from collections import deque
 import numpy as np
-from dsplab.activity import Activity
+from dsplab.flow.activity import Activity
 
 PI = pi
 PI2 = 2 * PI

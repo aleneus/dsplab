@@ -19,8 +19,8 @@ also nodes. Plan is the system of linked nodes."""
 
 from warnings import warn
 
-from dsplab.activity import get_work_from_dict
-from dsplab.activity import Activity
+from dsplab.flow.activity import get_work_from_dict
+from dsplab.flow.activity import Activity
 
 
 class Node(Activity):

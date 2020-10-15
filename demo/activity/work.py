@@ -2,7 +2,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
-from dsplab.activity import Activity, Work
+from dsplab.flow.activity import Activity, Work
 
 
 class MyWork(Activity):
