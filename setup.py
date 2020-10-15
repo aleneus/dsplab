@@ -32,6 +32,12 @@ INSTALL_REQUIRES = [
 ]
 
 
+PACKAGES = [
+    'dsplab',
+    'dsplab.flow',
+]
+
+
 PACKAGE_DATA = {
     'dsplab': [
         'data/*',
@@ -49,7 +55,7 @@ setup(
     keywords="digital signal processing",
     url="https://bitbucket.org/aleneus/dsplab",
     long_description=read('README.md'),
-    packages=['dsplab'],
+    packages=PACKAGES,
     package_data=PACKAGE_DATA,
     install_requires=INSTALL_REQUIRES,
     classifiers=[

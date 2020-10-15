@@ -358,13 +358,13 @@
 ** DONE test: add unittest.cfg
 * 0.38.6
 ** DONE docs: update release-checklist
-* 0.39.0 [44%] [4/9]
+* 0.39.0 [55%] [5/9]
 ** DONE ref: *args and **kwargs in all calls
 ** DONE fix: plan: verification after installation the package
 ** DONE ref: add plan subpackage
 ** DONE ref: add flow subpackage
+** DONE depl: flow: add to setup script
 ** TODO docs: flow: add
-** TODO depl: flow: add to setup script
 ** TODO ref: fix deprecation warinings
 ** TODO feat: verification of the plan
 ** TODO docs: update authors
