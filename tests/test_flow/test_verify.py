@@ -47,3 +47,27 @@ class TestVerification(unittest.TestCase):
         }
         with self.assertRaises(VerifyError):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_unknown_input(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'a'},
+            ],
+
+            'inputs': ['b'],
+            'outputs': ['a'],
+        }
+        with self.assertRaises(VerifyError):
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_unknown_output(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'b'},
+            ],
+
+            'inputs': ['a'],
+            'outputs': ['b'],
+        }
+        with self.assertRaises(VerifyError):
+            check_plan(plan_dict, SCHEMA_FILE_NAME)

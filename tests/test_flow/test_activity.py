@@ -63,7 +63,7 @@ class Test_get_from_dict(unittest.TestCase):
     def test_worker_is_function(self):
         settings = {
             'worker': {
-                'function': 'tests.test_activity.inc',
+                'function': 'tests.test_flow.test_activity.inc',
             }
         }
         w = get_work_from_dict(settings)
@@ -73,7 +73,7 @@ class Test_get_from_dict(unittest.TestCase):
     def test_worker_is_object(self):
         settings = {
             'worker': {
-                'class': 'tests.test_activity.Inc',
+                'class': 'tests.test_flow.test_activity.Inc',
                 'params': {'val': 2},
             }
         }
@@ -84,7 +84,7 @@ class Test_get_from_dict(unittest.TestCase):
     def test_variable_params(self):
         settings = {
             'worker': {
-                'class': 'tests.test_activity.Inc',
+                'class': 'tests.test_flow.test_activity.Inc',
                 'params': {'val': '$var'},
             }
         }
@@ -99,7 +99,7 @@ class Test_get_from_dict(unittest.TestCase):
     def test_combination_constant_and_variable_parameters(self):
         settings = {
             'worker': {
-                'class': 'tests.test_activity.Lin',
+                'class': 'tests.test_flow.test_activity.Lin',
                 'params': {'a': '$a', 'b': 0},
             }
         }
