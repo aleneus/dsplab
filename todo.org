@@ -358,14 +358,13 @@
 ** DONE test: add unittest.cfg
 * 0.38.6
 ** DONE docs: update release-checklist
-* 0.39.0 [50%] [6/12]
+* 0.39.0 [54%] [6/11]
 ** DONE ref: *args and **kwargs in all calls
 ** DONE fix: plan: verification after installation the package
-** DONE ref: add plan subpackage
 ** DONE ref: add flow subpackage
 ** DONE depl: flow: add to setup script
 ** DONE ref: online -> flow
-** TODO lint: ignore deprecated modules
+** DONE lint: ignore deprecated modules
 ** TODO docs: flow: add
 ** TODO demo: update using flow
 ** TODO ref: fix deprecation warinings
