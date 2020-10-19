@@ -384,7 +384,7 @@
 * later
 ** TODO feat: debug repeated timer, it works strange
 ** TODO test: check online.upnwarp_point function
-** TODO Add instance_info for activity
+** TODO feat: add instance_info for activity
 ** TODO plan: Think about separate set_quick() and reduce_calls()
 ** TODO activity.get_work_from_dict(): Too nested work with params
 ** TODO Think about place (module or modules) for common workers
