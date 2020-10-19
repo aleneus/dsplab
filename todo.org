@@ -381,10 +381,9 @@
 ** TODO feat: modulation: rename noise_f -> noise_ph
 ** TODO feat: modulation: rename noise_s -> noise_amp
 ** TODO ref: get_work_from_dict()
-* near
-** TODO Debug repeated timer, it works strange
-** TODO check online.upnwarp_point function
 * later
+** TODO feat: debug repeated timer, it works strange
+** TODO test: check online.upnwarp_point function
 ** TODO Add instance_info for activity
 ** TODO plan: Think about separate set_quick() and reduce_calls()
 ** TODO activity.get_work_from_dict(): Too nested work with params
