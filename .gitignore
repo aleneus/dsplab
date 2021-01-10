@@ -11,3 +11,4 @@ dsplab.egg-info/*
 htmlcov/*
 
 docs/build/*
+/.vs

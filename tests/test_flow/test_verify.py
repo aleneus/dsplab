@@ -71,3 +71,16 @@ class TestVerification(unittest.TestCase):
         }
         with self.assertRaises(VerifyError):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_dublicate_ids(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'b'},
+                {'id': 'b'},
+            ],
+
+            'inputs': ['a'],
+            'outputs': ['b'],
+        }
+        with self.assertRaises(VerifyError):
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
