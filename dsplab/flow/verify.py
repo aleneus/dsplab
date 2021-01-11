@@ -42,25 +42,25 @@ def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
         if id in ids:
             raise VerifyError(f"Dublicate Id: {id}")
         ids[id] = node
-        
-    for node in nodes:        
+
+    for node in nodes:
         id = node["id"]
         if "inputs" in node:
             inputs = val["inputs"]
             for inpId in inputs:
-                if not inpId in ids:
+                if inpId not in ids:
                     raise VerifyError(f"Wrong node Id: {inpId} in node {id} inputs")
 
     if "inputs" in plan_dict:
         inputs = plan_dict["inputs"]
         for inpId in inputs:
-            if not inpId in ids:
+            if inpId not in ids:
                 raise VerifyError(f"Wrong node Id: {inpId} in plan inputs")
 
     if "outputs" in plan_dict:
         outs = plan_dict["outputs"]
         for outId in outs:
-            if not outId in ids:
+            if outId not in ids:
                 raise VerifyError(f"Wrong node Id: {outId} in plan outputs")
 
 
