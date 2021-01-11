@@ -46,22 +46,25 @@ def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
     for node in nodes:
         id = node["id"]
         if "inputs" in node:
-            inputs = val["inputs"]
-            for inpId in inputs:
-                if inpId not in ids:
-                    raise VerifyError(f"Wrong node Id: {inpId} in node {id} inputs")
+            inputs = node["inputs"]
+            for inp_id in inputs:
+                if inp_id not in ids:
+                    raise VerifyError(f"Wrong node Id: {inp_id} in node {id} inputs")
 
     if "inputs" in plan_dict:
         inputs = plan_dict["inputs"]
-        for inpId in inputs:
-            if inpId not in ids:
-                raise VerifyError(f"Wrong node Id: {inpId} in plan inputs")
+        id = node["id"]
+        for inp_id in inputs:
+            if inp_id not in ids:
+                raise VerifyError(f"Wrong node Id: {inp_id} in plan inputs")
+            if inp_id == id:
+                raise VerifyError(f"Input id equals node id: {id}")
 
     if "outputs" in plan_dict:
         outs = plan_dict["outputs"]
-        for outId in outs:
-            if outId not in ids:
-                raise VerifyError(f"Wrong node Id: {outId} in plan outputs")
+        for out_id in outs:
+            if out_id not in ids:
+                raise VerifyError(f"Wrong node Id: {out_id} in plan outputs")
 
 
 def _load_schema(file_name):
