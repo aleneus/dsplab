@@ -358,7 +358,7 @@
 ** DONE test: add unittest.cfg
 * 0.38.6
 ** DONE docs: update release-checklist
-* 0.39.0 [81%] [9/11]
+* 0.39.0 [75%] [9/12]
 ** DONE ref: *args and **kwargs in all calls
 ** DONE fix: plan: verification after installation the package
 ** DONE ref: add flow subpackage
@@ -369,6 +369,7 @@
 ** DONE ref: fix deprecation warinings
 ** DONE demo: use flow subpackage
 ** TODO feat: verification of the plan
+** TODO docs: update years
 ** TODO docs: update authors
 * 0.40.0
 ** TODO feat: remove deprecated Worker.add_param()

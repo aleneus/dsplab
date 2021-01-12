@@ -48,6 +48,19 @@ class TestVerification(unittest.TestCase):
         with self.assertRaises(VerifyError):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
 
+    def test_dublicate_ids(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'b'},
+                {'id': 'b'},
+            ],
+
+            'inputs': ['a'],
+            'outputs': ['b'],
+        }
+        with self.assertRaises(VerifyError):
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
+
     def test_unknown_input(self):
         plan_dict = {
             'nodes': [
@@ -73,39 +86,29 @@ class TestVerification(unittest.TestCase):
         with self.assertRaises(VerifyError):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
 
+    def test_unknown_output(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'a'},
+            ],
+
+            'inputs': ['a'],
+            'outputs': ['c'],
+        }
+        with self.assertRaises(VerifyError) as cm:
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+        self.assertEqual(cm.exception.__str__(),
+                         "Wrong node Id: c in plan outputs")
+
     def test_loop(self):
         plan_dict = {
-            'nodes': [            
+            'nodes': [
                 {'id': 'a', 'inputs': ['a']},
             ],
 
             'inputs': ['a'],
             'outputs': ['a'],
-        }
-        with self.assertRaises(VerifyError):
-            check_plan(plan_dict, SCHEMA_FILE_NAME)
-
-    def test_unknown_output(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'b'},
-            ],
-
-            'inputs': ['a'],
-            'outputs': ['b'],
-        }
-        with self.assertRaises(VerifyError):
-            check_plan(plan_dict, SCHEMA_FILE_NAME)
-
-    def test_dublicate_ids(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'b'},
-                {'id': 'b'},
-            ],
-
-            'inputs': ['a'],
-            'outputs': ['b'],
         }
         with self.assertRaises(VerifyError):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
