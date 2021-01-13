@@ -50,15 +50,15 @@ def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
             for inp_id in inputs:
                 if inp_id not in ids:
                     raise VerifyError(f"Wrong node Id: {inp_id} in node {id} inputs")
+                if inp_id == id:
+                    raise VerifyError(f"Input id equals node id: {id}")
 
     if "inputs" in plan_dict:
         inputs = plan_dict["inputs"]
-        id = node["id"]
         for inp_id in inputs:
             if inp_id not in ids:
                 raise VerifyError(f"Wrong node Id: {inp_id} in plan inputs")
-            if inp_id == id:
-                raise VerifyError(f"Input id equals node id: {id}")
+
 
     if "outputs" in plan_dict:
         outs = plan_dict["outputs"]
