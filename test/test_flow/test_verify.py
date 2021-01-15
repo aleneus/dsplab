@@ -21,6 +21,16 @@ SCHEMA_FILE_NAME = 'dsplab/data/plan-schema.json'
 
 
 class TestVerification(unittest.TestCase):
+    def test_ok_minimal(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'a', 'work': {'worker': {}}},
+            ],
+
+            'outputs': ['a'],
+        }
+        check_plan(plan_dict, SCHEMA_FILE_NAME)
+
     def test_empty(self):
         plan_dict = {}
         with self.assertRaises(VerifyError):
@@ -34,81 +44,188 @@ class TestVerification(unittest.TestCase):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
 
     def test_wrong_node_brakes_plan(self):
+        # Note: if 'empty work' error will raised earlier, then delete
+        # this test
+
         plan_dict = {
             'nodes': [
-                {
-                    'id': 'a',
-                    'wrong_key': 12345,
-                },
+                {'id': 'a', 'wrong_key': 12345},
             ],
-
             'inputs': ['a'],
             'outputs': ['a'],
         }
         with self.assertRaises(VerifyError):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
 
-    def test_dublicate_ids(self):
+    def test_duplicated_ids(self):
         plan_dict = {
             'nodes': [
-                {'id': 'b'},
-                {'id': 'b'},
+                {'id': 'b', 'work': {'worker': {}}},
+                {'id': 'b', 'work': {'worker': {}}},
             ],
-
-            'inputs': ['a'],
             'outputs': ['b'],
         }
-        with self.assertRaises(VerifyError):
+        with self.assertRaises(VerifyError) as cm:
             check_plan(plan_dict, SCHEMA_FILE_NAME)
+        self.assertEqual(cm.exception.__str__(), "Duplicated ID: b")
 
-    def test_unknown_input(self):
+    def test_unknown_plan_input(self):
         plan_dict = {
             'nodes': [
-                {'id': 'a'},
+                {'id': 'a', 'work': {'worker': {}}},
             ],
-
             'inputs': ['b'],
             'outputs': ['a'],
         }
-        with self.assertRaises(VerifyError):
+        with self.assertRaises(VerifyError) as cm:
             check_plan(plan_dict, SCHEMA_FILE_NAME)
+        self.assertEqual(cm.exception.__str__(), "Unknown plan input: b")
 
-    def test_unknown_input_in_node(self):
+    def test_unknown_plan_output(self):
         plan_dict = {
             'nodes': [
-                {'id': 'a'},
-                {'id': 'b', 'inputs': ['c']},
+                {'id': 'a', 'work': {'worker': {}}},
             ],
-
-            'inputs': ['a'],
-            'outputs': ['b'],
-        }
-        with self.assertRaises(VerifyError):
-            check_plan(plan_dict, SCHEMA_FILE_NAME)
-
-    def test_unknown_output(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'a'},
-            ],
-
             'inputs': ['a'],
             'outputs': ['c'],
         }
         with self.assertRaises(VerifyError) as cm:
             check_plan(plan_dict, SCHEMA_FILE_NAME)
+        self.assertEqual(cm.exception.__str__(), "Unknown plan output: c")
 
-        self.assertEqual(cm.exception.__str__(),
-                         "Wrong node Id: c in plan outputs")
+    def test_unknown_node_input(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'b', 'work': {'worker': {}}, 'inputs': ['c']},
+            ],
+            'outputs': ['b'],
+        }
+        with self.assertRaises(VerifyError) as cm:
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
+        self.assertEqual(cm.exception.__str__(), "Unknown input c in node b")
 
     def test_loop(self):
         plan_dict = {
             'nodes': [
-                {'id': 'a', 'inputs': ['a']},
+                {'id': 'a', 'work': {'worker': {}}, 'inputs': ['a']},
+            ],
+            'inputs': ['a'],
+            'outputs': ['a'],
+        }
+        with self.assertRaises(VerifyError) as cm:
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
+        self.assertEqual(cm.exception.__str__(), "Node a uses itself as input")
+
+
+class TestVerification_ClassOfNode(unittest.TestCase):
+    def test_work_node_minimal_ok(self):
+        plan_dict = {
+            'nodes': [
+                {
+                    'id': 'a',
+                    'class': 'WorkNode',
+                    'work': {'worker': {}},
+                },
+            ],
+            'outputs': ['a'],
+        }
+        check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_map_node_minimal_ok(self):
+        plan_dict = {
+            'nodes': [
+                {
+                    'id': 'a',
+                    'class': 'MapNode',
+                    'work': {'worker': {}},
+                },
+            ],
+            'outputs': ['a'],
+        }
+        check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_select_node_minimal_ok(self):
+        plan_dict = {
+            'nodes': [
+                {
+                    'id': 'a',
+                    'work': {'worker': {}},
+                },
+
+                {
+                    'id': 'b',
+                    'class': 'SelectNode',
+                    'inputs': ['a'],
+                },
             ],
 
-            'inputs': ['a'],
+            'outputs': ['b'],
+        }
+        check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_pack_node_minimal_ok(self):
+        plan_dict = {
+            'nodes': [
+                {
+                    'id': 'a',
+                    'class': 'PackNode',
+                },
+            ],
+
+            'outputs': ['a'],
+        }
+        check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_pass_node_minimal_ok(self):
+        plan_dict = {
+            'nodes': [
+                {
+                    'id': 'a',
+                    'class': 'PassNode',
+                },
+            ],
+
+            'outputs': ['a'],
+        }
+        check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+    def test_unknown_class(self):
+        plan_dict = {
+            'nodes': [
+                {
+                    'id': 'a',
+                    'class': 'the middle class',
+                },
+            ],
+
             'outputs': ['a'],
         }
         with self.assertRaises(VerifyError):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
+
+
+class TestVerification_DependOnClass(unittest.TestCase):
+    def test_work_is_default_class(self):
+        plan_dict = {
+            'nodes': [
+                {'id': 'a'},
+            ],
+            'outputs': ['a'],
+        }
+        with self.assertRaises(VerifyError) as cm:
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
+        self.assertEqual(cm.exception.__str__(), "No work in node a")
+
+    def test_work_node_must_have_work(self):
+        plan_dict = {
+            'nodes': [
+                {
+                    'id': 'a',
+                    'class': 'WorkNode',
+                },
+            ],
+            'outputs': ['a'],
+        }
+        with self.assertRaises(VerifyError) as cm:
+            check_plan(plan_dict, SCHEMA_FILE_NAME)
+        self.assertEqual(cm.exception.__str__(), "No work in node a")

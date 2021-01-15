@@ -40,7 +40,7 @@ def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
     for node in nodes:
         id = node["id"]
         if id in ids:
-            raise VerifyError(f"Dublicate Id: {id}")
+            raise VerifyError(f"Duplicated ID: {id}")
         ids[id] = node
 
     for node in nodes:
@@ -49,22 +49,21 @@ def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
             inputs = node["inputs"]
             for inp_id in inputs:
                 if inp_id not in ids:
-                    raise VerifyError(f"Wrong node Id: {inp_id} in node {id} inputs")
+                    raise VerifyError(f"Unknown input {inp_id} in node {id}")
                 if inp_id == id:
-                    raise VerifyError(f"Input id equals node id: {id}")
+                    raise VerifyError(f"Node {id} uses itself as input")
 
     if "inputs" in plan_dict:
         inputs = plan_dict["inputs"]
         for inp_id in inputs:
             if inp_id not in ids:
-                raise VerifyError(f"Wrong node Id: {inp_id} in plan inputs")
-
+                raise VerifyError(f"Unknown plan input: {inp_id}")
 
     if "outputs" in plan_dict:
         outs = plan_dict["outputs"]
         for out_id in outs:
             if out_id not in ids:
-                raise VerifyError(f"Wrong node Id: {out_id} in plan outputs")
+                raise VerifyError(f"Unknown plan output: {out_id}")
 
 
 def _load_schema(file_name):
