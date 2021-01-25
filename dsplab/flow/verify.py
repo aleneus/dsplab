@@ -53,6 +53,21 @@ def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
                 if inp_id == id:
                     raise VerifyError(f"Node {id} uses itself as input")
 
+        workInNode = "work" in node
+        if "class" in node:
+            nodeClass = node["class"]
+            if (nodeClass in ["WorkNode", "MapNode"]):
+                if (not workInNode):
+                    raise VerifyError(f"No work in node {id}")
+            else:
+                if (workInNode):
+                    raise VerifyError(f"There must be no work in node {id}")
+
+        else:
+            if not workInNode:
+                raise VerifyError(f"No work in node {id}")
+
+
     if "inputs" in plan_dict:
         inputs = plan_dict["inputs"]
         for inp_id in inputs:
