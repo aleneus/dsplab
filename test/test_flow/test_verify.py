@@ -44,9 +44,6 @@ class TestVerification(unittest.TestCase):
             check_plan(plan_dict, SCHEMA_FILE_NAME)
 
     def test_wrong_node_brakes_plan(self):
-        # Note: if 'empty work' error will raised earlier, then delete
-        # this test
-
         plan_dict = {
             'nodes': [
                 {'id': 'a', 'wrong_key': 12345},

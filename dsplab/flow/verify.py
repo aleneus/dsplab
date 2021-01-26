@@ -31,55 +31,91 @@ def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
     """Check plan's dictionary."""
 
     schema = _load_schema(file_name)
-    _validate_schema(plan_dict, schema)
+    _check_plan_schema(plan_dict, schema)
 
-    nodes = plan_dict["nodes"]
+    ids = _get_ids(plan_dict)
 
+    for node in plan_dict["nodes"]:
+        _check_node(node, ids)
+
+    _check_plan_inputs(plan_dict, ids)
+    _check_plan_outputs(plan_dict, ids)
+
+
+#
+# plan
+
+def _check_plan_schema(plan_dict, schema):
+    try:
+        validate(instance=plan_dict, schema=schema)
+
+    except ValidationError as ex:
+        raise VerifyError from ex
+
+
+def _check_plan_inputs(plan_dict, ids):
+    for inp in _get_plan_inputs(plan_dict):
+        if inp not in ids:
+            raise VerifyError("Unknown plan input: {}".format(inp))
+
+
+def _check_plan_outputs(plan_dict, ids):
+    for out in _get_plan_outputs(plan_dict):
+        if out not in ids:
+            raise VerifyError("Unknown plan output: {}".format(out))
+
+
+def _get_ids(plan_dict):
     ids = {}
-
-    for node in nodes:
-        id = node["id"]
-        if id in ids:
-            raise VerifyError(f"Duplicated ID: {id}")
-        ids[id] = node
-
-    for node in nodes:
-        id = node["id"]
-        if "inputs" in node:
-            inputs = node["inputs"]
-            for inp_id in inputs:
-                if inp_id not in ids:
-                    raise VerifyError(f"Unknown input {inp_id} in node {id}")
-                if inp_id == id:
-                    raise VerifyError(f"Node {id} uses itself as input")
-
-        workInNode = "work" in node
-        if "class" in node:
-            nodeClass = node["class"]
-            if (nodeClass in ["WorkNode", "MapNode"]):
-                if (not workInNode):
-                    raise VerifyError(f"No work in node {id}")
-            else:
-                if (workInNode):
-                    raise VerifyError(f"There must be no work in node {id}")
-
-        else:
-            if not workInNode:
-                raise VerifyError(f"No work in node {id}")
+    for node in plan_dict["nodes"]:
+        node_id = node["id"]
+        if node_id in ids:
+            raise VerifyError("Duplicated ID: {}".format(node_id))
+        ids[node_id] = node
+    return ids
 
 
-    if "inputs" in plan_dict:
-        inputs = plan_dict["inputs"]
-        for inp_id in inputs:
-            if inp_id not in ids:
-                raise VerifyError(f"Unknown plan input: {inp_id}")
+def _get_plan_inputs(plan_dict):
+    return _get_value_or_list(plan_dict, "inputs")
 
-    if "outputs" in plan_dict:
-        outs = plan_dict["outputs"]
-        for out_id in outs:
-            if out_id not in ids:
-                raise VerifyError(f"Unknown plan output: {out_id}")
 
+def _get_plan_outputs(plan_dict):
+    return _get_value_or_list(plan_dict, "outputs")
+
+
+#
+# node
+
+def _check_node(node_dict, ids):
+    _check_node_inputs(node_dict, ids)
+
+    if _get_node_class(node_dict) in ["WorkNode", "MapNode"]:
+        if "work" not in node_dict:
+            raise VerifyError("No work in node {}".format(node_dict["id"]))
+
+
+def _check_node_inputs(node_dict, ids):
+    node_id = node_dict["id"]
+    for inp in _get_node_inputs(node_dict):
+        if inp not in ids:
+            raise VerifyError("Unknown input {} in node {}".format(inp, node_id))
+
+        if inp == node_id:
+            raise VerifyError("Node {} uses itself as input".format(inp))
+
+
+def _get_node_inputs(node_dict):
+    return _get_value_or_list(node_dict, "inputs")
+
+
+def _get_node_class(node_dict):
+    if "class" in node_dict:
+        return node_dict["class"]
+    return "WorkNode"
+
+
+#
+# common
 
 def _load_schema(file_name):
     with open(file_name) as buf:
@@ -88,9 +124,7 @@ def _load_schema(file_name):
     return data
 
 
-def _validate_schema(plan_dict, schema):
-    try:
-        validate(instance=plan_dict, schema=schema)
-
-    except ValidationError as ex:
-        raise VerifyError from ex
+def _get_value_or_list(d, key):
+    if key not in d:
+        return []
+    return d[key]
