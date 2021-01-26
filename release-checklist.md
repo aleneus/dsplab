@@ -4,7 +4,7 @@
 
 * No `TODO` in code
 * All unit tests passed (make check)
-* Total test coverage is not less than 44%
+* Total test coverage is not less than 47%
 * No flakes (make flake)
   - Note: unused imports are allowed in deprecated modules
 * The result of pylint is not less than 9.65 (make lint)

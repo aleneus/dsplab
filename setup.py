@@ -1,6 +1,6 @@
 # dsplab - Signal processing tools developed by dsplab (http://dsplab.narfu.ru)
 
-# Copyright (C) 2017-2020 Aleksandr Popov
+# Copyright (C) 2017-2021 Aleksandr Popov, Kirill Butin
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -49,7 +49,7 @@ setup(
     name='dsplab',
     version=__version__,
     description="Some tools for digital signal processing",
-    author="Aleksandr Popov",
+    author="Aleksandr Popov, Kirill Butin",
     author_email="aleneus@gmail.com",
     license="LGPLv3",
     keywords="digital signal processing",

@@ -70,8 +70,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'dsplab'
-copyright = '2017-2020, Aleksandr Popov'
-author = 'Aleksandr Popov'
+copyright = '2017-2021, Aleksandr Popov, Kirill Butin'
+author = 'Aleksandr Popov, Kirill Butin'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -166,7 +166,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'dsplab.tex', 'dsplab Documentation',
-     'Aleksandr Popov', 'manual'),
+     'Aleksandr Popov, Kirill Butin', 'manual'),
 ]
 
 
