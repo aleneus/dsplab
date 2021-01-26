@@ -358,7 +358,7 @@
 ** DONE test: add unittest.cfg
 * 0.38.6
 ** DONE docs: update release-checklist
-* 0.39.0 [92%] [12/13]
+* 0.39.0 [92%] [13/14]
 ** DONE ref: *args and **kwargs in all calls
 ** DONE fix: plan: verification after installation the package
 ** DONE ref: add flow subpackage
@@ -371,7 +371,8 @@
 ** DONE feat: verification of the plan
 ** DONE docs: 2020 -> 2021
 ** DONE docs: update authors
-** TODO ref: fix flakes
+** DONE ref: fix flakes
+** TODO feat: use verification of plan
 * 0.40.0
 ** TODO feat: remove deprecated Worker.add_param()
 ** TODO feat: remove deprecated info()

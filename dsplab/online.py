@@ -1,4 +1,5 @@
 # pylint: skip-file
+# flake8: noqa
 
 from warnings import warn
 from dsplab.flow.online import *

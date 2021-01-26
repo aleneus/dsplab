@@ -98,7 +98,8 @@ def _check_node_inputs(node_dict, ids):
     node_id = node_dict["id"]
     for inp in _get_node_inputs(node_dict):
         if inp not in ids:
-            raise VerifyError("Unknown input {} in node {}".format(inp, node_id))
+            raise VerifyError("Unknown input {} in node {}".
+                              format(inp, node_id))
 
         if inp == node_id:
             raise VerifyError("Node {} uses itself as input".format(inp))
