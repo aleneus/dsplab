@@ -227,15 +227,16 @@ class Plan(Activity):
         self._inputs = []
         self._outputs = []
         self._progress_func = None
+        self._descr = descr
 
         self._quick = None
         self.set_quick(quick)
 
         self._sequence = []
 
-    def set_descr(self, text):
+    def set_descr(self, descr):
         """Set description of plan."""
-        self._descr = text
+        self._descr = descr
 
     def get_descr(self):
         """Return description of plan."""
@@ -276,9 +277,9 @@ class Plan(Activity):
         """Remove node from plan."""
         if node not in self._nodes:
             raise RuntimeError("No such node")
-        for n in self._nodes:
-            if node in n.inputs:
-                n.inputs.remove(node)
+        for _node in self._nodes:
+            if node in _node.inputs:
+                _node.inputs.remove(node)
         self._nodes.remove(node)
         self._detect_sequence()
 

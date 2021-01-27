@@ -3,7 +3,7 @@
 ## Code
 
 * No `TODO` in code
-* The result of pylint is not less than 9.75 (make lint)
+* The result of pylint is not less than 9.8 (make lint)
 * No errors from pylint (make lint-e)
 * No flakes (make flake)
 * Version in source code is updated

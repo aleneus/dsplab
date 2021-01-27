@@ -358,7 +358,7 @@
 ** DONE test: add unittest.cfg
 * 0.38.6
 ** DONE docs: update release-checklist
-* 0.39.0 [93%] [14/15]
+* 0.39.0 [100%] [15/15]
 ** DONE ref: *args and **kwargs in all calls
 ** DONE fix: plan: verification after installation the package
 ** DONE ref: add flow subpackage
@@ -373,7 +373,7 @@
 ** DONE docs: update authors
 ** DONE ref: fix flakes
 ** DONE feat: get_plan_from_dict: use verification
-** TODO fix: online: Or
+** DONE fix: online: Or
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args

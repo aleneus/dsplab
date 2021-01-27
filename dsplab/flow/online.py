@@ -87,6 +87,21 @@ class And(Activity):
 
 
 class Or(Activity):
+    """Or operation."""
+    def __call__(self, sample):
+        """Do operation.
+        Parameters
+        ----------
+        sample: array_like of floats
+            Input values.
+        """
+        res = 0
+        for value in sample:
+            res += value * (1 - res)
+        return res
+
+
+class OnlineFilter(Activity):
     """Universal online filter.
 
     Parameters

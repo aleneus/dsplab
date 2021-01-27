@@ -58,10 +58,14 @@ class Activity(metaclass=ActivityMeta):
         raise NotImplementedError
 
     def set_descr(self, descr):
+        # pylint: disable=no-self-use
+        # pylint: disable=unused-argument
         """Deprecated."""
         warn("Activity.set_descr() is deprecated. Use it for works only.")
 
     def info(self, as_string=None):
+        # pylint: disable=no-self-use
+        # pylint: disable=unused-argument
         """Deprecated."""
         warn("info() is deprecated and returns stub, don't use it")
         return self.__class__.__name__
@@ -78,11 +82,14 @@ class Worker(Activity):
         raise NotImplementedError
 
     def add_param(self, name, value=None):
+        # pylint: disable=unused-argument
         """Deprecated."""
         warn("Worker.add_param() is deprecated. Don't use it.")
         setattr(self, name, value)
 
     def _reg_param(self, name):
+        # pylint: disable=no-self-use
+        # pylint: disable=unused-argument
         """Deprecated."""
         warn("Worker._reg_param() is deprecated. Don't use it.")
 
@@ -94,9 +101,9 @@ class Work(Activity):
         self.set_descr(descr)
         self.set_worker(worker)
 
-    def set_descr(self, text):
+    def set_descr(self, descr):
         """Set description."""
-        self._descr = text
+        self._descr = descr
 
     def get_descr(self):
         """Return description."""
