@@ -19,22 +19,6 @@ online
 plan
 ====
 
-Members
--------
-
-.. automodule:: dsplab.flow.plan
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Verification
-------------
-
-.. automodule:: dsplab.flow.verify
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Examples
 --------
 
@@ -93,3 +77,19 @@ Quick plan for on-line processing
 
 .. literalinclude:: ../../demo/flow/online.py
    :language: python
+
+Members
+-------
+
+.. automodule:: dsplab.flow.plan
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Verification
+------------
+
+.. automodule:: dsplab.flow.verify
+   :members:
+   :undoc-members:
+   :show-inheritance:
