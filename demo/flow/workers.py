@@ -39,5 +39,5 @@ class DoNothing(Activity):
     def __init__(self):
         super().__init__()
 
-    def __call__(selfm, x):
+    def __call__(self, x):
         return x

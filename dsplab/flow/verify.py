@@ -27,10 +27,10 @@ class VerifyError(Exception):
     """Verification error."""
 
 
-def check_plan(plan_dict, file_name=SCHEMA_FILE_NAME):
+def check_plan(plan_dict):
     """Check plan's dictionary."""
 
-    schema = _load_schema(file_name)
+    schema = _load_schema(SCHEMA_FILE_NAME)
     _check_plan_schema(plan_dict, schema)
 
     ids = _get_ids(plan_dict)
@@ -125,7 +125,7 @@ def _load_schema(file_name):
     return data
 
 
-def _get_value_or_list(d, key):
-    if key not in d:
+def _get_value_or_list(dct, key):
+    if key not in dct:
         return []
-    return d[key]
+    return dct[key]

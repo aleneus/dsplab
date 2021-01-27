@@ -20,201 +20,177 @@ from dsplab.flow.verify import _check_node
 
 
 PLAN_SCHEMA_FILE_NAME = 'dsplab/data/plan-schema.json'
-NODE_SCHEMA_FILE_NAME = 'dsplab/data/node-schema.json'
 
 
 class Test__check_plan_cheme(unittest.TestCase):
     def setUp(self):
-        def check(p):
-            _check_plan_schema(p, _load_schema(PLAN_SCHEMA_FILE_NAME))
+        def check(conf):
+            _check_plan_schema(conf, _load_schema(PLAN_SCHEMA_FILE_NAME))
 
         self.check = check
 
     def test_ok_minimal(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'a', 'work': {'worker': {}}},
-            ],
+        self.check({
+                'nodes': [
+                    {'id': 'a', 'work': {'worker': {}}},
+                ],
 
-            'outputs': ['a'],
-        }
-        self.check(plan_dict)
+                'outputs': ['a'],
+            })
 
     def test_empty(self):
-        plan_dict = {}
         with self.assertRaises(VerifyError):
-            self.check(plan_dict)
+            self.check({})
 
     def test_empty_nodes(self):
-        plan_dict = {
-            'nodes': [],
-        }
         with self.assertRaises(VerifyError):
-            self.check(plan_dict)
+            self.check({
+                'nodes': [],
+            })
 
     def test_wrong_node_brakes_plan(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'a', 'wrong_key': 12345},
-            ],
-            'inputs': ['a'],
-            'outputs': ['a'],
-        }
         with self.assertRaises(VerifyError):
-            self.check(plan_dict)
+            self.check({
+                'nodes': [
+                    {'id': 'a', 'wrong_key': 12345},
+                ],
+                'inputs': ['a'],
+                'outputs': ['a'],
+            })
 
 
 class Test_check_plan(unittest.TestCase):
     def setUp(self):
-        def check(p):
-            check_plan(p, PLAN_SCHEMA_FILE_NAME)
-
-        self.check = check
+        self.check = check_plan
 
     def test_schema_error(self):
-        plan_dict = {}
         with self.assertRaises(VerifyError):
-            self.check(plan_dict)
+            self.check({})
 
     def test_node_error(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'a', 'class': 'WorkNode'},
-            ],
-            'outputs': ['a'],
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(plan_dict)
+            self.check({
+                'nodes': [
+                    {'id': 'a', 'class': 'WorkNode'},
+                ],
+                'outputs': ['a'],
+            })
 
         self.assertEqual(cm.exception.__str__(), "No work in node a")
 
     def test_duplicated_ids(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'b', 'work': {'worker': {}}},
-                {'id': 'b', 'work': {'worker': {}}},
-            ],
-            'outputs': ['b'],
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(plan_dict)
+            self.check({
+                'nodes': [
+                    {'id': 'b', 'work': {'worker': {}}},
+                    {'id': 'b', 'work': {'worker': {}}},
+                ],
+                'outputs': ['b'],
+            })
         self.assertEqual(cm.exception.__str__(), "Duplicated ID: b")
 
     def test_unknown_plan_input(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'a', 'work': {'worker': {}}},
-            ],
-            'inputs': ['b'],
-            'outputs': ['a'],
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(plan_dict)
+            self.check({
+                'nodes': [
+                    {'id': 'a', 'work': {'worker': {}}},
+                ],
+                'inputs': ['b'],
+                'outputs': ['a'],
+            })
         self.assertEqual(cm.exception.__str__(), "Unknown plan input: b")
 
     def test_unknown_plan_output(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'a', 'work': {'worker': {}}},
-            ],
-            'inputs': ['a'],
-            'outputs': ['c'],
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(plan_dict)
+            self.check({
+                'nodes': [
+                    {'id': 'a', 'work': {'worker': {}}},
+                ],
+                'inputs': ['a'],
+                'outputs': ['c'],
+            })
         self.assertEqual(cm.exception.__str__(), "Unknown plan output: c")
 
     def test_unknown_node_input(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'b', 'work': {'worker': {}}, 'inputs': ['c']},
-            ],
-            'outputs': ['b'],
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(plan_dict)
+            self.check({
+                'nodes': [
+                    {'id': 'b', 'work': {'worker': {}}, 'inputs': ['c']},
+                ],
+                'outputs': ['b'],
+            })
         self.assertEqual(cm.exception.__str__(), "Unknown input c in node b")
 
     def test_loop(self):
-        plan_dict = {
-            'nodes': [
-                {'id': 'a', 'work': {'worker': {}}, 'inputs': ['a']},
-            ],
-            'inputs': ['a'],
-            'outputs': ['a'],
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(plan_dict)
+            self.check({
+                'nodes': [
+                    {'id': 'a', 'work': {'worker': {}}, 'inputs': ['a']},
+                ],
+                'inputs': ['a'],
+                'outputs': ['a'],
+            })
         self.assertEqual(cm.exception.__str__(), "Node a uses itself as input")
 
 
 class Test__check_node(unittest.TestCase):
     def setUp(self):
-        def check(n):
-            _check_node(n, ids={'a': True, 'b': True})
+        def check(conf):
+            _check_node(conf, ids={'a': True, 'b': True})
 
         self.check = check
 
     def test_work_node_minimal_ok(self):
-        node_dict = {
+        self.check({
             'id': 'a',
             'class': 'WorkNode',
             'work': {'worker': {}},
-        }
-        self.check(node_dict)
+        })
 
     def test_map_node_minimal_ok(self):
-        node_dict = {
+        self.check({
             'id': 'a',
             'class': 'MapNode',
             'work': {'worker': {}},
-        }
-        self.check(node_dict)
+        })
 
     def test_select_node_minimal_ok(self):
-        node_dict = {
+        self.check({
             'id': 'b',
             'class': 'SelectNode',
             'inputs': ['a'],
-        }
-        self.check(node_dict)
+        })
 
     def test_pack_node_minimal_ok(self):
-        node_dict = {
+        self.check({
             'id': 'a',
             'class': 'PackNode',
-        }
-        self.check(node_dict)
+        })
 
     def test_pass_node_minimal_ok(self):
-        node_dict = {
+        self.check({
             'id': 'a',
             'class': 'PassNode',
-        }
-        self.check(node_dict)
+        })
 
     def test_unknown_class(self):
-        node_dict = {
+        self.check({
             'id': 'a',
             'class': 'the middle class',
-        }
-
-        self.check(node_dict)
+        })
 
     def test_work_is_default_class(self):
-        node_dict = {
-            'id': 'a',
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(node_dict)
+            self.check({
+                'id': 'a',
+            })
         self.assertEqual(cm.exception.__str__(), "No work in node a")
 
     def test_work_node_must_have_work(self):
-        node_dict = {
-            'id': 'a',
-            'class': 'WorkNode',
-        }
         with self.assertRaises(VerifyError) as cm:
-            self.check(node_dict)
+            self.check({
+                'id': 'a',
+                'class': 'WorkNode',
+            })
 
         self.assertEqual(cm.exception.__str__(), "No work in node a")

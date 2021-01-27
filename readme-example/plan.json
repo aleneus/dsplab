@@ -1,0 +1,18 @@
+{
+    "nodes": [
+        {
+            "id": "a",
+            "class": "WorkNode",
+            "work": {
+                "descr": "Increase input value",
+                "worker": {
+                    "class": "workers.Add",
+                    "params": {"value": 1}
+                }
+            }
+        }
+    ],
+
+    "inputs": ["a"],
+    "outputs": ["a"]
+}

@@ -16,20 +16,20 @@ def main():
     x = np.cos(2*np.pi*1*t) * np.exp(-0.2*t) + \
         np.cos(2*np.pi*2*t) * np.exp(-1*t)
 
-    es = prony.prony_decomp(x, 4)[2]
+    components = prony.prony_decomp(x, 4)[2]
 
     fig = plt.figure()
-    gs = fig.add_gridspec(2, len(es) // 2)
-    fig.add_subplot(gs[0, :])
+    gridspec = fig.add_gridspec(2, len(components) // 2)
+    fig.add_subplot(gridspec[0, :])
 
     plt.plot(x)
     plt.grid(True)
 
-    for i, e in enumerate(es):
+    for i, comp in enumerate(components):
         if i % 2 == 1:
             continue
-        fig.add_subplot(gs[1, i // 2])
-        plt.plot(e)
+        fig.add_subplot(gridspec[1, i // 2])
+        plt.plot(comp)
         plt.grid(True)
 
     plt.show()

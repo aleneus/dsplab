@@ -358,7 +358,7 @@
 ** DONE test: add unittest.cfg
 * 0.38.6
 ** DONE docs: update release-checklist
-* 0.39.0 [92%] [13/14]
+* 0.39.0 [93%] [14/15]
 ** DONE ref: *args and **kwargs in all calls
 ** DONE fix: plan: verification after installation the package
 ** DONE ref: add flow subpackage
@@ -372,13 +372,9 @@
 ** DONE docs: 2020 -> 2021
 ** DONE docs: update authors
 ** DONE ref: fix flakes
-** TODO feat: use verification of plan
+** DONE feat: get_plan_from_dict: use verification
+** TODO fix: online: Or
 * 0.40.0
-** TODO feat: remove deprecated Worker.add_param()
-** TODO feat: remove deprecated info()
-** TODO feat: remove deprecated set_descr() in activities
-** TODO feat: remove deprecated Activity.set_descr()
-** TODO feat: remove deprecated Node.reset()
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args
 ** TODO feat: modulation: rename noise_f -> noise_ph
@@ -388,20 +384,34 @@
 ** TODO feat: debug repeated timer, it works strange
 ** TODO test: check online.upnwarp_point function
 ** TODO feat: add instance_info for activity
-** TODO plan: Think about separate set_quick() and reduce_calls()
-** TODO activity.get_work_from_dict(): Too nested work with params
-** TODO Think about place (module or modules) for common workers
-** TODO Add online smoother
-** TODO Add online summator
-** TODO Add online subtractor
-** TODO Add comment showing desirable result in plan examples
-** TODO Add example of verification of plan
-** TODO Optimize the work with data in Plan and Nodes
-** TODO Add parallelism to Plan execution
-** TODO Add function for calculating of frequency using Hilbert transform
-** TODO Add function for calculating of frequency using digital Hilbert filter
-** TODO Make interval an option in timer
-** TODO Refactor player.CsvDataProducer
-** TODO feat: remove deprecated plan.py
-** TODO feat: remove deprecated activity.py
-** TODO feat: remove deprecated online.py
+** TODO ref: plan: Think about separate set_quick() and reduce_calls()
+** TODO ref: activity.get_work_from_dict(): Too nested work with params
+** TODO ref: think about place (module or modules) for common workers
+** TODO ? feat: add online smoother
+** TODO ? feat: add online summator
+** TODO ? feat: add online subtractor
+** TODO docs: add comment showing desirable result in plan examples
+** TODO otp: work with data in Plan and Nodes
+** TODO feat: add parallelism to Plan execution
+** TODO feat: function for calculating of frequency using Hilbert transform
+** TODO feat: function for calculating of frequency using digital Hilbert filter
+** TODO feat: time: make interval an option
+** TODO ref: player.CsvDataProducer
+** TODO docs: demo: modulation: add titles and labels to the plots
+* deprecations
+** TODO depr: remove Worker.add_param()
+   SCHEDULED: <2021-06-01>
+** TODO depr: remove info()
+   SCHEDULED: <2021-06-01>
+** TODO depr: remove set_descr() in activities
+   SCHEDULED: <2021-06-01>
+** TODO depr: remove Activity.set_descr()
+   SCHEDULED: <2021-06-01>
+** TODO depr: remove Node.reset()
+   SCHEDULED: <2021-06-01>
+** TODO depr: remove plan.py
+   SCHEDULED: <2021-06-01>
+** TODO depr: remove activity.py
+   SCHEDULED: <2021-06-01>
+** TODO depr: remove online.py
+   SCHEDULED: <2021-06-01>

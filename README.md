@@ -19,7 +19,64 @@
 * Licence: **LGPLv3**
 * Programming language: **Python 3**.
 
+## Installation
+
+```bash
+pip install dsplab
+```
+
+## Example
+
+File `workers.py`:
+
+```python
+class Add:
+    def __init__(self, value):
+        self.value = value
+
+    def __call__(self, x):
+        return x + self.value
+```
+
+File `main.py`:
+
+```python
+import json
+from dsplab.flow.plan import get_plan_from_dict
+
+with open('plan.json') as buf:
+    conf = json.loads(buf.read())
+
+p = get_plan_from_dict(conf)
+
+x = 1
+y = p([x, ])
+print(y)
+```
+
+File `plan.json`:
+
+```json
+{
+    "nodes": [
+        {
+            "id": "a",
+            "class": "WorkNode",
+            "work": {
+                "descr": "Increase input value",
+                "worker": {
+                    "class": "workers.Add",
+                    "params": {"value": 1}
+                }
+            }
+        }
+    ],
+
+    "inputs": ["a"],
+    "outputs": ["a"]
+}
+```
+
 ## Documentation
 
 http://dsplab.readthedocs.io/en/latest/
-

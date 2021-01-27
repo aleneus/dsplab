@@ -21,6 +21,7 @@ from warnings import warn
 
 from dsplab.flow.activity import get_work_from_dict
 from dsplab.flow.activity import Activity
+from dsplab.flow.verify import check_plan
 
 
 class Node(Activity):
@@ -429,6 +430,8 @@ def get_plan_from_dict(settings, params=None):
 
     - 'index' - index of selected item
     """
+    check_plan(settings)
+
     plan = Plan()
     if 'descr' in settings:
         plan.set_descr(settings['descr'])

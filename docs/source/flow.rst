@@ -85,3 +85,11 @@ Members
    :members:
    :undoc-members:
    :show-inheritance:
+
+Verification of plan
+--------------------
+
+.. automodule:: dsplab.flow.verify
+   :members:
+   :undoc-members:
+   :show-inheritance:
