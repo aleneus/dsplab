@@ -377,9 +377,10 @@
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args
-** TODO feat: modulation: rename noise_f -> noise_ph
-** TODO feat: modulation: rename noise_s -> noise_amp
+** TODO ref: modulation: noise_f -> noise_ph
+** TODO ref: modulation: noise_s -> noise_amp
 ** TODO ref: get_work_from_dict()
+** TODO feat: plan: add factory methods for getting plan
 * later
 ** TODO feat: debug repeated timer, it works strange
 ** TODO test: check online.upnwarp_point function
