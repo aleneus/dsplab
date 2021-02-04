@@ -14,7 +14,7 @@
 ## Demo
 
 * The result of pylint is not less than 8.55 (`make lint-demo`)
-* All examples work
+* All examples work (`./run-demo`)
 
 ## Docs
 
