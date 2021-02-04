@@ -3,8 +3,8 @@
 ## Fields of application
 
 * Development of software for digital signal processing.
-* Investigation of variety of methods solving the same DSP task.
 * Development of the DSP routines that require a flexible configuration of different stages of calculations on the user level.
+* Investigation of variety of methods solving the same DSP task.
 
 ## Features and characteristics
 

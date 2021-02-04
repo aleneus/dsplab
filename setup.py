@@ -15,9 +15,25 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+""" Dsplab is the package for building generalized signal processing schemes.
+
+In a different subject areas, data analysis tasks exist in which a
+certain general structure is distinguished, while the number of
+possible methods for implementing subtasks increases. The question
+arises: which combination of methods is better? Dsplab allows you to
+describe the overall scheme of the task (plan) and assign the
+so-called "workers" to perform the subtasks. So the main field of
+application of dsplab is the investigation of variety of methods
+solving the same signal processing task.
+
+"""
+
 import os
 from setuptools import setup
 from dsplab import __version__
+
+
+DOCLINES = __doc__.split("\n")
 
 
 def read(fname):
@@ -48,13 +64,13 @@ PACKAGE_DATA = {
 setup(
     name='dsplab',
     version=__version__,
-    description="Some tools for digital signal processing",
+    description=DOCLINES[0],
     author="Aleksandr Popov, Kirill Butin",
     author_email="aleneus@gmail.com",
     license="LGPLv3",
     keywords="digital signal processing",
     url="https://github.com/aleneus/dsplab",
-    long_description=read('README.md'),
+    long_description="\n".join(DOCLINES[2:]),
     packages=PACKAGES,
     package_data=PACKAGE_DATA,
     install_requires=INSTALL_REQUIRES,
