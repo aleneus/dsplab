@@ -19,7 +19,7 @@ help:
 
 
 check:
-	@nose2 -vvv
+	@nose2 -vvv --with-coverage
 
 cover:
 	@nose2 --with-coverage --coverage-report=html

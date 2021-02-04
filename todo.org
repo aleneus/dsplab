@@ -374,12 +374,11 @@
 ** DONE ref: fix flakes
 ** DONE feat: get_plan_from_dict: use verification
 ** DONE fix: online: Or
-* 0.39.1 [60%] [3/5]
+* 0.39.1 [100%] [4/4]
 ** DONE depl: homepage: bitbucket -> github
 ** DONE depl: list of demo and automation of run
 ** DONE depl: setup.py: fix long-description
-** TODO docs: README: pip install -> pip3 install
-** TODO docs: explicit authors and e-mails
+** DONE docs: explicit authors and e-mails
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args
