@@ -53,7 +53,7 @@ setup(
     author_email="aleneus@gmail.com",
     license="LGPLv3",
     keywords="digital signal processing",
-    url="https://bitbucket.org/aleneus/dsplab",
+    url="https://github.com/aleneus/dsplab",
     long_description=read('README.md'),
     packages=PACKAGES,
     package_data=PACKAGE_DATA,
