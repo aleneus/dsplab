@@ -9,9 +9,10 @@ help:
 	@echo "check"
 	@echo "cover"
 	@echo "flake"
-	@echo "lint"
 	@echo "lint-e"
+	@echo "lint"
 	@echo "lint-demo"
+	@echo "ver"
 	@echo "uml"
 	@echo "docs"
 	@echo "upload"
@@ -27,11 +28,11 @@ cover:
 flake:
 	flake8 $(PACKAGE_FOLDER)
 
-lint:
-	pylint $(PACKAGE_FOLDER)
-
 lint-e:
 	pylint --disable=R,C,W $(PACKAGE_FOLDER)
+
+lint:
+	pylint $(PACKAGE_FOLDER)
 
 lint-demo:
 	pylint $(DEMO_FOLDER)
@@ -42,6 +43,8 @@ uml:
 docs:
 	sphinx-build docs/source/ docs/build/
 
+ver:
+	@cat $(PACKAGE_FOLDER)/__init__.py | grep __version__
 
 upload:
 	python3 setup.py sdist
