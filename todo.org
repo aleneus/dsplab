@@ -379,6 +379,8 @@
 ** DONE depl: list of demo and automation of run
 ** DONE depl: setup.py: fix long-description
 ** DONE docs: explicit authors and e-mails
+* 0.39.2
+** DONE docs: fix: README: Organization of calculations, workflows
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args
@@ -397,7 +399,7 @@
 ** TODO ? feat: add online summator
 ** TODO ? feat: add online subtractor
 ** TODO docs: add comment showing desirable result in plan examples
-** TODO otp: work with data in Plan and Nodes
+** TODO opt: work with data in Plan and Nodes
 ** TODO feat: add parallelism to Plan execution
 ** TODO feat: function for calculating of frequency using Hilbert transform
 ** TODO feat: function for calculating of frequency using digital Hilbert filter
