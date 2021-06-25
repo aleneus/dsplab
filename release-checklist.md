@@ -9,7 +9,7 @@
 * Version in source code is updated
 * Old deprecated code is removed: see todo list
 * All unit tests passed: `make check`
-* Total test coverage is not less than 47%: `make check`
+* Total test coverage is not less than 52%: `make check`
 
 ## Demo
 

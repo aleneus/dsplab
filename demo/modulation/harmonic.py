@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath('.'))
 from dsplab.modulation import harm
 
 
-def noise(t):
+def noise():
     """Return random value."""
     return random.normalvariate(0, 0.1)
 

@@ -16,14 +16,10 @@
 
 """Functions for modulation and demodulation."""
 
-from math import pi, cos
+from math import pi, cos, isnan
 import numpy as np
 from numpy import unwrap, angle, diff
 import scipy.signal as sig
-
-
-PI = pi
-_2PI = 2 * PI
 
 
 def harm(length, sample_rate, amp, freq, phi=0,
@@ -54,22 +50,14 @@ def harm(length, sample_rate, amp, freq, phi=0,
     : np.array
         Time values.
     """
+    ts = np.arange(0, length, 1 / sample_rate)
 
-    times = np.arange(0, length, 1 / sample_rate)
+    xs = []
+    for t in ts:
+        x = _ns(amp, noise_a) * cos(_ns(2*pi*freq*t + phi, noise_f))
+        xs.append(x)
 
-    values = []
-    for time_value in times:
-        amp_value = amp
-        if noise_a is not None:
-            amp_value += noise_a(time_value)
-
-        arg = _2PI * freq * time_value + phi
-        if noise_f is not None:
-            arg += noise_f(time_value)
-
-        values.append(amp_value * cos(arg))
-
-    return np.array(values), times
+    return np.array(xs), ts
 
 
 def amp_mod(length, sample_rate, func, freq, phi=0,
@@ -100,22 +88,17 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
     : np.array
         Time values.
     """
+    ts = np.arange(0, length, 1/sample_rate)
+
     full_phase = phi
-    delta_ph = _2PI * freq / sample_rate
-    sampling_period = 1.0 / sample_rate
-    times = np.arange(0, length + sampling_period, sampling_period)
-    values = []
-    for time_value in times:
-        if noise_f is None:
-            value = func(time_value) * cos(full_phase)
-        else:
-            value = func(time_value) * cos(full_phase + noise_f(time_value))
-        if noise_a is not None:
-            value += noise_a(time_value)
-        values.append(value)
+    delta_ph = 2*pi*freq / sample_rate
+    xs = []
+    for t in ts:
+        x = _ns(func(t) * cos(_ns(full_phase, noise_f)), noise_a)
+        xs.append(x)
         full_phase += delta_ph
-    values = np.array(values)
-    return values, times
+
+    return np.array(xs), ts
 
 
 def freq_mod(length, sample_rate, amp, func, phi=0,
@@ -133,7 +116,8 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
     phi: float
         Initial phase (radians).
     func: Object
-        Function that returns frequency values (in Hz) depending on time.
+        Function that returns frequency values (in Hz) depending on
+        time.
     noise_f: Object
         Function that returns noise value added to frequency.
     noise_a: Object
@@ -148,24 +132,18 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
     : np.array
         Time values.
     """
+
+    ts = np.arange(0, length, 1/sample_rate)
+
     full_phase = phi
-    times = np.arange(0, length + 1.0 / sample_rate, 1.0 / sample_rate)
-    values = []
-    phs = []
-    for time_value in times:
-        arg = full_phase
-        if noise_f is not None:
-            arg += noise_f(time_value)
-        value = amp * cos(arg)
-        if noise_a is not None:
-            value += noise_a(time_value)
-        values.append(value)
+    xs, phs = [], []
+    for t in ts:
+        x = _ns(amp * cos(_ns(full_phase, noise_f)), noise_a)
+        xs.append(x)
         phs.append(full_phase)
-        delta_ph = _2PI * func(time_value) / sample_rate
-        full_phase += delta_ph
-    values = np.array(values)
-    phs = np.array(phs)
-    return values, phs, times
+        full_phase += 2*pi*func(t) / sample_rate
+
+    return np.array(xs), np.array(phs), ts
 
 
 def phase_mod(length, sample_rate, amp, freq, func,
@@ -183,7 +161,8 @@ def phase_mod(length, sample_rate, amp, freq, func,
     freq: float
         Frequency of signal (Hz).
     func: Object
-        Function that returns phase values (in radians) depending on time.
+        Function that returns phase values (in radians) depending on
+        time.
     noise_f: Object
         Function that returns noise value added to frequency.
     noise_a: Object
@@ -196,19 +175,20 @@ def phase_mod(length, sample_rate, amp, freq, func,
     : np.array
         Time values.
     """
-    sampling_period = 1.0 / sample_rate
-    times = np.arange(0, length + sampling_period, sampling_period)
-    values = []
-    for time_value in times:
-        arg = _2PI * freq * time_value + func(time_value)
-        if noise_f is not None:
-            arg += noise_f(time_value)
-        value = amp * cos(arg)
-        if noise_a is not None:
-            value += noise_a(time_value)
-        values.append(value)
-    values = np.array(values)
-    return values, times
+    ts = np.arange(0, length, 1/sample_rate)
+    xs = []
+    for t in ts:
+        arg = _ns(2*pi*freq*t + func(t), noise_f)
+        x = _ns(amp * cos(arg), noise_a)
+        xs.append(x)
+
+    return np.array(xs), ts
+
+
+def _ns(x, func=None):
+    if func:
+        return x + func()
+    return x
 
 
 def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
@@ -223,7 +203,8 @@ def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
     a_func: Object
         Function that returns amplitude value depending on time.
     f_func: Object
-        Function that returns frequency values (in Hz) depending on time.
+        Function that returns frequency values (in Hz) depending on
+        time.
     phi: float
         Initial phase (radians).
 
@@ -236,24 +217,22 @@ def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
     : np.array
         Time values.
     """
+    ts = np.arange(0, length, 1/sample_rate)
+
     full_phase = phi
-    sampling_period = 1.0 / sample_rate
-    times = np.arange(0, length + sampling_period, sampling_period)
-    values = []
+    xs = []
     phs = []
-    for time_value in times:
-        arg = full_phase
-        values.append(a_func(time_value) * cos(arg))
-        delta_ph = _2PI * f_func(time_value) / sample_rate
+    for t in ts:
+        xs.append(a_func(t) * cos(full_phase))
         phs.append(full_phase)
-        full_phase += delta_ph
-    values = np.array(values)
-    phs = np.array(phs)
-    return values, phs, times
+        full_phase += 2*pi * f_func(t) / sample_rate
+
+    return np.array(xs), np.array(phs), ts
 
 
 def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
-    """Return instantaneous frequency of modulated signal using IQ processign.
+    """Return instantaneous frequency of modulated signal using IQ
+    processing.
 
     Parameters
     ----------
@@ -275,13 +254,13 @@ def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
     : np.ndarray
         Time values.
     """
-    muli = xdata * np.cos(_2PI * f_central * tdata)
-    mulq = xdata * np.sin(_2PI * f_central * tdata)
+    muli = xdata * np.cos(2*pi * f_central * tdata)
+    mulq = xdata * np.sin(2*pi * f_central * tdata)
     muli_low = sig.lfilter(b_coeffs, a_coeffs, muli)
     mulq_low = sig.lfilter(b_coeffs, a_coeffs, mulq)
     analytic = muli_low + 1j * mulq_low
     phase = -unwrap(angle(analytic))
-    freq = diff(phase) / _2PI / (tdata[1] - tdata[0]) + f_central
+    freq = diff(phase) / 2 / pi / (tdata[1] - tdata[0]) + f_central
     return freq, tdata[:-1]
 
 
@@ -341,8 +320,8 @@ def digital_hilbert_filter(ntaps=101, window='hamming'):
     coeffs = np.zeros(ntaps)
     num = ntaps // 2
     for k in range(1, num+1, 2):
-        coeffs[num + k] = 2 / PI / k
-        coeffs[num - k] = -2 / PI / k
+        coeffs[num + k] = 2 / pi / k
+        coeffs[num - k] = -2 / pi / k
 
     wind = sig.get_window(window, ntaps)
     coeffs *= wind
@@ -481,7 +460,7 @@ def freqs_by_wave_len(xdata, tdata, cut_nans=True):
         freqs_cut = []
         t_cut = []
         for (f, tt) in zip(freqs, tdata):
-            if f == f:
+            if f is not None and not isnan(f):
                 freqs_cut.append(f)
                 t_cut.append(tt)
         return np.array(freqs_cut), t_cut
