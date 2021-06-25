@@ -381,6 +381,8 @@
 ** DONE docs: explicit authors and e-mails
 * 0.39.2
 ** DONE docs: fix: README: Organization of calculations, workflows
+* 0.39.3
+** DONE ref: setup.py: remove read() function
 * 0.40.0
 ** TODO feat: remove t argument from noise functions
 ** TODO feat: modulation: rearange args

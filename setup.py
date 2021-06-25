@@ -27,17 +27,11 @@ solving the same signal processing task.
 
 """
 
-import os
 from setuptools import setup
 from dsplab import __version__
 
 
 DOCLINES = __doc__.split("\n")
-
-
-def read(fname):
-    """Read content of the text file."""
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
 INSTALL_REQUIRES = [
