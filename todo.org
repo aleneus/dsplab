@@ -381,10 +381,19 @@
 ** DONE docs: explicit authors and e-mails
 * 0.39.2
 ** DONE docs: fix: README: Organization of calculations, workflows
-* 0.39.3
-** DONE ref: setup.py: remove read() function
 * 0.40.0
+** DONE ref: setup.py: remove read() function
+** DONE depr: remove Worker.add_param()
+** DONE depr: remove set_descr() in activities
+** DONE depr: remove info()
+** DONE depr: remove Activity.set_descr()
+** DONE depr: remove Node.reset()
+** DONE depr: remove plan.py
+** DONE depr: remove activity.py
+** DONE depr: remove online.py
 ** TODO feat: remove t argument from noise functions
+** TODO make: update targets
+** TODO docs: update release notes
 ** TODO feat: modulation: rearange args
 ** TODO ref: modulation: noise_f -> noise_ph
 ** TODO ref: modulation: noise_s -> noise_amp
@@ -409,19 +418,3 @@
 ** TODO ref: player.CsvDataProducer
 ** TODO docs: demo: modulation: add titles and labels to the plots
 * deprecations
-** TODO depr: remove Worker.add_param()
-   SCHEDULED: <2021-06-01>
-** TODO depr: remove info()
-   SCHEDULED: <2021-06-01>
-** TODO depr: remove set_descr() in activities
-   SCHEDULED: <2021-06-01>
-** TODO depr: remove Activity.set_descr()
-   SCHEDULED: <2021-06-01>
-** TODO depr: remove Node.reset()
-   SCHEDULED: <2021-06-01>
-** TODO depr: remove plan.py
-   SCHEDULED: <2021-06-01>
-** TODO depr: remove activity.py
-   SCHEDULED: <2021-06-01>
-** TODO depr: remove online.py
-   SCHEDULED: <2021-06-01>

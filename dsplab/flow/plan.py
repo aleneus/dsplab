@@ -18,8 +18,6 @@
 understood as the workplace for worker. Node can have inputs that are
 also nodes. Plan is the system of linked nodes."""
 
-from warnings import warn
-
 from dsplab.flow.activity import get_work_from_dict
 from dsplab.flow.activity import Activity
 from dsplab.flow.verify import check_plan
@@ -95,11 +93,6 @@ class Node(Activity):
     def clear_result(self):
         """Clear the result."""
         self._res = None
-
-    def reset(self):
-        """Deprecated."""
-        warn("Node.reset() is deprecated. Use clear_result() instead.")
-        self.clear_result()
 
     def is_inputs_ready(self):
         """Check if data in all inputs is ready."""
