@@ -1,4 +1,4 @@
-.PHONY: docs
+.PHONY: docs test
 
 PACKAGE_FOLDER = dsplab
 DEMO_FOLDER = demo
@@ -8,8 +8,6 @@ all: help
 help:
 	@echo "check"
 	@echo "cover"
-	@echo "flake"
-	@echo "lint-e"
 	@echo "lint"
 	@echo "lint-demo"
 	@echo "ver"
@@ -19,32 +17,40 @@ help:
 	@echo "clear"
 
 
-check:
+check: test todo flake lint-e
+
+test:
 	@nose2 -vvv --with-coverage
 
-cover:
-	@nose2 --with-coverage --coverage-report=html
+todo:
+	@rgrep "TODO" --include="*py" || true
+	@rgrep "TODO" --include="*rst" || true
+	@rgrep "TODO" --include="*md" --exclude="release-checklist.md" || true
+	@rgrep "# REF" --include="*py" || true
 
 flake:
 	flake8 $(PACKAGE_FOLDER)
 
 lint-e:
-	pylint --disable=R,C,W $(PACKAGE_FOLDER)
+	pylint --disable=R,C,W $(PACKAGE_FOLDER) || true
+
+cover:
+	@nose2 --with-coverage --coverage-report=html
 
 lint:
-	pylint $(PACKAGE_FOLDER)
+	pylint $(PACKAGE_FOLDER) || true
 
 lint-demo:
 	pylint $(DEMO_FOLDER)
-
-uml:
-	pyreverse $(PACKAGE_FOLDER) -o png
 
 docs:
 	sphinx-build docs/source/ docs/build/
 
 ver:
 	@cat $(PACKAGE_FOLDER)/__init__.py | grep __version__
+
+uml:
+	pyreverse $(PACKAGE_FOLDER) -o png
 
 upload:
 	python3 setup.py sdist
