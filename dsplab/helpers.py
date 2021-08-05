@@ -22,15 +22,18 @@ import json
 
 def is_iterable(obj):
     """Check if obj is iterable."""
+
     try:
-        [e for e in obj]
+        iter(obj)
     except TypeError:
         return False
+
     return True
 
 
 def import_entity(name):
     """Import class by name."""
+
     parts = name.split('.')
     module_name = '.'.join(parts[:-1])
     entity_name = parts[-1]
