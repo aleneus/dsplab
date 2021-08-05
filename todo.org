@@ -392,7 +392,7 @@
 ** DONE depr: remove activity.py
 ** DONE depr: remove online.py
 ** DONE feat: remove t argument from noise functions
-** TODO docs: demo/phasor/freq_demod.py  replace file (to modulation folder)
+** DONE docs: demo/phasor/freq_demod.py -> demo/modulation
 ** TODO make: update targets
 ** TODO docs: update release notes
 ** TODO ref: modulation: noise_f -> noise_ph

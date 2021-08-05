@@ -22,7 +22,7 @@ function modulation {
     python3 demo/modulation/am.py
     python3 demo/modulation/fm.py
     python3 demo/modulation/harmonic.py
-    python3 demo/phasor/freq_demod.py
+    python3 demo/modulation/freq_demod.py
 }
 
 function player {
