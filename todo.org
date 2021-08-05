@@ -396,6 +396,7 @@
 ** DONE make: update targets
 ** DONE ref: modulation: noise_f, noise_a -> noise_ph, noise_amp
 ** DONE docs: update release notes
+** DONE ref: up lint result: prony
 * later
 ** TODO ref: get_work_from_dict()
 ** TODO feat: plan: add factory methods for getting plan
