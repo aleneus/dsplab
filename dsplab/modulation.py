@@ -439,14 +439,16 @@ def freqs_by_wave_len(xdata, tdata, cut_nans=True):
     """
     wls, t_wl = wave_lens(xdata, tdata)
     freqs = 1 / linint(wls, t_wl, tdata)
+
     if cut_nans:
         freqs_cut = []
         t_cut = []
-        for (f, tt) in zip(freqs, tdata):
+        for f, t in zip(freqs, tdata):
             if f is not None and not isnan(f):
                 freqs_cut.append(f)
-                t_cut.append(tt)
+                t_cut.append(t)
         return np.array(freqs_cut), t_cut
+
     return freqs
 
 

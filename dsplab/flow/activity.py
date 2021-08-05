@@ -24,6 +24,7 @@ LOG = logging.getLogger(__name__)
 
 class ActivityMeta(type):
     """Metaclass for Activity."""
+
     def __init__(cls, name, bases, attrs):
         super().__init__(name, bases, attrs)
         cls._class_info = {}
@@ -50,9 +51,11 @@ class ActivityMeta(type):
 
 
 class Activity(metaclass=ActivityMeta):
+    # pylint: disable=too-few-public-methods
     """Any activity is the something that may be called and can
     provide the information about itself. To get working activity the
     __call__ method must be implemented."""
+
     def __call__(self, *args, **kwargs):
         """Call activity."""
         raise NotImplementedError
@@ -60,6 +63,7 @@ class Activity(metaclass=ActivityMeta):
 
 class Work(Activity):
     """Work is data processing that can be done in a variety of ways."""
+
     def __init__(self, descr=None, worker=None):
         super().__init__()
         self.set_descr(descr)
@@ -87,6 +91,7 @@ class Work(Activity):
 
 def get_work_from_dict(settings, params=None):
     """Create and return Work instance described in dictionary."""
+
     if 'descr' in settings:
         descr = settings['descr']
     else:

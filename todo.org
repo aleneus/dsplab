@@ -398,6 +398,7 @@
 ** DONE docs: update release notes
 ** DONE ref: up lint result: prony
 ** DONE ref: up lint result: is_iterable
+** DONE ref: up lint result: ignore few methods for callables
 * later
 ** TODO ref: get_work_from_dict()
 ** TODO feat: plan: add factory methods for getting plan

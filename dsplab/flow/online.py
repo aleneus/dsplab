@@ -63,13 +63,17 @@ class QueueFilter(Activity):
 
 
 class Delayer(QueueFilter):
-    """Provide delay in online processing."""
+    # pylint: disable=too-few-public-methods
+    """Provides delay in online processing."""
+
     def proc_queue(self):
         return self.queue[0]
 
 
 class And(Activity):
+    # pylint: disable=too-few-public-methods
     """And operation."""
+
     def __call__(self, *args, **kwargs):
         """Do operation.
 
@@ -88,14 +92,19 @@ class And(Activity):
 
 
 class Or(Activity):
+    # pylint: disable=too-few-public-methods
     """Or operation."""
-    def __call__(self, sample):
+
+    def __call__(self, *args, **kwargs):
         """Do operation.
         Parameters
         ----------
         sample: array_like of floats
             Input values.
         """
+        return self.__call(*args, **kwargs)
+
+    def __call(self, sample):
         res = 0
         for value in sample:
             res += value * (1 - res)
@@ -118,6 +127,7 @@ class OnlineFilter(Activity):
     step: int
         Step. Must be positive.
     """
+
     def __init__(self, ntaps=None, smooth_ntaps=None, fill_with=0, step=1):
         super().__init__()
         self.add_sample_func = None
