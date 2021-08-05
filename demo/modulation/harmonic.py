@@ -25,13 +25,13 @@ def main():
     x, t = harm(
         length=T, sample_rate=fs,
         amp=2, freq=1,
-        noise_a=noise
+        noise_amp=noise
     )
     plt.plot(t, x)
     x, t = harm(
         length=T, sample_rate=fs,
         amp=2, freq=1,
-        noise_f=noise
+        noise_ph=noise
     )
     plt.plot(t, x)
     plt.show()

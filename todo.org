@@ -394,9 +394,8 @@
 ** DONE feat: remove t argument from noise functions
 ** DONE docs: demo/phasor/freq_demod.py -> demo/modulation
 ** DONE make: update targets
+** DONE ref: modulation: noise_f, noise_a -> noise_ph, noise_amp
 ** TODO docs: update release notes
-** TODO ref: modulation: noise_f -> noise_ph
-** TODO ref: modulation: noise_a -> noise_amp
 * later
 ** TODO ref: get_work_from_dict()
 ** TODO feat: plan: add factory methods for getting plan
@@ -418,3 +417,5 @@
 ** TODO ref: player.CsvDataProducer
 ** TODO docs: demo: modulation: add titles and labels to the plots
 * deprecations
+** TODO depr: modulation: remove noise_f and noise_a args
+   SCHEDULED: <2022-02-05 Сб>

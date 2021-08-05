@@ -39,13 +39,13 @@ class Test_harm(unittest.TestCase):
 
     def test_noised_amplitude(self):
         xs = mod.harm(length=60, sample_rate=50, amp=1, freq=1,
-                      noise_a=lambda: 1)[0]
+                      noise_amp=lambda: 1)[0]
         self.assertAlmostEqual(max(xs), 2)
         self.assertAlmostEqual(min(xs), -2)
 
     def test_noised_phase(self):
         xs = mod.harm(length=60, sample_rate=1, amp=1, freq=1,
-                      noise_f=lambda: np.pi/2)[0]
+                      noise_ph=lambda: np.pi/2)[0]
         self.assertAlmostEqual(sum(xs), 0)
         self.assertAlmostEqual(max(xs), 0)
         self.assertAlmostEqual(min(xs), 0)
@@ -62,20 +62,20 @@ class Test_amp_mod(unittest.TestCase):
         self.assertEqual(len(xs), 50)
         self.assertEqual(len(ts), 50)
 
-    def test_noise_a(self):
-        xs = mod.amp_mod(1, 50, lambda t: 1, 1, noise_a=lambda: 1)[0]
+    def test_noise_amp(self):
+        xs = mod.amp_mod(1, 50, lambda t: 1, 1, noise_amp=lambda: 1)[0]
         self.assertEqual(max(xs), 2)
         self.assertEqual(min(xs), 0)
 
-    def test_noise_f_touch(self):
-        xs = mod.amp_mod(1, 50, lambda t: 1, 1, noise_f=lambda: 0)[0]
+    def test_noise_ph_touch(self):
+        xs = mod.amp_mod(1, 50, lambda t: 1, 1, noise_ph=lambda: 0)[0]
         self.assertEqual(len(xs), 50)
 
 
 class Test_freq_mod(unittest.TestCase):
     def test_touch(self):
         xs, phs, ts = mod.freq_mod(1, 50, 1, lambda t: 10,
-                                   noise_a=lambda: 1, noise_f=lambda: 0)
+                                   noise_amp=lambda: 1, noise_ph=lambda: 0)
         self.assertEqual(len(xs), 50)
         self.assertEqual(len(phs), 50)
         self.assertEqual(len(ts), 50)
@@ -84,7 +84,7 @@ class Test_freq_mod(unittest.TestCase):
 class Test_phase_mod(unittest.TestCase):
     def test_touch(self):
         xs, ts = mod.phase_mod(1, 50, 1, 10, lambda t: 10,
-                               noise_a=lambda: 1, noise_f=lambda: 0)
+                               noise_amp=lambda: 1, noise_ph=lambda: 0)
         self.assertEqual(len(xs), 50)
         self.assertEqual(len(ts), 50)
 

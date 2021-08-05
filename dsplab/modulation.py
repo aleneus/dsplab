@@ -16,6 +16,7 @@
 
 """Functions for modulation and demodulation."""
 
+from warnings import warn
 from math import pi, cos, isnan
 import numpy as np
 from numpy import unwrap, angle, diff
@@ -23,6 +24,7 @@ import scipy.signal as sig
 
 
 def harm(length, sample_rate, amp, freq, phi=0,
+         noise_ph=None, noise_amp=None,
          noise_a=None, noise_f=None):
     """Generate harmonic signal.
 
@@ -38,10 +40,10 @@ def harm(length, sample_rate, amp, freq, phi=0,
         Frequency of signal (Hz).
     phi: float
         Initial phase (radians).
-    noise_a: callable
+    noise_ph: callable
+        Returns noise value added to full phase.
+    noise_amp: callable
         Returns noise value added to amplitude.
-    noise_f: callable
-        Returns noise value added to frequency.
 
     Returns
     -------
@@ -50,17 +52,21 @@ def harm(length, sample_rate, amp, freq, phi=0,
     : np.array
         Time values.
     """
+    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, "noise_a", "noise_amp")
+    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, "noise_f", "noise_ph")
+
     ts = np.arange(0, length, 1 / sample_rate)
 
     xs = []
     for t in ts:
-        x = _ns(amp, noise_a) * cos(_ns(2*pi*freq*t + phi, noise_f))
+        x = _ns(amp, _noise_amp) * cos(_ns(2*pi*freq*t + phi, _noise_ph))
         xs.append(x)
 
     return np.array(xs), ts
 
 
 def amp_mod(length, sample_rate, func, freq, phi=0,
+            noise_ph=None, noise_amp=None,
             noise_f=None, noise_a=None):
     """Amplitude modulation.
 
@@ -76,10 +82,10 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
         Initial phase (radians).
     func: Object
         Function that returns amplitude value depending on time.
-    noise_f: Object
-        Function that returns noise value added to frequency.
-    noise_a: Object
-        Function that returns noise value added to amplitude.
+    noise_ph: callable
+        Returns noise value added to full phase.
+    noise_amp: callable
+        Returns noise value added to amplitude.
 
     Returns
     -------
@@ -88,13 +94,16 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
     : np.array
         Time values.
     """
+    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, "noise_a", "noise_amp")
+    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, "noise_f", "noise_ph")
+
     ts = np.arange(0, length, 1/sample_rate)
 
     full_phase = phi
     delta_ph = 2*pi*freq / sample_rate
     xs = []
     for t in ts:
-        x = _ns(func(t) * cos(_ns(full_phase, noise_f)), noise_a)
+        x = _ns(func(t) * cos(_ns(full_phase, _noise_ph)), _noise_amp)
         xs.append(x)
         full_phase += delta_ph
 
@@ -102,6 +111,7 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
 
 
 def freq_mod(length, sample_rate, amp, func, phi=0,
+             noise_ph=None, noise_amp=None,
              noise_f=None, noise_a=None):
     """Amplitude modulation.
 
@@ -118,10 +128,10 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
     func: Object
         Function that returns frequency values (in Hz) depending on
         time.
-    noise_f: Object
-        Function that returns noise value added to frequency.
-    noise_a: Object
-        Function that returns noise value added to amplitude.
+    noise_ph: callable
+        Returns noise value added to full phase.
+    noise_amp: callable
+        Returns noise value added to amplitude.
 
     Returns
     -------
@@ -132,13 +142,15 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
     : np.array
         Time values.
     """
+    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, "noise_a", "noise_amp")
+    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, "noise_f", "noise_ph")
 
     ts = np.arange(0, length, 1/sample_rate)
 
     full_phase = phi
     xs, phs = [], []
     for t in ts:
-        x = _ns(amp * cos(_ns(full_phase, noise_f)), noise_a)
+        x = _ns(amp * cos(_ns(full_phase, _noise_ph)), _noise_amp)
         xs.append(x)
         phs.append(full_phase)
         full_phase += 2*pi*func(t) / sample_rate
@@ -147,6 +159,7 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
 
 
 def phase_mod(length, sample_rate, amp, freq, func,
+              noise_ph=None, noise_amp=None,
               noise_f=None, noise_a=None):
     """Phase modulation.
 
@@ -163,10 +176,10 @@ def phase_mod(length, sample_rate, amp, freq, func,
     func: Object
         Function that returns phase values (in radians) depending on
         time.
-    noise_f: Object
-        Function that returns noise value added to frequency.
-    noise_a: Object
-        Function that returns noise value added to amplitude.
+    noise_ph: callable
+        Returns noise value added to full phase.
+    noise_amp: callable
+        Returns noise value added to amplitude.
 
     Returns
     -------
@@ -175,20 +188,17 @@ def phase_mod(length, sample_rate, amp, freq, func,
     : np.array
         Time values.
     """
+    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, "noise_a", "noise_amp")
+    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, "noise_f", "noise_ph")
+
     ts = np.arange(0, length, 1/sample_rate)
     xs = []
     for t in ts:
-        arg = _ns(2*pi*freq*t + func(t), noise_f)
-        x = _ns(amp * cos(arg), noise_a)
+        arg = _ns(2*pi*freq*t + func(t), _noise_ph)
+        x = _ns(amp * cos(arg), _noise_amp)
         xs.append(x)
 
     return np.array(xs), ts
-
-
-def _ns(x, func=None):
-    if func:
-        return x + func()
-    return x
 
 
 def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
@@ -264,8 +274,37 @@ def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
     return freq, tdata[:-1]
 
 
+def digital_hilbert_filter(ntaps=101, window='hamming'):
+    """Calculate digital hilbert filter.
+
+    Parameters
+    ----------
+    ntaps: integer
+        Length of filter.
+    window: str
+        Window. Default is 'hamming'.
+
+    Returns
+    -------
+    : np.array
+        Filter.
+    """
+    if ntaps % 2 == 0:
+        raise ValueError("ntaps of digital Hilbert filter must be odd.")
+
+    coeffs = np.zeros(ntaps)
+    num = ntaps // 2
+    for k in range(1, num+1, 2):
+        coeffs[num + k] = 2 / pi / k
+        coeffs[num - k] = -2 / pi / k
+
+    wind = sig.get_window(window, ntaps)
+    coeffs *= wind
+    return coeffs
+
+
 def envelope_by_extremums(xdata, sample_rate=1, tdata=None):
-    """Calculate envelope by local extremums of signals.
+    """Calculate envelope by local extremums of signal.
 
     Parameters
     ----------
@@ -297,35 +336,6 @@ def envelope_by_extremums(xdata, sample_rate=1, tdata=None):
         t_new.append(tdata[-1])
         x_new.append(xabs[-1])
     return np.array(x_new), np.array(t_new)
-
-
-def digital_hilbert_filter(ntaps=101, window='hamming'):
-    """Calculate digital hilbert filter.
-
-    Parameters
-    ----------
-    ntaps: integer
-        Length of filter.
-    window: str
-        Window. Default is 'hamming'.
-
-    Returns
-    -------
-    : np.array
-        Filter.
-    """
-    if ntaps % 2 == 0:
-        raise ValueError("ntaps of digital Hilbert filter must be odd.")
-
-    coeffs = np.zeros(ntaps)
-    num = ntaps // 2
-    for k in range(1, num+1, 2):
-        coeffs[num + k] = 2 / pi / k
-        coeffs[num - k] = -2 / pi / k
-
-    wind = sig.get_window(window, ntaps)
-    coeffs *= wind
-    return coeffs
 
 
 def freq_by_extremums(xdata, sample_rate):
@@ -382,33 +392,6 @@ def freq_by_zeros(xdata, sample_rate):
     return zeros_total / 2 / T
 
 
-def linint(xdata, tdata, ts_new):
-    """Find values of xdata in ts_new points.
-
-    Parameters
-    ----------
-    xdata: np.ndarray
-        Signal values.
-    tdata: np.ndarray
-        Time values.
-    ts_new: np.ndarray
-        New time values.
-
-    Returns
-    -------
-    : np.ndarray
-        New signal values.
-    """
-    x_new = np.zeros(len(ts_new)) * np.nan
-    for x_p, t_p, x_c, t_c in zip(xdata[:-1], tdata[:-1],
-                                  xdata[1:], tdata[1:]):
-        k = (x_c - x_p) / (t_c - t_p)
-        b = x_p - k*t_p
-        ind = (ts_new >= t_p) & (ts_new <= t_c)
-        x_new[ind] = k * ts_new[ind] + b
-    return x_new
-
-
 def wave_lens(xdata, tdata):
     """Calculate wave lengths of signal by space between zeros.
 
@@ -445,7 +428,7 @@ def freqs_by_wave_len(xdata, tdata, cut_nans=True):
         Signal values.
     tdata: np.ndarray
         Time values.
-    cut_nans: boolean
+    cut_nans: bool
         If True, the nan values at the ends of the of the produced
         array will removed.
 
@@ -465,3 +448,47 @@ def freqs_by_wave_len(xdata, tdata, cut_nans=True):
                 t_cut.append(tt)
         return np.array(freqs_cut), t_cut
     return freqs
+
+
+def linint(xdata, tdata, ts_new):
+    """Find values of xdata in ts_new points.
+
+    Parameters
+    ----------
+    xdata: np.ndarray
+        Signal values.
+    tdata: np.ndarray
+        Time values.
+    ts_new: np.ndarray
+        New time values.
+
+    Returns
+    -------
+    : np.ndarray
+        New signal values.
+    """
+    x_new = np.zeros(len(ts_new)) * np.nan
+    for x_p, t_p, x_c, t_c in zip(xdata[:-1], tdata[:-1],
+                                  xdata[1:], tdata[1:]):
+        k = (x_c - x_p) / (t_c - t_p)
+        b = x_p - k*t_p
+        ind = (ts_new >= t_p) & (ts_new <= t_c)
+        x_new[ind] = k * ts_new[ind] + b
+    return x_new
+
+
+def _ns(x, func=None):
+    if func:
+        return x + func()
+    return x
+
+
+def _arg_new_or_depr(depr, new, depr_name, new_name):
+    if depr is not None:
+        msg = "{} is deprecated, use {}".format(depr_name, new_name)
+        warn(msg, FutureWarning)
+
+    if new is not None:
+        return new
+
+    return depr
