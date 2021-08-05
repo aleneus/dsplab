@@ -2,14 +2,11 @@
 
 ## Code
 
-* No **TODO** in code
+* Check is ok: `make check`
 * The result of pylint is not less than 9.8: `make lint`
-* No errors from pylint: `make lint-e`
-* No flakes: `make flake`
 * Version in source code is updated
 * Old deprecated code is removed: see todo list
-* All unit tests passed: `make check`
-* Total test coverage is not less than 52%: `make check`
+* Test coverage is not less than 53%: `make check`
 
 ## Demo
 
@@ -20,7 +17,6 @@
 
 * Docs is successfully built: `make docs`
 * History is updated in docs: `head -n 20 docs/source/history.rst`
-* All necessary modules are included to docs
 
 ## Installation
 

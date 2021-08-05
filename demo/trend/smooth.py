@@ -10,18 +10,20 @@ from dsplab.filtration import trend_smooth
 
 def main():
     """Entry point."""
-    fs = 50         # Hz
-    T = 2*60        # sec
-    f1 = 0.01       # Hz
-    f2 = 0.1        # Hz
-    f3 = 1          # Hz
+    period = 1/50  # sec
+    length = 2*60        # sec
+
+    freqs = [0.01, 0.1, 1]  # Hz
     cut_off = 0.03  # Hz
-    t = np.arange(0, T, 1/fs)
-    x = np.cos(2*np.pi*f1*t) + np.cos(2*np.pi*f2*t) + np.cos(2*np.pi*f3*t)
+
+    t = np.arange(0, length, period)
+    x = np.cos(2*np.pi*freqs[0]*t)
+    x += np.cos(2*np.pi*freqs[1]*t)
+    x += np.cos(2*np.pi*freqs[2]*t)
 
     res = trend_smooth(xdata=x, tdata=t, cut_off=cut_off)
     if res is None:
-        exit()
+        sys.exit(1)
 
     trend_x, trend_t = res
 
