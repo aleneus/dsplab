@@ -395,7 +395,7 @@
 ** DONE docs: demo/phasor/freq_demod.py -> demo/modulation
 ** DONE make: update targets
 ** DONE ref: modulation: noise_f, noise_a -> noise_ph, noise_amp
-** TODO docs: update release notes
+** DONE docs: update release notes
 * later
 ** TODO ref: get_work_from_dict()
 ** TODO feat: plan: add factory methods for getting plan

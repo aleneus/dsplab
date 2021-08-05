@@ -1,6 +1,12 @@
 History
 =======
 
+0.40
+----
+
+* Old deprecated code has been removed
+* Modulation: little updates in noise functions
+
 0.39
 ----
 
