@@ -29,8 +29,10 @@ def unwrap_point(phi):
     """Unwrap angle (for signle value)."""
     if phi < -pi:
         return phi + (1 + int(phi / -pi)) * pi
+
     if phi > pi:
         return phi - (1 + int(phi / pi)) * pi
+
     return phi
 
 
@@ -44,6 +46,7 @@ class QueueFilter(Activity):
     fill_with: object
         Initial value of every element of queue.
     """
+
     def __init__(self, ntaps, fill_with=0):
         super().__init__()
         self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
@@ -55,6 +58,7 @@ class QueueFilter(Activity):
 
     def __call(self, sample):
         self.queue.append(sample)
+
         return self.proc_queue()
 
     def proc_queue(self):
@@ -88,6 +92,7 @@ class And(Activity):
         res = 1
         for value in sample:
             res *= value
+
         return res
 
 
@@ -108,6 +113,7 @@ class Or(Activity):
         res = 0
         for value in sample:
             res += value * (1 - res)
+
         return res
 
 
@@ -179,7 +185,9 @@ class OnlineFilter(Activity):
         self.steps += 1
         if self.steps == self.step:
             self.steps = 0
+
             return self.proc_sample(sample)
+
         return None
 
     def __add_sample_only_queue(self, sample):
@@ -188,30 +196,32 @@ class OnlineFilter(Activity):
         self.queue.append(sample)
         if self.steps == self.step:
             self.steps = 0
+
             return self.proc_queue()
+
         return None
 
     def __add_sample_only_smooth(self, sample):
-        """Add sample with not internal queue but with smoothed
-        ouput."""
+        """Add sample with not internal queue but with smoothed ouput."""
         self.steps += 1
         if self.steps == self.step:
             self.steps = 0
             self.smooth_queue.append(self.proc_sample(sample))
-            resm = np.dot(np.array(self.smooth_queue), self.wind)
-            return resm
+
+            return np.dot(np.array(self.smooth_queue), self.wind)
+
         return None
 
     def __add_sample_full(self, sample):
-        """Add sample with internal queue and smoothing of ouput
-        values."""
+        """Add sample with internal queue and smoothing of ouput values."""
         self.steps += 1
         self.queue.append(sample)
         if self.steps == self.step:
             self.steps = 0
             self.smooth_queue.append(self.proc_queue())
-            resm = np.dot(np.array(self.smooth_queue), self.wind)
-            return resm
+
+            return np.dot(np.array(self.smooth_queue), self.wind)
+
         return None
 
     def proc_queue(self):

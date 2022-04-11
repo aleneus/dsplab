@@ -13,15 +13,13 @@ class Linear(Activity):
         self.b = b
 
     def __call__(self, x):
-        y = x*self.k + self.b
-        return y
+        return x*self.k + self.b
 
 
 class Sum(Activity):
     """Sum."""
     def __call__(self, *xs):
-        y = sum(xs)
-        return y
+        return sum(xs)
 
 
 class Inc(Activity):
@@ -30,8 +28,7 @@ class Inc(Activity):
         super().__init__()
 
     def __call__(self, x):
-        y = x + 1
-        return y
+        return x + 1
 
 
 class DoNothing(Activity):

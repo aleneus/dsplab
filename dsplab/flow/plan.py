@@ -14,9 +14,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""This module implements the Node and Plan classes. Node can be
-understood as the workplace for worker. Node can have inputs that are
-also nodes. Plan is the system of linked nodes."""
+"""This module implements the Node and Plan classes.
+
+Node can be understood as the workplace for worker. Node can have inputs
+that are also nodes. Plan is the system of linked nodes.
+"""
 
 from dsplab.flow.activity import get_work_from_dict
 from dsplab.flow.activity import Activity
@@ -25,6 +27,7 @@ from dsplab.flow.verify import check_plan
 
 class Node(Activity):
     """Base class for nodes."""
+
     def __init__(self, inputs=None):
         super().__init__()
         self._id = None
@@ -49,7 +52,7 @@ class Node(Activity):
         """Return ID of node."""
         return self._id
 
-    node_id = property(get_id, set_id, doc="ID of node.")
+    node_id = property(get_id, set_id, doc='ID of node.')
 
     def get_inputs(self):
         """Return inputs."""
@@ -87,8 +90,7 @@ class Node(Activity):
 
     def is_output_ready(self):
         """Check if the calculation in the node is finished."""
-        ans = self._res is not None
-        return ans
+        return self._res is not None
 
     def clear_result(self):
         """Clear the result."""
@@ -99,6 +101,7 @@ class Node(Activity):
         for inpt in self._inputs:
             if not inpt.is_output_ready():
                 return False
+
         return True
 
     def get_result(self):
@@ -114,7 +117,7 @@ class Node(Activity):
         return self._res_info
 
     result_info = property(get_result_info, set_result_info,
-                           doc="Information about result")
+                           doc='Information about result')
 
     def __call__(self, *args, **kwargs):
         raise NotImplementedError
@@ -122,6 +125,7 @@ class Node(Activity):
 
 class WorkNode(Node):
     """Node with work."""
+
     def __init__(self, work=None, inputs=None):
         super().__init__(inputs)
         self._work = None
@@ -137,7 +141,7 @@ class WorkNode(Node):
         self._work = work
         self._func = work
 
-    work = property(get_work, set_work, doc="Work in node")
+    work = property(get_work, set_work, doc='Work in node')
 
     def reduce_call(self):
         """Try to reduce call chain."""
@@ -154,8 +158,9 @@ class WorkNode(Node):
 
 
 class MapNode(WorkNode):
-    """Apply work to all components of iterable input and build
-    iterable output."""
+    """Apply work to all components of iterable input and build iterable
+    output."""
+
     def __call__(self, *args, **kwargs):
         return self.__call(*args, **kwargs)
 
@@ -178,6 +183,7 @@ class MapNode(WorkNode):
 
 class SelectNode(Node):
     """Select component of output."""
+
     def __init__(self, index, inputs=None):
         super().__init__(inputs)
         self.index = index
@@ -197,6 +203,7 @@ class SelectNode(Node):
 
 class PackNode(Node):
     """Pack input to output."""
+
     def __call__(self, *args, **kwargs):
         return self.__call(*args, **kwargs)
 
@@ -206,6 +213,7 @@ class PackNode(Node):
 
 class PassNode(Node):
     """Pass input to output."""
+
     def __call__(self, *args, **kwargs):
         return self.__call(*args, **kwargs)
 
@@ -214,7 +222,11 @@ class PassNode(Node):
 
 
 class Plan(Activity):
-    """The plan. Plan is the system of linked nodes."""
+    """The plan.
+
+    Plan is the system of linked nodes.
+    """
+
     def __init__(self, descr=None, quick=False):
         super().__init__()
         self._nodes = []
@@ -236,7 +248,7 @@ class Plan(Activity):
         """Return description of plan."""
         return self._descr
 
-    descr = property(get_descr, set_descr, doc="Description of plan")
+    descr = property(get_descr, set_descr, doc='Description of plan')
 
     def set_quick(self, value=True):
         """Make plan quick (for online with no hooks) or not."""
@@ -270,7 +282,7 @@ class Plan(Activity):
     def remove_node(self, node):
         """Remove node from plan."""
         if node not in self._nodes:
-            raise RuntimeError("No such node")
+            raise RuntimeError('No such node')
         for _node in self._nodes:
             if node in _node.inputs:
                 _node.inputs.remove(node)
@@ -294,7 +306,7 @@ class Plan(Activity):
 
     outputs = property(get_outputs,
                        set_outputs,
-                       doc="The nodes wich are outputs.")
+                       doc='The nodes wich are outputs.')
 
     def get_inputs(self):
         """Return input nodes."""
@@ -307,7 +319,7 @@ class Plan(Activity):
 
     inputs = property(get_inputs,
                       set_inputs,
-                      doc="The nodes which are inputs.")
+                      doc='The nodes which are inputs.')
 
     def get_nodes(self):
         """Return the list of nodes."""
@@ -326,6 +338,7 @@ class Plan(Activity):
             node.run_start_hook()
             node([node_data])
             node.run_stop_hook()
+
             if self._progress_func is not None:
                 self._progress_func()
 
@@ -335,12 +348,15 @@ class Plan(Activity):
                 if not node.is_output_ready() and node.is_inputs_ready():
                     finished = False
                     input_nodes = node.get_inputs()
+
                     node_data = []
                     for input_node in input_nodes:
                         node_data.append(input_node.get_result())
+
                     node.run_start_hook()
                     node(node_data)
                     node.run_stop_hook()
+
                     if self._progress_func is not None:
                         self._progress_func()
             if finished:
@@ -349,24 +365,30 @@ class Plan(Activity):
         return [output.get_result() for output in self._outputs]
 
     def reduce_calls(self):
-        """Reduce call chains for all nodes. Recommended before run
-        quick plans."""
+        """Reduce call chains for all nodes.
+
+        Recommended before run quick plans.
+        """
         for node in self._nodes:
             if isinstance(node, WorkNode):
                 node.reduce_call()
+
             if isinstance(node, MapNode):
                 node.reduce_call()
 
     def quick_run(self, data):
-        """Sequential execution of plan with no hooks (for on-line
-        quick processing)."""
+        """Sequential execution of plan with no hooks (for on-line quick
+        processing)."""
         for node, node_data in zip(self._inputs, data):
             node([node_data])
+
         for node in self._sequence:
             node_data = []
             for input_node in node.inputs:
                 node_data.append(input_node.get_result())
+
             node(node_data)
+
         return [output.get_result() for output in self._outputs]
 
     def verify(self):
@@ -380,10 +402,12 @@ class Plan(Activity):
             Empty string or description of error.
         """
         if not self._inputs:
-            return False, "There are no inputs in the plan."
+            return False, 'There are no inputs in the plan.'
+
         if not self._outputs:
-            return False, "There are no outputs in the plan."
-        return True, ""
+            return False, 'There are no outputs in the plan.'
+
+        return True, ''
 
     def __call__(self, *args, **kwargs):
         return self._run_func(*args, **kwargs)
@@ -459,7 +483,7 @@ def get_plan_from_dict(settings, params=None):
         elif node_class == 'PassNode':
             node = PassNode()
         else:
-            message = "Unsupported node class: {}".format(node_class)
+            message = 'Unsupported node class: {}'.format(node_class)
             raise ValueError(message)
 
         if 'result' in node_settings:

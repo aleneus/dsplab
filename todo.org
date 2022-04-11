@@ -400,6 +400,12 @@
 ** DONE ref: up lint result: is_iterable
 ** DONE ref: up lint result: ignore few methods for callables
 ** DONE docs: up lint result for demo
+
+* 0.41.0
+** DONE ref: format code
+** TODO ref: format strings
+** TODO docs: 2021 -> 2022
+** TODO depr: modulation: remove noise_f and noise_a args
 * later
 ** TODO ref: get_work_from_dict()
 ** TODO feat: plan: add factory methods for getting plan
@@ -420,6 +426,3 @@
 ** TODO feat: time: make interval an option
 ** TODO ref: player.CsvDataProducer
 ** TODO docs: demo: modulation: add titles and labels to the plots
-* deprecations
-** TODO depr: modulation: remove noise_f and noise_a args
-   SCHEDULED: <2022-02-05 Сб>

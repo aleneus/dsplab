@@ -11,6 +11,7 @@ def modulator(t):
     """Return amplitude value."""
     if t < 5:
         return 1
+
     return 2
 
 

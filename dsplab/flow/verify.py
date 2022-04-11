@@ -36,7 +36,7 @@ def check_plan(plan_dict):
 
     ids = _get_ids(plan_dict)
 
-    for node in plan_dict["nodes"]:
+    for node in plan_dict['nodes']:
         _check_node(node, ids)
 
     _check_plan_inputs(plan_dict, ids)
@@ -57,31 +57,33 @@ def _check_plan_schema(plan_dict, schema):
 def _check_plan_inputs(plan_dict, ids):
     for inp in _get_plan_inputs(plan_dict):
         if inp not in ids:
-            raise VerifyError("Unknown plan input: {}".format(inp))
+            raise VerifyError('Unknown plan input: {}'.format(inp))
 
 
 def _check_plan_outputs(plan_dict, ids):
     for out in _get_plan_outputs(plan_dict):
         if out not in ids:
-            raise VerifyError("Unknown plan output: {}".format(out))
+            raise VerifyError('Unknown plan output: {}'.format(out))
 
 
 def _get_ids(plan_dict):
     ids = {}
-    for node in plan_dict["nodes"]:
-        node_id = node["id"]
+    for node in plan_dict['nodes']:
+        node_id = node['id']
         if node_id in ids:
-            raise VerifyError("Duplicated ID: {}".format(node_id))
+            raise VerifyError('Duplicated ID: {}'.format(node_id))
+
         ids[node_id] = node
+
     return ids
 
 
 def _get_plan_inputs(plan_dict):
-    return _get_value_or_list(plan_dict, "inputs")
+    return _get_value_or_list(plan_dict, 'inputs')
 
 
 def _get_plan_outputs(plan_dict):
-    return _get_value_or_list(plan_dict, "outputs")
+    return _get_value_or_list(plan_dict, 'outputs')
 
 
 #
@@ -90,30 +92,31 @@ def _get_plan_outputs(plan_dict):
 def _check_node(node_dict, ids):
     _check_node_inputs(node_dict, ids)
 
-    if _get_node_class(node_dict) in ["WorkNode", "MapNode"]:
-        if "work" not in node_dict:
-            raise VerifyError("No work in node {}".format(node_dict["id"]))
+    if _get_node_class(node_dict) in ['WorkNode', 'MapNode']:
+        if 'work' not in node_dict:
+            raise VerifyError('No work in node {}'.format(node_dict['id']))
 
 
 def _check_node_inputs(node_dict, ids):
-    node_id = node_dict["id"]
+    node_id = node_dict['id']
     for inp in _get_node_inputs(node_dict):
         if inp not in ids:
-            raise VerifyError("Unknown input {} in node {}".
+            raise VerifyError('Unknown input {} in node {}'.
                               format(inp, node_id))
 
         if inp == node_id:
-            raise VerifyError("Node {} uses itself as input".format(inp))
+            raise VerifyError('Node {} uses itself as input'.format(inp))
 
 
 def _get_node_inputs(node_dict):
-    return _get_value_or_list(node_dict, "inputs")
+    return _get_value_or_list(node_dict, 'inputs')
 
 
 def _get_node_class(node_dict):
-    if "class" in node_dict:
-        return node_dict["class"]
-    return "WorkNode"
+    if 'class' in node_dict:
+        return node_dict['class']
+
+    return 'WorkNode'
 
 
 #
@@ -129,4 +132,5 @@ def _load_schema(file_name):
 def _get_value_or_list(dct, key):
     if key not in dct:
         return []
+
     return dct[key]

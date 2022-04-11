@@ -64,6 +64,7 @@ def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
     sp_comp = fftpack.fft(x_faded, actual_len)
     if not save_energy:
         sp_comp *= 2/len(xdata)
+
     freqs = np.fft.fftfreq(len(sp_comp), 1/sample_rate)
 
     if one_side:
@@ -152,17 +153,22 @@ def calc_specgram(xdata, sample_rate=1, tdata=None, nseg=256,
     """
     if len(xdata) < nseg:
         return [], []
+
     if tdata is None:
         tdata = np.linspace(0, (len(xdata)-1)*sample_rate, len(xdata))
     else:
         sample_rate = 1/(tdata[1] - tdata[0])
+
     if not nstep:
         nstep = nseg//2
     specs = 2*stft(xdata=xdata, sample_rate=sample_rate, nseg=nseg,
                    nstep=nstep, nfft=extra_len, padded=True)
+
     if freq_bounds:
         freqs = np.fft.fftfreq(len(specs[0]), 1/sample_rate)
         ind = (freqs >= freq_bounds[0]) & (freqs <= freq_bounds[1])
         specs = specs[:, ind]
+
     t_new = np.linspace(tdata[nseg-1], tdata[-1], len(specs))
+
     return np.transpose(specs), t_new

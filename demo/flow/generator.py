@@ -12,6 +12,7 @@ def gen():
     """Generate random number."""
     y = randint(1, 10)
     print("gen -> {}".format(y))
+
     return y
 
 
@@ -19,6 +20,7 @@ def inc(x):
     """Increment."""
     y = x + 1
     print("{} -> inc -> {}".format(x, y))
+
     return y
 
 
@@ -26,6 +28,7 @@ def plus(x1, x2):
     """Sum of two numbers."""
     y = x1 + x2
     print("{}, {} -> plus -> {}".format(x1, x2, y))
+
     return y
 
 

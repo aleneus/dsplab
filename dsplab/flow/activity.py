@@ -31,7 +31,7 @@ class ActivityMeta(type):
         try:
             cls._class_info['doc'] = attrs['__doc__']
         except KeyError:
-            cls._class_info['doc'] = ""
+            cls._class_info['doc'] = ''
         cls._class_info['class'] = name
 
     def class_info(cls):
@@ -46,15 +46,18 @@ class ActivityMeta(type):
 
     def __call__(cls, *args, **kwargs):
         res = type.__call__(cls, *args, **kwargs)
-        setattr(res, "class_info", cls.class_info)
+        setattr(res, 'class_info', cls.class_info)
+
         return res
 
 
 class Activity(metaclass=ActivityMeta):
     # pylint: disable=too-few-public-methods
-    """Any activity is the something that may be called and can
-    provide the information about itself. To get working activity the
-    __call__ method must be implemented."""
+    """Any activity is the something that may be called and can provide the
+    information about itself.
+
+    To get working activity the __call__ method must be implemented.
+    """
 
     def __call__(self, *args, **kwargs):
         """Call activity."""
@@ -77,16 +80,18 @@ class Work(Activity):
         """Return description."""
         return self._descr
 
-    descr = property(get_descr, set_descr, doc="Description of work")
+    descr = property(get_descr, set_descr, doc='Description of work')
 
     def set_worker(self, act):
-        """Set worker for doing work. Worker must be callable."""
+        """Set worker for doing work.
+
+        Worker must be callable.
+        """
         self._worker = act
 
     def __call__(self, *args, **kwargs):
         """Do work."""
-        res = self._worker(*args, **kwargs)
-        return res
+        return self._worker(*args, **kwargs)
 
 
 def get_work_from_dict(settings, params=None):
@@ -95,10 +100,10 @@ def get_work_from_dict(settings, params=None):
     if 'descr' in settings:
         descr = settings['descr']
     else:
-        descr = ""
+        descr = ''
 
     if 'worker' not in settings:
-        raise RuntimeError("No worker in settings")
+        raise RuntimeError('No worker in settings')
     worker_settings = settings['worker']
 
     if 'class' in worker_settings.keys():
@@ -116,12 +121,13 @@ def get_work_from_dict(settings, params=None):
         for key in worker_params:
             if isinstance(worker_params[key], str):
                 if worker_params[key]:
-                    if worker_params[key][0] == "$":
+                    if worker_params[key][0] == '$':
                         params_key = worker_params[key][1:]
                         try:
                             worker_params[key] = params[params_key]
                         except KeyError:
-                            msg = "${} not found in params".format(params_key)
+                            msg = '${} not found in params'.format(params_key)
+
                             raise RuntimeError(msg)
 
         worker = import_entity(worker_name)(**worker_params)
@@ -131,5 +137,4 @@ def get_work_from_dict(settings, params=None):
         else:
             worker = import_entity(worker_name)
 
-    work = Work(descr, worker)
-    return work
+    return Work(descr, worker)

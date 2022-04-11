@@ -14,7 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""Playing signal from file. Online mode for offline data."""
+"""Playing signal from file: online mode for offline data.
+"""
 
 import threading
 from threading import Lock, Event
@@ -28,6 +29,7 @@ LOG = logging.getLogger(__name__)
 
 class RepeatedTimer:
     """Timer."""
+
     def __init__(self, interval, function, *args, **kwargs):
         self._timer = None
         self._interval = interval
@@ -47,7 +49,7 @@ class RepeatedTimer:
         return self._interval
 
     interval = property(get_interval, set_interval,
-                        doc="Timeout interval (sec)")
+                        doc='Timeout interval (sec)')
 
     def start(self):
         """Start timer."""
@@ -64,6 +66,7 @@ class RepeatedTimer:
         # LOG.debug("%s._repeat" % self.__class__.__name__)
         if not self.is_running:
             return
+
         with self.lock:
             self.next_call += self._interval
             self._timer = threading.Timer(
@@ -71,11 +74,13 @@ class RepeatedTimer:
                 self._repeat
             )
             self._timer.start()
+
         self.function(*self.args, **self.kwargs)
 
 
 class SignalPlayer:
     """Class for playing text file as stream."""
+
     def __init__(self, interval):
         self.interval = interval
         self.queue = deque([], maxlen=100)
@@ -106,8 +111,10 @@ class SignalPlayer:
         # LOG.debug("%s._produce_data()" % self.__class__.__name__)
         with self.lock:
             sample = self.data_producer.get_sample()
+
         self.queue.append(sample)
         self.new_data_ready.set()
+
         return sample
 
     def get_sample(self):
@@ -118,11 +125,13 @@ class SignalPlayer:
             self.new_data_ready.clear()
             self.new_data_ready.wait()
             sample = self.queue.popleft()
+
         return sample
 
 
 class DataProducer:
     """Base class for adapters for data producer."""
+
     def get_sample(self):
         """Return sample."""
         raise NotImplementedError
@@ -136,17 +145,18 @@ class DataProducer:
 
 class RandomDataProducer(DataProducer):
     """Data producer with random values on output."""
+
     def __init__(self, interval):
         self.interval = interval
 
     def get_sample(self):
         """Return sample."""
-        sample = random.randint(*self.interval)
-        return sample
+        return random.randint(*self.interval)
 
 
 class CsvDataProducer(DataProducer):
     """Produces sample from headered CSV file."""
+
     def __init__(self, file_name=None, delimiter=';',
                  encoding='utf-8', columns=None):
         self.file_name = file_name
@@ -169,7 +179,7 @@ class CsvDataProducer(DataProducer):
         return self._delimiter
 
     delimiter = property(get_delimiter, set_delimiter,
-                         doc="delimiter in CSV file.")
+                         doc='delimiter in CSV file.')
 
     def set_file(self, file_name, delimiter=None, encoding='utf-8'):
         """Set file for reading."""
@@ -179,8 +189,7 @@ class CsvDataProducer(DataProducer):
         self.encoding = encoding
 
     def select_columns(self, keys):
-        """Select returned columns. Numbers or names of columns can be
-        used."""
+        """Select returned columns, numbers or names of columns can be used."""
         self._keys = keys
 
     def _detect_indexes(self):
@@ -209,15 +218,20 @@ class CsvDataProducer(DataProducer):
     def get_sample(self):
         """Return sample."""
         sample = []
+
         try:
             line = next(self._lines)
             full_sample = line.split(self._delimiter)
             if self._indexes is None:
                 return full_sample
+
             for ind in self._indexes:
                 sample.append(full_sample[ind])
+
         except StopIteration:
             sample = ['' for ind in self._indexes]
+
         except IndexError:
             sample = ['' for ind in self._indexes]
+
         return sample
