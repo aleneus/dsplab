@@ -22,9 +22,6 @@ from threading import Lock, Event
 from collections import deque
 import time
 import random
-import logging
-
-LOG = logging.getLogger(__name__)
 
 
 class RepeatedTimer:
@@ -63,7 +60,6 @@ class RepeatedTimer:
         self.is_running = False
 
     def _repeat(self):
-        # LOG.debug("%s._repeat" % self.__class__.__name__)
         if not self.is_running:
             return
 
@@ -95,7 +91,6 @@ class SignalPlayer:
 
     def start(self):
         """Start player."""
-        # LOG.debug('call SignalPlayer.start()')
         self.new_data_ready.clear()
         self.timer.set_interval(self.interval)
         self.data_producer.start()
@@ -103,12 +98,10 @@ class SignalPlayer:
 
     def stop(self):
         """Stop player."""
-        # LOG.debug("%s.stop()" % self.__class__.__name__)
         self.timer.stop()
         self.data_producer.stop()
 
     def _produce_data(self):
-        # LOG.debug("%s._produce_data()" % self.__class__.__name__)
         with self.lock:
             sample = self.data_producer.get_sample()
 
@@ -161,14 +154,16 @@ class CsvDataProducer(DataProducer):
                  encoding='utf-8', columns=None):
         self.file_name = file_name
         self.encoding = encoding
-        self._delimiter = None
+
         self.set_delimiter(delimiter)
+
         self._keys = None
-        if columns is not None:
-            self.select_columns(columns)
         self._headers = None
         self._indexes = None
         self._lines = None
+
+        if columns is not None:
+            self.select_columns(columns)
 
     def set_delimiter(self, delimiter):
         """Set delimiter."""
@@ -184,9 +179,10 @@ class CsvDataProducer(DataProducer):
     def set_file(self, file_name, delimiter=None, encoding='utf-8'):
         """Set file for reading."""
         self.file_name = file_name
+        self.encoding = encoding
+
         if delimiter is not None:
             self.set_delimiter(delimiter)
-        self.encoding = encoding
 
     def select_columns(self, keys):
         """Select returned columns, numbers or names of columns can be used."""
@@ -196,21 +192,23 @@ class CsvDataProducer(DataProducer):
         """Detect indexes of selected columns."""
         if isinstance(self._keys[0], int):
             self._indexes = self._keys
-        else:
-            indexes = []
-            for key in self._keys:
-                try:
-                    index = self._headers.index(key)
-                    indexes.append(index)
-                except ValueError:
-                    pass
-            self._indexes = indexes
+
+            return
+
+        indexes = []
+        for key in self._keys:
+            try:
+                indexes.append(self._headers.index(key))
+            except ValueError:
+                pass
+
+        self._indexes = indexes
 
     def start(self):
         """Init reader."""
-        # LOG.debug('Call CsvDataProducer.start()')
         with open(self.file_name, encoding=self.encoding) as buf:
             self._lines = iter(buf.read().split('\n'))
+
         line = next(self._lines)
         self._headers = line.split(self._delimiter)
         self._detect_indexes()
@@ -222,6 +220,7 @@ class CsvDataProducer(DataProducer):
         try:
             line = next(self._lines)
             full_sample = line.split(self._delimiter)
+
             if self._indexes is None:
                 return full_sample
 

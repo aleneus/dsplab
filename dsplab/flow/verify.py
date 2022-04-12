@@ -124,7 +124,7 @@ def _get_node_class(node_dict):
 # common
 
 def _load_schema(file_name):
-    with open(file_name, encoding='utf8') as buf:
+    with open(file_name, encoding='utf-8') as buf:
         data = json.load(buf)
 
     return data

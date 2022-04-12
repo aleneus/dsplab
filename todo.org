@@ -401,14 +401,15 @@
 ** DONE ref: up lint result: ignore few methods for callables
 ** DONE docs: up lint result for demo
 
-* 0.41.0
+* 0.41.0 [87%] [7/8]
 ** DONE ref: format code
 ** DONE ref: format strings
 ** DONE docs: 2021 -> 2022
 ** DONE depr: modulation: remove noise_f and noise_a args
 ** DONE ref: dsplab/flow/activity.py: simplify
 ** DONE ref: dsplab/flow/plan.py: simplify
-** TODO test: up coverage
+** DONE test: up coverage
+** TODO ref: demo: up lint result
 * later
 ** TODO feat: plan: add factory methods for getting plan
 ** TODO feat: debug repeated timer, it works strange
