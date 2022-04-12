@@ -10,6 +10,7 @@ from dsplab.flow.activity import Activity, Work
 
 class MyWork(Activity):
     """Some work."""
+
     def __init__(self, k):
         super().__init__()
         self.k = k

@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """This module implements the base class for online filters."""
 
 from math import pi
@@ -49,7 +48,7 @@ class QueueFilter(Activity):
 
     def __init__(self, ntaps, fill_with=0):
         super().__init__()
-        self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
+        self.queue = deque([fill_with] * ntaps, maxlen=ntaps)
         self.ntaps = ntaps
 
     def __call__(self, *args, **kwargs):
@@ -136,23 +135,27 @@ class OnlineFilter(Activity):
 
     def __init__(self, ntaps=None, smooth_ntaps=None, fill_with=0, step=1):
         super().__init__()
+
         self.add_sample_func = None
+
         if (ntaps is None) and (smooth_ntaps is None):
             self.add_sample_func = self.__add_sample_simple
+
         elif (ntaps is not None) and (smooth_ntaps is None):
             self.add_sample_func = self.__add_sample_only_queue
+
         elif (ntaps is None) and (smooth_ntaps is not None):
             self.add_sample_func = self.__add_sample_only_smooth
+
         else:
             self.add_sample_func = self.__add_sample_full
 
         if ntaps is not None:
-            self.queue = deque([fill_with]*ntaps, maxlen=ntaps)
+            self.queue = deque([fill_with] * ntaps, maxlen=ntaps)
+
         if smooth_ntaps is not None:
-            self.smooth_queue = deque(
-                [fill_with]*smooth_ntaps,
-                maxlen=smooth_ntaps
-            )
+            self.smooth_queue = deque([fill_with] * smooth_ntaps,
+                                      maxlen=smooth_ntaps)
             wind = np.hamming(smooth_ntaps)
             self.wind = wind / sum(wind)
 
@@ -216,6 +219,7 @@ class OnlineFilter(Activity):
         """Add sample with internal queue and smoothing of ouput values."""
         self.steps += 1
         self.queue.append(sample)
+
         if self.steps == self.step:
             self.steps = 0
             self.smooth_queue.append(self.proc_queue())

@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """Helpers."""
 
 import importlib
@@ -49,5 +48,7 @@ def import_entity(name):
 
 def pretty_json(some_object):
     """Return json representation of object."""
-    return json.dumps(some_object, sort_keys=True, indent=4,
+    return json.dumps(some_object,
+                      sort_keys=True,
+                      indent=4,
                       separators=(',', ': '))

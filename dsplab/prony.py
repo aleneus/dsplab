@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """This module implements Prony decomposition of signal."""
 
 import numpy as np
@@ -42,12 +41,12 @@ def prony_decomp(xdata, ncomp):
 
     samples_total = len(xdata)
 
-    if 2*ncomp > samples_total:
+    if 2 * ncomp > samples_total:
         return None
 
     f_mat = []
     for i in range(ncomp, samples_total):
-        row = [xdata[i-j-1] for j in range(0, ncomp)]
+        row = [xdata[i - j - 1] for j in range(0, ncomp)]
         f_mat.append(row)
     f_col = xdata[ncomp:]
 

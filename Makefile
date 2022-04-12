@@ -26,7 +26,7 @@ todo:
 	@rgrep "TODO" --include="*py" --exclude-dir="env" || true
 	@rgrep "TODO" --include="*rst" || true
 	@rgrep "TODO" --include="*md" --exclude="release-checklist.md" || true
-	@rgrep "# REF" --include="*py" || true
+	@rgrep "# REF" --include="*py" --exclude-dir="env" || true
 
 flake:
 	flake8 $(PACKAGE_FOLDER)

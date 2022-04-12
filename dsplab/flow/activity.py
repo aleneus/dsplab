@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """This module implements the base classes for Activities."""
 
 import logging
@@ -103,8 +102,8 @@ def get_work_from_dict(work_dict, params=None):
     if 'worker' not in work_dict:
         raise RuntimeError('No worker in work_dict')
 
-    return Work(_get_descr(work_dict),
-                _get_worker(work_dict['worker'], params))
+    return Work(_get_descr(work_dict), _get_worker(work_dict['worker'],
+                                                   params))
 
 
 def _get_descr(work_dict):

@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """Modulation and demodulation."""
 
 from math import pi, cos, isnan
@@ -22,8 +21,7 @@ from numpy import unwrap, angle, diff
 import scipy.signal as sig
 
 
-def harm(length, sample_rate, amp, freq, phi=0,
-         noise_amp=None, noise_ph=None):
+def harm(length, sample_rate, amp, freq, phi=0, noise_amp=None, noise_ph=None):
     """Generate harmonic signal.
 
     Parameters
@@ -54,14 +52,19 @@ def harm(length, sample_rate, amp, freq, phi=0,
 
     xs = []
     for t in ts:
-        x = _ns(amp, noise_amp) * cos(_ns(2*pi*freq*t + phi, noise_ph))
+        x = _ns(amp, noise_amp) * cos(_ns(2 * pi * freq * t + phi, noise_ph))
         xs.append(x)
 
     return np.array(xs), ts
 
 
-def amp_mod(length, sample_rate, func, freq, phi=0,
-            noise_amp=None, noise_ph=None):
+def amp_mod(length,
+            sample_rate,
+            func,
+            freq,
+            phi=0,
+            noise_amp=None,
+            noise_ph=None):
     """Amplitude modulation.
 
     Parameters
@@ -88,10 +91,10 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
     : np.array
         Time values.
     """
-    ts = np.arange(0, length, 1/sample_rate)
+    ts = np.arange(0, length, 1 / sample_rate)
 
     full_phase = phi
-    delta_ph = 2*pi*freq / sample_rate
+    delta_ph = 2 * pi * freq / sample_rate
     xs = []
 
     for t in ts:
@@ -103,8 +106,13 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
     return np.array(xs), ts
 
 
-def freq_mod(length, sample_rate, amp, func, phi=0,
-             noise_amp=None, noise_ph=None):
+def freq_mod(length,
+             sample_rate,
+             amp,
+             func,
+             phi=0,
+             noise_amp=None,
+             noise_ph=None):
     """Amplitude modulation.
 
     Parameters
@@ -134,7 +142,7 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
     : np.array
         Time values.
     """
-    ts = np.arange(0, length, 1/sample_rate)
+    ts = np.arange(0, length, 1 / sample_rate)
 
     full_phase = phi
     xs, phs = [], []
@@ -145,13 +153,18 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
 
         phs.append(full_phase)
 
-        full_phase += 2*pi*func(t) / sample_rate
+        full_phase += 2 * pi * func(t) / sample_rate
 
     return np.array(xs), np.array(phs), ts
 
 
-def phase_mod(length, sample_rate, amp, freq, func,
-              noise_amp=None, noise_ph=None):
+def phase_mod(length,
+              sample_rate,
+              amp,
+              freq,
+              func,
+              noise_amp=None,
+              noise_ph=None):
     """Phase modulation.
 
     Parameters
@@ -179,11 +192,11 @@ def phase_mod(length, sample_rate, amp, freq, func,
     : np.array
         Time values.
     """
-    ts = np.arange(0, length, 1/sample_rate)
+    ts = np.arange(0, length, 1 / sample_rate)
     xs = []
 
     for t in ts:
-        arg = _ns(2*pi*freq*t + func(t), noise_ph)
+        arg = _ns(2 * pi * freq * t + func(t), noise_ph)
         x = _ns(amp * cos(arg), noise_amp)
 
         xs.append(x)
@@ -217,7 +230,7 @@ def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
     : np.array
         Time values.
     """
-    ts = np.arange(0, length, 1/sample_rate)
+    ts = np.arange(0, length, 1 / sample_rate)
 
     full_phase = phi
     xs = []
@@ -225,7 +238,7 @@ def freq_amp_mod(length, sample_rate, a_func, f_func, phi=0):
     for t in ts:
         xs.append(a_func(t) * cos(full_phase))
         phs.append(full_phase)
-        full_phase += 2*pi * f_func(t) / sample_rate
+        full_phase += 2 * pi * f_func(t) / sample_rate
 
     return np.array(xs), np.array(phs), ts
 
@@ -253,8 +266,8 @@ def iq_demod(xdata, tdata, f_central, a_coeffs, b_coeffs):
     : np.ndarray
         Time values.
     """
-    muli = xdata * np.cos(2*pi * f_central * tdata)
-    mulq = xdata * np.sin(2*pi * f_central * tdata)
+    muli = xdata * np.cos(2 * pi * f_central * tdata)
+    mulq = xdata * np.sin(2 * pi * f_central * tdata)
     muli_low = sig.lfilter(b_coeffs, a_coeffs, muli)
     mulq_low = sig.lfilter(b_coeffs, a_coeffs, mulq)
     analytic = muli_low + 1j * mulq_low
@@ -285,14 +298,11 @@ def digital_hilbert_filter(ntaps=101, window='hamming'):
     coeffs = np.zeros(ntaps)
     num = ntaps // 2
 
-    for k in range(1, num+1, 2):
+    for k in range(1, num + 1, 2):
         coeffs[num + k] = 2 / pi / k
         coeffs[num - k] = -2 / pi / k
 
-    wind = sig.get_window(window, ntaps)
-    coeffs *= wind
-
-    return coeffs
+    return coeffs * sig.get_window(window, ntaps)
 
 
 def envelope_by_extremums(xdata, sample_rate=1, tdata=None):
@@ -315,14 +325,14 @@ def envelope_by_extremums(xdata, sample_rate=1, tdata=None):
         Time values.
     """
     if tdata is None:
-        tdata = np.linspace(0, (len(xdata)-1)/sample_rate, len(xdata))
+        tdata = np.linspace(0, (len(xdata) - 1) / sample_rate, len(xdata))
 
     t_new = []
     x_new = []
     xabs = abs(xdata)
 
-    for x_l, x_c, x_r, t_c in zip(xabs[:-2], xabs[1:-1],
-                                  xabs[2:], tdata[1:-1]):
+    for x_l, x_c, x_r, t_c in zip(xabs[:-2], xabs[1:-1], xabs[2:],
+                                  tdata[1:-1]):
         if (x_l < x_c) and (x_c >= x_r):
             t_new.append(t_c)
             x_new.append(x_c)
@@ -470,10 +480,10 @@ def linint(xdata, tdata, ts_new):
         New signal values.
     """
     x_new = np.zeros(len(ts_new)) * np.nan
-    for x_p, t_p, x_c, t_c in zip(xdata[:-1], tdata[:-1],
-                                  xdata[1:], tdata[1:]):
+    for x_p, t_p, x_c, t_c in zip(xdata[:-1], tdata[:-1], xdata[1:],
+                                  tdata[1:]):
         slope = (x_c - x_p) / (t_c - t_p)
-        intercept = x_p - slope*t_p
+        intercept = x_p - slope * t_p
         ind = (ts_new >= t_p) & (ts_new <= t_c)
         x_new[ind] = slope * ts_new[ind] + intercept
 

@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """Filtration of signals."""
 
 import numpy as np
@@ -60,7 +59,7 @@ def stupid_lowpass_filter(xdata, sample_rate, cutoff):
     """
     num = len(xdata)
     fr_resp = np.zeros(num)
-    freqs = np.fft.fftfreq(num, 1/sample_rate)
+    freqs = np.fft.fftfreq(num, 1 / sample_rate)
     fr_resp[abs(freqs) <= cutoff] = 1
 
     return _stupid_filter(xdata, fr_resp)
@@ -140,20 +139,19 @@ def find_butt_bandpass_order(band, sample_rate):
     unit_pulse = np.zeros(spectrum_len)
     unit_pulse[1] = 1
     ideal_fr = np.zeros(spectrum_len)
-    freqs = np.fft.fftfreq(spectrum_len, 1/sample_rate)
+    freqs = np.fft.fftfreq(spectrum_len, 1 / sample_rate)
     ideal_fr[(freqs >= band[0]) & (freqs <= band[1])] = 1
-    ideal_fr = ideal_fr[:spectrum_len//2]
+    ideal_fr = ideal_fr[:spectrum_len // 2]
     prev_metric = np.inf
 
     for order in range(3, 21):
-        impulse_response = butter_filter(
-            unit_pulse,
-            sample_rate,
-            band,
-            order,
-            btype='band'
-        )
-        real_fr = abs(fft(impulse_response))[:spectrum_len//2]
+        impulse_response = butter_filter(unit_pulse,
+                                         sample_rate,
+                                         band,
+                                         order,
+                                         btype='band')
+
+        real_fr = abs(fft(impulse_response))[:spectrum_len // 2]
         metric = np.sum((real_fr - ideal_fr)**2)**0.5
         best_order = order
 
@@ -164,7 +162,7 @@ def find_butt_bandpass_order(band, sample_rate):
 
         prev_metric = metric
 
-    return best_order-1
+    return best_order - 1
 
 
 def haar_one_step(xdata, tdata, denominator=2):
@@ -193,8 +191,8 @@ def haar_one_step(xdata, tdata, denominator=2):
     res_ts = []
 
     for x_left, x_right in zip(xdata[::2], xdata[1::2]):
-        scl.append((x_left+x_right)/denominator)
-        det.append((x_left-x_right)/denominator)
+        scl.append((x_left + x_right) / denominator)
+        det.append((x_left - x_right) / denominator)
 
     res_ts = tdata[1::2]
 
@@ -266,7 +264,7 @@ def trend_smooth(xdata, sample_rate=1, tdata=None, cut_off=0.5):
     x_len = len(xdata)
 
     if tdata is None:
-        tdata = np.linspace(0, (x_len-1)*sample_rate, x_len)
+        tdata = np.linspace(0, (x_len - 1) * sample_rate, x_len)
     else:
         sample_rate = 1.0 / (tdata[1] - tdata[0])
 

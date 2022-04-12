@@ -11,7 +11,7 @@ from dsplab.modulation import freq_mod
 
 def modulator(t):
     """Return frequency value."""
-    return 0.05*t + 0.5
+    return 0.05 * t + 0.5
 
 
 def main():

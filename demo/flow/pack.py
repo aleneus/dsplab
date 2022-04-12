@@ -13,12 +13,14 @@ from workers import DoNothing
 def main():
     """Run example."""
     print(__doc__)
-    plan = Plan()
+
     node_1 = WorkNode(Work("Pass", worker=DoNothing()))
     node_2 = WorkNode(Work("Pass", worker=DoNothing()))
     node_3 = WorkNode(Work("Pass", worker=DoNothing()))
     pack_node_1 = PackNode()
     pack_node_2 = PackNode()
+
+    plan = Plan()
 
     plan.add_node(node_1)
     plan.add_node(node_2)

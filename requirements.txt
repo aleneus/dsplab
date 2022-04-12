@@ -7,3 +7,6 @@ numpy
 scipy
 jsonschema
 matplotlib
+twine
+yapf
+pyformat

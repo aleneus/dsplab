@@ -13,9 +13,7 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-"""Playing signal from file: online mode for offline data.
-"""
+"""Playing signal from file: online mode for offline data."""
 
 import threading
 from threading import Lock, Event
@@ -45,8 +43,9 @@ class RepeatedTimer:
         """Get interval."""
         return self._interval
 
-    interval = property(get_interval, set_interval,
-                        doc='Timeout interval (sec)')
+    interval = property(get_interval,
+                        set_interval,
+                        doc="Timeout interval (sec)")
 
     def start(self):
         """Start timer."""
@@ -65,10 +64,8 @@ class RepeatedTimer:
 
         with self.lock:
             self.next_call += self._interval
-            self._timer = threading.Timer(
-                self.next_call - time.time(),
-                self._repeat
-            )
+            self._timer = threading.Timer(self.next_call - time.time(),
+                                          self._repeat)
             self._timer.start()
 
         self.function(*self.args, **self.kwargs)
@@ -150,8 +147,11 @@ class RandomDataProducer(DataProducer):
 class CsvDataProducer(DataProducer):
     """Produces sample from headered CSV file."""
 
-    def __init__(self, file_name=None, delimiter=';',
-                 encoding='utf-8', columns=None):
+    def __init__(self,
+                 file_name=None,
+                 delimiter=";",
+                 encoding="utf-8",
+                 columns=None):
         self.file_name = file_name
         self.encoding = encoding
 
@@ -173,10 +173,11 @@ class CsvDataProducer(DataProducer):
         """Return delimiter."""
         return self._delimiter
 
-    delimiter = property(get_delimiter, set_delimiter,
-                         doc='delimiter in CSV file.')
+    delimiter = property(get_delimiter,
+                         set_delimiter,
+                         doc="delimiter in CSV file.")
 
-    def set_file(self, file_name, delimiter=None, encoding='utf-8'):
+    def set_file(self, file_name, delimiter=None, encoding="utf-8"):
         """Set file for reading."""
         self.file_name = file_name
         self.encoding = encoding
@@ -207,7 +208,7 @@ class CsvDataProducer(DataProducer):
     def start(self):
         """Init reader."""
         with open(self.file_name, encoding=self.encoding) as buf:
-            self._lines = iter(buf.read().split('\n'))
+            self._lines = iter(buf.read().split("\n"))
 
         line = next(self._lines)
         self._headers = line.split(self._delimiter)
@@ -228,9 +229,9 @@ class CsvDataProducer(DataProducer):
                 sample.append(full_sample[ind])
 
         except StopIteration:
-            sample = ['' for ind in self._indexes]
+            sample = ["" for ind in self._indexes]
 
         except IndexError:
-            sample = ['' for ind in self._indexes]
+            sample = ["" for ind in self._indexes]
 
         return sample

@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """Verification of the plan."""
 
 import json
@@ -45,6 +44,7 @@ def check_plan(plan_dict):
 
 #
 # plan
+
 
 def _check_plan_schema(plan_dict, schema):
     try:
@@ -89,6 +89,7 @@ def _get_plan_outputs(plan_dict):
 #
 # node
 
+
 def _check_node(node_dict, ids):
     _check_node_inputs(node_dict, ids)
 
@@ -123,11 +124,10 @@ def _get_node_class(node_dict):
 #
 # common
 
+
 def _load_schema(file_name):
     with open(file_name, encoding='utf-8') as buf:
-        data = json.load(buf)
-
-    return data
+        return json.load(buf)
 
 
 def _get_value_or_list(dct, key):

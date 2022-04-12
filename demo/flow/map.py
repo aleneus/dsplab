@@ -14,17 +14,11 @@ def main():
     """Run example."""
     plan = Plan()
 
-    pass_node_1 = WorkNode(
-        Work("Pass", worker=DoNothing())
-    )
-    pass_node_2 = WorkNode(
-        Work("Pass", worker=DoNothing())
-    )
+    pass_node_1 = WorkNode(Work("Pass", worker=DoNothing()))
+    pass_node_2 = WorkNode(Work("Pass", worker=DoNothing()))
 
-    map_node = MapNode(
-        work=Work("Transformation", worker=Sum()),
-        inputs=[pass_node_1, pass_node_2]
-    )
+    map_node = MapNode(work=Work("Transformation", worker=Sum()),
+                       inputs=[pass_node_1, pass_node_2])
 
     plan.add_node(pass_node_1)
     plan.add_node(pass_node_2)

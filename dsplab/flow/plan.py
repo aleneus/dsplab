@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """This module implements the Node and Plan classes.
 
 Node can be understood as the workplace for worker. Node can have inputs
@@ -32,8 +31,10 @@ class Node(Activity):
         super().__init__()
         self._id = None
         self._inputs = []
+
         if inputs is not None:
             self._inputs = inputs
+
         self._res = None
         self._start_hook = None
         self._start_hook_args = None
@@ -79,14 +80,12 @@ class Node(Activity):
     def run_start_hook(self):
         """Run function associated with start hook."""
         if self._start_hook is not None:
-            self._start_hook(*self._start_hook_args,
-                             **self._start_hook_kwargs)
+            self._start_hook(*self._start_hook_args, **self._start_hook_kwargs)
 
     def run_stop_hook(self):
         """Run function associated with stop hook."""
         if self._stop_hook is not None:
-            self._stop_hook(*self._stop_hook_args,
-                            **self._stop_hook_kwargs)
+            self._stop_hook(*self._stop_hook_args, **self._stop_hook_kwargs)
 
     def is_output_ready(self):
         """Check if the calculation in the node is finished."""
@@ -116,7 +115,8 @@ class Node(Activity):
         """Return result info."""
         return self._res_info
 
-    result_info = property(get_result_info, set_result_info,
+    result_info = property(get_result_info,
+                           set_result_info,
                            doc='Information about result')
 
     def __call__(self, *args, **kwargs):
@@ -170,14 +170,12 @@ class MapNode(WorkNode):
         if len(self._inputs) > 1:
             self._res = []
             for zipped_args in map(list, zip(*data)):
-                res_part = self._work(*zipped_args)
-                self._res.append(res_part)
+                self._res.append(self._work(*zipped_args))
 
         elif len(self._inputs) == 1:
             self._res = []
             for comp in data[0]:
-                comp_res = self._work(comp)
-                self._res.append(comp_res)
+                self._res.append(self._work(comp))
 
         else:
             raise RuntimeError('MapNode must have input.')
@@ -270,26 +268,32 @@ class Plan(Activity):
             for node in self._nodes:
                 if (node in self._sequence) or (node in self._inputs):
                     continue
+
                 if set(node.inputs) <= set(self._sequence) | set(self._inputs):
                     self._sequence.append(node)
                     finished = False
+
             if finished:
                 break
 
     def add_node(self, node, inputs=None):
         """Add node to plan."""
         self._nodes.append(node)
+
         if inputs is not None:
             node.inputs = inputs
+
         self._detect_sequence()
 
     def remove_node(self, node):
         """Remove node from plan."""
         if node not in self._nodes:
             raise RuntimeError('No such node')
+
         for _node in self._nodes:
             if node in _node.inputs:
                 _node.inputs.remove(node)
+
         self._nodes.remove(node)
         self._detect_sequence()
 

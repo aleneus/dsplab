@@ -19,7 +19,7 @@ def main():
     freq_4 = 1.75
 
     T = 60
-    ts = np.arange(0, T, 1/sample_rate)
+    ts = np.arange(0, T, 1 / sample_rate)
     xs1 = np.sin(2 * np.pi * freq_1 * ts)
     xs2 = np.sin(2 * np.pi * freq_2 * ts)
     xs3 = np.sin(2 * np.pi * freq_3 * ts)

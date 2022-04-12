@@ -411,6 +411,8 @@
 ** DONE test: up coverage
 ** DONE ref: demo: up lint result
 ** DONE dev: + requirements.txt
+* 0.41.1
+** DONE ref: auto yapf
 * later
 ** TODO feat: plan: add factory methods for getting plan
 ** TODO feat: debug repeated timer, it works strange

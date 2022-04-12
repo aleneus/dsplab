@@ -13,7 +13,6 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 """Some functions for spectral analysis."""
 
 import numpy as np
@@ -21,8 +20,13 @@ from scipy import fftpack
 import scipy.signal as sig
 
 
-def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
-             return_amplitude=True, extra_len=None, save_energy=False):
+def spectrum(xdata,
+             sample_rate=1,
+             window='hamming',
+             one_side=False,
+             return_amplitude=True,
+             extra_len=None,
+             save_energy=False):
     """Return the Fourier spectrum of signal.
 
     Parameters
@@ -55,7 +59,7 @@ def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
         Frequency values (Hz)
     """
     win = sig.get_window(window, len(xdata))
-    x_faded = xdata * win * len(win)/sum(win)
+    x_faded = xdata * win * len(win) / sum(win)
 
     actual_len = len(xdata)
     if extra_len:
@@ -63,9 +67,9 @@ def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
 
     sp_comp = fftpack.fft(x_faded, actual_len)
     if not save_energy:
-        sp_comp *= 2/len(xdata)
+        sp_comp *= 2 / len(xdata)
 
-    freqs = np.fft.fftfreq(len(sp_comp), 1/sample_rate)
+    freqs = np.fft.fftfreq(len(sp_comp), 1 / sample_rate)
 
     if one_side:
         ind = freqs >= 0
@@ -78,8 +82,13 @@ def spectrum(xdata, sample_rate=1, window='hamming', one_side=False,
     return sp_comp, freqs
 
 
-def stft(xdata, sample_rate=1, nseg=256,
-         nstep=None, window='hamming', nfft=None, padded=False):
+def stft(xdata,
+         sample_rate=1,
+         nseg=256,
+         nstep=None,
+         window='hamming',
+         nfft=None,
+         padded=False):
     """Return result of short-time fourier transform.
 
     Parameters
@@ -92,7 +101,7 @@ def stft(xdata, sample_rate=1, nseg=256,
         Length of segment (in samples).
     nstep: int
         Optional. Length of step (in samples). If not setted then
-        equal to nseg//2.
+        equal to nseg // 2.
     window: str
         Window.
     nfft: int
@@ -105,8 +114,10 @@ def stft(xdata, sample_rate=1, nseg=256,
         Result of STFT, two-side spectrums.
     """
     if not nstep:
-        nstep = nseg//2
+        nstep = nseg // 2
+
     x_copy = xdata.copy()
+
     if padded:
         actual_len = len(x_copy) + (nseg - len(x_copy) % nseg) % nseg
         zer = np.zeros(actual_len)
@@ -114,17 +125,25 @@ def stft(xdata, sample_rate=1, nseg=256,
         x_copy = zer
 
     specs = []
-    for i in range(0, len(x_copy)-nseg + 1, nstep):
-        seg = x_copy[i: i+nseg]
-        spec = spectrum(seg, sample_rate,
-                        extra_len=nfft, window=window, save_energy=True)[0]
+    for i in range(0, len(x_copy) - nseg + 1, nstep):
+        seg = x_copy[i:i + nseg]
+        spec = spectrum(seg,
+                        sample_rate,
+                        extra_len=nfft,
+                        window=window,
+                        save_energy=True)[0]
         specs.append(spec)
 
     return np.array(specs)
 
 
-def calc_specgram(xdata, sample_rate=1, tdata=None, nseg=256,
-                  nstep=None, freq_bounds=None, extra_len=None):
+def calc_specgram(xdata,
+                  sample_rate=1,
+                  tdata=None,
+                  nseg=256,
+                  nstep=None,
+                  freq_bounds=None,
+                  extra_len=None):
     """Return spectrogram data prepared to further plotting.
 
     Parameters
@@ -155,20 +174,25 @@ def calc_specgram(xdata, sample_rate=1, tdata=None, nseg=256,
         return [], []
 
     if tdata is None:
-        tdata = np.linspace(0, (len(xdata)-1)*sample_rate, len(xdata))
+        tdata = np.linspace(0, (len(xdata) - 1) * sample_rate, len(xdata))
     else:
-        sample_rate = 1/(tdata[1] - tdata[0])
+        sample_rate = 1 / (tdata[1] - tdata[0])
 
     if not nstep:
-        nstep = nseg//2
-    specs = 2*stft(xdata=xdata, sample_rate=sample_rate, nseg=nseg,
-                   nstep=nstep, nfft=extra_len, padded=True)
+        nstep = nseg // 2
+
+    specs = 2 * stft(xdata=xdata,
+                     sample_rate=sample_rate,
+                     nseg=nseg,
+                     nstep=nstep,
+                     nfft=extra_len,
+                     padded=True)
 
     if freq_bounds:
-        freqs = np.fft.fftfreq(len(specs[0]), 1/sample_rate)
+        freqs = np.fft.fftfreq(len(specs[0]), 1 / sample_rate)
         ind = (freqs >= freq_bounds[0]) & (freqs <= freq_bounds[1])
         specs = specs[:, ind]
 
-    t_new = np.linspace(tdata[nseg-1], tdata[-1], len(specs))
+    t_new = np.linspace(tdata[nseg - 1], tdata[-1], len(specs))
 
     return np.transpose(specs), t_new

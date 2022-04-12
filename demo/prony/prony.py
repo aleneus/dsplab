@@ -14,9 +14,10 @@ def main():
     """Entry point."""
     fs = 50
     T = 60
-    t = np.linspace(0, T, T*fs + 1)
-    x = np.cos(2*np.pi*1*t) * np.exp(-0.2*t) + \
-        np.cos(2*np.pi*2*t) * np.exp(-1*t)
+    t = np.linspace(0, T, T * fs + 1)
+
+    x = np.cos(2 * np.pi * 1 * t) * np.exp(-0.2 * t)
+    x += np.cos(2 * np.pi * 2 * t) * np.exp(-1 * t)
 
     components = prony.prony_decomp(x, 4)[2]
 
@@ -30,6 +31,7 @@ def main():
     for i, comp in enumerate(components):
         if i % 2 == 1:
             continue
+
         fig.add_subplot(gridspec[1, i // 2])
         plt.plot(comp)
         plt.grid(True)

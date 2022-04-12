@@ -19,23 +19,16 @@ def main():
     """Run example."""
     T = 10
     fs = 100
-    x, t = harm(
-        length=T, sample_rate=fs,
-        amp=1, freq=1,
-    )
+
+    x, t = harm(length=T, sample_rate=fs, amp=1, freq=1)
     plt.plot(t, x)
-    x, t = harm(
-        length=T, sample_rate=fs,
-        amp=2, freq=1,
-        noise_amp=noise
-    )
+
+    x, t = harm(length=T, sample_rate=fs, amp=2, freq=1, noise_amp=noise)
     plt.plot(t, x)
-    x, t = harm(
-        length=T, sample_rate=fs,
-        amp=2, freq=1,
-        noise_ph=noise
-    )
+
+    x, t = harm(length=T, sample_rate=fs, amp=2, freq=1, noise_ph=noise)
     plt.plot(t, x)
+
     plt.show()
 
 
