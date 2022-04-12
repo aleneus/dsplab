@@ -71,7 +71,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'dsplab'
-copyright = '2017-2021, Aleksandr Popov, Kirill Butin'
+copyright = '2017-2022, Aleksandr Popov, Kirill Butin'
 author = 'Aleksandr Popov, Kirill Butin'
 
 # The version info for the project you're documenting, acts as replacement for

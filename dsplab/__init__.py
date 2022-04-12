@@ -1,5 +1,5 @@
-# Copyright (C) 2017-2021 Aleksandr Popov
-# Copyright (C) 2021 Kirill Butin
+# Copyright (C) 2017-2022 Aleksandr Popov
+# Copyright (C) 2021-2022 Kirill Butin
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -18,4 +18,4 @@
 
 PACKAGE = 'dsplab'
 
-__version__ = '0.40.0'
+__version__ = '0.41.0'
