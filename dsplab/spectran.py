@@ -17,7 +17,7 @@
 """Some functions for spectral analysis."""
 
 import numpy as np
-import scipy.fftpack as fftpack
+from scipy import fftpack
 import scipy.signal as sig
 
 

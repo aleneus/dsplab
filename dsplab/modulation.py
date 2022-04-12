@@ -373,6 +373,7 @@ def freq_by_extremums(xdata, sample_rate):
     for prev, curr, nxt in zip(xdata[:-2], xdata[1:-1], xdata[2:]):
         if (prev < curr) and (curr >= nxt):
             max_total += 1
+
         if (prev > curr) and (curr <= nxt):
             min_total += 1
 
@@ -453,6 +454,7 @@ def freqs_by_wave_len(xdata, tdata, cut_nans=True):
     if cut_nans:
         freqs_cut = []
         t_cut = []
+
         for f, t in zip(freqs, tdata):
             if f is not None and not isnan(f):
                 freqs_cut.append(f)
@@ -483,10 +485,10 @@ def linint(xdata, tdata, ts_new):
     x_new = np.zeros(len(ts_new)) * np.nan
     for x_p, t_p, x_c, t_c in zip(xdata[:-1], tdata[:-1],
                                   xdata[1:], tdata[1:]):
-        k = (x_c - x_p) / (t_c - t_p)
-        b = x_p - k*t_p
+        slope = (x_c - x_p) / (t_c - t_p)
+        intercept = x_p - slope*t_p
         ind = (ts_new >= t_p) & (ts_new <= t_c)
-        x_new[ind] = k * ts_new[ind] + b
+        x_new[ind] = slope * ts_new[ind] + intercept
 
     return x_new
 
@@ -500,8 +502,7 @@ def _ns(x, func=None):
 
 def _arg_new_or_depr(depr, new, depr_name, new_name):
     if depr is not None:
-        msg = '{} is deprecated, use {}'.format(depr_name, new_name)
-        warn(msg, FutureWarning)
+        warn(f'{depr_name} is deprecated, use {new_name}', FutureWarning)
 
     if new is not None:
         return new

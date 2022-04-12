@@ -126,7 +126,7 @@ def get_work_from_dict(settings, params=None):
                         try:
                             worker_params[key] = params[params_key]
                         except KeyError:
-                            msg = '${} not found in params'.format(params_key)
+                            msg = f'${params_key} not found in params'
 
                             raise RuntimeError(msg)
 

@@ -470,20 +470,26 @@ def get_plan_from_dict(settings, params=None):
             work_settings = node_settings['work']
             work = get_work_from_dict(work_settings, params)
             node.work = work
+
         elif node_class == 'MapNode':
             node = MapNode()
             work_settings = node_settings['work']
             work = get_work_from_dict(work_settings, params)
             node.work = work
+
         elif node_class == 'PackNode':
             node = PackNode()
+
         elif node_class == 'SelectNode':
             index = node_settings['index']
             node = SelectNode(index)
+
         elif node_class == 'PassNode':
             node = PassNode()
+
         else:
-            message = 'Unsupported node class: {}'.format(node_class)
+            message = f'Unsupported node class: {node_class}'
+
             raise ValueError(message)
 
         if 'result' in node_settings:
@@ -494,6 +500,7 @@ def get_plan_from_dict(settings, params=None):
 
     for node_settings in nodes_settings:
         node_id = node_settings['id']
+
         if 'inputs' in node_settings.keys():
             inputs = [nodes[key] for key in node_settings['inputs']]
             plan.add_node(nodes[node_id], inputs=inputs)

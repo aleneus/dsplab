@@ -403,9 +403,12 @@
 
 * 0.41.0
 ** DONE ref: format code
-** TODO ref: format strings
+** DONE ref: format strings
 ** TODO docs: 2021 -> 2022
 ** TODO depr: modulation: remove noise_f and noise_a args
+** TODO ref: dsplab/flow/activity.py: nested
+** TODO ref: activity.get_work_from_dict(): Too nested work with params
+** TODO test: up coverage
 * later
 ** TODO ref: get_work_from_dict()
 ** TODO feat: plan: add factory methods for getting plan
@@ -413,7 +416,6 @@
 ** TODO test: check online.upnwarp_point function
 ** TODO feat: add instance_info for activity
 ** TODO ref: plan: Think about separate set_quick() and reduce_calls()
-** TODO ref: activity.get_work_from_dict(): Too nested work with params
 ** TODO ref: think about place (module or modules) for common workers
 ** TODO ? feat: add online smoother
 ** TODO ? feat: add online summator

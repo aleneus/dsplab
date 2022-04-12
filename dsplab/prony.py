@@ -17,7 +17,7 @@
 """This module implements Prony decomposition of signal."""
 
 import numpy as np
-import numpy.linalg as linalg
+from numpy import linalg
 
 
 def prony_decomp(xdata, ncomp):

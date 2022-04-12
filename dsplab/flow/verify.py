@@ -57,13 +57,13 @@ def _check_plan_schema(plan_dict, schema):
 def _check_plan_inputs(plan_dict, ids):
     for inp in _get_plan_inputs(plan_dict):
         if inp not in ids:
-            raise VerifyError('Unknown plan input: {}'.format(inp))
+            raise VerifyError(f'Unknown plan input: {inp}')
 
 
 def _check_plan_outputs(plan_dict, ids):
     for out in _get_plan_outputs(plan_dict):
         if out not in ids:
-            raise VerifyError('Unknown plan output: {}'.format(out))
+            raise VerifyError(f'Unknown plan output: {out}')
 
 
 def _get_ids(plan_dict):
@@ -71,7 +71,7 @@ def _get_ids(plan_dict):
     for node in plan_dict['nodes']:
         node_id = node['id']
         if node_id in ids:
-            raise VerifyError('Duplicated ID: {}'.format(node_id))
+            raise VerifyError(f'Duplicated ID: {node_id}')
 
         ids[node_id] = node
 
@@ -94,18 +94,19 @@ def _check_node(node_dict, ids):
 
     if _get_node_class(node_dict) in ['WorkNode', 'MapNode']:
         if 'work' not in node_dict:
-            raise VerifyError('No work in node {}'.format(node_dict['id']))
+            node_id = node_dict['id']
+
+            raise VerifyError(f'No work in node {node_id}')
 
 
 def _check_node_inputs(node_dict, ids):
     node_id = node_dict['id']
     for inp in _get_node_inputs(node_dict):
         if inp not in ids:
-            raise VerifyError('Unknown input {} in node {}'.
-                              format(inp, node_id))
+            raise VerifyError(f'Unknown input {inp} in node {node_id}')
 
         if inp == node_id:
-            raise VerifyError('Node {} uses itself as input'.format(inp))
+            raise VerifyError(f'Node {inp} uses itself as input')
 
 
 def _get_node_inputs(node_dict):
@@ -123,7 +124,7 @@ def _get_node_class(node_dict):
 # common
 
 def _load_schema(file_name):
-    with open(file_name) as buf:
+    with open(file_name, encoding='utf8') as buf:
         data = json.load(buf)
 
     return data
