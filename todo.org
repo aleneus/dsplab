@@ -407,7 +407,7 @@
 ** DONE docs: 2021 -> 2022
 ** DONE depr: modulation: remove noise_f and noise_a args
 ** DONE ref: dsplab/flow/activity.py: simplify
-** TODO ref: dsplab/flow/plan.py: simplify
+** DONE ref: dsplab/flow/plan.py: simplify
 ** TODO test: up coverage
 * later
 ** TODO feat: plan: add factory methods for getting plan

@@ -109,7 +109,7 @@ class Node(Activity):
         return self._res
 
     def set_result_info(self, info):
-        """Appent to info the desctription of the output data."""
+        """Appent to info the description of the output data."""
         self._res_info = info
 
     def get_result_info(self):
@@ -172,11 +172,13 @@ class MapNode(WorkNode):
             for zipped_args in map(list, zip(*data)):
                 res_part = self._work(*zipped_args)
                 self._res.append(res_part)
+
         elif len(self._inputs) == 1:
             self._res = []
             for comp in data[0]:
                 comp_res = self._work(comp)
                 self._res.append(comp_res)
+
         else:
             raise RuntimeError('MapNode must have input.')
 
@@ -195,8 +197,10 @@ class SelectNode(Node):
         if len(data) > 1:
             data_tr = list(map(list, zip(*data)))
             self._res = data_tr[self.index]
+
         elif len(data) == 1:
             self._res = data[0][self.index]
+
         else:
             raise RuntimeError('SelectNode must have input.')
 
@@ -413,12 +417,12 @@ class Plan(Activity):
         return self._run_func(*args, **kwargs)
 
 
-def get_plan_from_dict(settings, params=None):
+def get_plan_from_dict(plan_dict, params=None):
     """Create and return instance of Plan described in dictionary.
 
     Parameters
     ----------
-    setting: dict
+    plan_dict: dict
         Dictionary with plan.
     params: dict
         Dictionary with parameters like "$name" for plan.
@@ -428,7 +432,7 @@ def get_plan_from_dict(settings, params=None):
     : Plan
         The instance of Plan.
 
-    **Keys in settings**
+    **Keys in plan_dict**
 
     - 'descr' - description of the plan (optional)
     - 'nodes' - list of dicts with nodes settings
@@ -449,70 +453,83 @@ def get_plan_from_dict(settings, params=None):
 
     - 'index' - index of selected item
     """
-    check_plan(settings)
+    check_plan(plan_dict)
 
     plan = Plan()
-    if 'descr' in settings:
-        plan.set_descr(settings['descr'])
 
+    plan.set_descr(_get_descr(plan_dict))
+
+    nodes = _get_nodes(plan_dict['nodes'], params)
+
+    for node_dict in plan_dict['nodes']:
+        inputs = []
+        if 'inputs' in node_dict:
+            inputs = [nodes[key] for key in node_dict['inputs']]
+
+        plan.add_node(nodes[node_dict['id']], inputs=inputs)
+
+    if 'inputs' in plan_dict:
+        plan.set_inputs([nodes[key] for key in plan_dict['inputs']])
+
+    if 'outputs' in plan_dict:
+        plan.set_outputs([nodes[key] for key in plan_dict['outputs']])
+
+    return plan
+
+
+def _get_descr(plan_dict):
+    try:
+        return plan_dict['descr']
+    except KeyError:
+        return ''
+
+
+def _get_nodes(nodes_dict, params):
     nodes = {}
-    nodes_settings = settings['nodes']
-    for node_settings in nodes_settings:
-        node_id = node_settings['id']
+    for node_dict in nodes_dict:
+        node = _get_node(_get_node_class(node_dict), node_dict, params)
 
-        try:
-            node_class = node_settings['class']
-        except KeyError:
-            node_class = 'WorkNode'
+        if 'result' in node_dict:
+            node.set_result_info(node_dict['result'])
 
-        if node_class == 'WorkNode':
-            node = WorkNode()
-            work_settings = node_settings['work']
-            work = get_work_from_dict(work_settings, params)
-            node.work = work
-
-        elif node_class == 'MapNode':
-            node = MapNode()
-            work_settings = node_settings['work']
-            work = get_work_from_dict(work_settings, params)
-            node.work = work
-
-        elif node_class == 'PackNode':
-            node = PackNode()
-
-        elif node_class == 'SelectNode':
-            index = node_settings['index']
-            node = SelectNode(index)
-
-        elif node_class == 'PassNode':
-            node = PassNode()
-
-        else:
-            message = f'Unsupported node class: {node_class}'
-
-            raise ValueError(message)
-
-        if 'result' in node_settings:
-            node.set_result_info(node_settings['result'])
-
+        node_id = node_dict['id']
         node.set_id(node_id)
         nodes[node_id] = node
 
-    for node_settings in nodes_settings:
-        node_id = node_settings['id']
+    return nodes
 
-        if 'inputs' in node_settings.keys():
-            inputs = [nodes[key] for key in node_settings['inputs']]
-            plan.add_node(nodes[node_id], inputs=inputs)
-        else:
-            plan.add_node(nodes[node_id])
 
-    if 'inputs' in settings:
-        inputs = [nodes[key] for key in settings['inputs']]
-        plan.set_inputs(inputs)
+def _get_node_class(node_dict):
+    try:
+        return node_dict['class']
+    except KeyError:
+        return 'WorkNode'
 
-    if 'outputs' in settings:
-        outputs = [nodes[key] for key in settings['outputs']]
-        plan.set_outputs(outputs)
 
-    return plan
+def _get_node(node_class, node_dict, params):
+    if node_class in ['WorkNode', 'MapNode']:
+        return _work_or_map_node(node_class, node_dict, params)
+
+    if node_class == 'PackNode':
+        return PackNode()
+
+    if node_class == 'SelectNode':
+        return SelectNode(node_dict['index'])
+
+    if node_class == 'PassNode':
+        return PassNode()
+
+    raise ValueError(f'Unsupported node class: {node_class}')
+
+
+def _work_or_map_node(node_class, node_dict, params):
+    if node_class == 'WorkNode':
+        node = WorkNode()
+    else:
+        node = MapNode()
+
+    work_settings = node_dict['work']
+    work = get_work_from_dict(work_settings, params)
+    node.work = work
+
+    return node
