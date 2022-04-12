@@ -401,7 +401,7 @@
 ** DONE ref: up lint result: ignore few methods for callables
 ** DONE docs: up lint result for demo
 
-* 0.41.0 [88%] [8/9]
+* 0.41.0 [100%] [9/9]
 ** DONE ref: format code
 ** DONE ref: format strings
 ** DONE docs: 2021 -> 2022
@@ -410,7 +410,7 @@
 ** DONE ref: dsplab/flow/plan.py: simplify
 ** DONE test: up coverage
 ** DONE ref: demo: up lint result
-** TODO dev: + requirements.txt
+** DONE dev: + requirements.txt
 * later
 ** TODO feat: plan: add factory methods for getting plan
 ** TODO feat: debug repeated timer, it works strange

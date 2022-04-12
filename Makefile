@@ -23,7 +23,7 @@ test:
 	@nose2 -vvv --with-coverage
 
 todo:
-	@rgrep "TODO" --include="*py" || true
+	@rgrep "TODO" --include="*py" --exclude-dir="env" || true
 	@rgrep "TODO" --include="*rst" || true
 	@rgrep "TODO" --include="*md" --exclude="release-checklist.md" || true
 	@rgrep "# REF" --include="*py" || true

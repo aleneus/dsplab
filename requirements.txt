@@ -1,0 +1,9 @@
+jedi
+nose2
+sphinx
+mock
+sphinx_rtd_theme
+numpy
+scipy
+jsonschema
+matplotlib

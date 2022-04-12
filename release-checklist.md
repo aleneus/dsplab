@@ -21,5 +21,5 @@
 ## Installation
 
 * All dependencies are relevant in setup.py
-* Installation successful: `python3 setup.py install --user`
+* Installation successful: use separate virtual environement
 * Example from README.md works after installation

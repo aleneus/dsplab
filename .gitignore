@@ -12,3 +12,5 @@ htmlcov/*
 
 docs/build/*
 /.vs
+
+/env
