@@ -1,7 +1,10 @@
 """Example of playing signal from CSV file."""
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('.'))
+
+# pylint: disable=wrong-import-position
 from dsplab.player import CsvDataProducer, SignalPlayer
 
 

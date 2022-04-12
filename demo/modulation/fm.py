@@ -4,6 +4,8 @@ import sys
 import matplotlib.pyplot as plt
 
 sys.path.insert(0, os.path.abspath('.'))
+
+# pylint: disable=wrong-import-position
 from dsplab.modulation import freq_mod
 
 

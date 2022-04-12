@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 sys.path.insert(0, os.path.abspath('.'))
+
+# pylint: disable=wrong-import-position
 from dsplab.modulation import envelope_by_extremums
 
 

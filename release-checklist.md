@@ -10,7 +10,7 @@
 
 ## Demo
 
-* The result of pylint is not less than 8.55: `make lint-demo`
+* The result of pylint is not less than 9.15: `make lint-demo`
 * All examples work: `./run-demo.sh`
 
 ## Docs

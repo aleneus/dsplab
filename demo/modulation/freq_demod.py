@@ -7,6 +7,8 @@ import numpy as np
 from scipy.signal import firwin
 
 sys.path.insert(0, os.path.abspath('.'))
+
+# pylint: disable=wrong-import-position
 from dsplab.modulation import iq_demod
 
 
