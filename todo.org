@@ -405,7 +405,7 @@
 ** DONE ref: format code
 ** DONE ref: format strings
 ** DONE docs: 2021 -> 2022
-** TODO depr: modulation: remove noise_f and noise_a args
+** DONE depr: modulation: remove noise_f and noise_a args
 ** TODO ref: dsplab/flow/activity.py: nested
 ** TODO ref: activity.get_work_from_dict(): Too nested work with params
 ** TODO test: up coverage

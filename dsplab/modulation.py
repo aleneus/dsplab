@@ -14,9 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""Functions for modulation and demodulation."""
+"""Modulation and demodulation."""
 
-from warnings import warn
 from math import pi, cos, isnan
 import numpy as np
 from numpy import unwrap, angle, diff
@@ -24,8 +23,7 @@ import scipy.signal as sig
 
 
 def harm(length, sample_rate, amp, freq, phi=0,
-         noise_ph=None, noise_amp=None,
-         noise_a=None, noise_f=None):
+         noise_amp=None, noise_ph=None):
     """Generate harmonic signal.
 
     Parameters
@@ -40,10 +38,10 @@ def harm(length, sample_rate, amp, freq, phi=0,
         Frequency of signal (Hz).
     phi: float
         Initial phase (radians).
-    noise_ph: callable
-        Returns noise value added to full phase.
     noise_amp: callable
         Returns noise value added to amplitude.
+    noise_ph: callable
+        Returns noise value added to full phase.
 
     Returns
     -------
@@ -52,22 +50,18 @@ def harm(length, sample_rate, amp, freq, phi=0,
     : np.array
         Time values.
     """
-    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, 'noise_a', 'noise_amp')
-    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, 'noise_f', 'noise_ph')
-
     ts = np.arange(0, length, 1 / sample_rate)
 
     xs = []
     for t in ts:
-        x = _ns(amp, _noise_amp) * cos(_ns(2*pi*freq*t + phi, _noise_ph))
+        x = _ns(amp, noise_amp) * cos(_ns(2*pi*freq*t + phi, noise_ph))
         xs.append(x)
 
     return np.array(xs), ts
 
 
 def amp_mod(length, sample_rate, func, freq, phi=0,
-            noise_ph=None, noise_amp=None,
-            noise_f=None, noise_a=None):
+            noise_amp=None, noise_ph=None):
     """Amplitude modulation.
 
     Parameters
@@ -82,10 +76,10 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
         Initial phase (radians).
     func: Object
         Function that returns amplitude value depending on time.
-    noise_ph: callable
-        Returns noise value added to full phase.
     noise_amp: callable
         Returns noise value added to amplitude.
+    noise_ph: callable
+        Returns noise value added to full phase.
 
     Returns
     -------
@@ -94,9 +88,6 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
     : np.array
         Time values.
     """
-    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, 'noise_a', 'noise_amp')
-    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, 'noise_f', 'noise_ph')
-
     ts = np.arange(0, length, 1/sample_rate)
 
     full_phase = phi
@@ -104,16 +95,16 @@ def amp_mod(length, sample_rate, func, freq, phi=0,
     xs = []
 
     for t in ts:
-        x = _ns(func(t) * cos(_ns(full_phase, _noise_ph)), _noise_amp)
+        x = _ns(func(t) * cos(_ns(full_phase, noise_ph)), noise_amp)
         xs.append(x)
+
         full_phase += delta_ph
 
     return np.array(xs), ts
 
 
 def freq_mod(length, sample_rate, amp, func, phi=0,
-             noise_ph=None, noise_amp=None,
-             noise_f=None, noise_a=None):
+             noise_amp=None, noise_ph=None):
     """Amplitude modulation.
 
     Parameters
@@ -129,10 +120,10 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
     func: Object
         Function that returns frequency values (in Hz) depending on
         time.
-    noise_ph: callable
-        Returns noise value added to full phase.
     noise_amp: callable
         Returns noise value added to amplitude.
+    noise_ph: callable
+        Returns noise value added to full phase.
 
     Returns
     -------
@@ -143,26 +134,24 @@ def freq_mod(length, sample_rate, amp, func, phi=0,
     : np.array
         Time values.
     """
-    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, 'noise_a', 'noise_amp')
-    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, 'noise_f', 'noise_ph')
-
     ts = np.arange(0, length, 1/sample_rate)
 
     full_phase = phi
     xs, phs = [], []
 
     for t in ts:
-        x = _ns(amp * cos(_ns(full_phase, _noise_ph)), _noise_amp)
+        x = _ns(amp * cos(_ns(full_phase, noise_ph)), noise_amp)
         xs.append(x)
+
         phs.append(full_phase)
+
         full_phase += 2*pi*func(t) / sample_rate
 
     return np.array(xs), np.array(phs), ts
 
 
 def phase_mod(length, sample_rate, amp, freq, func,
-              noise_ph=None, noise_amp=None,
-              noise_f=None, noise_a=None):
+              noise_amp=None, noise_ph=None):
     """Phase modulation.
 
     Parameters
@@ -178,10 +167,10 @@ def phase_mod(length, sample_rate, amp, freq, func,
     func: Object
         Function that returns phase values (in radians) depending on
         time.
-    noise_ph: callable
-        Returns noise value added to full phase.
     noise_amp: callable
         Returns noise value added to amplitude.
+    noise_ph: callable
+        Returns noise value added to full phase.
 
     Returns
     -------
@@ -190,15 +179,13 @@ def phase_mod(length, sample_rate, amp, freq, func,
     : np.array
         Time values.
     """
-    _noise_amp = _arg_new_or_depr(noise_a, noise_amp, 'noise_a', 'noise_amp')
-    _noise_ph = _arg_new_or_depr(noise_f, noise_ph, 'noise_f', 'noise_ph')
-
     ts = np.arange(0, length, 1/sample_rate)
     xs = []
 
     for t in ts:
-        arg = _ns(2*pi*freq*t + func(t), _noise_ph)
-        x = _ns(amp * cos(arg), _noise_amp)
+        arg = _ns(2*pi*freq*t + func(t), noise_ph)
+        x = _ns(amp * cos(arg), noise_amp)
+
         xs.append(x)
 
     return np.array(xs), ts
@@ -498,13 +485,3 @@ def _ns(x, func=None):
         return x + func()
 
     return x
-
-
-def _arg_new_or_depr(depr, new, depr_name, new_name):
-    if depr is not None:
-        warn(f'{depr_name} is deprecated, use {new_name}', FutureWarning)
-
-    if new is not None:
-        return new
-
-    return depr

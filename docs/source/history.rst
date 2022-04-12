@@ -1,6 +1,11 @@
 History
 =======
 
+0.41
+----
+
+* Modulation: old deprecated args have been removed
+
 0.40
 ----
 

@@ -3,7 +3,7 @@
 ## Code
 
 * Check is ok: `make check`
-* The result of pylint is not less than 9.8: `make lint`
+* The result of pylint is not less than 9.9: `make lint`
 * Version in source code is updated
 * Old deprecated code is removed: see todo list
 * Test coverage is not less than 53%: `make check`
