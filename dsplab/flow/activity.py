@@ -27,11 +27,14 @@ class ActivityMeta(type):
 
     def __init__(cls, name, bases, attrs):
         super().__init__(name, bases, attrs)
+
         cls._class_info = {}
+
         try:
             cls._class_info['doc'] = attrs['__doc__']
         except KeyError:
             cls._class_info['doc'] = ''
+
         cls._class_info['class'] = name
 
     def class_info(cls):
@@ -94,47 +97,64 @@ class Work(Activity):
         return self._worker(*args, **kwargs)
 
 
-def get_work_from_dict(settings, params=None):
+def get_work_from_dict(work_dict, params=None):
     """Create and return Work instance described in dictionary."""
 
-    if 'descr' in settings:
-        descr = settings['descr']
-    else:
-        descr = ''
+    if 'worker' not in work_dict:
+        raise RuntimeError('No worker in work_dict')
 
-    if 'worker' not in settings:
-        raise RuntimeError('No worker in settings')
-    worker_settings = settings['worker']
+    return Work(_get_descr(work_dict),
+                _get_worker(work_dict['worker'], params))
 
-    if 'class' in worker_settings.keys():
-        key = 'class'
-    elif 'function' in worker_settings.keys():
-        key = 'function'
-    else:
-        raise RuntimeError("Work must be 'class' or 'function'")
 
-    worker_name = worker_settings[key]
+def _get_descr(work_dict):
+    try:
+        return work_dict['descr']
+    except KeyError:
+        return ''
 
-    if 'params' in worker_settings.keys():
-        worker_params = worker_settings['params'].copy()
 
-        for key in worker_params:
-            if isinstance(worker_params[key], str):
-                if worker_params[key]:
-                    if worker_params[key][0] == '$':
-                        params_key = worker_params[key][1:]
-                        try:
-                            worker_params[key] = params[params_key]
-                        except KeyError:
-                            msg = f'${params_key} not found in params'
+def _get_worker(worker_dict, params):
+    wr_type = _get_worker_type(worker_dict)
 
-                            raise RuntimeError(msg)
+    call_name = worker_dict[wr_type]
 
-        worker = import_entity(worker_name)(**worker_params)
-    else:
-        if key == 'class':
-            worker = import_entity(worker_name)()
-        else:
-            worker = import_entity(worker_name)
+    if 'params' in worker_dict:
+        return _worker_with_params(worker_dict, call_name, params)
 
-    return Work(descr, worker)
+    return _worker_no_params(call_name, wr_type)
+
+
+def _get_worker_type(worker_dict):
+    if 'class' in worker_dict:
+        return 'class'
+
+    if 'function' in worker_dict:
+        return 'function'
+
+    raise RuntimeError('Work must be \'class\' or \'function\'')
+
+
+def _worker_with_params(worker_dict, call_name, params):
+    wr_pars = worker_dict['params'].copy()
+
+    for key in wr_pars:
+        if not isinstance(wr_pars[key], str):
+            continue
+
+        if not wr_pars[key]:
+            continue
+
+        if wr_pars[key][0] != '$':
+            continue
+
+        wr_pars[key] = params[wr_pars[key][1:]]
+
+    return import_entity(call_name)(**wr_pars)
+
+
+def _worker_no_params(call_name, worker_type):
+    if worker_type == 'class':
+        return import_entity(call_name)()
+
+    return import_entity(call_name)

@@ -61,26 +61,52 @@ class TestWork(unittest.TestCase):
 
 
 class Test_get_from_dict(unittest.TestCase):
+    def test_no_worker(self):
+        with self.assertRaises(RuntimeError):
+            get_work_from_dict({})
+
+    def test_descr_not_empty(self):
+        settings = {
+            'descr': 'My work',
+            'worker': {
+                'function': 'test.test_flow.test_activity.inc',
+            }
+        }
+        self.assertEqual(get_work_from_dict(settings).descr, 'My work')
+
+    def test_descr_empty(self):
+        settings = {
+            'worker': {
+                'function': 'test.test_flow.test_activity.inc',
+            }
+        }
+        self.assertEqual(get_work_from_dict(settings).descr, '')
+
+    def test_wrong_worker(self):
+        settings = {
+            'worker': {
+                'procedure': 'test.test_flow.test_activity.inc',
+            }
+        }
+        with self.assertRaises(RuntimeError):
+            get_work_from_dict(settings)
+
     def test_worker_is_function(self):
         settings = {
             'worker': {
                 'function': 'test.test_flow.test_activity.inc',
             }
         }
-        w = get_work_from_dict(settings)
-        r = w(1)
-        self.assertEqual(r, 2)
+        self.assertEqual(get_work_from_dict(settings)(1), 2)
 
-    def test_worker_is_object(self):
+    def test_worker_is_class(self):
         settings = {
             'worker': {
                 'class': 'test.test_flow.test_activity.Inc',
                 'params': {'val': 2},
             }
         }
-        w = get_work_from_dict(settings)
-        r = w(1)
-        self.assertEqual(r, 3)
+        self.assertEqual(get_work_from_dict(settings)(1), 3)
 
     def test_variable_params(self):
         settings = {
@@ -90,12 +116,10 @@ class Test_get_from_dict(unittest.TestCase):
             }
         }
         w = get_work_from_dict(settings, params={'var': 2})
-        r = w(1)
-        self.assertEqual(r, 3)
+        self.assertEqual(w(1), 3)
 
         w = get_work_from_dict(settings, params={'var': 3})
-        r = w(1)
-        self.assertEqual(r, 4)
+        self.assertEqual(w(1), 4)
 
     def test_combination_constant_and_variable_parameters(self):
         settings = {
@@ -105,12 +129,10 @@ class Test_get_from_dict(unittest.TestCase):
             }
         }
         w = get_work_from_dict(settings, params={'a': 2})
-        r = w(1)
-        self.assertEqual(r, 2)
+        self.assertEqual(w(1), 2)
 
         w = get_work_from_dict(settings, params={'a': 3})
-        r = w(2)
-        self.assertEqual(r, 6)
+        self.assertEqual(w(2), 6)
 
 
 def inc(x):
