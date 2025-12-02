@@ -1,18 +1,3 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """This module implements the Node and Plan classes.
 
 Node can be understood as the workplace for worker. Node can have inputs
@@ -21,6 +6,7 @@ that are also nodes. Plan is the system of linked nodes.
 
 from dsplab.flow.activity import get_work_from_dict
 from dsplab.flow.activity import Activity
+from dsplab.flow.activity import ActivityWithDescr
 from dsplab.flow.verify import check_plan
 
 
@@ -223,38 +209,28 @@ class PassNode(Node):
         self._res = data[0]
 
 
-class Plan(Activity):
+class Plan(ActivityWithDescr):
     """The plan.
 
     Plan is the system of linked nodes.
     """
 
     def __init__(self, descr=None, quick=False):
-        super().__init__()
+        super().__init__(descr=descr)
         self._nodes = []
         self._inputs = []
         self._outputs = []
         self._progress_func = None
-        self._descr = descr
 
         self._quick = None
         self.set_quick(quick)
 
         self._sequence = []
 
-    def set_descr(self, descr):
-        """Set description of plan."""
-        self._descr = descr
-
-    def get_descr(self):
-        """Return description of plan."""
-        return self._descr
-
-    descr = property(get_descr, set_descr, doc='Description of plan')
-
     def set_quick(self, value=True):
         """Make plan quick (for online with no hooks) or not."""
         self._quick = value
+
         if not value:
             self._run_func = self.run
         else:

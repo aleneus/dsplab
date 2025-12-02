@@ -1,30 +1,15 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the Lesser GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# Lesser GNU General Public License for more details.
-
-# You should have received a copy of the Lesser GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import unittest
 from dsplab.flow.verify import check_plan, VerifyError
 from dsplab.flow.verify import _check_plan_schema, _load_schema
 from dsplab.flow.verify import _check_node
 
-
 PLAN_SCHEMA_FILE_NAME = 'dsplab/data/plan-schema.json'
 
 
 class Test__check_plan_cheme(unittest.TestCase):
+
     def setUp(self):
+
         def check(conf):
             _check_plan_schema(conf, _load_schema(PLAN_SCHEMA_FILE_NAME))
 
@@ -32,12 +17,16 @@ class Test__check_plan_cheme(unittest.TestCase):
 
     def test_ok_minimal(self):
         self.check({
-                'nodes': [
-                    {'id': 'a', 'work': {'worker': {}}},
-                ],
-
-                'outputs': ['a'],
-            })
+            'nodes': [
+                {
+                    'id': 'a',
+                    'work': {
+                        'worker': {}
+                    }
+                },
+            ],
+            'outputs': ['a'],
+        })
 
     def test_empty(self):
         with self.assertRaises(VerifyError):
@@ -53,7 +42,10 @@ class Test__check_plan_cheme(unittest.TestCase):
         with self.assertRaises(VerifyError):
             self.check({
                 'nodes': [
-                    {'id': 'a', 'wrong_key': 12345},
+                    {
+                        'id': 'a',
+                        'wrong_key': 12345
+                    },
                 ],
                 'inputs': ['a'],
                 'outputs': ['a'],
@@ -61,6 +53,7 @@ class Test__check_plan_cheme(unittest.TestCase):
 
 
 class Test_check_plan(unittest.TestCase):
+
     def setUp(self):
         self.check = check_plan
 
@@ -72,7 +65,10 @@ class Test_check_plan(unittest.TestCase):
         with self.assertRaises(VerifyError) as cm:
             self.check({
                 'nodes': [
-                    {'id': 'a', 'class': 'WorkNode'},
+                    {
+                        'id': 'a',
+                        'class': 'WorkNode'
+                    },
                 ],
                 'outputs': ['a'],
             })
@@ -83,8 +79,18 @@ class Test_check_plan(unittest.TestCase):
         with self.assertRaises(VerifyError) as cm:
             self.check({
                 'nodes': [
-                    {'id': 'b', 'work': {'worker': {}}},
-                    {'id': 'b', 'work': {'worker': {}}},
+                    {
+                        'id': 'b',
+                        'work': {
+                            'worker': {}
+                        }
+                    },
+                    {
+                        'id': 'b',
+                        'work': {
+                            'worker': {}
+                        }
+                    },
                 ],
                 'outputs': ['b'],
             })
@@ -94,7 +100,12 @@ class Test_check_plan(unittest.TestCase):
         with self.assertRaises(VerifyError) as cm:
             self.check({
                 'nodes': [
-                    {'id': 'a', 'work': {'worker': {}}},
+                    {
+                        'id': 'a',
+                        'work': {
+                            'worker': {}
+                        }
+                    },
                 ],
                 'inputs': ['b'],
                 'outputs': ['a'],
@@ -105,7 +116,12 @@ class Test_check_plan(unittest.TestCase):
         with self.assertRaises(VerifyError) as cm:
             self.check({
                 'nodes': [
-                    {'id': 'a', 'work': {'worker': {}}},
+                    {
+                        'id': 'a',
+                        'work': {
+                            'worker': {}
+                        }
+                    },
                 ],
                 'inputs': ['a'],
                 'outputs': ['c'],
@@ -116,7 +132,13 @@ class Test_check_plan(unittest.TestCase):
         with self.assertRaises(VerifyError) as cm:
             self.check({
                 'nodes': [
-                    {'id': 'b', 'work': {'worker': {}}, 'inputs': ['c']},
+                    {
+                        'id': 'b',
+                        'work': {
+                            'worker': {}
+                        },
+                        'inputs': ['c']
+                    },
                 ],
                 'outputs': ['b'],
             })
@@ -126,7 +148,13 @@ class Test_check_plan(unittest.TestCase):
         with self.assertRaises(VerifyError) as cm:
             self.check({
                 'nodes': [
-                    {'id': 'a', 'work': {'worker': {}}, 'inputs': ['a']},
+                    {
+                        'id': 'a',
+                        'work': {
+                            'worker': {}
+                        },
+                        'inputs': ['a']
+                    },
                 ],
                 'inputs': ['a'],
                 'outputs': ['a'],
@@ -135,7 +163,9 @@ class Test_check_plan(unittest.TestCase):
 
 
 class Test__check_node(unittest.TestCase):
+
     def setUp(self):
+
         def check(conf):
             _check_node(conf, ids={'a': True, 'b': True})
 
@@ -145,14 +175,18 @@ class Test__check_node(unittest.TestCase):
         self.check({
             'id': 'a',
             'class': 'WorkNode',
-            'work': {'worker': {}},
+            'work': {
+                'worker': {}
+            },
         })
 
     def test_map_node_minimal_ok(self):
         self.check({
             'id': 'a',
             'class': 'MapNode',
-            'work': {'worker': {}},
+            'work': {
+                'worker': {}
+            },
         })
 
     def test_select_node_minimal_ok(self):

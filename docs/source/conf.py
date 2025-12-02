@@ -18,7 +18,6 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 
-
 import os
 import sys
 import mock
@@ -28,7 +27,6 @@ sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../..'))
 
 from dsplab import __version__
-
 
 MOCK_MODULES = [
     'numpy',
@@ -71,7 +69,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'dsplab'
-copyright = '2017-2022, Aleksandr Popov, Kirill Butin'
+copyright = '2017-2025, Aleksandr Popov, Kirill Butin'
 author = 'Aleksandr Popov, Kirill Butin'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -88,7 +86,7 @@ release = __version__
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "En"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -100,7 +98,6 @@ pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
-
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -135,12 +132,10 @@ html_sidebars = {
     ]
 }
 
-
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'dsplabdoc'
-
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -170,16 +165,11 @@ latex_documents = [
      'Aleksandr Popov, Kirill Butin', 'manual'),
 ]
 
-
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'dsplab', 'dsplab Documentation',
-     [author], 1)
-]
-
+man_pages = [(master_doc, 'dsplab', 'dsplab Documentation', [author], 1)]
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -187,7 +177,6 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'dsplab', 'dsplab Documentation',
-     author, 'dsplab', 'One line description of project.',
-     'Miscellaneous'),
+    (master_doc, 'dsplab', 'dsplab Documentation', author, 'dsplab',
+     'One line description of project.', 'Miscellaneous'),
 ]

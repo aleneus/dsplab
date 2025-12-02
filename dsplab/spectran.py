@@ -1,18 +1,3 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Some functions for spectral analysis."""
 
 import numpy as np
@@ -21,6 +6,7 @@ import scipy.signal as sig
 
 
 def spectrum(xdata,
+             *,
              sample_rate=1,
              window='hamming',
              one_side=False,
@@ -83,6 +69,7 @@ def spectrum(xdata,
 
 
 def stft(xdata,
+         *,
          sample_rate=1,
          nseg=256,
          nstep=None,
@@ -128,7 +115,7 @@ def stft(xdata,
     for i in range(0, len(x_copy) - nseg + 1, nstep):
         seg = x_copy[i:i + nseg]
         spec = spectrum(seg,
-                        sample_rate,
+                        sample_rate=sample_rate,
                         extra_len=nfft,
                         window=window,
                         save_energy=True)[0]
@@ -138,6 +125,7 @@ def stft(xdata,
 
 
 def calc_specgram(xdata,
+                  *,
                   sample_rate=1,
                   tdata=None,
                   nseg=256,

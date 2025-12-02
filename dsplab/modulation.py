@@ -1,18 +1,3 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Modulation and demodulation."""
 
 from math import pi, cos, isnan
@@ -21,7 +6,14 @@ from numpy import unwrap, angle, diff
 import scipy.signal as sig
 
 
-def harm(length, sample_rate, amp, freq, phi=0, noise_amp=None, noise_ph=None):
+def harm(length,
+         sample_rate,
+         amp,
+         freq,
+         *,
+         phi=0,
+         noise_amp=None,
+         noise_ph=None):
     """Generate harmonic signal.
 
     Parameters
@@ -62,6 +54,7 @@ def amp_mod(length,
             sample_rate,
             func,
             freq,
+            *,
             phi=0,
             noise_amp=None,
             noise_ph=None):
@@ -110,6 +103,7 @@ def freq_mod(length,
              sample_rate,
              amp,
              func,
+             *,
              phi=0,
              noise_amp=None,
              noise_ph=None):
@@ -163,6 +157,7 @@ def phase_mod(length,
               amp,
               freq,
               func,
+              *,
               noise_amp=None,
               noise_ph=None):
     """Phase modulation.

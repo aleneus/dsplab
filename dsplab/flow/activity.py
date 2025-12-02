@@ -1,18 +1,3 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """This module implements the base classes for Activities."""
 
 import logging
@@ -66,13 +51,12 @@ class Activity(metaclass=ActivityMeta):
         raise NotImplementedError
 
 
-class Work(Activity):
-    """Work is data processing that can be done in a variety of ways."""
+class ActivityWithDescr(Activity):
+    """Activity with description."""
 
-    def __init__(self, descr=None, worker=None):
+    def __init__(self, descr=None):
         super().__init__()
         self.set_descr(descr)
-        self.set_worker(worker)
 
     def set_descr(self, descr):
         """Set description."""
@@ -83,6 +67,18 @@ class Work(Activity):
         return self._descr
 
     descr = property(get_descr, set_descr, doc='Description of work')
+
+    def __call__(self, *args, **kwargs):
+        """Call activity."""
+        raise NotImplementedError
+
+
+class Work(ActivityWithDescr):
+    """Work is data processing that can be done in a variety of ways."""
+
+    def __init__(self, descr=None, worker=None):
+        super().__init__(descr=descr)
+        self.set_worker(worker)
 
     def set_worker(self, act):
         """Set worker for doing work.

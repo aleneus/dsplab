@@ -1,10 +1,15 @@
 History
 =======
 
+0.41.2
+----
+
+* Code has been refreshed.
+
 0.41
 ----
 
-* Modulation: old deprecated args have been removed
+* Modulation: old deprecated args have been removed.
 
 0.40
 ----

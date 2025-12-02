@@ -1,20 +1,16 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
+""" Dsplab is the package for building generalized signal processing schemes.
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+In a different subject areas, data analysis tasks exist in which a
+certain general structure is distinguished, while the number of
+possible methods for implementing subtasks increases. The question
+arises: which combination of methods is better? Dsplab allows you to
+describe the overall scheme of the task (plan) and assign the
+so-called "workers" to perform the subtasks. So the main field of
+application of dsplab is the investigation of variety of methods
+solving the same signal processing task.
 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""Initialization."""
+"""
 
 PACKAGE = 'dsplab'
 
-__version__ = '0.41.1'
+__version__ = '0.41.2'

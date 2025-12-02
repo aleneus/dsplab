@@ -1,26 +1,12 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Verification of the plan."""
 
 import json
-from pkg_resources import resource_filename as resource
+from importlib.resources import files
+
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
-SCHEMA_FILE_NAME = resource('dsplab', 'data/plan-schema.json')
+SCHEMA_FILE_NAME = files('dsplab').joinpath('data/plan-schema.json')
 
 
 class VerifyError(Exception):

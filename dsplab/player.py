@@ -1,18 +1,3 @@
-# Copyright (C) 2017-2022 Aleksandr Popov
-# Copyright (C) 2021-2022 Kirill Butin
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Playing signal from file: online mode for offline data."""
 
 import threading
@@ -22,57 +7,8 @@ import time
 import random
 
 
-class RepeatedTimer:
-    """Timer."""
-
-    def __init__(self, interval, function, *args, **kwargs):
-        self._timer = None
-        self._interval = interval
-        self.function = function
-        self.args = args
-        self.kwargs = kwargs
-        self.is_running = False
-        self.next_call = None
-        self.lock = Lock()
-
-    def set_interval(self, interval):
-        """Set interval."""
-        self._interval = interval
-
-    def get_interval(self):
-        """Get interval."""
-        return self._interval
-
-    interval = property(get_interval,
-                        set_interval,
-                        doc="Timeout interval (sec)")
-
-    def start(self):
-        """Start timer."""
-        self.next_call = time.time()
-        self.is_running = True
-        self._repeat()
-
-    def stop(self):
-        """Stop timer."""
-        self._timer.cancel()
-        self.is_running = False
-
-    def _repeat(self):
-        if not self.is_running:
-            return
-
-        with self.lock:
-            self.next_call += self._interval
-            self._timer = threading.Timer(self.next_call - time.time(),
-                                          self._repeat)
-            self._timer.start()
-
-        self.function(*self.args, **self.kwargs)
-
-
 class SignalPlayer:
-    """Class for playing text file as stream."""
+    """Playing the text file as stream."""
 
     def __init__(self, interval):
         self.interval = interval
@@ -89,7 +25,7 @@ class SignalPlayer:
     def start(self):
         """Start player."""
         self.new_data_ready.clear()
-        self.timer.set_interval(self.interval)
+        self.timer.interval = self.interval
         self.data_producer.start()
         self.timer.start()
 
@@ -235,3 +171,68 @@ class CsvDataProducer(DataProducer):
             sample = ["" for ind in self._indexes]
 
         return sample
+
+
+class RepeatedTimer:
+    """Timer which calls the given function each interval."""
+
+    def __init__(self, interval, func, *args, **kwargs):
+        self._timer = None
+        self._interval = interval
+        self._func = _Func(func, *args, **kwargs)
+        self._is_running = False
+        self._next_call = None
+        self._lock = Lock()
+
+    @property
+    def interval(self):
+        """Return current interval, sec."""
+        return self._interval
+
+    @interval.setter
+    def interval(self, interval):
+        """Set repeat interval, sec."""
+        self._interval = interval
+
+    def start(self):
+        """Start timer."""
+        self._next_call = time.time()
+        self._is_running = True
+        self._repeat()
+
+    def stop(self):
+        """Stop timer."""
+        if not self._is_running:
+            return
+
+        self._timer.cancel()
+
+        self._is_running = False
+
+    def _repeat(self):
+        if not self._is_running:
+            return
+
+        with self._lock:
+            self._next_call += self._interval
+
+            self._timer = threading.Timer(
+                self._next_call - time.time(),
+                self._repeat,
+            )
+
+            self._timer.start()
+
+        self._func()
+
+
+class _Func:
+    # pylint: disable=too-few-public-methods
+
+    def __init__(self, func, *args, **kwargs):
+        self._func = func
+        self._args = args
+        self._kwargs = kwargs
+
+    def __call__(self):
+        self._func(*self._args, **self._kwargs)

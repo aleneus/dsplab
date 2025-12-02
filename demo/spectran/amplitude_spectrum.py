@@ -26,7 +26,7 @@ def main():
     xs4 = np.sin(2 * np.pi * freq_4 * ts)
     xs = xs1 + xs2 + xs3 + xs4
 
-    X, fs = sp.spectrum(xs, sample_rate, one_side=True)
+    X, fs = sp.spectrum(xs, sample_rate=sample_rate, one_side=True)
 
     plt.figure(figsize=(9, 9))
 
